@@ -5,6 +5,9 @@ This project will rewrite the code of Midnight Club 2,
 using the original binary in place of not-yet-implemented functions,
 to allow for large-scale bug fixing and feature implementing.
 
+This project is similar to the [OpenRCT2](https://github.com/OpenRCT2/OpenRCT2)
+and [OpenTTD](https://www.openttd.org/en/) projects that came before it.
+
 ## Building
 
 This project currently only supports building on
