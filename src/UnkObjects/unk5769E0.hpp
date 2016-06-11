@@ -18,20 +18,27 @@
 
 #pragma once
 
-#include <cstdint>
-
 #include "../Addresses.hpp"
+
+#include <cstdint>
 
 class unk_5769E0 {
 private:
     void *unk00;
     unk_5769E0 *unk04;
-    std::uint32_t unk08;
+    void *unk08;
     std::uint32_t unk0C;
-    std::uint8_t pad10[8];
+    std::uint32_t unk10;
+    std::uint32_t unk14;
     std::uint32_t unk18;
     std::uint32_t unk1C;
-    std::uint8_t pad20[0xC8];
+    std::uint8_t unk20;
+    std::uint8_t unk21;
+    std::uint8_t unk22;
+    std::uint8_t unk23;
+    std::uint8_t unk24[0x80];
+    std::uint8_t unkA4[0x40];
+    std::uint32_t unkE4;
     std::uint32_t unkE8;
     std::uint16_t unkEC;
     std::uint16_t unkEE;
@@ -59,8 +66,5 @@ public:
         MC2_PROC_MEMBER<void>(0x00575B70, this);
     }
 
-    // mc2: 0x00575BA0
-    inline void sub_575BA0(void *a, std::uint32_t b, std::uint32_t c, std::uint32_t d) {
-        MC2_PROC_MEMBER<void>(0x00575BA0, this, a, b, c, d);
-    }
+    void sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8_t d);
 };

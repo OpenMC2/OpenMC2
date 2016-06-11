@@ -16,13 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
 
+#include "Addresses.hpp"
+#include "UnkObjects/unk5769E0.hpp"
+
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <iostream>
 #include <cstdint>
 
-#include "Addresses.hpp"
-#include "UnkObjects/unk5769E0.hpp"
+static_assert(sizeof(std::uintptr_t) == 4, "Compilation Not x86");
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     switch (fdwReason) {
@@ -45,13 +47,13 @@ __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE 
     std::cout << "\tOpenMC2 Is On Its Way :D" << std::endl;
     std::cout << std::endl << std::endl;
 
-    if (glo_682E18 & 1) {
+    if ((glo_682E18 & 1) == 0) {
         glo_682E18 |= 1;
         glo_67A760 = &glo_67A770;
     }
 
     unk_5769E0 a;
-    a.sub_575BA0(&glo_67A760, 0x18680, 1, 0);
+    a.sub_575BA0(glo_67A760, 0x18680, 1, 0);
     glo_6C5258 = &a;
     sub_6131E0(glo_86D7E8, glo_86D7EC);
     sub_612910(glo_86D7E8, glo_86D7EC);

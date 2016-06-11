@@ -51,6 +51,8 @@ inline T (*MC2_PROC_PTR(const std::uintptr_t address))(Types...) {
 
 #define sub_575B70 (MC2_PROC_PTR<void>(0x00575B70))
 #define sub_612910 (MC2_PROC_PTR<void, std::uint32_t, std::uint32_t>(0x00612910))
+#define sub_612E10 (MC2_PROC_PTR<std::uint8_t, char *>(0x00612E10))
+#define sub_612E30 (MC2_PROC_PTR<void, char *, std::uint32_t, std::uint32_t *>(0x00612E30))
 #define sub_612F00 (MC2_PROC_PTR<void>(0x00612F00))
 #define sub_6131E0 (MC2_PROC_PTR<void, std::uint32_t, std::uint32_t>(0x006131E0))
 #define sub_6181F0 (MC2_PROC_PTR<std::uint32_t>(0x006181F0))
@@ -61,6 +63,8 @@ inline T (*MC2_PROC_PTR(const std::uintptr_t address))(Types...) {
 #define glo_67A770 (MC2_GLOBAL<std::uint32_t>(0x0067A770))
 #define glo_682E18 (MC2_GLOBAL<std::uint32_t>(0x00682E18))
 #define glo_6C5240 (MC2_GLOBAL<unk_5769E0 *>(0x006C5240))
+#define glo_6C524C (MC2_GLOBAL<std::uint32_t>(0x006C524C))
+#define glo_6C5254 (MC2_GLOBAL<std::uint8_t>(0x006C5254))
 #define glo_6C5258 (MC2_GLOBAL<unk_5769E0 *>(0x006C5258))
 
 #define glo_86D7E8 (MC2_GLOBAL<std::uint32_t>(0x0086D7E8))

@@ -19,6 +19,8 @@
 #include "unk5769E0.hpp"
 #include "../Addresses.hpp"
 
+#include <cstring>
+
 // mc2: 0x005769E0
 unk_5769E0::unk_5769E0() {
     unk00 = MC2_POINTER<void>(0x00651408); // virtual function pointers?
@@ -58,4 +60,32 @@ unk_5769E0::unk_5769E0() {
         MC2_GLOBAL<void *>(0x0067978C) = MC2_POINTER<void>(0x005769C0);
     if (MC2_GLOBAL<void *>(0x00679790) != MC2_POINTER<void>(0x005769D0))
         MC2_GLOBAL<void *>(0x00679790) = MC2_POINTER<void>(0x005769D0);
+}
+
+// mc2: 0x00575BA0
+void unk_5769E0::sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8_t d) {
+    unk08 = a;
+    unk14 = 0;
+    unkE8 = 0;
+    unkF0 = 0;
+    unkF8 = 0;
+    unk100 = 0;
+    unk108 = 0;
+    unk110 = 0;
+
+    if (sub_612E10("allocid") != 0) {
+        glo_6C5254 = 1;
+        sub_612E30("allocid", 0, &glo_6C524C);
+    }
+
+    unk0C = b;
+    unk10 = 0;
+    unk20 = c;
+    unk21 = 1;
+    unk22 = d;
+    unk23 = 0;
+    unkE4 = 0;
+
+    if (c != 0) std::memset(unk24, 0, 0x80);
+    std::memset(unkA4, 0, 0x40);
 }

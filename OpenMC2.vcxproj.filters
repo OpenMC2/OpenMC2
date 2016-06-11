@@ -21,18 +21,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OpenMC2.cpp">
+    <ClCompile Include="src\OpenMC2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UnkObjects\unk5769E0.cpp">
+    <ClCompile Include="src\UnkObjects\unk5769E0.cpp">
       <Filter>Source Files\UnkObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Addresses.hpp">
+    <ClInclude Include="src\Addresses.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UnkObjects\unk5769E0.hpp">
+    <ClInclude Include="src\UnkObjects\unk5769E0.hpp">
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
   </ItemGroup>
