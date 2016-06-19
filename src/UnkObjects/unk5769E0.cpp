@@ -25,7 +25,7 @@
 unk_5769E0::unk_5769E0() {
     unk00 = MC2_POINTER<void>(0x00651408); // virtual function pointers?
 
-    unk08 = 0;
+    unk08 = nullptr;
     unk0C = 0;
     unk18 = 0;
     unk1C = 0;

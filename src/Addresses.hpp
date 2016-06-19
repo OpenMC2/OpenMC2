@@ -20,6 +20,8 @@
 
 #include <cstdint>
 
+#include "UnkStructures.hpp"
+
 // Helper Functions
 
 template<class T>
@@ -50,12 +52,13 @@ inline T (*MC2_PROC_PTR(const std::uintptr_t address))(Types...) {
 // Functions
 
 #define sub_575B70 (MC2_PROC_PTR<void>(0x00575B70))
-#define sub_612910 (MC2_PROC_PTR<void, std::uint32_t, std::uint32_t>(0x00612910))
+#define sub_612910 (MC2_PROC_PTR<void, std::int32_t, char **>(0x00612910))
 #define sub_612E10 (MC2_PROC_PTR<std::uint8_t, char *>(0x00612E10))
 #define sub_612E30 (MC2_PROC_PTR<void, char *, std::uint32_t, std::uint32_t *>(0x00612E30))
 #define sub_612F00 (MC2_PROC_PTR<void>(0x00612F00))
-#define sub_6131E0 (MC2_PROC_PTR<void, std::uint32_t, std::uint32_t>(0x006131E0))
+#define print_help (MC2_PROC_PTR<void>(0x00612FB0)) // sub_612FB0
 #define sub_6181F0 (MC2_PROC_PTR<std::uint32_t>(0x006181F0))
+#define sub_6299B6 (MC2_PROC_PTR<std::uint32_t, char *, char *, std::uint32_t>(0x006299B6))
 
 // Global Variables
 
@@ -67,5 +70,8 @@ inline T (*MC2_PROC_PTR(const std::uintptr_t address))(Types...) {
 #define glo_6C5254 (MC2_GLOBAL<std::uint8_t>(0x006C5254))
 #define glo_6C5258 (MC2_GLOBAL<unk_5769E0 *>(0x006C5258))
 
-#define glo_86D7E8 (MC2_GLOBAL<std::uint32_t>(0x0086D7E8))
-#define glo_86D7EC (MC2_GLOBAL<std::uint32_t>(0x0086D7EC))
+#define glo_860110 (MC2_GLOBAL<str_860110 *>(0x00860110))
+#define glo_860114 (MC2_GLOBAL<char *>(0x00860114))
+#define glo_860119 (MC2_GLOBAL<char>(0x00860119))
+#define global_argc (MC2_GLOBAL<std::int32_t>(0x0086D7E8)) // glo_86D7E8
+#define global_argv (MC2_GLOBAL<char **>(0x0086D7EC)) // glo_86D7EC

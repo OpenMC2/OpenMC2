@@ -17,6 +17,7 @@
  **********************************************************************/
 
 #include "Addresses.hpp"
+#include "CommandLine.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 
 #define WIN32_LEAN_AND_MEAN
@@ -25,6 +26,7 @@
 #include <cstdint>
 
 static_assert(sizeof(std::uintptr_t) == 4, "Compilation Not x86");
+static_assert(sizeof(char) == 1, "Strings are not expected size");
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     switch (fdwReason) {
@@ -55,8 +57,8 @@ __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE 
     unk_5769E0 a;
     a.sub_575BA0(glo_67A760, 0x18680, 1, 0);
     glo_6C5258 = &a;
-    sub_6131E0(glo_86D7E8, glo_86D7EC);
-    sub_612910(glo_86D7E8, glo_86D7EC);
+    parse_commandline(global_argc, global_argv);
+    sub_612910(global_argc, global_argv);
 
     std::uint32_t b = sub_6181F0();
 
