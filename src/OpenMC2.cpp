@@ -45,9 +45,7 @@ extern "C" {
 
 // mc2: 0x00401010
 __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    std::cout << std::endl << std::endl;
-    std::cout << "\tOpenMC2 Is On Its Way :D" << std::endl;
-    std::cout << std::endl << std::endl;
+    std::cout << "\n\n\tOpenMC2 Is On Its Way :D\n\n" << std::endl;
 
     if ((glo_682E18 & 1) == 0) {
         glo_682E18 |= 1;

@@ -38,9 +38,6 @@
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp">
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\UnkStructures.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\CommandLine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

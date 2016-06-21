@@ -19,6 +19,44 @@
 #pragma once
 
 #include <cstdint>
+#include <iterator>
+
+class cmdline_info {
+public:
+    char *name; // 0x00
+    char *desc; // 0x04
+    char *value; // 0x08
+    std::int32_t index; // 0x0C
+    cmdline_info *next; // 0x10
+
+    // C++ Magic
+    class iterator : public std::iterator<std::forward_iterator_tag, cmdline_info> {
+    private:
+        inline iterator(cmdline_info *c) : info(c) { }
+        friend cmdline_info;
+
+    public:
+        inline iterator() : info(nullptr) { }
+        inline cmdline_info &operator*() { return *info; }
+        inline cmdline_info *operator->() { return info; }
+        inline bool operator==(iterator &o) { return info == o.info; }
+        inline bool operator!=(iterator &o) { return info != o.info; }
+        inline iterator &operator++() { info = info->next; return *this; }
+        inline iterator operator++(int i) { iterator tmp(*this); info = info->next; return tmp; }
+
+    private:
+        cmdline_info *info;
+    };
+
+    inline iterator begin() { return iterator(this); }
+    inline iterator end() { return iterator(); }
+};
+
+inline cmdline_info::iterator begin(cmdline_info *c) { return c->begin(); }
+inline cmdline_info::iterator end(cmdline_info *c) { return c->end(); }
 
 // sub_6131E0
 void parse_commandline(std::int32_t argc, char **argv);
+
+// sub_612FB0
+void print_help();

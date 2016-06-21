@@ -18,15 +18,15 @@
 
 #include "CommandLine.hpp"
 
+#include <algorithm>
 #include <cstring>
 
 #include "Addresses.hpp"
-#include "UnkStructures.hpp"
 
 // mc2: 0x006131E0
 void parse_commandline(std::int32_t argc, char **argv) {
-    if (argc != 0 && argv != nullptr) glo_860114 = argv[0];
-    else glo_860114 = "unknown";
+    if (argc != 0 && argv != nullptr) global_exe_name = argv[0];
+    else global_exe_name = "unknown";
     if (argc <= 1) return;
 
     bool c = false;
@@ -34,24 +34,86 @@ void parse_commandline(std::int32_t argc, char **argv) {
         if (strcmp(argv[i], "-help") == 0) print_help();
         else if (argv[i][0] == '-' && (argv[i][1] < '0' || argv[i][1] > '9')) {
             c = true;
-            for (str_860110 *x = glo_860110; x != nullptr; x = x->unk10) {
-                if (x->unk0C == 0) {
-                    std::uint32_t x00len = std::strlen(x->unk00);
-                    if (sub_6299B6(argv[i] + 1, x->unk00, x00len) == 0) {
-                        if (argv[i][x00len + 1] == '\0') {
+            for (cmdline_info &x : global_cmdline) {
+                if (x.index == 0) {
+                    std::uint32_t namelen = std::strlen(x.name);
+                    if (sub_6299B6(argv[i] + 1, x.name, namelen) == 0) {
+                        if (argv[i][namelen + 1] == '\0') {
                             if (i == argc - 1 || (argv[i + 1][0] == '-' &&
                                 (argv[i + 1][1] < '0' || argv[i + 1][1] > '9')))
-                                x->unk08 = &glo_860119;
-                            else x->unk08 = argv[i + 1];
-                        } else if (argv[i][x00len + 1] == '=') {
-                            x->unk08 = &argv[i][x00len + 2];
+                                x.value = &glo_860119; // glo_860119 == "" ?
+                            else x.value = argv[i + 1];
+                        } else if (argv[i][namelen + 1] == '=') {
+                            x.value = &argv[i][namelen + 2];
                         }
                     }
                 }
             }
         } else if (!c) {
-            for (str_860110 *x = glo_860110; x != nullptr; x = x->unk10)
-                if (x->unk0C == i) x->unk08 = argv[i];
+            for (cmdline_info &x : global_cmdline)
+                if (x.index == i) x.value = argv[i];
+        }
+    }
+}
+
+// mc2: 0x00612FB0
+void print_help() {
+    if (!global_help_has_printed) {
+        global_help_has_printed = true;
+
+        std::int32_t best = 0;
+        for (cmdline_info &x : global_cmdline)
+            if (x.index > best) best = x.index;
+
+        if (best != 0) {
+            sub_log_info("%s ", global_exe_name);
+            for (int i=0; i < best; ++i)
+                for (cmdline_info &x : global_cmdline)
+                    if (x.index == i + 1)
+                        sub_log_info("%s ", x.name);
+
+            sub_log_info("[options]\nWhere [options] are one or more of:\n");
+        }
+
+        for (int i = 0; i < 2; ++i) {
+            for (cmdline_info &x : global_cmdline) {
+                if ((x.index == 0) != (i == 0)) {
+                    std::size_t slen = std::strlen(x.name);
+                    if (i == 0) {
+                        sub_log_info("%s: ", x.name);
+                        slen += 2;
+                    } else {
+                        sub_log_info("-%s: ", x.name);
+                        slen += 3;
+                    }
+                    for (int i = 10 - slen; i != 0; --i)
+                        sub_log_info(" ");
+
+                    int len = 79 - std::max(slen, (std::size_t) 10);
+                    char *c = x.desc;
+                    while (*c != '\0') {
+                        char *s = c;
+                        while (c[1] != '\0' && c[1] != ' ' && c[0] != '-') ++c;
+
+                        if (c - s >= len) {
+                            sub_log_info("\n");
+                            for (int i = 10; i != 0; --i)
+                                sub_log_info(" ");
+                            len = 69; // Hey Chicka Bum Bum
+                        }
+
+                        len -= c - s + 1;
+                        while (s <= c) sub_log_info("%c", *s++);
+                        ++c;
+                        if (*c == ' ') {
+                            ++c, --len;
+                            if (len > 1) sub_log_info(" ");
+                        }
+                    }
+
+                    sub_log_info("\n");
+                }
+            }
         }
     }
 }

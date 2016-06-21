@@ -100,7 +100,6 @@
     <ClInclude Include="src\Addresses.hpp" />
     <ClInclude Include="src\CommandLine.hpp" />
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
-    <ClInclude Include="src\UnkStructures.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
