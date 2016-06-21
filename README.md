@@ -1,6 +1,7 @@
 # OpenMC2
 
 [![Join the chat at https://gitter.im/LRFLEW/OpenMC2](https://badges.gitter.im/LRFLEW/OpenMC2.svg)](https://gitter.im/LRFLEW/OpenMC2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 An Open Source Re-Implementation of Midnight Club 2
 
 This project will rewrite the code of Midnight Club 2,
