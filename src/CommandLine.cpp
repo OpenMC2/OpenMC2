@@ -78,41 +78,31 @@ void print_help() {
         for (int i = 0; i < 2; ++i) {
             for (cmdline_info &x : global_cmdline) {
                 if ((x.index == 0) != (i == 0)) {
-                    std::size_t slen = std::strlen(x.name);
-                    if (i == 0) {
-                        sub_log_info("%s: ", x.name);
-                        slen += 2;
-                    } else {
-                        sub_log_info("-%s: ", x.name);
-                        slen += 3;
-                    }
-                    for (int i = 10 - slen; i != 0; --i)
-                        sub_log_info(" ");
+                    if (i == 0) sub_log_info("%s: ", x.name);
+                    else sub_log_info("-%s: ", x.name);
 
-                    int len = 79 - std::max(slen, (std::size_t) 10);
+                    int rowlen = 10 - std::strlen(x.name) - (i == 0 ? 2 : 3);
+                    sub_log_info("%.*s", std::max(rowlen, 0), "          ");
+                    rowlen += 69;
+
                     char *c = x.desc;
-                    while (*c != '\0') {
-                        char *s = c;
-                        while (c[1] != '\0' && c[1] != ' ' && c[0] != '-') ++c;
+                    if (*c != '\0') {
+                        while (true) {
+                            char *s = c++;
+                            for (char *d = c; d - s < rowlen; ++d)
+                                if (*d == ' ' || *(d - 1) == '-') c = d;
+                                else if (*d == '\0') {
+                                    sub_log_info("%s\n", s);
+                                    goto nextarg;
+                                }
 
-                        if (c - s >= len) {
-                            sub_log_info("\n");
-                            for (int i = 10; i != 0; --i)
-                                sub_log_info(" ");
-                            len = 69; // Hey Chicka Bum Bum
-                        }
-
-                        len -= c - s + 1;
-                        while (s <= c) sub_log_info("%c", *s++);
-                        ++c;
-                        if (*c == ' ') {
-                            ++c, --len;
-                            if (len > 1) sub_log_info(" ");
+                                sub_log_info("%.*s\n          ", c - s, s);
+                                rowlen = 69;
+                                if (*c == ' ') ++c;
                         }
                     }
-
-                    sub_log_info("\n");
                 }
+            nextarg: ;
             }
         }
     }
