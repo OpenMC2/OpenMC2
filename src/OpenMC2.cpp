@@ -18,10 +18,12 @@
 
 #include "Addresses.hpp"
 #include "CommandLine.hpp"
+#include "Logging.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+
 #include <iostream>
 #include <cstdint>
 
@@ -39,6 +41,10 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     return TRUE;
 }
 
+void OpenMC2_Hooks() {
+    MC2_GLOBAL<void (*)(LogLevels, const char *, va_list)>(0x00679880) = sub_6184A0;
+}
+
 extern "C" {
     __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 }
@@ -46,6 +52,7 @@ extern "C" {
 // mc2: 0x00401010
 __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     std::cout << "\n\n\tOpenMC2 Is On Its Way :D\n\n" << std::endl;
+    OpenMC2_Hooks();
 
     if ((glo_682E18 & 1) == 0) {
         glo_682E18 |= 1;

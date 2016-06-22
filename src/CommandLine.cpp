@@ -22,6 +22,7 @@
 #include <cstring>
 
 #include "Addresses.hpp"
+#include "Logging.hpp"
 
 // mc2: 0x006131E0
 void parse_commandline(std::int32_t argc, char **argv) {
@@ -65,22 +66,22 @@ void print_help() {
         for (cmdline_info &x : global_cmdline)
             if (x.index > best) best = x.index;
 
-        sub_log_info("%s ", global_exe_name);
+        mc2_log_print("%s ", global_exe_name);
         for (int i = 0; i < best; ++i)
             for (cmdline_info &x : global_cmdline)
                 if (x.index == i + 1)
-                    sub_log_info("%s ", x.name);
-        sub_log_info("[options]\n");
+                    mc2_log_print("%s ", x.name);
+        mc2_log_print("[options]\n");
 
         for (int i = 0; i < 2; ++i) {
-            if (i == 1) sub_log_info("\n[options] are number of the following:\n");
+            if (i == 1) mc2_log_print("\n[options] are number of the following:\n");
             for (cmdline_info &x : global_cmdline) {
                 if ((x.index == 0) != (i == 0)) {
-                    if (i == 0) sub_log_info("%s: ", x.name);
-                    else sub_log_info("-%s: ", x.name);
+                    if (i == 0) mc2_log_print("%s: ", x.name);
+                    else mc2_log_print("-%s: ", x.name);
 
                     int rowlen = 10 - std::strlen(x.name) - (i == 0 ? 2 : 3);
-                    sub_log_info("%.*s", std::max(rowlen, 0), "          ");
+                    mc2_log_print("%.*s", std::max(rowlen, 0), "          ");
                     rowlen += 70;
 
                     char *c = x.desc;
@@ -90,11 +91,11 @@ void print_help() {
                             for (char *d = c; d - s < rowlen; ++d)
                                 if (*d == ' ' || *(d - 1) == '-') c = d;
                                 else if (*d == '\0') {
-                                    sub_log_info("%s\n", s);
+                                    mc2_log_print("%s\n", s);
                                     goto nextarg;
                                 }
 
-                                sub_log_info("%.*s\n          ", c - s, s);
+                                mc2_log_print("%.*s\n          ", c - s, s);
                                 rowlen = 70;
                                 if (*c == ' ') ++c;
                         }

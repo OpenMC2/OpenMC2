@@ -92,6 +92,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Logging.cpp" />
     <ClCompile Include="src\OpenMC2.cpp" />
     <ClCompile Include="src\CommandLine.cpp" />
     <ClCompile Include="src\UnkObjects\unk5769E0.cpp" />
@@ -99,6 +100,7 @@
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp" />
     <ClInclude Include="src\CommandLine.hpp" />
+    <ClInclude Include="src\Logging.hpp" />
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

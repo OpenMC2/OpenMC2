@@ -50,7 +50,7 @@ inline T (*MC2_PROC_PTR(const std::uintptr_t address))(Types...) {
 }
 
 template<class T, class... Types>
-inline T(*MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
+inline T (*MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
     return reinterpret_cast<T(__cdecl *)(Types..., ...)>(address);
 }
 
@@ -61,12 +61,16 @@ inline T(*MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
 #define sub_612E10 (MC2_PROC_PTR<std::uint8_t, char *>(0x00612E10))
 #define sub_612E30 (MC2_PROC_PTR<void, char *, std::uint32_t, std::uint32_t *>(0x00612E30))
 #define sub_612F00 (MC2_PROC_PTR<void>(0x00612F00))
+#define sub_618050 (MC2_PROC_PTR_VA<void, char *, const char *>(0x00618050))
 #define sub_6181F0 (MC2_PROC_PTR<std::uint32_t>(0x006181F0))
-#define sub_log_info (MC2_PROC_PTR_VA<void, char *>(0x00618610)) // sub_618610
+#define sub_6182C0 (MC2_PROC_PTR<void, char *>(0x006182C0))
+#define sub_6198B5 (MC2_PROC_PTR<void, char *, const char *, va_list>(0x006198B5))
 #define sub_6299B6 (MC2_PROC_PTR<std::uint32_t, char *, char *, std::uint32_t>(0x006299B6))
 
 // Global Variables
 
+#define glo_679844 (MC2_GLOBAL<std::uint8_t>(0x00679844))
+#define glo_679848 (MC2_GLOBAL<std::uint8_t>(0x00679848))
 #define glo_67A760 (MC2_GLOBAL<std::uint32_t *>(0x0067A760))
 #define glo_67A770 (MC2_GLOBAL<std::uint32_t>(0x0067A770))
 #define glo_682E18 (MC2_GLOBAL<std::uint32_t>(0x00682E18))
@@ -76,8 +80,11 @@ inline T(*MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
 #define glo_6C5258 (MC2_GLOBAL<unk_5769E0 *>(0x006C5258))
 
 #define global_cmdline (MC2_GLOBAL<cmdline_info *>(0x00860110)) // glo_860110
-#define global_exe_name (MC2_GLOBAL<char *>(0x00860114))
-#define global_help_has_printed (MC2_GLOBAL<std::uint8_t>(0x00860118))
+#define global_exe_name (MC2_GLOBAL<char *>(0x00860114)) // glo_860114
+#define global_help_has_printed (MC2_GLOBAL<std::uint8_t>(0x00860118)) // glo_860118
 #define glo_860119 (MC2_GLOBAL<char>(0x00860119))
+#define glo_86D288 (MC2_GLOBAL<std::uint8_t>(0x0086D288))
+#define glo_86D28C (MC2_GLOBAL<char *>(0x0086D28C))
+#define glo_86D298 (MC2_GLOBAL<std::uint8_t>(0x0086D298))
 #define global_argc (MC2_GLOBAL<std::int32_t>(0x0086D7E8)) // glo_86D7E8
 #define global_argv (MC2_GLOBAL<char **>(0x0086D7EC)) // glo_86D7EC
