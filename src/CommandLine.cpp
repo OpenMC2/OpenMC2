@@ -30,7 +30,7 @@ void parse_commandline(std::int32_t argc, char **argv) {
     if (argc <= 1) return;
 
     bool c = false;
-    for (std::int32_t i=1; i < argc; ++i) {
+    for (std::int32_t i = 1; i < argc; ++i) {
         if (strcmp(argv[i], "-help") == 0) print_help();
         else if (argv[i][0] == '-' && (argv[i][1] < '0' || argv[i][1] > '9')) {
             c = true;
@@ -65,17 +65,15 @@ void print_help() {
         for (cmdline_info &x : global_cmdline)
             if (x.index > best) best = x.index;
 
-        if (best != 0) {
-            sub_log_info("%s ", global_exe_name);
-            for (int i=0; i < best; ++i)
-                for (cmdline_info &x : global_cmdline)
-                    if (x.index == i + 1)
-                        sub_log_info("%s ", x.name);
-
-            sub_log_info("[options]\nWhere [options] are one or more of:\n");
-        }
+        sub_log_info("%s ", global_exe_name);
+        for (int i = 0; i < best; ++i)
+            for (cmdline_info &x : global_cmdline)
+                if (x.index == i + 1)
+                    sub_log_info("%s ", x.name);
+        sub_log_info("[options]\n");
 
         for (int i = 0; i < 2; ++i) {
+            if (i == 1) sub_log_info("\n[options] are number of the following:\n");
             for (cmdline_info &x : global_cmdline) {
                 if ((x.index == 0) != (i == 0)) {
                     if (i == 0) sub_log_info("%s: ", x.name);
@@ -83,7 +81,7 @@ void print_help() {
 
                     int rowlen = 10 - std::strlen(x.name) - (i == 0 ? 2 : 3);
                     sub_log_info("%.*s", std::max(rowlen, 0), "          ");
-                    rowlen += 69;
+                    rowlen += 70;
 
                     char *c = x.desc;
                     if (*c != '\0') {
@@ -97,12 +95,12 @@ void print_help() {
                                 }
 
                                 sub_log_info("%.*s\n          ", c - s, s);
-                                rowlen = 69;
+                                rowlen = 70;
                                 if (*c == ' ') ++c;
                         }
                     }
                 }
-            nextarg: ;
+            nextarg:;
             }
         }
     }
