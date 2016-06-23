@@ -76,63 +76,31 @@ inline void ind_86D294() {
 // mc2: 0x006182C0
 static void sub_6182C0(char *text) {
     sub_618270(text);
-    int esi = 0;
-    std::uint32_t edi = 0;
+    bool escaped = false;
+    unsigned int color;
     for (const char *c = text; *c != '\0'; ++c) {
-        if (*c == '\1B') esi = 1;
-        else {
-            if (esi == 1) {
-                if (*c == '[') {
-                    esi = 2;
-                    edi = 0;
-                } else esi = 0;
-            } else if (esi == 2) {
-                if (*c == 'm') {
-                    sub_61BAC1(loc_6799C0);
-                    switch (edi) {
-                        case 0:
-                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
-                            esi = 0;
-                            break;
-                        case 31:
-                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
-                            esi = 0;
-                            break;
-                        case 32:
-                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-                            esi = 0;
-                            break;
-                        case 33:
-                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY);
-                            esi = 0;
-                            break;
-                        case 34:
-                        case 38:
-                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-                            esi = 0;
-                            break;
-                        case 35:
-                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
-                            esi = 0;
-                            break;
-                        case 36:
-                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-                            esi = 0;
-                            break;
-                        case 37:
-                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY);
-                            esi = 0;
-                            break;
-                        default:
-                            esi = 0;
-                            break;
-                    }
-                } else {
-                    edi = (edi * 10) + (*c - '0');
-                }
-            } else {
-                sub_61BA40(*c, loc_6799C0);
+        if (*c == '\x1B' && *(c + 1) == '[') {
+            escaped = true;
+            color = 0;
+            ++c;
+        } else if (escaped) {
+            if (*c == 'm') {
+                sub_61BAC1(loc_6799C0);
+                if (color == 0) SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
+                    FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+                else if (color == 38) SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
+                    FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                else if (color > 30 && color < 38) SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
+                    ((color - 30) & 1 ? FOREGROUND_RED : 0) |
+                    ((color - 30) & 2 ? FOREGROUND_GREEN : 0) |
+                    ((color - 30) & 4 ? FOREGROUND_BLUE : 0) |
+                    FOREGROUND_INTENSITY);
+                escaped = false;
+            } else if (*c >= '0' && *c <= '9') {
+                color = (color * 10) + (*c - '0');
             }
+        } else {
+            sub_61BA40(*c, loc_6799C0);
         }
     }
 }
