@@ -53,7 +53,7 @@ constexpr char *levelEscClear[] = {
 
 // I'm not exactly sure what the purpose of these are, but they're in the code.
 
-inline void ind_86D284(char * text) {
+inline void ind_86D284(char *text) {
     void (*glo_86D284)(char *) = MC2_GLOBAL<void (*)(char *)>(0x0086D284);
     if (glo_86D284 != nullptr) {
         MC2_GLOBAL<std::uint8_t>(0x0086D280) = 1;
@@ -73,12 +73,75 @@ inline void ind_86D294() {
     if (glo_86D294 != nullptr) glo_86D294();
 }
 
+// mc2: 0x006182C0
+static void sub_6182C0(char *text) {
+    sub_618270(text);
+    int esi = 0;
+    std::uint32_t edi = 0;
+    for (const char *c = text; *c != '\0'; ++c) {
+        if (*c == '\1B') esi = 1;
+        else {
+            if (esi == 1) {
+                if (*c == '[') {
+                    esi = 2;
+                    edi = 0;
+                } else esi = 0;
+            } else if (esi == 2) {
+                if (*c == 'm') {
+                    sub_61BAC1(loc_6799C0);
+                    switch (edi) {
+                        case 0:
+                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+                            esi = 0;
+                            break;
+                        case 31:
+                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
+                            esi = 0;
+                            break;
+                        case 32:
+                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+                            esi = 0;
+                            break;
+                        case 33:
+                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY);
+                            esi = 0;
+                            break;
+                        case 34:
+                        case 38:
+                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                            esi = 0;
+                            break;
+                        case 35:
+                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
+                            esi = 0;
+                            break;
+                        case 36:
+                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+                            esi = 0;
+                            break;
+                        case 37:
+                            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY);
+                            esi = 0;
+                            break;
+                        default:
+                            esi = 0;
+                            break;
+                    }
+                } else {
+                    edi = (edi * 10) + (*c - '0');
+                }
+            } else {
+                sub_61BA40(*c, loc_6799C0);
+            }
+        }
+    }
+}
+
 // mc2: 0x006184A0
 void __cdecl sub_6184A0(LogLevels level, const char *format, va_list ap) {
     char text[0x1000];
-    char output[0x1000];
+    std::vsnprintf(text, 0x1000, format, ap);
 
-    sub_6198B5(text, format, ap);
     if ((glo_86D288 != 0 && level == LOG_LEVEL_ERROR) ||
         (glo_679844 != 0 && level == LOG_LEVEL_FATAL_ERROR)) {
         ind_86D290();
@@ -90,6 +153,7 @@ void __cdecl sub_6184A0(LogLevels level, const char *format, va_list ap) {
     if (level == LOG_LEVEL_PRINT) suffix = "";
     else suffix = "\n";
 
+    char output[0x1000];
     std::snprintf(output, 0x1000, "%s%s%s", levelLabels[level], text, suffix);
     OutputDebugStringA(output);
 
