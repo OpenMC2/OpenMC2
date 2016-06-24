@@ -21,8 +21,11 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <cstdio>
+#include <cstring>
+#include <string>
 
 #include "Addresses.hpp"
+#include "UnkObjects\unk86D28C.hpp"
 
 constexpr char *levelLabels[] = {
     "",
@@ -73,6 +76,16 @@ inline void ind_86D294() {
     if (glo_86D294 != nullptr) glo_86D294();
 }
 
+// mc2: 0x00618270
+static void sub_618270(char *text) {
+    glo_86CC3C = ++glo_86CC3C % 20;
+    if (glo_86CC3C == glo_86CC38)
+        glo_86CC38 = ++glo_86CC38 % 20;
+
+    // I think sub_619910 is strncpy, but I'm not certain
+    safe_strncpy(&loc_86CC40[80 * glo_86CC3C], text, 80);
+}
+
 // mc2: 0x006182C0
 static void sub_6182C0(char *text) {
     sub_618270(text);
@@ -85,7 +98,7 @@ static void sub_6182C0(char *text) {
             ++c;
         } else if (escaped) {
             if (*c == 'm') {
-                sub_61BAC1(loc_6799C0);
+                fflush(stdout);
                 if (color == 0) SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
                     FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
                 else if (color == 38) SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
@@ -99,9 +112,7 @@ static void sub_6182C0(char *text) {
             } else if (*c >= '0' && *c <= '9') {
                 color = (color * 10) + (*c - '0');
             }
-        } else {
-            sub_61BA40(*c, loc_6799C0);
-        }
+        } else putc(*c, stdout);
     }
 }
 
@@ -129,8 +140,8 @@ void __cdecl sub_6184A0(LogLevels level, const char *format, va_list ap) {
     sub_6182C0(output); // indirctly through off_67984C
 
     if (glo_86D28C != nullptr) {
-        sub_618050(output, "%s%s%s", levelEscLabels[level], text, levelEscClear[level]);
-        MC2_PROC_MEMBER<void>(0x00617AF0, output);
+        sub_618050(glo_86D28C, "%s%s%s", levelEscLabels[level], text, levelEscClear[level]);
+        glo_86D28C->sub_617AF0();
     }
 
     if (level == LOG_LEVEL_FATAL_ERROR) ind_86D284(text);

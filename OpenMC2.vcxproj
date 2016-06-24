@@ -96,12 +96,14 @@
     <ClCompile Include="src\OpenMC2.cpp" />
     <ClCompile Include="src\CommandLine.cpp" />
     <ClCompile Include="src\UnkObjects\unk5769E0.cpp" />
+    <ClCompile Include="src\UnkObjects\unk86D28C.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp" />
     <ClInclude Include="src\CommandLine.hpp" />
     <ClInclude Include="src\Logging.hpp" />
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
+    <ClInclude Include="src\UnkObjects\unk86D28C.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

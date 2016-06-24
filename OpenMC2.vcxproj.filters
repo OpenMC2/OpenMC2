@@ -33,6 +33,9 @@
     <ClCompile Include="src\Logging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk86D28C.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
@@ -46,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="src\Logging.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk86D28C.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

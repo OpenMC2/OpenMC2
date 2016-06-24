@@ -82,23 +82,21 @@ void print_help() {
 
                     int rowlen = 10 - std::strlen(x.name) - (i == 0 ? 2 : 3);
                     mc2_log_print("%.*s", std::max(rowlen, 0), "          ");
-                    rowlen += 70;
+                    rowlen += 69;
 
                     char *c = x.desc;
-                    if (*c != '\0') {
-                        while (true) {
-                            char *s = c++;
-                            for (char *d = c; d - s < rowlen; ++d)
-                                if (*d == ' ' || *(d - 1) == '-') c = d;
-                                else if (*d == '\0') {
-                                    mc2_log_print("%s\n", s);
-                                    goto nextarg;
-                                }
+                    while (*c != '\0') {
+                        char *s = c++;
+                        for (char *d = c; d - s < rowlen; ++d)
+                            if (*d == ' ' || *(d - 1) == '-') c = d;
+                            else if (*d == '\0') {
+                                mc2_log_print("%s\n", s);
+                                goto nextarg;
+                            }
 
-                                mc2_log_print("%.*s\n          ", c - s, s);
-                                rowlen = 70;
-                                if (*c == ' ') ++c;
-                        }
+                            mc2_log_print("%.*s\n          ", c - s, s);
+                            rowlen = 69;
+                            if (*c == ' ') ++c;
                     }
                 }
             nextarg:;
