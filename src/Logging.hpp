@@ -29,7 +29,8 @@ enum LogLevels {
     LOG_LEVEL_FATAL_ERROR
 };
 
-void __cdecl sub_6184A0(LogLevels level, const char *format, va_list ap);
+// sub_6184A0
+void __cdecl mc2_log_level_v(LogLevels level, const char *format, va_list ap);
 
 // sub_618610
 void mc2_log_print(const char *format, ...);

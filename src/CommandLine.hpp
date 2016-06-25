@@ -31,11 +31,8 @@ public:
 
     // C++ Magic
     class iterator : public std::iterator<std::forward_iterator_tag, cmdline_info> {
-    private:
-        inline iterator(cmdline_info *c) : info(c) { }
-        friend cmdline_info;
-
     public:
+        inline iterator(cmdline_info *c) : info(c) { }
         inline iterator() : info(nullptr) { }
         inline cmdline_info &operator*() { return *info; }
         inline cmdline_info *operator->() { return info; }
@@ -52,6 +49,8 @@ public:
     inline iterator end() { return iterator(); }
 };
 
+inline cmdline_info::iterator begin(cmdline_info c) { return c.begin(); }
+inline cmdline_info::iterator end(cmdline_info c) { return c.end(); }
 inline cmdline_info::iterator begin(cmdline_info *c) { return c->begin(); }
 inline cmdline_info::iterator end(cmdline_info *c) { return c->end(); }
 

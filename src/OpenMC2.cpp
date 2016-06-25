@@ -29,6 +29,7 @@
 
 static_assert(sizeof(std::uintptr_t) == 4, "Compilation Not x86");
 static_assert(sizeof(char) == 1, "Strings are not expected size");
+static_assert(sizeof(bool) == 1, "Bools are not expected size");
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     switch (fdwReason) {
@@ -42,7 +43,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 }
 
 void OpenMC2_Hooks() {
-    MC2_GLOBAL<void (*)(LogLevels, const char *, va_list)>(0x00679880) = sub_6184A0;
+    MC2_GLOBAL<void (*)(LogLevels, const char *, va_list)>(0x00679880) = mc2_log_level_v;
 }
 
 extern "C" {
@@ -56,12 +57,12 @@ __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE 
 
     if ((glo_682E18 & 1) == 0) {
         glo_682E18 |= 1;
-        glo_67A760 = &glo_67A770;
+        glo_67A760 = loc_67A770;
     }
 
     unk_5769E0 a;
     a.sub_575BA0(glo_67A760, 0x18680, 1, 0);
-    glo_6C5258 = &a;
+    global_primary_unk5769E0 = &a;
     parse_commandline(global_argc, global_argv);
     sub_612910(global_argc, global_argv);
 

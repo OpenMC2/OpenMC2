@@ -48,8 +48,8 @@ unk_5769E0::unk_5769E0() {
     unk114 = 0x0040;
     unk116 = 0x7800;
 
-    unk04 = glo_6C5240;
-    glo_6C5240 = this;
+    unk04 = global_last_unk5769E0;
+    global_last_unk5769E0 = this;
 
     // A lot of function-pointers?
     if (MC2_GLOBAL<void *>(0x00679784) != MC2_POINTER<void>(0x005764A0))
@@ -74,8 +74,8 @@ void unk_5769E0::sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8
     unk110 = 0;
 
     if (sub_612E10("allocid") != 0) {
-        glo_6C5254 = 1;
-        sub_612E30("allocid", 0, &glo_6C524C);
+        glo_6C5254 = true;
+        sub_612E30("allocid", 0, loc_6C524C);
     }
 
     unk0C = b;

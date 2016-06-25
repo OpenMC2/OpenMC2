@@ -38,11 +38,11 @@ void parse_commandline(std::int32_t argc, char **argv) {
             for (cmdline_info &x : global_cmdline) {
                 if (x.index == 0) {
                     std::uint32_t namelen = std::strlen(x.name);
-                    if (sub_6299B6(argv[i] + 1, x.name, namelen) == 0) {
+                    if (std::strncmp(argv[i] + 1, x.name, namelen) == 0) {
                         if (argv[i][namelen + 1] == '\0') {
                             if (i == argc - 1 || (argv[i + 1][0] == '-' &&
                                 (argv[i + 1][1] < '0' || argv[i + 1][1] > '9')))
-                                x.value = &glo_860119; // glo_860119 == "" ?
+                                x.value = "";
                             else x.value = argv[i + 1];
                         } else if (argv[i][namelen + 1] == '=') {
                             x.value = &argv[i][namelen + 2];

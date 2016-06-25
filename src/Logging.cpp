@@ -76,19 +76,19 @@ inline void ind_86D294() {
     if (glo_86D294 != nullptr) glo_86D294();
 }
 
+
 // mc2: 0x00618270
-static void sub_618270(char *text) {
-    glo_86CC3C = ++glo_86CC3C % 20;
-    if (glo_86CC3C == glo_86CC38)
-        glo_86CC38 = ++glo_86CC38 % 20;
+static void clog_add(char *text) {
+    global_clog_end = ++global_clog_end % 20;
+    if (global_clog_end == global_clog_begin)
+        global_clog_begin = ++global_clog_begin % 20;
 
     // I think sub_619910 is strncpy, but I'm not certain
-    safe_strncpy(&loc_86CC40[80 * glo_86CC3C], text, 80);
+    safe_strncpy(&loc_86CC40[80 * global_clog_end], text, 80);
 }
 
 // mc2: 0x006182C0
-static void sub_6182C0(char *text) {
-    sub_618270(text);
+static void print_ansi_esc(char *text) {
     bool escaped = false;
     unsigned int color;
     for (const char *c = text; *c != '\0'; ++c) {
@@ -116,13 +116,14 @@ static void sub_6182C0(char *text) {
     }
 }
 
+
 // mc2: 0x006184A0
-void __cdecl sub_6184A0(LogLevels level, const char *format, va_list ap) {
+void __cdecl mc2_log_level_v(LogLevels level, const char *format, va_list ap) {
     char text[0x1000];
     std::vsnprintf(text, 0x1000, format, ap);
 
-    if ((glo_86D288 != 0 && level == LOG_LEVEL_ERROR) ||
-        (glo_679844 != 0 && level == LOG_LEVEL_FATAL_ERROR)) {
+    if ((global_mbox_error && level == LOG_LEVEL_ERROR) ||
+        (global_mbox_fatal && level == LOG_LEVEL_FATAL_ERROR)) {
         ind_86D290();
         MessageBoxA(nullptr, text, levelLabels[level], MB_ICONERROR);
         if (level == LOG_LEVEL_ERROR) ind_86D294();
@@ -137,7 +138,8 @@ void __cdecl sub_6184A0(LogLevels level, const char *format, va_list ap) {
     OutputDebugStringA(output);
 
     std::snprintf(output, 0x1000, "%s%s%s", levelEscLabels[level], text, levelEscClear[level]);
-    sub_6182C0(output); // indirctly through off_67984C
+    clog_add(text);
+    print_ansi_esc(output); // indirctly through off_67984C
 
     if (glo_86D28C != nullptr) {
         sub_618050(glo_86D28C, "%s%s%s", levelEscLabels[level], text, levelEscClear[level]);
@@ -146,7 +148,7 @@ void __cdecl sub_6184A0(LogLevels level, const char *format, va_list ap) {
 
     if (level == LOG_LEVEL_FATAL_ERROR) ind_86D284(text);
 
-    glo_86D298 = 1;
+    glo_86D298 = true;
 }
 
 // All references to sub_6184A0 are indirectly called
@@ -154,50 +156,50 @@ void __cdecl sub_6184A0(LogLevels level, const char *format, va_list ap) {
 
 // mc2: 0x00618610
 void mc2_log_print(const char *format, ...) {
-    if (glo_679848 & 0x02) {
+    if (global_log_level_flags & 0x02) {
         va_list ap;
         va_start(ap, format);
-        sub_6184A0(LOG_LEVEL_PRINT, format, ap);
+        mc2_log_level_v(LOG_LEVEL_PRINT, format, ap);
         va_end(ap);
     }
 }
 
 // mc2: 0x00618630
 void mc2_log_B(const char *format, ...) {
-    if (glo_679848 & 0x02) {
+    if (global_log_level_flags & 0x02) {
         va_list ap;
         va_start(ap, format);
-        sub_6184A0(LOG_LEVEL_B, format, ap);
+        mc2_log_level_v(LOG_LEVEL_B, format, ap);
         va_end(ap);
     }
 }
 
 // mc2: 0x00618650
 void mc2_log_C(const char *format, ...) {
-    if (glo_679848 & 0x02) {
+    if (global_log_level_flags & 0x02) {
         va_list ap;
         va_start(ap, format);
-        sub_6184A0(LOG_LEVEL_C, format, ap);
+        mc2_log_level_v(LOG_LEVEL_C, format, ap);
         va_end(ap);
     }
 }
 
 // mc2: 0x00618670
 void mc2_log_warning(const char *format, ...) {
-    if (glo_679848 & 0x04) {
+    if (global_log_level_flags & 0x04) {
         va_list ap;
         va_start(ap, format);
-        sub_6184A0(LOG_LEVEL_WARNING, format, ap);
+        mc2_log_level_v(LOG_LEVEL_WARNING, format, ap);
         va_end(ap);
     }
 }
 
 // mc2: 0x00618690
 void mc2_log_error(const char *format, ...) {
-    if (glo_679848 & 0x08) {
+    if (global_log_level_flags & 0x08) {
         va_list ap;
         va_start(ap, format);
-        sub_6184A0(LOG_LEVEL_ERROR, format, ap);
+        mc2_log_level_v(LOG_LEVEL_ERROR, format, ap);
         va_end(ap);
     }
 }
