@@ -104,3 +104,40 @@ void print_help() {
         }
     }
 }
+
+// mc2: 0x00612910
+void sub_612910(std::int32_t argc, char **argv) {
+    glo_8600F0 = argc;
+    glo_8600EC = argv;
+
+    for (std::int32_t i = 0; glo_8600EC != nullptr && i < argc; ++i) {
+        if (argv[i][0] == '-' && loc_8600F8->sub_6124A0(&argv[i][1]) == 0) {
+            char *c = std::strchr(argv[i], '=');
+            unk_612150 *y = new unk_612150;
+            y->count = (c != nullptr) ? 1 : 0;
+            std::int32_t x;
+            for (x = i + 1; x < argc; ++x) {
+                if (argv[x][0] != '-' || (argv[x][1] >= '0' && argv[x][1] <= '9')) {
+                    ++y->count;
+                } else break;
+            }
+            if (c != nullptr) {
+                *c = 0;
+                loc_8600F8->sub_612150(&argv[i][1], y);
+                argv[i] = c + 1;
+            } else {
+                loc_8600F8->sub_612150(&argv[i][1], y);
+            }
+            i += (c == nullptr) ? 1 : 0;
+            y->args = new char*[y->count];
+            for (std::uint32_t j = 0; j < y->count; ++j) {
+                size_t slen = std::strlen(argv[i + j]) + 1;
+                y->args[j] = new char[slen];
+                std::memcpy(y->args[j], argv[i + j], slen * sizeof(char));
+            }
+            i = x;
+            continue;
+        }
+    }
+    loc_8600F8->loc_611DC0();
+}

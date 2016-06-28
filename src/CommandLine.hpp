@@ -59,3 +59,5 @@ void parse_commandline(std::int32_t argc, char **argv);
 
 // sub_612FB0
 void print_help();
+
+void sub_612910(std::int32_t argc, char **argv);

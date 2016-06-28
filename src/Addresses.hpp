@@ -22,6 +22,7 @@
 
 #include "CommandLine.hpp"
 #include "Logging.hpp"
+#include "UnkObjects/unk8600F8.hpp"
 #include "UnkObjects/unk86D28C.hpp"
 
 #define safe_strncpy(dest, src, len) ((void) strncpy_s(dest, len, src, len - 1))
@@ -60,7 +61,6 @@ inline T (*MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
 
 // Functions
 
-#define sub_612910 (MC2_PROC_PTR<void, std::int32_t, char **>(0x00612910))
 #define sub_612E10 (MC2_PROC_PTR<std::uint8_t, char *>(0x00612E10))
 #define sub_612E30 (MC2_PROC_PTR<void, char *, std::uint32_t, void *>(0x00612E30))
 #define sub_612F00 (MC2_PROC_PTR<void>(0x00612F00))
@@ -78,6 +78,10 @@ inline T (*MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
 #define glo_6C5254 (MC2_GLOBAL<bool>(0x006C5254))
 #define global_primary_unk5769E0 (MC2_GLOBAL<unk_5769E0 *>(0x006C5258)) // glo_6C5258
 
+#define glo_8600E8 (MC2_GLOBAL<unk_8600F8 *>(0x008600E8))
+#define glo_8600EC (MC2_GLOBAL<char **>(0x008600EC))
+#define glo_8600F0 (MC2_GLOBAL<std::int32_t>(0x008600F0))
+#define loc_8600F8 (MC2_POINTER<unk_8600F8>(0x008600F8))
 #define global_cmdline (MC2_GLOBAL<cmdline_info *>(0x00860110)) // glo_860110
 #define global_exe_name (MC2_GLOBAL<char *>(0x00860114)) // glo_860114
 #define global_help_has_printed (MC2_GLOBAL<bool>(0x00860118)) // glo_860118
