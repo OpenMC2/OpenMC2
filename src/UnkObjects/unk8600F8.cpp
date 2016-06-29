@@ -18,6 +18,8 @@
 
 #include "unk8600F8.hpp"
 
+#include <cstring>
+
 #include "../Addresses.hpp"
 
 // Remove from Linked List?
@@ -29,7 +31,7 @@ void unk_8600F8::loc_611DC0() {
 }
 
 void unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
-    MC2_PROC_MEMBER<void>(0x00612150, a, b);
+    MC2_PROC_MEMBER<void>(0x00612150, this, a, b);
 }
 
 std::int32_t unk_8600F8::sub_6124A0(char *a) {

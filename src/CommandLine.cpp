@@ -113,7 +113,7 @@ void sub_612910(std::int32_t argc, char **argv) {
     for (std::int32_t i = 0; glo_8600EC != nullptr && i < argc; ++i) {
         if (argv[i][0] == '-' && loc_8600F8->sub_6124A0(&argv[i][1]) == 0) {
             char *c = std::strchr(argv[i], '=');
-            unk_612150 *y = new unk_612150;
+            unk_612150 *y = (unk_612150 *) MC2_MALLOC(8);
             y->count = (c != nullptr) ? 1 : 0;
             std::int32_t x;
             for (x = i + 1; x < argc; ++x) {
@@ -129,10 +129,10 @@ void sub_612910(std::int32_t argc, char **argv) {
                 loc_8600F8->sub_612150(&argv[i][1], y);
             }
             i += (c == nullptr) ? 1 : 0;
-            y->args = new char*[y->count];
+            y->args = (char **) MC2_MALLOC(y->count * 4);
             for (std::uint32_t j = 0; j < y->count; ++j) {
                 size_t slen = std::strlen(argv[i + j]) + 1;
-                y->args[j] = new char[slen];
+                y->args[j] = (char *) MC2_MALLOC(slen);
                 std::memcpy(y->args[j], argv[i + j], slen * sizeof(char));
             }
             i = x;
