@@ -55,6 +55,7 @@ __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE 
     std::cout << "\n\n\tOpenMC2 Is On Its Way :D\n\n" << std::endl;
     OpenMC2_Hooks();
 
+    // Init MC2_MALLOC
     if ((glo_682E18 & 1) == 0) {
         glo_682E18 |= 1;
         glo_67A760 = loc_67A770;

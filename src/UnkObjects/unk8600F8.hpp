@@ -33,5 +33,5 @@ private:
 public:
     void loc_611DC0();
     void sub_612150(const char *a, unk_612150 *b);
-    std::int32_t sub_6124A0(char *a);
+    std::int32_t sub_6124A0(const char *a);
 };

@@ -131,9 +131,7 @@ void sub_612910(std::int32_t argc, char **argv) {
             i += (c == nullptr) ? 1 : 0;
             y->args = (char **) MC2_MALLOC(y->count * 4);
             for (std::uint32_t j = 0; j < y->count; ++j) {
-                size_t slen = std::strlen(argv[i + j]) + 1;
-                y->args[j] = (char *) MC2_MALLOC(slen);
-                std::memcpy(y->args[j], argv[i + j], slen * sizeof(char));
+                y->args[j] = MC2_STRDUP(argv[i + j]);
             }
             i = x;
             continue;
