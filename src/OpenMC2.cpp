@@ -18,6 +18,7 @@
 
 #include "Addresses.hpp"
 #include "CommandLine.hpp"
+#include "Game.hpp"
 #include "Logging.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 
@@ -67,7 +68,7 @@ __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE 
     parse_commandline(global_argc, global_argv);
     sub_612910(global_argc, global_argv);
 
-    std::uint32_t b = sub_6181F0();
+    int b = sub_6181F0();
 
     sub_612F00();
 

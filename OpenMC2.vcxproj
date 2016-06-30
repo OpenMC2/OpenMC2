@@ -92,6 +92,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Logging.cpp" />
     <ClCompile Include="src\OpenMC2.cpp" />
     <ClCompile Include="src\CommandLine.cpp" />
@@ -102,6 +103,7 @@
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp" />
     <ClInclude Include="src\CommandLine.hpp" />
+    <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\Logging.hpp" />
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
     <ClInclude Include="src\UnkObjects\unk8600F8.hpp" />
