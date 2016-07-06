@@ -22,18 +22,6 @@
 #include <cstdarg>
 #include <cstdio>
 
-#include "../Addresses.hpp"
-
-// mc2: 0x00617AF0
-void unk_86D28C::sub_617AF0() {
-    MC2_PROC_MEMBER<void>(0x00617AF0, this);
-}
-
-// mc2: 0x00617E40
-void unk_86D28C::sub_617E40(char *a, size_t b) {
-    MC2_PROC_MEMBER<void>(0x00617E40, this, a, b);
-}
-
 // mc2: 0x00618050
 void sub_618050(unk_86D28C *a, const char *format, ...) {
     char buffer[0x400];

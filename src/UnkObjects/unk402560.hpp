@@ -18,31 +18,22 @@
 
 #pragma once
 
-#include <cstdint>
-
 #include "../Addresses.hpp"
 
-struct unk_612150 {
-    std::uint32_t count;
-    char **args;
-};
-
-class unk_8600F8 {
+class unk_402560 {
 private:
-    std::uint8_t pad00[0x14];
-    unk_8600F8 *unk14;
+
 
 public:
-    void loc_611DC0();
-
-    inline void sub_612150(const char *a, unk_612150 *b) {
-        MC2_PROC_MEMBER<void>(0x00612150, this, a, b);
+    inline void sub_401860() {
+        MC2_PROC_MEMBER<void>(0x00401860, this);
     }
 
-    inline std::int32_t sub_6124A0(const char *a) {
-        return MC2_PROC_MEMBER<std::int32_t>(0x006124A0, this, a);
+    inline void sub_402120() {
+        MC2_PROC_MEMBER<void>(0x00402120, this);
     }
+    
 };
 
-#define glo_8600E8 (MC2_GLOBAL<unk_8600F8 *>(0x008600E8))
-#define glo_8600F8 (MC2_GLOBAL<unk_8600F8>(0x008600F8))
+#define sub_402560 (MC2_PROC_PTR<unk_402560 *>(0x00402560))
+

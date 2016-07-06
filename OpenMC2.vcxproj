@@ -105,7 +105,13 @@
     <ClInclude Include="src\CommandLine.hpp" />
     <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\Logging.hpp" />
+    <ClInclude Include="src\UnkObjects\unk402560.hpp" />
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
+    <ClInclude Include="src\UnkObjects\unk600960.hpp" />
+    <ClInclude Include="src\UnkObjects\unk613360.hpp" />
+    <ClInclude Include="src\UnkObjects\unk6C2E88.hpp" />
+    <ClInclude Include="src\UnkObjects\unk6C3250.hpp" />
+    <ClInclude Include="src\UnkObjects\unk6C3890.hpp" />
     <ClInclude Include="src\UnkObjects\unk8600F8.hpp" />
     <ClInclude Include="src\UnkObjects\unk86D28C.hpp" />
   </ItemGroup>

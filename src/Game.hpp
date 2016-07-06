@@ -20,4 +20,44 @@
 
 #include "Addresses.hpp"
 
+int sub_401190();
+
 int sub_6181F0();
+
+#define sub_401170 (MC2_PROC_PTR<void>(0x00401170))
+#define sub_4017E0 (MC2_PROC_PTR<void>(0x004017E0))
+#define sub_402590 (MC2_PROC_PTR<void>(0x00402590))
+#define sub_4028E0 (MC2_PROC_PTR<void>(0x004028E0))
+#define sub_404BF0 (MC2_PROC_PTR<void>(0x00404BF0))
+#define sub_53A000 (MC2_PROC_PTR<void>(0x0053A000))
+#define sub_53A1B0 (MC2_PROC_PTR<void>(0x0053A1B0))
+#define sub_53A7B0 (MC2_PROC_PTR<void, const char *, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t>(0x0053A7B0))
+#define sub_53A7D0 (MC2_PROC_PTR<void>(0x0053A7D0))
+#define sub_53A7E0 (MC2_PROC_PTR<void, const char *>(0x0053A7E0))
+#define sub_53A870 (MC2_PROC_PTR<void>(0x0053A870))
+#define sub_53A890 (MC2_PROC_PTR<void, const char *>(0x0053A890))
+#define sub_53A8F0 (MC2_PROC_PTR<void>(0x0053A8F0))
+#define sub_53B9F0 (MC2_PROC_PTR<void>(0x0053B9F0))
+#define sub_5ECBE0 (MC2_PROC_PTR<void>(0x005ECBE0))
+#define sub_5ED220 (MC2_PROC_PTR<void>(0x005ED220))
+#define sub_5ED7B0 (MC2_PROC_PTR<void, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t>(0x005ED7B0))
+#define sub_5EDA50 (MC2_PROC_PTR<void, const char *>(0x005EDA50))
+#define sub_612EB0 (MC2_PROC_PTR<void, const char *, std::int32_t, const char **>(0x00612EB0))
+#define sub_6134D0 (MC2_PROC_PTR<void, const char *>(0x006134D0))
+#define sub_613DD0 (MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0))
+
+#define loc_4010B0 (MC2_POINTER<void>(0x004010B0))
+
+#define glo_679778 (MC2_GLOBAL<std::uint8_t>(0x00679778))
+#define glo_679810 (MC2_GLOBAL<void **>(0x00679810))
+#define glo_692E1C (MC2_GLOBAL<void *>(0x00692E1C))
+#define glo_6C2C5C (MC2_GLOBAL<std::uint32_t>(0x006C2C5C))
+#define glo_6C2C64 (MC2_GLOBAL<std::uint8_t>(0x006C2C64))
+#define glo_6CE210 (MC2_GLOBAL<std::uint8_t>(0x006CE210))
+#define glo_6CE211 (MC2_GLOBAL<std::uint8_t>(0x006CE211))
+
+#define loc_692E20 (MC2_POINTER<void *>(0x00692E20))
+
+#define global_hWnd (MC2_GLOBAL<HWND>(0x00858364))
+#define glo_85837C (MC2_GLOBAL<std::uint32_t>(0x0085837C))
+#define glo_8602D4 (MC2_GLOBAL<std::uint8_t>(0x008602D4))

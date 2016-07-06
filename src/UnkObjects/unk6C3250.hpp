@@ -22,27 +22,21 @@
 
 #include "../Addresses.hpp"
 
-struct unk_612150 {
-    std::uint32_t count;
-    char **args;
-};
-
-class unk_8600F8 {
+class unk_6C3250 {
 private:
-    std::uint8_t pad00[0x14];
-    unk_8600F8 *unk14;
+    std::uint8_t pad00[0x44];
+    std::uint32_t unk44;
+    std::uint32_t unk48;
+    std::uint32_t unk4C;
 
 public:
-    void loc_611DC0();
-
-    inline void sub_612150(const char *a, unk_612150 *b) {
-        MC2_PROC_MEMBER<void>(0x00612150, this, a, b);
+    inline void sub_53B6A0() {
+        MC2_PROC_MEMBER<void>(0x0053B6A0, this);
     }
 
-    inline std::int32_t sub_6124A0(const char *a) {
-        return MC2_PROC_MEMBER<std::int32_t>(0x006124A0, this, a);
-    }
+    inline std::uint32_t unk_6C3250::get_unk44() const { return this->unk44; } // mc2: 0x004DBA90
+    inline std::uint32_t unk_6C3250::get_unk48() const { return this->unk48; } // mc2: 0x0055E930
+    inline std::uint32_t unk_6C3250::get_unk4C() const { return this->unk4C; } // mc2: 0x0053B320
 };
 
-#define glo_8600E8 (MC2_GLOBAL<unk_8600F8 *>(0x008600E8))
-#define glo_8600F8 (MC2_GLOBAL<unk_8600F8>(0x008600F8))
+#define glo_6C3250 (MC2_GLOBAL<unk_6C3250>(0x006C3250))

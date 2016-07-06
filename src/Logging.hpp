@@ -20,6 +20,8 @@
 
 #include <cstdarg>
 
+#include "Addresses.hpp"
+
 enum LogLevels {
     LOG_LEVEL_PRINT = 0,
     LOG_LEVEL_B,
@@ -46,3 +48,13 @@ void mc2_log_warning(const char *format, ...);
 
 // sub_618690
 void mc2_log_error(const char *format, ...);
+
+#define global_mbox_fatal (MC2_GLOBAL<bool>(0x00679844)) // glo_679844
+#define global_log_level_flags (MC2_GLOBAL<std::uint8_t>(0x00679848)) // glo_679848
+
+#define global_clog_begin (MC2_GLOBAL<std::int32_t>(0x0086CC38)) // glo_86CC38
+#define global_clog_end (MC2_GLOBAL<std::int32_t>(0x0086CC3C)) // glo_86CC3C
+#define global_mbox_error (MC2_GLOBAL<bool>(0x0086D288)) // glo_86D288
+#define glo_86D298 (MC2_GLOBAL<bool>(0x0086D298))
+
+#define loc_86CC40 (MC2_POINTER<char>(0x0086CC40))

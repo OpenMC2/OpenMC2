@@ -21,8 +21,8 @@
 #include <algorithm>
 #include <cstring>
 
-#include "Addresses.hpp"
 #include "Logging.hpp"
+#include "UnkObjects/unk8600F8.hpp"
 
 // mc2: 0x006131E0
 void parse_commandline(std::int32_t argc, char **argv) {
@@ -111,7 +111,7 @@ void sub_612910(std::int32_t argc, char **argv) {
     glo_8600EC = argv;
 
     for (std::int32_t i = 0; glo_8600EC != nullptr && i < argc; ++i) {
-        if (argv[i][0] == '-' && loc_8600F8->sub_6124A0(&argv[i][1]) == 0) {
+        if (argv[i][0] == '-' && glo_8600F8.sub_6124A0(&argv[i][1]) == 0) {
             char *c = std::strchr(argv[i], '=');
             unk_612150 *y = (unk_612150 *) MC2_MALLOC(8);
             y->count = (c != nullptr) ? 1 : 0;
@@ -123,10 +123,10 @@ void sub_612910(std::int32_t argc, char **argv) {
             }
             if (c != nullptr) {
                 *c = 0;
-                loc_8600F8->sub_612150(&argv[i][1], y);
+                glo_8600F8.sub_612150(&argv[i][1], y);
                 argv[i] = c + 1;
             } else {
-                loc_8600F8->sub_612150(&argv[i][1], y);
+                glo_8600F8.sub_612150(&argv[i][1], y);
             }
             i += (c == nullptr) ? 1 : 0;
             y->args = (char **) MC2_MALLOC(y->count * 4);
@@ -137,5 +137,5 @@ void sub_612910(std::int32_t argc, char **argv) {
             continue;
         }
     }
-    loc_8600F8->loc_611DC0();
+    glo_8600F8.loc_611DC0();
 }

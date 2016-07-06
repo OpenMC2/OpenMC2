@@ -20,7 +20,7 @@
 
 #include <cstdint>
 
-//#include "../Addresses.hpp"
+#include "../Addresses.hpp"
 
 class unk_86D28C {
 private:
@@ -28,8 +28,15 @@ private:
     std::uint32_t unk14;
 
 public:
-    void sub_617AF0();
-    void sub_617E40(char *a, size_t b);
+    inline void sub_617AF0() {
+        MC2_PROC_MEMBER<void>(0x00617AF0, this);
+    }
+
+    inline void sub_617E40(char *a, size_t b) {
+        MC2_PROC_MEMBER<void>(0x00617E40, this, a, b);
+    }
 };
 
 void sub_618050(unk_86D28C *a, const char *format, ...);
+
+#define glo_86D28C (MC2_GLOBAL<unk_86D28C *>(0x0086D28C))

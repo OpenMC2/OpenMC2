@@ -21,6 +21,8 @@
 #include <cstdint>
 #include <iterator>
 
+#include "Addresses.hpp"
+
 class cmdline_info {
 public:
     char *name; // 0x00
@@ -61,3 +63,12 @@ void parse_commandline(std::int32_t argc, char **argv);
 void print_help();
 
 void sub_612910(std::int32_t argc, char **argv);
+
+#define global_cmdline (MC2_GLOBAL<cmdline_info *>(0x00860110)) // glo_860110
+#define global_exe_name (MC2_GLOBAL<char *>(0x00860114)) // glo_860114
+#define global_help_has_printed (MC2_GLOBAL<bool>(0x00860118)) // glo_860118
+#define global_argc (MC2_GLOBAL<std::int32_t>(0x0086D7E8)) // glo_86D7E8
+#define global_argv (MC2_GLOBAL<char **>(0x0086D7EC)) // glo_86D7EC
+
+#define glo_8600EC (MC2_GLOBAL<char **>(0x008600EC))
+#define glo_8600F0 (MC2_GLOBAL<std::int32_t>(0x008600F0))

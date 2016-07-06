@@ -24,31 +24,28 @@
     <ClCompile Include="src\OpenMC2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\UnkObjects\unk5769E0.cpp">
-      <Filter>Source Files\UnkObjects</Filter>
-    </ClCompile>
     <ClCompile Include="src\CommandLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Logging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\UnkObjects\unk86D28C.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk5769E0.cpp">
       <Filter>Source Files\UnkObjects</Filter>
     </ClCompile>
     <ClCompile Include="src\UnkObjects\unk8600F8.cpp">
       <Filter>Source Files\UnkObjects</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\UnkObjects\unk5769E0.hpp">
-      <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\CommandLine.hpp">
       <Filter>Header Files</Filter>
@@ -56,14 +53,35 @@
     <ClInclude Include="src\Logging.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk6C2E88.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk6C3250.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk6C3890.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
     <ClInclude Include="src\UnkObjects\unk86D28C.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk5769E0.hpp">
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\UnkObjects\unk8600F8.hpp">
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\UnkObjects\unk402560.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk600960.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk613360.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

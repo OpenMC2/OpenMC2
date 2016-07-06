@@ -68,3 +68,9 @@ public:
 
     void sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8_t d);
 };
+
+#define global_last_unk5769E0 (MC2_GLOBAL<unk_5769E0 *>(0x006C5240)) // glo_6C5240
+#define glo_6C5254 (MC2_GLOBAL<bool>(0x006C5254))
+#define global_primary_unk5769E0 (MC2_GLOBAL<unk_5769E0 *>(0x006C5258)) // glo_6C5258
+
+#define loc_6C524C (MC2_POINTER<void>(0x006C524C))
