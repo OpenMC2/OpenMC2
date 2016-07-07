@@ -4,12 +4,9 @@
 
 An Open Source Re-Implementation of Midnight Club 2
 
-This project will rewrite the code of Midnight Club 2,
+This project is a bottom-up rewrite of Midnight Club 2,
 using the original binary in place of not-yet-implemented functions,
 to allow for large-scale bug fixing and feature implementing.
-
-This project is similar to the [OpenRCT2](https://github.com/OpenRCT2/OpenRCT2)
-and [OpenTTD](https://www.openttd.org/en/) projects that came before it.
 
 ## Building
 
@@ -26,7 +23,29 @@ The easiest way to get the game to run is to place both `OpenMC2.exe`
 and `OpenMC2.dll` in the same directory as `mc2.exe`. You can then
 launch OpenMC2 from the directory, or use a shortcut to launch the game.
 
+### Linux and macOS
+
+Native support for Linux and macOS is planned for the future, but because of how
+the project is developed, a native binary will not be possible for a while.
+In the mean time, **using Wine is supported** on Linux and macOS, and is the
+recommended way of using OpenMC2 on those platforms.
+
 ## Licence
 
 The source code provided in this repository for
 OpenMC2 is licenced under the [GNU General Public License version 3](https://www.gnu.org/licenses/gpl.html).
+
+## Other Open-Game Projects
+
+Below is a list of similar projects that I know of and their respective base games:
+
+ * [OpenRCT2](https://github.com/OpenRCT2/OpenRCT2) - RollerCoaster Tycoon 2
+ * [OpenTTD](https://www.openttd.org/) - Transport Tycoon Deluxe
+ * [OpenRW](https://github.com/rwengine/openrw) - Grand Theft Auto III
+ * [OpenMW](https://openmw.org/) - The Elder Scrolls III: Morrowind
+ * [openage](https://github.com/SFTtech/openage) - Age of Empires II
+ * [OpenRA](https://github.com/OpenRA/OpenRA) - Command & Conquer: Red Alert
+ * [OpenXcom](http://openxcom.org) - UFO: Enemy Unknown (aka, X-COM: UFO Defense)
+ * [Freeciv](http://www.freeciv.org) - Civilization II
+
+There is also the [Wikipedia page for open source games](https://en.wikipedia.org/wiki/List_of_open-source_video_games).
