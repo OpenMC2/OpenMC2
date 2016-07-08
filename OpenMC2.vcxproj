@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build;CopyExe" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="CopyExe">
-    <Copy SourceFiles="OpenMC2.exe" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="$(MSBuildProgramFiles32)\Steam\steamapps\common\Midnight Club 2\mss32.dll" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="$(MSBuildProgramFiles32)\Steam\steamapps\common\Midnight Club 2\binkw32.dll" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="binaries\OpenMC2.exe" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="binaries\mss32.dll" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="binaries\binkw32.dll" DestinationFolder="$(OutDir)" />
   </Target>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
