@@ -1,6 +1,6 @@
 # OpenMC2
 
-[![Join the chat at https://gitter.im/LRFLEW/OpenMC2](https://badges.gitter.im/LRFLEW/OpenMC2.svg)](https://gitter.im/LRFLEW/OpenMC2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build status](https://ci.appveyor.com/api/projects/status/n182pc68e5unawem/branch/master?svg=true)](https://ci.appveyor.com/project/LRFLEW/openmc2/branch/master) [![Join the chat at https://gitter.im/LRFLEW/OpenMC2](https://badges.gitter.im/LRFLEW/OpenMC2.svg)](https://gitter.im/LRFLEW/OpenMC2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 An Open Source Re-Implementation of Midnight Club 2
 
