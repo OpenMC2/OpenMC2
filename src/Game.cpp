@@ -39,17 +39,179 @@ static void sub_53A890(const char *args) {
     sub_612A80(loc_6C3690);
 }
 
+// mc2: 0x005EDA50
+void game_set_window_title(char* title) {
+    HWND hWnd = global_hWnd;
+    global_WindowText = title;
+    if (hWnd != NULL)
+        SetWindowTextA(global_hWnd, title);
+}
+
+// mc2: 0x00539FE0 and 0x00539D90
+void check_sku_version() {
+    global_SKUVersion = 0; //SKU VERSION SLUS-20209
+
+    char* skuVersion = NULL;
+
+    switch (global_SKUVersion) {
+    case 0:
+        skuVersion = "SLUS-20209";
+        break;
+    case 1:
+        skuVersion = "SLES-51054";
+        break;
+    case 2:
+        skuVersion = "SLPM-20209";
+        break;
+    default:
+        // SKU unrecognised
+        mc2_log_error("Unhandled sku");
+        return;
+    }
+
+    mc2_log_C(skuVersion);
+}
+
+void sub_53B9B0() {
+    int esi = 0;
+    if (sub_612E10("pc_480")) {
+        esi = 7;
+    }
+    else if (sub_612E10("pc_720")) {
+        esi = 8;
+    }
+    glo_66315C = esi;
+}
+
+//bool sub_627145(char* path, char* path2) {
+//	//if (glo_86D8A8 == 0) {
+//	//	//627CD0
+//	//	return false;
+//	//}
+//
+//
+//}
+
+int sub_5E1B50(const char* path) {
+    for (int i = 0; i < 10; ++i) {
+        char* language = global_LanguageList[i];
+
+        if (sub_627145(path, language)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+bool sub_539DE0(const char* path) {
+    for (int i = 0; i < 10; ++i) {
+        char* unk = glo_663160[i];
+
+        if (sub_627145(path, unk)) {
+            glo_6C2C60 = i;
+            return true;
+        }
+    }
+    mc2_log_level_v(LOG_LEVEL_FATAL_ERROR, "mcConfig::SetMode() failed", NULL);
+    return false;
+}
+
+void sub_53A000() {
+    check_sku_version();
+    sub_53B9B0();
+
+    if (sub_612E10("unlockall")) {
+        glo_unlock_races = 1;
+        glo_unlock_cities = 1;
+        glo_unlock_vehicles = 1;
+        glo_unlock_customization = 1;
+        glo_unlock_abilities = 1;
+        glo_unlock_difficulty = 1;
+    }
+    else {
+        if (sub_612E10("unlockraces")) {
+            glo_unlock_races = 1;
+        }
+        if (sub_612E10("unlockcities")) {
+            glo_unlock_cities = 1;
+        }
+        if (sub_612E10("unlockvehicles")) {
+            glo_unlock_vehicles = 1;
+        }
+        if (sub_612E10("unlockcustomization")) {
+            glo_unlock_customization = 1;
+        }
+        if (sub_612E10("unlockabilities")) {
+            glo_unlock_abilities = 1;
+        }
+        if (sub_612E10("unlockinsanity")) {
+            glo_unlock_difficulty = 1;
+        }
+        if (sub_612E10("unlockdifficulty")) {
+            glo_unlock_difficulty = 1;
+        }
+    }
+    if (sub_612E10("lang")) {
+        const char* path;
+        sub_612EB0("lang", 0, &path);
+        int lang = sub_5E1B50(path);
+        if (lang == -1) {
+            mc2_log_error("Invalid language");
+            return;
+        }
+
+        mc2_log_C("Setting language to %s (%d)", global_LanguageList[lang], lang);
+        global_LanguageID = lang;
+    }
+
+    if (sub_612E10("fromconfigurator")) {
+        glo_6C2C64 = 1;
+    }
+
+    const char* unk;
+    if (sub_612EB0("mode", 0, &unk)) {
+        sub_539DE0(unk);
+    }
+}
+
+void sub_6134D0(const char* var8) {
+    char* destination = glo_860120;
+    memset(destination, 0, 256);
+    safe_strncpy(destination, var8, 255);
+
+    if (*destination == '\0')
+        return;
+
+    char* str = destination;
+    while (*str++ != '\0') {
+        if (*str == '/') {
+            *str = '\\';
+        }
+    }
+
+    int length = strlen(destination);
+
+    if (length == 0)
+        return;
+
+    if (destination[length - 1] != '\\') {
+        destination[length] = '\\';
+        destination[length] = '\0';
+    }
+}
+
 // mc2: 0x00401190
 int sub_401190() {
     sub_53A890("mc.exe -path=. -archive=assets_p.dat");
     glo_85837C = 101;
-    sub_5EDA50("Midnight Club II");
+    game_set_window_title("Midnight Club II");
     sub_5ECBE0();
     glo_8602D4 = 1;
     glo_679778 = 0;
     sub_53A000();
     sub_53B9F0();
-    glo_6C2C5C = 0;
+    global_LanguageID = 0;
+    glo_windowed_mode = 1; // Added to force window mode whilst developing
     glo_6CE210 = 1;
     glo_6CE211 = 1;
     const char *gamePath = ".";
@@ -58,7 +220,7 @@ int sub_401190() {
     sub_6134D0(gamePath);
     glo_6C3250.sub_53B6A0();
     sub_5ED7B0(glo_6C3250.get_unk44(), glo_6C3250.get_unk48(), glo_6C3250.get_unk4C(), 32, 0);
-    sub_53A7B0(gamePath, 48, 0, 0, 0);
+    sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;
     std::memcpy(loc_692E20, glo_679810, 10 * sizeof(void *));
     loc_692E20[2] = loc_4010B0;
@@ -88,7 +250,8 @@ int sub_401190() {
             sub_612EB0("movie", 0, &var4);
             glo_6C2E88.sub_53ACB0(var4);
             t = 15;
-        } else if (sub_612E10("skipintro") || glo_6C2C64 != 0) t = 11;
+        }
+        else if (sub_612E10("skipintro") || glo_6C2C64 != 0) t = 11;
         else {
             glo_6C2E88.sub_53ACB0("rockstar.pss");
             t = 15;
