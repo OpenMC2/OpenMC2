@@ -58,7 +58,7 @@ inline T (*MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
 
 #define sub_5772E0 (MC2_PROC_PTR<void *, size_t, const char *, std::uint32_t>(0x005772E0))
 #define sub_612E10 (MC2_PROC_PTR<bool, char *>(0x00612E10))
-#define sub_612E30 (MC2_PROC_PTR<void, char *, std::uint32_t, void *>(0x00612E30))
+#define sub_612E30 (MC2_PROC_PTR<bool, char *, std::uint32_t, void *>(0x00612E30))
 #define sub_612F00 (MC2_PROC_PTR<void>(0x00612F00))
 #define sub_614A10 (MC2_PROC_PTR<char *, const char *, const char *, std::uint32_t>(0x00614A10))
 
