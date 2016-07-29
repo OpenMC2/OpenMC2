@@ -23,6 +23,7 @@
 #include <cstring>
 #include <new>
 
+#include "CommandLine.hpp"
 #include "Logging.hpp"
 #include "UnkObjects/unk402560.hpp"
 #include "UnkObjects/unk600960.hpp"
@@ -30,6 +31,13 @@
 #include "UnkObjects/unk6C2E88.hpp"
 #include "UnkObjects/unk6C3250.hpp"
 #include "UnkObjects/unk6C3890.hpp"
+
+static void sub_53A890(const char *args) {
+    sub_612C70(loc_6C3690);
+    safe_strncpy(loc_6C3690, args, 0x200);
+    sub_612F00();
+    sub_612A80(loc_6C3690);
+}
 
 // mc2: 0x00401190
 int sub_401190() {
@@ -44,13 +52,13 @@ int sub_401190() {
     glo_6C2C5C = 0;
     glo_6CE210 = 1;
     glo_6CE211 = 1;
-    const char *var8 = ".";
-    sub_612EB0("path", 0, &var8);
+    const char *gamePath = ".";
+    sub_612EB0("path", 0, &gamePath);
     new (MC2_MALLOC(0x108)) unk_613360;
-    sub_6134D0(var8);
+    sub_6134D0(gamePath);
     glo_6C3250.sub_53B6A0();
     sub_5ED7B0(glo_6C3250.get_unk44(), glo_6C3250.get_unk48(), glo_6C3250.get_unk4C(), 32, 0);
-    sub_53A7B0(var8, 48, 0, 0, 0);
+    sub_53A7B0(gamePath, 48, 0, 0, 0);
     glo_692E1C = glo_679810;
     std::memcpy(loc_692E20, glo_679810, 10 * sizeof(void *));
     loc_692E20[2] = loc_4010B0;

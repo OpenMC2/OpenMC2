@@ -35,13 +35,13 @@ int sub_6181F0();
 #define sub_53A7D0 (MC2_PROC_PTR<void>(0x0053A7D0))
 #define sub_53A7E0 (MC2_PROC_PTR<void, const char *>(0x0053A7E0))
 #define sub_53A870 (MC2_PROC_PTR<void>(0x0053A870))
-#define sub_53A890 (MC2_PROC_PTR<void, const char *>(0x0053A890))
 #define sub_53A8F0 (MC2_PROC_PTR<void>(0x0053A8F0))
 #define sub_53B9F0 (MC2_PROC_PTR<void>(0x0053B9F0))
 #define sub_5ECBE0 (MC2_PROC_PTR<void>(0x005ECBE0))
 #define sub_5ED220 (MC2_PROC_PTR<void>(0x005ED220))
 #define sub_5ED7B0 (MC2_PROC_PTR<void, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t>(0x005ED7B0))
 #define sub_5EDA50 (MC2_PROC_PTR<void, const char *>(0x005EDA50))
+#define sub_612C70 (MC2_PROC_PTR<void, char *>(0x00612C70))
 #define sub_612EB0 (MC2_PROC_PTR<void, const char *, std::int32_t, const char **>(0x00612EB0))
 #define sub_6134D0 (MC2_PROC_PTR<void, const char *>(0x006134D0))
 #define sub_613DD0 (MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0))
@@ -57,6 +57,7 @@ int sub_6181F0();
 #define glo_6CE211 (MC2_GLOBAL<std::uint8_t>(0x006CE211))
 
 #define loc_692E20 (MC2_POINTER<void *>(0x00692E20))
+#define loc_6C3690 (MC2_POINTER<char>(0x006C3690)) // size: 0x200
 
 #define global_hWnd (MC2_GLOBAL<HWND>(0x00858364))
 #define glo_85837C (MC2_GLOBAL<std::uint32_t>(0x0085837C))
