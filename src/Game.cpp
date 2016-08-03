@@ -69,28 +69,23 @@ void check_sku_version() {
         return;
     }
 
-    mc2_log_C(skuVersion);
+    mc2_log_C("mcConfig:AutoDetectSku - product code '%s'", skuVersion);
 }
 
+// mc2: 0x0053B9B0
+// Set default resolution?
 void sub_53B9B0() {
-    int esi = 0;
+    glo_66315C = 0;
+    
     if (sub_612E10("pc_480")) {
-        esi = 7;
-    }
+        // 480 x 640
+        glo_66315C = 7;
+    } 
     else if (sub_612E10("pc_720")) {
-        esi = 8;
+        // 720 x 480
+        glo_66315C = 8;
     }
-    glo_66315C = esi;
 }
-
-//bool sub_627145(char* path, char* path2) {
-//	//if (glo_86D8A8 == 0) {
-//	//	//627CD0
-//	//	return false;
-//	//}
-//
-//
-//}
 
 int sub_5E1B50(const char* path) {
     for (int i = 0; i < 10; ++i) {
@@ -112,7 +107,7 @@ bool sub_539DE0(const char* path) {
             return true;
         }
     }
-    mc2_log_level_v(LOG_LEVEL_FATAL_ERROR, "mcConfig::SetMode() failed", NULL);
+    mc2_log_fatal("mcConfig::SetMode() failed");
     return false;
 }
 
@@ -176,8 +171,7 @@ void sub_53A000() {
 
 void sub_6134D0(const char* var8) {
     char* destination = glo_860120;
-    memset(destination, 0, 256);
-    safe_strncpy(destination, var8, 255);
+    safe_strncpy(destination, var8, 256);
 
     if (*destination == '\0')
         return;
@@ -196,7 +190,7 @@ void sub_6134D0(const char* var8) {
 
     if (destination[length - 1] != '\\') {
         destination[length] = '\\';
-        destination[length] = '\0';
+        destination[length + 1] = '\0';
     }
 }
 
@@ -250,8 +244,7 @@ int sub_401190() {
             sub_612EB0("movie", 0, &var4);
             glo_6C2E88.sub_53ACB0(var4);
             t = 15;
-        }
-        else if (sub_612E10("skipintro") || glo_6C2C64 != 0) t = 11;
+        } else if (sub_612E10("skipintro") || glo_6C2C64 != 0) t = 11;
         else {
             glo_6C2E88.sub_53ACB0("rockstar.pss");
             t = 15;
