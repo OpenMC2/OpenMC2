@@ -49,6 +49,9 @@ void mc2_log_warning(const char *format, ...);
 // sub_618690
 void mc2_log_error(const char *format, ...);
 
+// sub_6186B0
+void mc2_log_fatal(const char *format, ...);
+
 #define global_mbox_fatal (MC2_GLOBAL<bool>(0x00679844)) // glo_679844
 #define global_log_level_flags (MC2_GLOBAL<std::uint8_t>(0x00679848)) // glo_679848
 

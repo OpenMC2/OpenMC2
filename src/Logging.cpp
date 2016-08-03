@@ -202,3 +202,15 @@ void mc2_log_error(const char *format, ...) {
         va_end(ap);
     }
 }
+
+// mc2: 0x006186B0 Based on
+void mc2_log_fatal(const char *format, ...) {
+    if (format != NULL) {
+        va_list ap;
+        va_start(ap, format);
+        mc2_log_level_v(LOG_LEVEL_FATAL_ERROR, format, ap);
+        va_end(ap);
+    }
+
+    std::terminate();
+}
