@@ -40,7 +40,7 @@ static void sub_53A890(const char *args) {
 }
 
 // mc2: 0x005EDA50
-void game_set_window_title(char* title) {
+void game_set_window_title(char *title) {
     HWND hWnd = global_hWnd;
     global_WindowText = title;
     if (hWnd != NULL)
@@ -51,7 +51,7 @@ void game_set_window_title(char* title) {
 void check_sku_version() {
     global_SKUVersion = 0; //SKU VERSION SLUS-20209
 
-    char* skuVersion = NULL;
+    char *skuVersion = NULL;
 
     switch (global_SKUVersion) {
     case 0:
@@ -73,23 +73,21 @@ void check_sku_version() {
 }
 
 // mc2: 0x0053B9B0
-// Set default resolution?
+// Likely related to assets_p: /tune/hud/ntsc/
 void sub_53B9B0() {
-    glo_66315C = 0;
-    
-    if (sub_612E10("pc_480")) {
-        // 480 x 640
-        glo_66315C = 7;
-    } 
-    else if (sub_612E10("pc_720")) {
-        // 720 x 480
-        glo_66315C = 8;
-    }
+    if (sub_612E10("pc_480")) glo_66315C = 7; // 480 x 640
+    else if (sub_612E10("pc_720")) glo_66315C = 8; // 720 x 480
+    else glo_66315C = 0;
 }
 
-int sub_5E1B50(const char* path) {
+constexpr const char *LanguageShortList[10] = {
+    "en", "es", "fr", "de", "it",
+    "pt", "jp", "ch", "ko", "no",
+};
+
+int sub_5E1B50(const char *path) {
     for (int i = 0; i < 10; ++i) {
-        char* language = global_LanguageList[i];
+        const char *language = LanguageShortList[i];
 
         if (sub_627145(path, language)) {
             return i;
@@ -98,9 +96,13 @@ int sub_5E1B50(const char* path) {
     return -1;
 }
 
-bool sub_539DE0(const char* path) {
-    for (int i = 0; i < 10; ++i) {
-        char* unk = glo_663160[i];
+constexpr const char *GameModes[5] = {
+    "cruise", "arcade", "adventure", "frontend", "raceeditor",
+};
+
+bool sub_539DE0(const char *path) {
+    for (int i = 0; i < 5; ++i) {
+        const char *unk = GameModes[i];
 
         if (sub_627145(path, unk)) {
             glo_6C2C60 = i;
@@ -147,7 +149,7 @@ void sub_53A000() {
         }
     }
     if (sub_612E10("lang")) {
-        const char* path;
+        const char *path;
         sub_612EB0("lang", 0, &path);
         int lang = sub_5E1B50(path);
         if (lang == -1) {
@@ -155,7 +157,7 @@ void sub_53A000() {
             return;
         }
 
-        mc2_log_C("Setting language to %s (%d)", global_LanguageList[lang], lang);
+        mc2_log_C("Setting language to %s (%d)", LanguageShortList[lang], lang);
         global_LanguageID = lang;
     }
 
@@ -163,20 +165,20 @@ void sub_53A000() {
         glo_6C2C64 = 1;
     }
 
-    const char* unk;
+    const char *unk;
     if (sub_612EB0("mode", 0, &unk)) {
         sub_539DE0(unk);
     }
 }
 
-void sub_6134D0(const char* var8) {
-    char* destination = glo_860120;
+void sub_6134D0(const char *var8) {
+    char *destination = glo_860120;
     safe_strncpy(destination, var8, 256);
 
     if (*destination == '\0')
         return;
 
-    char* str = destination;
+    char *str = destination;
     while (*str++ != '\0') {
         if (*str == '/') {
             *str = '\\';

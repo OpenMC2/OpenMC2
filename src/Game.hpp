@@ -62,12 +62,9 @@ int sub_6181F0();
 #define glo_85837C (MC2_GLOBAL<std::uint32_t>(0x0085837C))
 #define glo_8602D4 (MC2_GLOBAL<std::uint8_t>(0x008602D4))
 #define glo_86D8A8 (MC2_GLOBAL<std::uint32_t>(0x0086D8A8))
-#define global_WindowText (MC2_GLOBAL<char*>(0x00858390))
+#define global_WindowText (MC2_GLOBAL<char *>(0x00858390))
 #define global_SKUVersion (MC2_GLOBAL<std::uint32_t>(0x006C2C58))
 #define glo_66315C (MC2_GLOBAL<std::uint32_t>(0x0066315C))
-
-#define global_LanguageList (MC2_GLOBAL<char**>(0x006745EC))
-#define glo_663160 (MC2_GLOBAL<char**>(0x00663160))
 
 #define glo_6C2C60 (MC2_GLOBAL<std::uint32_t>(0x006C2C60))
 #define glo_6C2C64 (MC2_GLOBAL<std::uint8_t>(0x006C2C64))
