@@ -24,6 +24,9 @@ int sub_401190();
 
 int sub_6181F0();
 
+void sub_612F00();
+bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_arg);
+
 #define sub_401170 (MC2_PROC_PTR<void>(0x00401170))
 #define sub_4017E0 (MC2_PROC_PTR<void>(0x004017E0))
 #define sub_402590 (MC2_PROC_PTR<void>(0x00402590))
@@ -41,13 +44,11 @@ int sub_6181F0();
 #define sub_5ED7B0 (MC2_PROC_PTR<void, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t>(0x005ED7B0))
 #define sub_5EDA50 (MC2_PROC_PTR<void, const char *>(0x005EDA50))
 #define sub_612C70 (MC2_PROC_PTR<void, char *>(0x00612C70))
-#define sub_612EB0 (MC2_PROC_PTR<bool, const char *, std::int32_t, const char **>(0x00612EB0))
 #define sub_613DD0 (MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0))
 #define sub_627145 (MC2_PROC_PTR<bool, const char *, const char *>(0x00627145))
 
 #define loc_4010B0 (MC2_POINTER<void>(0x004010B0))
 
-#define glo_679778 (MC2_GLOBAL<std::uint8_t>(0x00679778))
 #define glo_679810 (MC2_GLOBAL<void **>(0x00679810))
 #define glo_692E1C (MC2_GLOBAL<void *>(0x00692E1C))
 #define global_LanguageID (MC2_GLOBAL<std::uint32_t>(0x006C2C5C))
