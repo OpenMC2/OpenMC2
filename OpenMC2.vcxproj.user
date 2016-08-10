@@ -2,12 +2,10 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerCommand>$(OutDir)OpenMC2.exe</LocalDebuggerCommand>
-    <LocalDebuggerWorkingDirectory>$(MSBuildProgramFiles32)\Steam\steamapps\common\Midnight Club 2\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommand>$(OutDir)OpenMC2.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerWorkingDirectory>$(MSBuildProgramFiles32)\Steam\steamapps\common\Midnight Club 2\</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
 </Project>

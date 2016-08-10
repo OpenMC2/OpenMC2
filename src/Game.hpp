@@ -75,5 +75,3 @@ int sub_6181F0();
 #define glo_unlock_abilities (MC2_GLOBAL<std::uint8_t>(0x006C2C6A))
 #define glo_unlock_difficulty (MC2_GLOBAL<std::uint8_t>(0x006C2C6B))
 #define glo_860120 (MC2_POINTER<char>(0x00860120))
-
-#define glo_windowed_mode (MC2_GLOBAL<std::uint8_t>(0x00858370))

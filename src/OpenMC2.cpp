@@ -18,6 +18,7 @@
 
 #include "Addresses.hpp"
 #include "CommandLine.hpp"
+#include "Config.hpp"
 #include "Game.hpp"
 #include "Logging.hpp"
 #include "UnkObjects/unk5769E0.hpp"
@@ -61,6 +62,8 @@ __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE 
         glo_682E18 |= 1;
         glo_67A760 = loc_67A770;
     }
+
+    load_config();
 
     unk_5769E0 a;
     a.sub_575BA0(glo_67A760, 0x18680, 1, 0);

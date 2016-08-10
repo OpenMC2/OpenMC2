@@ -207,7 +207,6 @@ int sub_401190() {
     sub_53A000();
     sub_53B9F0();
     global_LanguageID = 0;
-    glo_windowed_mode = 1; // Added to force window mode whilst developing
     glo_6CE210 = 1;
     glo_6CE211 = 1;
     const char *gamePath = ".";
