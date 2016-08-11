@@ -71,5 +71,8 @@ public:
     hash_map_entry *unk_8600F8::sub_611F60(int32_t unk);
 };
 
+bool sub_612E10(const char *key);
+bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value);
+
 #define glo_8600E8 (MC2_GLOBAL<unk_8600F8 *>(0x008600E8))
 #define glo_8600F8 (MC2_GLOBAL<unk_8600F8>(0x008600F8))

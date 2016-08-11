@@ -354,11 +354,6 @@ void sub_6134D0(const char *var8) {
     }
 }
 
-bool sub_612E10(const char* key) {
-    unk_612150 *result = glo_8600F8.sub_6124A0(key);
-    return result != nullptr;
-}
-
 bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value_arg) {
     unk_612150 *value = glo_8600F8.sub_6124A0(key);
 

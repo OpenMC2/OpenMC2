@@ -219,3 +219,21 @@ bool unk_8600F8::sub_612020(uint32_t *eax) {
     eax[2] = (uint32_t)entry->value;
     return true;
 }
+
+bool sub_612E10(const char* key) {
+    unk_612150 *result = glo_8600F8.sub_6124A0(key);
+    return result != nullptr;
+}
+
+bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value) {
+    unk_612150 *entry = glo_8600F8.sub_6124A0(key);
+
+    if (entry == nullptr)
+        return false;
+
+    if (index >= entry->count)
+        return false;
+
+    *decimal_value = sub_61A5DC(entry->args[index]);
+    return true;
+}
