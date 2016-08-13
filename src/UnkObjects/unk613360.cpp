@@ -16,30 +16,25 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#pragma once
-
-#include "../Addresses.hpp"
+#include "unk613360.hpp"
 #include "unk613330.hpp"
 
-class unk_613360 : public unk_613330 {
-public:
-    struct unk_613360_vTable{
-        void (__thiscall *vir_00)(unk_613330 *);
-        void (__thiscall *vir_04)(unk_613360 *);
-        void (__thiscall *vir_08)(unk_613360 *);
-        void (__thiscall *vir_0C)(unk_613360 *);
-        void (__thiscall *vir_10)(unk_613330 *);
-        void (__thiscall *vir_14)(unk_613330 *);
-        void (__thiscall *vir_18)(unk_613330 *);
-        void (__thiscall unk_613330::* vir_1C)(char* unk1, char* unk2, int32_t unk3, int32_t unk4);
-        void (__thiscall *vir_20)(unk_613330 *);
-        void (__thiscall *vir_24)(unk_613330 *);
-        void (__thiscall *vir_28)(unk_613330 *);
-    };
-private:
-    std::uint8_t pad04[0x100];
-    std::uint32_t unk104;
-
-public:
-    unk_613360();
+// mc2:0x00659B38
+static unk_613360::unk_613360_vTable unk_613360_vtable = {
+    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005ED480),
+    MC2_PROC_MEMBER_PTR<void, unk_613360>(0x006136C0),
+    MC2_PROC_MEMBER_PTR<void, unk_613360>(0x00613380),
+    MC2_PROC_MEMBER_PTR<void, unk_613360>(0x00613470),
+    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005CA940),
+    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00406990),
+    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613770),
+    &unk_613330::impl_1C,
+    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613800),
+    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x006134F0),
+    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613520)
 };
+
+unk_613360::unk_613360(){
+    vtable = &unk_613360_vtable;
+    unk104 = 0;
+}

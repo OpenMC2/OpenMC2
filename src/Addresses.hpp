@@ -54,6 +54,11 @@ inline T (&__cdecl MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...)
     return *reinterpret_cast<T(__cdecl *)(Types..., ...)>(address);
 }
 
+template<class T, class X, class... Types>
+inline T(__thiscall *MC2_PROC_MEMBER_PTR(const std::uintptr_t address))(X *, Types...) {
+    return reinterpret_cast<T(__thiscall *)(X *, Types...)>(address);
+}
+
 // Functions
 
 #define sub_61A5DC (MC2_PROC_PTR<uint32_t, char *>(0x0061A5DC))
