@@ -32,7 +32,7 @@
 #include "UnkObjects/unk6C3250.hpp"
 #include "UnkObjects/unk6C3890.hpp"
 #include "UnkObjects/unk8600F8.hpp"
-
+#include "config.hpp"
 
 static void sub_612A80(const char *args) {
     glo_8600F0 = 0;
@@ -233,9 +233,29 @@ void check_sku_version() {
 // mc2: 0x0053B9B0
 // Likely related to assets_p: /tune/hud/ntsc/
 void sub_53B9B0() {
-    if (sub_612E10("pc_480")) glo_66315C = 7; // 480 x 640
-    else if (sub_612E10("pc_720")) glo_66315C = 8; // 720 x 480
-    else glo_66315C = 0;
+    if (sub_612E10("pc_480")) glo_66315C = 7; // 480 x 720
+    else if (sub_612E10("pc_720")) glo_66315C = 8; // 720 x 1280
+    else glo_66315C = 0; // 480 x 640
+}
+
+void sub_53B9F0() {
+    int resolution[3][2] = {
+        {640, 480},
+        {720, 480},
+        {1280,720}
+    };
+
+    int index = 0;
+    switch (glo_66315C) {
+    case 7:
+        index = 1;
+        break;
+    case 8:
+        index = 2;
+        break;
+    }
+
+    sub_5ED7B0(resolution[index][0], resolution[index][1], 32, 32, 0);
 }
 
 constexpr const char *LanguageShortList[10] = {
@@ -365,6 +385,14 @@ bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value
 
     *value_arg = value->args[value_index];
     return true;
+}
+
+void sub_5ECBE0() {
+    if (glo_6754C4 != MC2_PROC_PTR<void>(0x005ECB90)) {
+        mc2_log_C("Installed bink gfxLoadImage support");
+        glo_858328 = glo_6754C4;
+        glo_6754C4 = MC2_PROC_PTR<void>(0x005ECB90);
+    }
 }
 
 // mc2: 0x00401190
