@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Download" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Main Target -->
+  <Target Name="Download">
+    <Exec Command="powershell -ExecutionPolicy Unrestricted -File libs.ps1" />
+  </Target>
+  <!-- Targets Expected By Visual Studio -->
+  <Target Name="Rebuild">
+    <CallTarget Targets="Download" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="Download" />
+  </Target>
+  <!-- Boilerplate C++ Project -->
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DFCC0C0C-E32B-42CD-951B-AE7B4516CB81}</ProjectGuid>
+    <RootNamespace>Libs</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+</Project>

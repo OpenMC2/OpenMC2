@@ -54,16 +54,6 @@ constexpr LPCWSTR BadDirMessage = L"\
 Unable to find game assets.\n\
 Please select the folder where Midnight Club 2 was installed.";
 
-/*
-class HresultException : public std::exception {
-    HRESULT res;
-    inline HresultException(HRESULT res) : res(res) { }
-    virtual const char *what() const override {
-        return 
-    }
-};
-*/
-
 static boost::filesystem::path ask_game_path() {
     HRESULT res;
     int button;
