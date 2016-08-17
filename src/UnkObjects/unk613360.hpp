@@ -25,21 +25,23 @@ class unk_613360 : public unk_613330 {
 public:
     struct unk_613360_vTable{
         void (__thiscall *vir_00)(unk_613330 *);
-        void (__thiscall *vir_04)(unk_613360 *);
+        void (__thiscall unk_613360::* vir_04)(char *destination, int32_t unk2, char *unk3, char *extension);
         void (__thiscall *vir_08)(unk_613360 *);
         void (__thiscall *vir_0C)(unk_613360 *);
         void (__thiscall *vir_10)(unk_613330 *);
         void (__thiscall *vir_14)(unk_613330 *);
         void (__thiscall *vir_18)(unk_613330 *);
-        void (__thiscall unk_613330::* vir_1C)(char* unk1, char* unk2, int32_t unk3, int32_t unk4);
+        void (__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, int32_t unk3, int32_t unk4);
         void (__thiscall *vir_20)(unk_613330 *);
-        void (__thiscall *vir_24)(unk_613330 *);
-        void (__thiscall *vir_28)(unk_613330 *);
+        bool (__thiscall unk_613330::* vir_24)(char *unk1);
+        void (__thiscall *vir_28)(unk_613330 *, char*, char*, char*);
     };
 private:
-    std::uint8_t pad04[0x100];
+    std::uint8_t unk04[0x100];
     std::uint32_t unk104;
 
 public:
     unk_613360();
+
+    void impl_04(char *destination, int32_t unk2, char *unk3, char *extension);
 };

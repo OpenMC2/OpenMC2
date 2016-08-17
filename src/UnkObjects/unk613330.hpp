@@ -24,29 +24,30 @@ class unk_613330 {
 public:
     struct unk_613330_vTable{
         void (__thiscall *vir_00)(unk_613330 *);
-        void (__thiscall *vir_04)(unk_613330 *);
+        void (__thiscall *vir_04)(unk_613330 *, char *destination, int32_t unk2, char *unk3, char *extension);
         void (__thiscall *vir_08)(unk_613330 *);
         void (__thiscall *vir_0C)(unk_613330 *);
         void (__thiscall *vir_10)(unk_613330 *);
         void (__thiscall *vir_14)(unk_613330 *);
         void (__thiscall *vir_18)(unk_613330 *);
-        void (__thiscall unk_613330::* vir_1C)(char* unk1, char* unk2, int32_t unk3, int32_t unk4);
+        void (__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, int32_t unk3, int32_t unk4);
         void (__thiscall *vir_20)(unk_613330 *);
-        void (__thiscall *vir_24)(unk_613330 *);
-        void (__thiscall *vir_28)(unk_613330 *);
+        bool (__thiscall unk_613330::* vir_24)(char *unk1);
+        void (__thiscall *vir_28)(unk_613330 *, char *destination, char *unk2, char *extension);
     };
 protected:
     void *vtable;
 public:
     unk_613330();
     
-    void __thiscall impl_1C(char* unk1, char* unk2, int32_t unk3, int32_t unk4); //0x1C
+    void __thiscall impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4); //0x1C
+    bool __thiscall impl_24(char *unk1); //0x24
 
     inline void vir_00() {
         static_cast<unk_613330_vTable*>(vtable)->vir_00(this);
     }
-    inline void vir_04(){
-        static_cast<unk_613330_vTable*>(vtable)->vir_04(this);
+    inline void vir_04(char *destination, int32_t unk2, char *unk3, char *unk4){
+        static_cast<unk_613330_vTable*>(vtable)->vir_04(this, destination, unk2, unk3, unk4);
     }
     inline void vir_08(){
         static_cast<unk_613330_vTable*>(vtable)->vir_08(this);
@@ -63,17 +64,17 @@ public:
     inline void vir_18(){
         static_cast<unk_613330_vTable*>(vtable)->vir_18(this);
     }
-    inline void vir_1C(char* unk1, char* unk2, int32_t unk3, int32_t unk4){
-        (this->*static_cast<unk_613330_vTable*>(vtable)->vir_1C)(unk1, unk2, unk3, unk4);
+    inline void vir_1C(char* unk1, char* unk2, int32_t unk3, int32_t extension){
+        (this->*static_cast<unk_613330_vTable*>(vtable)->vir_1C)(unk1, unk2, unk3, extension);
     }
     inline void vir_20(){
         static_cast<unk_613330_vTable*>(vtable)->vir_20(this);
     }
-    inline void vir_24(){
-        static_cast<unk_613330_vTable*>(vtable)->vir_24(this);
+    inline bool vir_24(char *unk1){
+        return (this->*static_cast<unk_613330_vTable*>(vtable)->vir_24)(unk1);
     }
-    inline void vir_28(){
-        static_cast<unk_613330_vTable*>(vtable)->vir_28(this);
+    inline void vir_28(char *destination, char *unk2, char *extension){
+        static_cast<unk_613330_vTable*>(vtable)->vir_28(this, destination, unk2, extension);
     }
 };
 
