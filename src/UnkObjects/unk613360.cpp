@@ -32,7 +32,7 @@ static unk_613360::unk_613360_vTable unk_613360_vtable = {
     &unk_613330::impl_1C,
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613800),
     &unk_613330::impl_24,
-    MC2_PROC_MEMBER_PTR<void, unk_613330, char*, char*, char*>(0x00613520)
+    &unk_613330::impl_28
 };
 
 unk_613360::unk_613360(){

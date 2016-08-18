@@ -61,6 +61,8 @@ inline T(__thiscall *MC2_PROC_MEMBER_PTR(const std::uintptr_t address))(X *, Typ
 
 // Functions
 
+#define MC2_STRRCHR(s, c) ((MC2_PROC_PTR<char *, char *, char>(0x0061AB10))(s, c)) // Dont use
+#define sub_627145 (MC2_PROC_PTR<bool, const char *, const char *>(0x00627145)) // Very similar to strstr
 #define sub_61A5DC (MC2_PROC_PTR<uint32_t, char *>(0x0061A5DC))
 
 // Global Variables

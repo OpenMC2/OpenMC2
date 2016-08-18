@@ -18,6 +18,8 @@
 
 #include "unk613330.hpp"
 #include "../Logging.hpp"
+#include "../Game.hpp"
+#include <string>
 
 // mc2:0x00659B0C
 static unk_613330::unk_613330_vTable unk_613330_vtable = {
@@ -31,7 +33,7 @@ static unk_613330::unk_613330_vTable unk_613330_vtable = {
     &unk_613330::impl_1C,
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613800),
     &unk_613330::impl_24,
-    MC2_PROC_MEMBER_PTR<void, unk_613330, char*, char*, char*>(0x00613520)
+    &unk_613330::impl_28
 };
 
 unk_613330::unk_613330() : vtable(&unk_613330_vtable) {
@@ -58,4 +60,19 @@ bool unk_613330::impl_24(char *unk1) {
         return false;
 
     return true;
+}
+
+// mc2: 0x00613520
+void unk_613330::impl_28(char *destination, char *unk2, char *extension) {
+    strcat_s(destination, 256, unk2);
+    char *extension_loc = strrchr(destination, '.');
+    if (extension_loc != nullptr) {
+        if (*extension == 0)
+            return;
+
+        if (sub_627145(extension_loc + 1, extension) == 0)
+            return;
+    }
+    strcat_s(destination, 256, ".");
+    strcat_s(destination, 256, extension);
 }

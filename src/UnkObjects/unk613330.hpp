@@ -33,7 +33,7 @@ public:
         void (__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, int32_t unk3, int32_t unk4);
         void (__thiscall *vir_20)(unk_613330 *);
         bool (__thiscall unk_613330::* vir_24)(char *unk1);
-        void (__thiscall *vir_28)(unk_613330 *, char *destination, char *unk2, char *extension);
+        void (__thiscall unk_613330::* vir_28)(char *destination, char *unk2, char *extension);
     };
 protected:
     void *vtable;
@@ -42,6 +42,7 @@ public:
     
     void __thiscall impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4); //0x1C
     bool __thiscall impl_24(char *unk1); //0x24
+    void __thiscall impl_28(char *destination, char *unk2, char *extension); //0x28
 
     inline void vir_00() {
         static_cast<unk_613330_vTable*>(vtable)->vir_00(this);
@@ -74,7 +75,7 @@ public:
         return (this->*static_cast<unk_613330_vTable*>(vtable)->vir_24)(unk1);
     }
     inline void vir_28(char *destination, char *unk2, char *extension){
-        static_cast<unk_613330_vTable*>(vtable)->vir_28(this, destination, unk2, extension);
+        (this->*static_cast<unk_613330_vTable*>(vtable)->vir_28)(destination, unk2, extension);
     }
 };
 

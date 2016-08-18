@@ -34,7 +34,7 @@ public:
         void (__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, int32_t unk3, int32_t unk4);
         void (__thiscall *vir_20)(unk_613330 *);
         bool (__thiscall unk_613330::* vir_24)(char *unk1);
-        void (__thiscall *vir_28)(unk_613330 *, char*, char*, char*);
+        void (__thiscall unk_613330::* vir_28)(char *destination, char *unk2, char *extension);
     };
 private:
     std::uint8_t unk04[0x100];
