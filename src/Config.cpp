@@ -24,6 +24,9 @@
 #include <Shobjidl.h>
 #include <Windows.h>
 
+#include <BinkStub.hpp>
+#include <MssStub.hpp>
+
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/property_tree/info_parser.hpp>
@@ -145,6 +148,9 @@ void load_config() {
 
     // This should be set via the debug options, but that doesn't work correctly as-is.
     boost::filesystem::current_path(gamepath);
+
+    BinkStubInit(gamepath / "binkw32.dll");
+    MssStubInit(gamepath / "mss32.dll");
 
     glo_windowed_mode = config.get<bool>("window");
 }

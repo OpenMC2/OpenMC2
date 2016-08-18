@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build;CopyExe" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Target Name="CopyExe">
-    <Copy SourceFiles="OpenMC2.exe" DestinationFolder="$(OutDir)" />
-  </Target>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{62DC3335-9128-4AFE-B11A-743AC0AB25D5}</ProjectGuid>
+    <ProjectGuid>{A92E17AE-EECF-4A7A-9A7F-C62C4CC3CE2A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>OpenMC2</RootNamespace>
+    <RootNamespace>MssStub</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -47,9 +44,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <TargetName>mssSB</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>mssSB</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -57,16 +56,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>BOOST_AUTO_LINK_TAGGED;WIN32;_DEBUG;_WINDOWS;_USRDLL;OPENMC2_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>STUB_SYMBOL_FILE="MssStub/MssSymbols.ipp";BOOST_AUTO_LINK_TAGGED;WIN32;_DEBUG;_WINDOWS;_USRDLL;MSSSTUB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\libs\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>libs\include;Stubs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>libs\lib;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>binkwSB.lib;mssSB.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\libs\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -77,49 +75,27 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>BOOST_AUTO_LINK_TAGGED;WIN32;NDEBUG;_WINDOWS;_USRDLL;OPENMC2_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>STUB_SYMBOL_FILE="MssStub/MssSymbols.ipp";BOOST_AUTO_LINK_TAGGED;WIN32;NDEBUG;_WINDOWS;_USRDLL;MSSSTUB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\libs\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>libs\include;Stubs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>libs\lib;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>binkwSB.lib;mssSB.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\libs\lib</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>
-      </Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Config.cpp" />
-    <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\Logging.cpp" />
-    <ClCompile Include="src\OpenMC2.cpp" />
-    <ClCompile Include="src\CommandLine.cpp" />
-    <ClCompile Include="src\UnkObjects\unk5769E0.cpp" />
-    <ClCompile Include="src\UnkObjects\unk8600F8.cpp" />
-    <ClCompile Include="src\UnkObjects\unk86D28C.cpp" />
+    <ClCompile Include="..\Stub.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Addresses.hpp" />
-    <ClInclude Include="src\CommandLine.hpp" />
-    <ClInclude Include="src\Config.hpp" />
-    <ClInclude Include="src\Game.hpp" />
-    <ClInclude Include="src\Logging.hpp" />
-    <ClInclude Include="src\UnkObjects\unk402560.hpp" />
-    <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
-    <ClInclude Include="src\UnkObjects\unk600960.hpp" />
-    <ClInclude Include="src\UnkObjects\unk613360.hpp" />
-    <ClInclude Include="src\UnkObjects\unk6C2E88.hpp" />
-    <ClInclude Include="src\UnkObjects\unk6C3250.hpp" />
-    <ClInclude Include="src\UnkObjects\unk6C3890.hpp" />
-    <ClInclude Include="src\UnkObjects\unk8600F8.hpp" />
-    <ClInclude Include="src\UnkObjects\unk86D28C.hpp" />
+    <ClInclude Include="..\MssStub.hpp" />
+    <ClInclude Include="MssSymbols.ipp">
+      <FileType>CppHeader</FileType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
