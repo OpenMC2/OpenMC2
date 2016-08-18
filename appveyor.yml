@@ -4,7 +4,7 @@ build:
   project: OpenMC2.sln
   verbosity: minimal
 after_build:
-- cmd: 7z a OpenMC2.zip .\Release\OpenMC2.exe .\Release\OpenMC2.dll .\Release\binkw32.dll .\Release\mss32.dll
+- cmd: 7z a OpenMC2.zip .\Release\OpenMC2.exe .\Release\OpenMC2.dll .\Release\binkwSB.dll .\Release\mssSB.dll
 artifacts:
 - path: OpenMC2.zip
   name: zip archive
