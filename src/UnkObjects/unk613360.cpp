@@ -25,7 +25,7 @@ static unk_613360::unk_613360_vTable unk_613360_vtable = {
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005ED480),
     &unk_613360::impl_04,
     MC2_PROC_MEMBER_PTR<void, unk_613360>(0x00613380),
-    MC2_PROC_MEMBER_PTR<void, unk_613360>(0x00613470),
+    &unk_613360::impl_0C,
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005CA940),
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00406990),
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613770),
@@ -59,4 +59,9 @@ void unk_613360::impl_04(char *destination, int32_t unk2, char *unk3, char *exte
 
     safe_strncpy(destination, path, 256);
     vir_28(destination, unk3, extension);
+}
+
+//mc2:0x00613470
+void unk_613360::impl_0C() {
+    this->unk104--;
 }
