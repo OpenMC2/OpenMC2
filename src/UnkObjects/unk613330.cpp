@@ -43,7 +43,7 @@ void unk_613330::impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4) {
     char unk5[256];
     vir_04(unk5, 256, unk1, unk2);
 
-    (MC2_PROC_PTR<void, char *, int32_t>(0x00617C40))(unk5, unk3);
+    (MC2_PROC_PTR<void, char *, int32_t>(0x00617C40))(unk5, unk4);
 }
 
 // mc2: 0x006134F0
