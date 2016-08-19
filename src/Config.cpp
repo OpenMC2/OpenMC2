@@ -20,9 +20,9 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <comdef.h>
-#include <Shlobj.h>
-#include <Shobjidl.h>
-#include <Windows.h>
+#include <shlobj.h>
+#include <shobjidl.h>
+#include <windows.h>
 
 #include <BinkStub.hpp>
 #include <MssStub.hpp>

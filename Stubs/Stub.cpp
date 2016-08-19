@@ -21,7 +21,7 @@
 #undef STUB_SYMBOL
 
 #define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+#include <windows.h>
 #include <boost/dll/shared_library.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/preprocessor.hpp>
