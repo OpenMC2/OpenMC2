@@ -49,6 +49,26 @@ static boost::filesystem::path get_documents_path() {
     return path;
 }
 
+constexpr const char *default_paths[] = {
+    ".",
+    "C:\\Program Files\\Steam\\steamapps\\common\\Midnight Club 2",
+    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Midnight Club 2",
+    "C:\\Program Files\\Rockstar Games\\Midnight Club II",
+    "C:\\Program Files (x86)\\Rockstar Games\\Midnight Club II",
+    "C:\\Program Files\\Midnight Club 2",
+    "C:\\Program Files (x86)\\Midnight Club 2",
+};
+
+boost::filesystem::path try_default_paths() {
+    for (const char *path : default_paths) {
+        boost::filesystem::path folder(path);
+        if (boost::filesystem::is_directory(folder) &&
+            boost::filesystem::is_regular_file(folder / "assets_p.dat"))
+            return folder;
+    }
+    return boost::filesystem::path();
+}
+
 constexpr LPCWSTR InfoBoxTitle = L"OpenMC2";
 constexpr LPCWSTR InfoBoxMessage = L"\
 OpenMC2 requires Midnight Club 2 to be installed to work.\n\
@@ -141,7 +161,8 @@ void load_config() {
 
     boost::filesystem::path gamepath = config.get<boost::filesystem::path>("gamepath", config_tree_path_translator);
     if (gamepath.empty()) {
-        gamepath = ask_game_path();
+        gamepath = try_default_paths();
+        if (gamepath.empty()) gamepath = ask_game_path();
         config.put("gamepath", gamepath, config_tree_path_translator);
         boost::property_tree::write_info(path.string(), config);
     }
