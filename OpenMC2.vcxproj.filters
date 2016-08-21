@@ -54,6 +54,9 @@
     <ClCompile Include="src\UnkObjects\unk613360.cpp">
       <Filter>Source Files\UnkObjects</Filter>
     </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk616420.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
@@ -105,6 +108,9 @@
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\UnkObjects\unk613330.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk616420.hpp">
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
   </ItemGroup>
