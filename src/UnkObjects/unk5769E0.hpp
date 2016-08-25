@@ -73,4 +73,4 @@ public:
 #define glo_6C5254 (MC2_GLOBAL<bool>(0x006C5254))
 #define global_primary_unk5769E0 (MC2_GLOBAL<unk_5769E0 *>(0x006C5258)) // glo_6C5258
 
-#define loc_6C524C (MC2_POINTER<int32_t>(0x006C524C))
+#define glo_6C524C (MC2_GLOBAL<int32_t>(0x006C524C))

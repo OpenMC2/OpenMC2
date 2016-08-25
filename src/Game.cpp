@@ -34,24 +34,24 @@
 #include "UnkObjects/unk8600F8.hpp"
 #include "config.hpp"
 
-static void sub_612A80(const char *args) {
+static void sub_612A80(char *args) {
     glo_8600F0 = 0;
     glo_8600EC = nullptr;
-    char *esi = (char*)args;
-    if (*esi != 0) {
-        esi = (char*)std::strchr(args, ' ');
+    char *esi = args;
+    if (*esi != '\0') {
+        esi = std::strchr(args, ' ');
         if (esi == nullptr) {
             glo_8600F8.loc_611DC0();
             return;
         }
     }
 
-    if (*esi == 0) {
+    if (*esi == '\0') {
         glo_8600F8.loc_611DC0();
         return;
     }
 
-    *esi = 0;
+    *esi = '\0';
     glo_8600EC = (char**)MC2_MALLOC(4);
 
     uint32_t length = strlen(args);
@@ -60,19 +60,19 @@ static void sub_612A80(const char *args) {
     *esi = ' ';
     esi++;
 
-    if (*esi == 0) {
+    if (*esi == '\0') {
         glo_8600F8.loc_611DC0();
         return;
     }
 
-    for (char *cur = esi; *cur != 0; ++cur) {
+    for (char *cur = esi; *cur != '\0'; ++cur) {
         if (*cur != '-')
             continue;
 
         glo_8600F0++;
 
         char *nextSeperator = cur;
-        while (*nextSeperator != 0) {
+        while (*nextSeperator != '\0') {
             if (*nextSeperator == ' ')
                 break;
             if (*nextSeperator == '=')
@@ -81,8 +81,8 @@ static void sub_612A80(const char *args) {
         }
         char *key = cur + 1;
         char *value_str = cur;
-        if (*nextSeperator != 0) {
-            *nextSeperator = 0;
+        if (*nextSeperator != '\0') {
+            *nextSeperator = '\0';
             value_str = nextSeperator + 1;
         }
         unk_612150 *value = glo_8600F8.sub_6124A0(key);
@@ -104,7 +104,7 @@ static void sub_612A80(const char *args) {
         }
 
         nextSeperator = value_str;
-        if (*nextSeperator != 0) {
+        if (*nextSeperator != '\0') {
             while (*nextSeperator != '-') {
                 value->count++;
                 if (*nextSeperator == 0)
@@ -117,9 +117,9 @@ static void sub_612A80(const char *args) {
                     if (*nextSeperator == ' ')
                         break;
 
-                } while (*nextSeperator++ != 0);
+                } while (*nextSeperator++ != '\0');
 
-                if (*nextSeperator == 0)
+                if (*nextSeperator == '\0')
                     break;
 
                 do {
@@ -129,7 +129,7 @@ static void sub_612A80(const char *args) {
                     if (*nextSeperator != ' ')
                         break;
 
-                } while (*nextSeperator++ != 0);
+                } while (*nextSeperator++ != '\0');
             }
         }
         
@@ -145,15 +145,15 @@ static void sub_612A80(const char *args) {
         uint32_t values_index = 0;
         do {
             char *cur_value_str = value_str;
-            if (*value_str != 0) {
+            if (*value_str != '\0') {
 
                 do {
                     if (*value_str == ' ')
                         break;
-                } while (*value_str++ != 0);
+                } while (*value_str++ != '\0');
 
-                if (*value_str != 0) {
-                    *value_str++ = 0;
+                if (*value_str != '\0') {
+                    *value_str++ = '\0';
                 }
             }
             
@@ -388,10 +388,10 @@ bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value
 }
 
 void sub_5ECBE0() {
-    if (glo_6754C4 != MC2_PROC_PTR<void>(0x005ECB90)) {
+    if (glo_6754C4 != sub_5ECB90) {
         mc2_log_C("Installed bink gfxLoadImage support");
         glo_858328 = glo_6754C4;
-        glo_6754C4 = MC2_PROC_PTR<void>(0x005ECB90);
+        glo_6754C4 = sub_5ECB90;
     }
 }
 
@@ -414,7 +414,6 @@ int sub_401190() {
     sub_6134D0(gamePath);
     glo_6C3250.sub_53B6A0();
     sub_5ED7B0(glo_6C3250.get_unk44(), glo_6C3250.get_unk48(), glo_6C3250.get_unk4C(), 32, 0);
-    glo_windowed_mode = 1; // Added to force window mode whilst developing
     sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;
     std::memcpy(loc_692E20, glo_679810, 10 * sizeof(void *));

@@ -75,7 +75,7 @@ void unk_5769E0::sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8
 
     if (sub_612E10("allocid") != 0) {
         glo_6C5254 = true;
-        sub_612E30("allocid", 0, loc_6C524C);
+        sub_612E30("allocid", 0, &glo_6C524C);
     }
 
     unk0C = b;

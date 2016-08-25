@@ -38,27 +38,21 @@ unk_612150 *unk_8600F8::sub_6124A0(const char *a) {
         return nullptr;
     }
 
-    hash_map_entry *edi = this->entries[index];
+    hash_map_entry *entry = this->entries[index];
     
-    while (1) {
-        char *entryName = edi->name;
+    while (entry != nullptr) {
+        char *entryName = entry->name;
 
         const char* a_p = a;
-        while (1) {
-            if (*a_p != *entryName) {
-                break;
-            }
+        while (*a_p == *entryName) {
 
-            if (*entryName == 0) {
-                return edi->value;
+            if (*entryName == '\0') {
+                return entry->value;
             }
             entryName++;
             a_p++;
         }
-        edi = edi->next;
-
-        if (edi == nullptr)
-            return nullptr;
+        entry = entry->next;
     }
     return nullptr;
 }
@@ -71,7 +65,7 @@ uint32_t unk_8600F8::get_entry_index(const char *a) {
     }
 
     uint32_t hash = 0;
-    for (; *a != 0; ++a) {
+    for (; *a != '\0'; ++a) {
         hash <<= 4;
         hash += *a;
         if (hash & 0xF0000000) {
@@ -86,27 +80,20 @@ bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
 
     if (this->entries[index] != NULL) {
         hash_map_entry *inital_entry = this->entries[index];
-        hash_map_entry *edi = inital_entry;
+        hash_map_entry *entry = inital_entry;
 
-        while (1) {
-            char *entryName = edi->name;
+        while (entry != nullptr) {
+            char *entryName = entry->name;
 
             const char *a_p = a;
-            while (1) {
-                if (*a_p != *entryName) {
-                    break;
-                }
-
-                if (*entryName == 0) {
+            while (*a_p == *entryName) {
+                if (*entryName == '\0') {
                     return false;
                 }
                 entryName++;
                 a_p++;
             }
-            edi = edi->next;
-
-            if (edi == nullptr)
-                break;
+            entry = entry->next;
         }
     }
 
