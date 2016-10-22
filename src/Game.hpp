@@ -39,7 +39,6 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define sub_5ECB90 (MC2_PROC_PTR<void>(0x005ECB90))
 #define sub_5ED220 (MC2_PROC_PTR<void>(0x005ED220))
 #define sub_5ED240 (MC2_PROC_PTR<void, const char *, std::uint32_t, std::uint32_t>(0x005ED240))
-#define sub_5ED7B0 (MC2_PROC_PTR<void, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t>(0x005ED7B0))
 #define sub_5EDA50 (MC2_PROC_PTR<void, const char *>(0x005EDA50))
 #define sub_5F0BC0 (MC2_PROC_PTR<void>(0x005F0BC0))
 #define sub_5F12F0 (MC2_PROC_PTR<bool>(0x005F12F0))
@@ -56,7 +55,7 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 
 #define global_texture_dir_name (MC2_GLOBAL<const char *>(0x006754AC))
 #define global_mod_dir_name (MC2_GLOBAL<const char *>(0x00675518))
-
+#define glo_675030 (MC2_GLOBAL<std::uint32_t>)(0x00675030)
 #define glo_679810 (MC2_GLOBAL<void **>(0x00679810))
 #define glo_692E1C (MC2_GLOBAL<void *>(0x00692E1C))
 #define global_LanguageID (MC2_GLOBAL<std::uint32_t>(0x006C2C5C))
@@ -68,6 +67,11 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define loc_6C3690 (MC2_POINTER<char>(0x006C3690)) // size: 0x200
 
 #define global_hWnd (MC2_GLOBAL<HWND>(0x00858364))
+#define glo_858373 (MC2_GLOBAL<std::uint8_t>)(0x00858373)
+#define glo_858374 (MC2_GLOBAL<std::uint8_t>)(0x00858374)
+#define glo_858375 (MC2_GLOBAL<std::uint8_t>)(0x00858375)
+#define glo_858376 (MC2_GLOBAL<std::uint8_t>)(0x00858376)
+#define glo_858377 (MC2_GLOBAL<std::uint8_t>)(0x00858377)
 #define glo_85837C (MC2_GLOBAL<std::uint32_t>(0x0085837C))
 #define glo_8602D4 (MC2_GLOBAL<std::uint8_t>(0x008602D4))
 #define glo_86D8A8 (MC2_GLOBAL<std::uint32_t>(0x0086D8A8))

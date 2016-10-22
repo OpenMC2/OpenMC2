@@ -35,6 +35,8 @@
 #include "UnkObjects/unk6C3890.hpp"
 #include "UnkObjects/unk8600F8.hpp"
 
+void sub_5ED7B0(uint32_t unk1, uint32_t unk2, uint32_t unk3, uint32_t unk4, uint32_t unk5);
+
 static void sub_612A80(char *args) {
     glo_8600F0 = 0;
     glo_8600EC = nullptr;
@@ -410,6 +412,40 @@ void sub_5ECBE0() {
         glo_858328 = glo_6754C4;
         glo_6754C4 = &sub_5ECB90;
     }
+}
+
+void sub_5ED7B0(uint32_t unk1, uint32_t unk2, uint32_t unk3, uint32_t unk4, uint32_t unk5) {
+	if (sub_612E10("ref")) {
+		glo_858373 = 1;
+		glo_858374 = 1;
+	}
+	else if (sub_612E10("blade") || sub_612E10("bladed")) {
+		glo_858376 = 1;
+		glo_858374 = 1;
+	}
+	else if (sub_612E10("swage")) {
+		glo_858375 = 1;
+		glo_858374 = 1;
+	}
+	else if (sub_612E10("sw")) {
+		glo_858374 = 1;
+	}
+	
+	if (sub_612E10("sysmem")) {
+		glo_858377 = 1;
+	}
+
+	if (sub_612E10("novblank")) {
+		glo_675030 = 0;
+	}
+
+	if (sub_612E10("window")) {
+		glo_windowed_mode = 1;
+	}
+	else if (sub_612E10("fs") || sub_612E10("fullscreen")) {
+		glo_windowed_mode = 0;
+	}
+	//5ed89b
 }
 
 // mc2: 0x00401190
