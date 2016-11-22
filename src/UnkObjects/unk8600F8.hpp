@@ -33,6 +33,12 @@ struct hash_map_entry {
     hash_map_entry *next;
 };
 
+struct index_hash_map_entry {
+	uint32_t index;
+	char *name;
+	unk_612150 *value;
+};
+
 class unk_8600F8 {
 private:
     std::uint8_t pad00[0x2];
@@ -60,13 +66,13 @@ public:
         MC2_PROC_MEMBER<void>(0x006125A0, this, new_max_entries);
     }
 
-    bool sub_611FE0(uint32_t *eax);
+    bool sub_611FE0(index_hash_map_entry *eax);
 
     inline void sub_612050() {
         MC2_PROC_MEMBER<void>(0x00612050, this);
     }
 
-    bool sub_612020(uint32_t *eax);
+    bool sub_612020(index_hash_map_entry *eax);
 
     hash_map_entry *unk_8600F8::sub_611F60(int32_t unk);
 };

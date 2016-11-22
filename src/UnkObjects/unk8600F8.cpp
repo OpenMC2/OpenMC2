@@ -60,7 +60,7 @@ unk_612150 *unk_8600F8::sub_6124A0(const char *a) {
 // mc2: 0x00611E70
 uint32_t unk_8600F8::get_entry_index(const char *a) {
     if (this->entries == nullptr) {
-        this->entries = (hash_map_entry**)MC2_MALLOC(this->max_entries * 4);
+        this->entries = new(MC2_MALLOC(this->max_entries * 4)) hash_map_entry*;
         std::memset(this->entries, 0, this->max_entries * 4);
     }
 
@@ -103,7 +103,7 @@ bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
         return true;
     }
 
-    hash_map_entry *newEntry = (hash_map_entry*)MC2_MALLOC(sizeof(hash_map_entry));
+    hash_map_entry *newEntry = new(MC2_MALLOC(sizeof(hash_map_entry))) hash_map_entry;
     if (newEntry != nullptr) {
         newEntry->name = MC2_STRDUP(a);
         newEntry->value = b;
@@ -130,7 +130,7 @@ bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
     return true;
 }
 
-bool unk_8600F8::sub_611FE0(uint32_t *eax) {
+bool unk_8600F8::sub_611FE0(index_hash_map_entry *index_entry) {
     if (this->entries == nullptr)
         return false;
 
@@ -139,9 +139,9 @@ bool unk_8600F8::sub_611FE0(uint32_t *eax) {
     if (entry == nullptr)
         return false;
 
-    eax[0] = 0;
-    eax[1] = (uint32_t)entry->name;
-    eax[2] = (uint32_t)entry->value;
+    index_entry->index = 0;
+    index_entry->name = entry->name;
+    index_entry->value = entry->value;
     return true;
 }
 
@@ -195,15 +195,15 @@ hash_map_entry *unk_8600F8::sub_611F60(int32_t entryIndex) {
     return entry;
 }
 
-bool unk_8600F8::sub_612020(uint32_t *eax) {
-    hash_map_entry *entry = sub_611F60(eax[0] + 1);
+bool unk_8600F8::sub_612020(index_hash_map_entry *index_entry) {
+    hash_map_entry *entry = sub_611F60(index_entry->index + 1);
 
     if (entry == nullptr)
         return false;
 
-    eax[0]++;
-    eax[1] = (uint32_t)entry->name;
-    eax[2] = (uint32_t)entry->value;
+    index_entry->index++;
+    index_entry->name = entry->name;
+    index_entry->value = entry->value;
     return true;
 }
 

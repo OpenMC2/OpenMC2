@@ -92,7 +92,7 @@ static void sub_612A80(char *args) {
             continue;
         }
 
-        value = (unk_612150*)MC2_MALLOC(sizeof(unk_612150));
+        value = new(MC2_MALLOC(sizeof(unk_612150))) unk_612150;
 
         if (value != nullptr) {
             value->count = 0;
@@ -167,14 +167,14 @@ static void sub_612A80(char *args) {
 }
 
 void sub_612F00() {
-    uint32_t eax[3];
-    if (glo_8600F8.sub_611FE0(eax) == false) {
+    index_hash_map_entry index_entry;
+    if (glo_8600F8.sub_611FE0(&index_entry) == false) {
         glo_8600F8.sub_612050();
         return;
     }
 
     do {
-        unk_612150 *value = (unk_612150*)eax[2];
+        unk_612150 *value = index_entry.value;
         if (value != nullptr) {
             if (value->count != 0) {
                 for (uint32_t i = 0; i < value->count; ++i) {
@@ -186,7 +186,7 @@ void sub_612F00() {
             MC2_FREE(value->args);
             MC2_FREE(value);
         }
-    } while (glo_8600F8.sub_612020(eax));
+    } while (glo_8600F8.sub_612020(&index_entry));
     glo_8600F8.sub_612050();
 }
 
