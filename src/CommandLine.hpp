@@ -64,8 +64,6 @@ void print_help();
 
 void sub_612910(std::int32_t argc, char **argv);
 
-#define sub_612A80 (MC2_PROC_PTR<void, char *>(0x00612A80))
-
 #define global_cmdline (MC2_GLOBAL<cmdline_info *>(0x00860110)) // glo_860110
 #define global_exe_name (MC2_GLOBAL<char *>(0x00860114)) // glo_860114
 #define global_help_has_printed (MC2_GLOBAL<bool>(0x00860118)) // glo_860118

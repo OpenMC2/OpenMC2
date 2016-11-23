@@ -27,22 +27,58 @@ struct unk_612150 {
     char **args;
 };
 
+struct hash_map_entry {
+    char *name;
+    unk_612150 *value;
+    hash_map_entry *next;
+};
+
+struct index_hash_map_entry {
+	uint32_t index;
+	char *name;
+	unk_612150 *value;
+};
+
 class unk_8600F8 {
 private:
-    std::uint8_t pad00[0x14];
+    std::uint8_t pad00[0x2];
+    std::uint8_t unk02;
+    std::uint8_t unk03;
+    std::uint8_t pad04[0x4];
+    std::uint32_t max_entries;  // 0x08
+    std::uint32_t num_entries;  // 0x0C
+    hash_map_entry **entries;    // 0x10
     unk_8600F8 *unk14;
 
 public:
     void loc_611DC0();
 
-    inline void sub_612150(const char *a, unk_612150 *b) {
-        MC2_PROC_MEMBER<void>(0x00612150, this, a, b);
+    inline hash_map_entry *sub_611DF0(const char *a, unk_612150 *b, hash_map_entry *unk_loc) {
+        return MC2_PROC_MEMBER<hash_map_entry*>(0x00611DF0, this, a, b, unk_loc);
     }
 
-    inline std::int32_t sub_6124A0(const char *a) {
-        return MC2_PROC_MEMBER<std::int32_t>(0x006124A0, this, a);
+    bool sub_612150(const char *a, unk_612150 *b);
+    // mc2: 0x00611E70
+    uint32_t get_entry_index(const char *a);
+    unk_612150* sub_6124A0(const char *a);
+
+    inline void sub_6125A0(uint32_t new_max_entries) {
+        MC2_PROC_MEMBER<void>(0x006125A0, this, new_max_entries);
     }
+
+    bool sub_611FE0(index_hash_map_entry *eax);
+
+    inline void sub_612050() {
+        MC2_PROC_MEMBER<void>(0x00612050, this);
+    }
+
+    bool sub_612020(index_hash_map_entry *eax);
+
+    hash_map_entry *unk_8600F8::sub_611F60(int32_t unk);
 };
+
+bool sub_612E10(const char *key);
+bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value);
 
 #define glo_8600E8 (MC2_GLOBAL<unk_8600F8 *>(0x008600E8))
 #define glo_8600F8 (MC2_GLOBAL<unk_8600F8>(0x008600F8))

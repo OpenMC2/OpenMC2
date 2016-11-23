@@ -133,7 +133,7 @@ void sub_612910(std::int32_t argc, char **argv) {
             for (std::uint32_t j = 0; j < y->count; ++j) {
                 y->args[j] = MC2_STRDUP(argv[i + j]);
             }
-            i = x;
+            i = x - 1;
             continue;
         }
     }

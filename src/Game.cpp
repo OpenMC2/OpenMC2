@@ -31,6 +31,164 @@
 #include "UnkObjects/unk6C2E88.hpp"
 #include "UnkObjects/unk6C3250.hpp"
 #include "UnkObjects/unk6C3890.hpp"
+#include "UnkObjects/unk8600F8.hpp"
+#include "config.hpp"
+
+static void sub_612A80(char *args) {
+    glo_8600F0 = 0;
+    glo_8600EC = nullptr;
+    char *esi = args;
+    if (*esi != '\0') {
+        esi = std::strchr(args, ' ');
+        if (esi == nullptr) {
+            glo_8600F8.loc_611DC0();
+            return;
+        }
+    }
+
+    if (*esi == '\0') {
+        glo_8600F8.loc_611DC0();
+        return;
+    }
+
+    *esi = '\0';
+    glo_8600EC = (char**)MC2_MALLOC(4);
+
+    uint32_t length = strlen(args);
+    *glo_8600EC = MC2_STRDUP(args);
+
+    *esi = ' ';
+    esi++;
+
+    if (*esi == '\0') {
+        glo_8600F8.loc_611DC0();
+        return;
+    }
+
+    for (char *cur = esi; *cur != '\0'; ++cur) {
+        if (*cur != '-')
+            continue;
+
+        glo_8600F0++;
+
+        char *nextSeperator = cur;
+        while (*nextSeperator != '\0') {
+            if (*nextSeperator == ' ')
+                break;
+            if (*nextSeperator == '=')
+                break;
+            nextSeperator++;
+        }
+        char *key = cur + 1;
+        char *value_str = cur;
+        if (*nextSeperator != '\0') {
+            *nextSeperator = '\0';
+            value_str = nextSeperator + 1;
+        }
+        unk_612150 *value = glo_8600F8.sub_6124A0(key);
+
+        if (value != nullptr) {
+            cur = value_str;
+            continue;
+        }
+
+        value = new(MC2_MALLOC(sizeof(unk_612150))) unk_612150;
+
+        if (value != nullptr) {
+            value->count = 0;
+            value->args = nullptr;
+        }
+        if (value == nullptr) {
+            // The original code forces an access violation instead
+            mc2_log_fatal("MC2 MALLOC Failed");
+        }
+
+        nextSeperator = value_str;
+        if (*nextSeperator != '\0') {
+            while (*nextSeperator != '-') {
+                value->count++;
+                if (*nextSeperator == 0)
+                    break;
+
+                do {
+                    if (*nextSeperator == '=')
+                        break;
+
+                    if (*nextSeperator == ' ')
+                        break;
+
+                } while (*nextSeperator++ != '\0');
+
+                if (*nextSeperator == '\0')
+                    break;
+
+                do {
+                    if (*nextSeperator == '=')
+                        break;
+
+                    if (*nextSeperator != ' ')
+                        break;
+
+                } while (*nextSeperator++ != '\0');
+            }
+        }
+        
+        cur = nextSeperator - 1;
+
+        glo_8600F8.sub_612150(key, value);
+
+        value->args = (char**)MC2_MALLOC(value->count * 4);
+
+        if (value->count == 0)
+            continue;
+
+        uint32_t values_index = 0;
+        do {
+            char *cur_value_str = value_str;
+            if (*value_str != '\0') {
+
+                do {
+                    if (*value_str == ' ')
+                        break;
+                } while (*value_str++ != '\0');
+
+                if (*value_str != '\0') {
+                    *value_str++ = '\0';
+                }
+            }
+            
+            value->args[values_index++] = MC2_STRDUP(cur_value_str);
+
+        } while (values_index < value->count);
+    }
+    
+    glo_8600F8.loc_611DC0();
+    return;
+}
+
+void sub_612F00() {
+    index_hash_map_entry index_entry;
+    if (glo_8600F8.sub_611FE0(&index_entry) == false) {
+        glo_8600F8.sub_612050();
+        return;
+    }
+
+    do {
+        unk_612150 *value = index_entry.value;
+        if (value != nullptr) {
+            if (value->count != 0) {
+                for (uint32_t i = 0; i < value->count; ++i) {
+                    MC2_FREE(value->args[i]);
+                }
+                value->count = 0;
+            }
+
+            MC2_FREE(value->args);
+            MC2_FREE(value);
+        }
+    } while (glo_8600F8.sub_612020(&index_entry));
+    glo_8600F8.sub_612050();
+}
 
 static void sub_53A890(const char *args) {
     sub_612C70(loc_6C3690);
@@ -75,9 +233,29 @@ void check_sku_version() {
 // mc2: 0x0053B9B0
 // Likely related to assets_p: /tune/hud/ntsc/
 void sub_53B9B0() {
-    if (sub_612E10("pc_480")) glo_66315C = 7; // 480 x 640
-    else if (sub_612E10("pc_720")) glo_66315C = 8; // 720 x 480
-    else glo_66315C = 0;
+    if (sub_612E10("pc_480")) glo_66315C = 7; // 480 x 720
+    else if (sub_612E10("pc_720")) glo_66315C = 8; // 720 x 1280
+    else glo_66315C = 0; // 480 x 640
+}
+
+void sub_53B9F0() {
+    int resolution[3][2] = {
+        {640, 480},
+        {720, 480},
+        {1280,720}
+    };
+
+    int index = 0;
+    switch (glo_66315C) {
+    case 7:
+        index = 1;
+        break;
+    case 8:
+        index = 2;
+        break;
+    }
+
+    sub_5ED7B0(resolution[index][0], resolution[index][1], 32, 32, 0);
 }
 
 constexpr const char *LanguageShortList[10] = {
@@ -193,6 +371,27 @@ void sub_6134D0(const char *var8) {
     if (destination[length - 1] != '\\') {
         destination[length] = '\\';
         destination[length + 1] = '\0';
+    }
+}
+
+bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value_arg) {
+    unk_612150 *value = glo_8600F8.sub_6124A0(key);
+
+    if (value == nullptr)
+        return false;
+
+    if (value_index >= value->count)
+        return false;
+
+    *value_arg = value->args[value_index];
+    return true;
+}
+
+void sub_5ECBE0() {
+    if (glo_6754C4 != sub_5ECB90) {
+        mc2_log_C("Installed bink gfxLoadImage support");
+        glo_858328 = glo_6754C4;
+        glo_6754C4 = sub_5ECB90;
     }
 }
 

@@ -57,16 +57,16 @@ inline T (*MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
 // Functions
 
 #define sub_5772E0 (MC2_PROC_PTR<void *, size_t, const char *, std::uint32_t>(0x005772E0))
-#define sub_612E10 (MC2_PROC_PTR<bool, char *>(0x00612E10))
-#define sub_612E30 (MC2_PROC_PTR<bool, char *, std::uint32_t, void *>(0x00612E30))
-#define sub_612F00 (MC2_PROC_PTR<void>(0x00612F00))
 #define sub_614A10 (MC2_PROC_PTR<char *, const char *, const char *, std::uint32_t>(0x00614A10))
-
+#define sub_577320 (MC2_PROC_PTR<void, void*>(0x00577320))
 #define MC2_MALLOC(size) (sub_5772E0(size, "OpenMC2:" __FILE__, __LINE__))
+#define MC2_FREE(ptr) (sub_577320(ptr))
 #define MC2_STRDUP(s) (sub_614A10(s, "OpenMC2:" __FILE__, __LINE__))
-
+#define sub_61A5DC (MC2_PROC_PTR<uint32_t, char *>(0x0061A5DC))
 // Global Variables
 
 #define glo_67A760 (MC2_GLOBAL<void *>(0x0067A760))
 #define loc_67A770 (MC2_POINTER<void>(0x0067A770))
 #define glo_682E18 (MC2_GLOBAL<bool>(0x00682E18))
+#define glo_8602C8 (MC2_GLOBAL<uint32_t>(0x008602C8))
+#define glo_679778 (MC2_GLOBAL<std::uint8_t>(0x00679778))
