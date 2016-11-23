@@ -59,7 +59,7 @@ constexpr const char *default_paths[] = {
     "C:\\Program Files (x86)\\Midnight Club 2",
 };
 
-boost::filesystem::path try_default_paths() {
+static boost::filesystem::path try_default_paths() {
     for (const char *path : default_paths) {
         boost::filesystem::path folder(path);
         if (boost::filesystem::is_directory(folder) &&

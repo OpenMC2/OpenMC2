@@ -48,12 +48,8 @@ void OpenMC2_Hooks() {
     MC2_GLOBAL<void (*)(LogLevels, const char *, va_list)>(0x00679880) = mc2_log_level_v;
 }
 
-extern "C" {
-    __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
-}
-
 // mc2: 0x00401010
-__declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+extern "C" __declspec(dllexport) int __stdcall StartOpenMC2(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     std::cout << "\n\n\tOpenMC2 Is On Its Way :D\n\n" << std::endl;
     OpenMC2_Hooks();
 

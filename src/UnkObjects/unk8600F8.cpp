@@ -18,6 +18,7 @@
 
 #include "unk8600F8.hpp"
 #include <string>
+#include <boost/lexical_cast.hpp>
 
 // Remove from Linked List?
 void unk_8600F8::loc_611DC0() {
@@ -34,26 +35,10 @@ unk_612150 *unk_8600F8::sub_6124A0(const char *a) {
 
     int index = get_entry_index(a);
     
-    if (this->entries[index] == nullptr) {
-        return nullptr;
+    for (hash_map_entry *entry = this->entries[index]; entry != nullptr; entry = entry->next) {
+        if (std::strcmp(entry->name, a) == 0) return entry->value;
     }
 
-    hash_map_entry *entry = this->entries[index];
-    
-    while (entry != nullptr) {
-        char *entryName = entry->name;
-
-        const char* a_p = a;
-        while (*a_p == *entryName) {
-
-            if (*entryName == '\0') {
-                return entry->value;
-            }
-            entryName++;
-            a_p++;
-        }
-        entry = entry->next;
-    }
     return nullptr;
 }
 
@@ -78,23 +63,8 @@ uint32_t unk_8600F8::get_entry_index(const char *a) {
 bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
     int index = get_entry_index(a);
 
-    if (this->entries[index] != NULL) {
-        hash_map_entry *inital_entry = this->entries[index];
-        hash_map_entry *entry = inital_entry;
-
-        while (entry != nullptr) {
-            char *entryName = entry->name;
-
-            const char *a_p = a;
-            while (*a_p == *entryName) {
-                if (*entryName == '\0') {
-                    return false;
-                }
-                entryName++;
-                a_p++;
-            }
-            entry = entry->next;
-        }
+    for (hash_map_entry *entry = this->entries[index]; entry != nullptr; entry = entry->next) {
+        if (std::strcmp(entry->name, a) == 0) return false;
     }
 
     if (this->unk02 != 0) {
@@ -130,7 +100,7 @@ bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
     return true;
 }
 
-bool unk_8600F8::sub_611FE0(index_hash_map_entry *index_entry) {
+bool unk_8600F8::sub_611FE0(indexed_map_entry *index_entry) {
     if (this->entries == nullptr)
         return false;
 
@@ -145,7 +115,7 @@ bool unk_8600F8::sub_611FE0(index_hash_map_entry *index_entry) {
     return true;
 }
 
-hash_map_entry *unk_8600F8::sub_611F60(int32_t entryIndex) {
+unk_8600F8::hash_map_entry *unk_8600F8::sub_611F60(int32_t entryIndex) {
     if (entryIndex == -1)
         return nullptr;
 
@@ -195,7 +165,7 @@ hash_map_entry *unk_8600F8::sub_611F60(int32_t entryIndex) {
     return entry;
 }
 
-bool unk_8600F8::sub_612020(index_hash_map_entry *index_entry) {
+bool unk_8600F8::sub_612020(indexed_map_entry *index_entry) {
     hash_map_entry *entry = sub_611F60(index_entry->index + 1);
 
     if (entry == nullptr)
@@ -215,12 +185,9 @@ bool sub_612E10(const char* key) {
 bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value) {
     unk_612150 *entry = glo_8600F8.sub_6124A0(key);
 
-    if (entry == nullptr)
+    if (entry == nullptr || index >= entry->count)
         return false;
 
-    if (index >= entry->count)
-        return false;
-
-    *decimal_value = sub_61A5DC(entry->args[index]);
+    *decimal_value = boost::lexical_cast<int32_t>(entry->args[index]);
     return true;
 }

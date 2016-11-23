@@ -46,7 +46,7 @@ static boost::dll::shared_library _dll;
 void __declspec(dllexport) INIT_FUNCTION(const boost::filesystem::path &path) {
     _dll.load(path);
 #define STUB_SYMBOL(S, X) \
-    _##S = _dll.get<std::uint32_t (__stdcall)(BOOST_PP_ENUM(BOOST_PP_DIV(X, 4), BOOST_PP_IDENTITY_N(std::uint32_t, 3), ))>(BOOST_PP_STRINGIZE(_##S##@X));
+    _##S = &_dll.get<std::uint32_t (__stdcall)(BOOST_PP_ENUM(BOOST_PP_DIV(X, 4), BOOST_PP_IDENTITY_N(std::uint32_t, 3), ))>(BOOST_PP_STRINGIZE(_##S##@X));
 #include STUB_SYMBOL_FILE
 #undef STUB_SYMBOL
 }

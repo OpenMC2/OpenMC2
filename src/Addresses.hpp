@@ -45,13 +45,13 @@ inline T MC2_PROC_MEMBER(const std::uintptr_t address, X *const self, Types... a
 }
 
 template<class T, class... Types>
-inline T (*MC2_PROC_PTR(const std::uintptr_t address))(Types...) {
-    return reinterpret_cast<T(__cdecl *)(Types...)>(address);
+inline T (&MC2_PROC_PTR(const std::uintptr_t address))(Types...) {
+    return *reinterpret_cast<T(__cdecl *)(Types...)>(address);
 }
 
 template<class T, class... Types>
-inline T (*MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
-    return reinterpret_cast<T(__cdecl *)(Types..., ...)>(address);
+inline T (&MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
+    return *reinterpret_cast<T(__cdecl *)(Types..., ...)>(address);
 }
 
 // Functions

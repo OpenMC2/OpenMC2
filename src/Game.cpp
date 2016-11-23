@@ -38,23 +38,15 @@ static void sub_612A80(char *args) {
     glo_8600F0 = 0;
     glo_8600EC = nullptr;
     char *esi = args;
-    if (*esi != '\0') {
-        esi = std::strchr(args, ' ');
-        if (esi == nullptr) {
-            glo_8600F8.loc_611DC0();
-            return;
-        }
-    }
 
-    if (*esi == '\0') {
+    esi = std::strchr(args, ' ');
+    if (esi == nullptr) {
         glo_8600F8.loc_611DC0();
         return;
     }
 
     *esi = '\0';
-    glo_8600EC = (char**)MC2_MALLOC(4);
-
-    uint32_t length = strlen(args);
+    glo_8600EC = new (MC2_MALLOC(sizeof(char**))) char *;
     *glo_8600EC = MC2_STRDUP(args);
 
     *esi = ' ';
@@ -105,31 +97,25 @@ static void sub_612A80(char *args) {
 
         nextSeperator = value_str;
         if (*nextSeperator != '\0') {
-            while (*nextSeperator != '-') {
+            while (*nextSeperator != '\0' && *nextSeperator != '-') {
                 value->count++;
                 if (*nextSeperator == 0)
                     break;
 
-                do {
+                bool has_space = false;
+                for (; true; ++nextSeperator) {
                     if (*nextSeperator == '=')
                         break;
 
                     if (*nextSeperator == ' ')
+                        has_space = true;
+                    else if (has_space)
                         break;
 
-                } while (*nextSeperator++ != '\0');
-
-                if (*nextSeperator == '\0')
-                    break;
-
-                do {
-                    if (*nextSeperator == '=')
+                    if (*nextSeperator == '\0')
                         break;
 
-                    if (*nextSeperator != ' ')
-                        break;
-
-                } while (*nextSeperator++ != '\0');
+                }
             }
         }
         
@@ -167,13 +153,9 @@ static void sub_612A80(char *args) {
 }
 
 void sub_612F00() {
-    index_hash_map_entry index_entry;
-    if (glo_8600F8.sub_611FE0(&index_entry) == false) {
-        glo_8600F8.sub_612050();
-        return;
-    }
+    unk_8600F8::indexed_map_entry index_entry;
 
-    do {
+    for (bool valid = glo_8600F8.sub_611FE0(&index_entry); valid; glo_8600F8.sub_612020(&index_entry)) {
         unk_612150 *value = index_entry.value;
         if (value != nullptr) {
             if (value->count != 0) {
@@ -186,7 +168,8 @@ void sub_612F00() {
             MC2_FREE(value->args);
             MC2_FREE(value);
         }
-    } while (glo_8600F8.sub_612020(&index_entry));
+    }
+
     glo_8600F8.sub_612050();
 }
 
@@ -239,23 +222,17 @@ void sub_53B9B0() {
 }
 
 void sub_53B9F0() {
-    int resolution[3][2] = {
-        {640, 480},
-        {720, 480},
-        {1280,720}
-    };
-
-    int index = 0;
     switch (glo_66315C) {
     case 7:
-        index = 1;
+        sub_5ED7B0(720, 480, 32, 32, 0);
         break;
     case 8:
-        index = 2;
+        sub_5ED7B0(1280, 720, 32, 32, 0);
+        break;
+    default:
+        sub_5ED7B0(640, 480, 32, 32, 0);
         break;
     }
-
-    sub_5ED7B0(resolution[index][0], resolution[index][1], 32, 32, 0);
 }
 
 constexpr const char *LanguageShortList[10] = {
@@ -377,10 +354,7 @@ void sub_6134D0(const char *var8) {
 bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value_arg) {
     unk_612150 *value = glo_8600F8.sub_6124A0(key);
 
-    if (value == nullptr)
-        return false;
-
-    if (value_index >= value->count)
+    if (value == nullptr || value_index >= value->count)
         return false;
 
     *value_arg = value->args[value_index];
@@ -388,10 +362,10 @@ bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value
 }
 
 void sub_5ECBE0() {
-    if (glo_6754C4 != sub_5ECB90) {
+    if (glo_6754C4 != &sub_5ECB90) {
         mc2_log_C("Installed bink gfxLoadImage support");
         glo_858328 = glo_6754C4;
-        glo_6754C4 = sub_5ECB90;
+        glo_6754C4 = &sub_5ECB90;
     }
 }
 
@@ -435,21 +409,19 @@ int sub_401190() {
         sub_4028E0();
         sub_404BF0();
 
-        std::uint32_t t;
-        if (sub_612E10("nofe")) t = 6;
-        else if (sub_612E10("carview")) t = 20;
-        else if (sub_612E10("raceed")) t = 19;
+        if (sub_612E10("nofe")) glo_6C3890->vir04(6);
+        else if (sub_612E10("carview")) glo_6C3890->vir04(20);
+        else if (sub_612E10("raceed")) glo_6C3890->vir04(19);
         else if (sub_612E10("movie")) {
             const char *var4 = "angel.imf";
             sub_612EB0("movie", 0, &var4);
             glo_6C2E88.sub_53ACB0(var4);
-            t = 15;
-        } else if (sub_612E10("skipintro") || glo_6C2C64 != 0) t = 11;
+            glo_6C3890->vir04(15);
+        } else if (sub_612E10("skipintro") || glo_6C2C64 != 0) glo_6C3890->vir04(11);
         else {
             glo_6C2E88.sub_53ACB0("rockstar.pss");
-            t = 15;
+            glo_6C3890->vir04(15);
         }
-        glo_6C3890->vir04(t);
 
         esi->sub_402120();
         sub_53A8F0();
