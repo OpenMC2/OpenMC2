@@ -117,19 +117,22 @@ static void sub_612A80(char *args) {
                     if (*nextSeperator == ' ')
                         break;
 
-                } while (*nextSeperator++ != '\0');
+                } while (*++nextSeperator != '\0');
 
                 if (*nextSeperator == '\0')
                     break;
 
                 do {
                     if (*nextSeperator == '=')
-                        break;
+                        continue;
 
                     if (*nextSeperator != ' ')
                         break;
 
-                } while (*nextSeperator++ != '\0');
+                } while (*++nextSeperator != '\0');
+
+                if (*nextSeperator == '\0')
+                    break;
             }
         }
         
