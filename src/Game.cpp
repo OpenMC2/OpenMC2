@@ -459,8 +459,7 @@ void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, i
 		glo_windowed_mode = 0;
 	}
 
-    // Note: this wouldn't actually work for setting these values
-    // unsure why it is being called.
+    // Use preset vars if available
     sub_612E30("width", 0, &width);
     sub_612E30("height", 0, &height);
     sub_612E30("cdepth", 0, &cdepth);
@@ -468,25 +467,20 @@ void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, i
 
     sub_5F5690();
 
-    int _height = 0;
     if (glo_858371 != 0) {
         width = GetSystemMetrics(SM_CXFULLSCREEN);
-        zdepth = GetSystemMetrics(SM_CYFULLSCREEN);
+        height = GetSystemMetrics(SM_CYFULLSCREEN);
         glo_858388 = 0;
         glo_85839C = 0;
-        _height = zdepth;
-    }
-    else {
-        _height = height;
     }
     
     glo_858377 = glo_858374;
     glo_674FB4 = cdepth;
     glo_674FB8 = zdepth;
     glo_674FAC = width;
-    glo_674FB0 = _height;
+    glo_674FB0 = height;
     glo_85FBC4 = width;
-    glo_85FBB0 = _height;
+    glo_85FBB0 = height;
     glo_8583B0 = static_cast<float>(width);
     glo_85838C = static_cast<float>(height);    
     glo_85FBDC = static_cast<float>(1.0 / width);
