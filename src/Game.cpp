@@ -35,7 +35,7 @@
 #include "UnkObjects/unk6C3890.hpp"
 #include "UnkObjects/unk8600F8.hpp"
 
-void sub_5ED7B0(uint32_t unk1, uint32_t unk2, uint32_t unk3, uint32_t unk4, uint32_t unk5);
+void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, int32_t unk5);
 
 static void sub_612A80(char *args) {
     glo_8600F0 = 0;
@@ -414,7 +414,20 @@ void sub_5ECBE0() {
     }
 }
 
-void sub_5ED7B0(uint32_t unk1, uint32_t unk2, uint32_t unk3, uint32_t unk4, uint32_t unk5) {
+void sub_5F5690() {
+    if (glo_85AE98 != 0) {
+        glo_85AE8C = 1;
+    }
+    else if (glo_85AE8C == 0) {
+        glo_6754A4 = 60;
+        glo_6754A8 = 0x3C888889;
+        return;
+    }
+    glo_6754A4 = 50;
+    glo_6754A8 = 0x3CA3D70A;
+}
+
+void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, int32_t unk5) {
 	if (sub_612E10("ref")) {
 		glo_858373 = 1;
 		glo_858374 = 1;
@@ -445,7 +458,39 @@ void sub_5ED7B0(uint32_t unk1, uint32_t unk2, uint32_t unk3, uint32_t unk4, uint
 	else if (sub_612E10("fs") || sub_612E10("fullscreen")) {
 		glo_windowed_mode = 0;
 	}
-	//5ed89b
+
+    // Note: this wouldn't actually work for setting these values
+    // unsure why it is being called.
+    sub_612E30("width", 0, &width);
+    sub_612E30("height", 0, &height);
+    sub_612E30("cdepth", 0, &cdepth);
+    sub_612E30("zdepth", 0, &zdepth);
+
+    sub_5F5690();
+
+    int _height = 0;
+    if (glo_858371 != 0) {
+        width = GetSystemMetrics(SM_CXFULLSCREEN);
+        zdepth = GetSystemMetrics(SM_CYFULLSCREEN);
+        glo_858388 = 0;
+        glo_85839C = 0;
+        _height = zdepth;
+    }
+    else {
+        _height = height;
+    }
+    
+    glo_858377 = glo_858374;
+    glo_674FB4 = cdepth;
+    glo_674FB8 = zdepth;
+    glo_674FAC = width;
+    glo_674FB0 = _height;
+    glo_85FBC4 = width;
+    glo_85FBB0 = _height;
+    glo_8583B0 = static_cast<float>(width);
+    glo_85838C = static_cast<float>(height);    
+    glo_85FBDC = static_cast<float>(1.0 / width);
+    glo_85FBE0 = static_cast<float>(1.0 / height);
 }
 
 // mc2: 0x00401190
