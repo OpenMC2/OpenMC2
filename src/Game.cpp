@@ -22,6 +22,7 @@
 #include <windows.h>
 #include <cstring>
 
+#include "Config.hpp"
 #include "CommandLine.hpp"
 #include "Logging.hpp"
 #include "Memory.hpp"
