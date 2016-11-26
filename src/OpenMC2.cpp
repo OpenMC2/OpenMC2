@@ -21,6 +21,7 @@
 #include "Config.hpp"
 #include "Game.hpp"
 #include "Logging.hpp"
+#include "Memory.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 
 #define WIN32_LEAN_AND_MEAN
@@ -44,8 +45,36 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     return TRUE;
 }
 
+// The template here adds compile-type checks to make sure
+// that hooked methods are hooked with compatible functions.
+template<class T, class... Types>
+static void Hook_x86(T (*__cdecl in)(Types...), T (*__cdecl out)(Types...)) {
+#pragma pack(push, 1)
+    struct x86_jump {
+        const std::uint8_t cmd = 0xE9;
+        std::uintptr_t addr;
+    };
+#pragma pack(pop)
+    static_assert(sizeof(x86_jump) == 5, "pragma pack failed");
+
+    x86_jump cmd;
+    cmd.addr = reinterpret_cast<std::uintptr_t>(out) - reinterpret_cast<std::uintptr_t>(in) - 5;
+    WriteProcessMemory(GetCurrentProcess(), in, &cmd, 5, nullptr);
+}
+
 void OpenMC2_Hooks() {
-    MC2_GLOBAL<void (*)(LogLevels, const char *, va_list)>(0x00679880) = mc2_log_level_v;
+    MC2_GLOBAL<void (*)(LogLevels, const char *, va_list)>(0x00679880) = &mc2_log_level_v;
+
+    Hook_x86(&hook_5772E0, &mc2_malloc_info);
+    Hook_x86(&hook_577320, &mc2_free);
+
+	Hook_x86(&hook_5772A0, &mc2_malloc);
+    Hook_x86(&hook_577350, &mc2_free);
+
+	Hook_x86(&hook_613EA0, &mc2_aligned_malloc);
+	Hook_x86(&hook_613EF0, &mc2_aligned_free);
+
+	Hook_x86(&hook_614A10, &mc2_strdup_info);
 }
 
 // mc2: 0x00401010

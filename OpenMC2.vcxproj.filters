@@ -45,6 +45,9 @@
     <ClCompile Include="src\Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Memory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
@@ -87,6 +90,9 @@
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\Config.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Memory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

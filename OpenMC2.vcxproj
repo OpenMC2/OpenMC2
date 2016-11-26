@@ -99,6 +99,7 @@
     <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Logging.cpp" />
+    <ClCompile Include="src\Memory.cpp" />
     <ClCompile Include="src\OpenMC2.cpp" />
     <ClCompile Include="src\CommandLine.cpp" />
     <ClCompile Include="src\UnkObjects\unk5769E0.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="src\Config.hpp" />
     <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\Logging.hpp" />
+    <ClInclude Include="src\Memory.hpp" />
     <ClInclude Include="src\UnkObjects\unk402560.hpp" />
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
     <ClInclude Include="src\UnkObjects\unk600960.hpp" />

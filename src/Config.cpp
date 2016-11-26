@@ -156,7 +156,7 @@ void load_config() {
         boost::property_tree::read_info(path.string(), config);
 
     if (!boost::filesystem::is_directory(path.parent_path()))
-        if (!boost::filesystem::create_directory(path.parent_path())) throw new std::exception();
+        if (!boost::filesystem::create_directory(path.parent_path())) throw std::exception();
     boost::property_tree::write_info(path.string(), config);
 
     boost::filesystem::path gamepath = config.get<boost::filesystem::path>("gamepath", config_tree_path_translator);

@@ -21,10 +21,10 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <cstring>
-#include <new>
 
 #include "CommandLine.hpp"
 #include "Logging.hpp"
+#include "Memory.hpp"
 #include "UnkObjects/unk402560.hpp"
 #include "UnkObjects/unk600960.hpp"
 #include "UnkObjects/unk613360.hpp"
@@ -32,7 +32,6 @@
 #include "UnkObjects/unk6C3250.hpp"
 #include "UnkObjects/unk6C3890.hpp"
 #include "UnkObjects/unk8600F8.hpp"
-#include "config.hpp"
 
 static void sub_612A80(char *args) {
     glo_8600F0 = 0;
@@ -46,8 +45,8 @@ static void sub_612A80(char *args) {
     }
 
     *esi = '\0';
-    glo_8600EC = new (MC2_MALLOC(sizeof(char**))) char *;
-    *glo_8600EC = MC2_STRDUP(args);
+    glo_8600EC = new char*;
+    *glo_8600EC = mc2_strdup(args);
 
     *esi = ' ';
     esi++;
@@ -84,7 +83,7 @@ static void sub_612A80(char *args) {
             continue;
         }
 
-        value = new(MC2_MALLOC(sizeof(unk_612150))) unk_612150;
+        value = new unk_612150;
 
         if (value != nullptr) {
             value->count = 0;
@@ -123,7 +122,7 @@ static void sub_612A80(char *args) {
 
         glo_8600F8.sub_612150(key, value);
 
-        value->args = (char**)MC2_MALLOC(value->count * 4);
+        value->args = new char*[value->count];
 
         if (value->count == 0)
             continue;
@@ -143,7 +142,7 @@ static void sub_612A80(char *args) {
                 }
             }
             
-            value->args[values_index++] = MC2_STRDUP(cur_value_str);
+            value->args[values_index++] = mc2_strdup(cur_value_str);
 
         } while (values_index < value->count);
     }
@@ -155,18 +154,18 @@ static void sub_612A80(char *args) {
 void sub_612F00() {
     unk_8600F8::indexed_map_entry index_entry;
 
-    for (bool valid = glo_8600F8.sub_611FE0(&index_entry); valid; glo_8600F8.sub_612020(&index_entry)) {
+    for (bool valid = glo_8600F8.sub_611FE0(&index_entry); valid; valid = glo_8600F8.sub_612020(&index_entry)) {
         unk_612150 *value = index_entry.value;
         if (value != nullptr) {
             if (value->count != 0) {
                 for (uint32_t i = 0; i < value->count; ++i) {
-                    MC2_FREE(value->args[i]);
+                    delete [] value->args[i];
                 }
                 value->count = 0;
             }
 
-            MC2_FREE(value->args);
-            MC2_FREE(value);
+            delete [] value->args;
+            delete value;
         }
     }
 
@@ -384,7 +383,7 @@ int sub_401190() {
     glo_6CE211 = 1;
     const char *gamePath = ".";
     sub_612EB0("path", 0, &gamePath);
-    new (MC2_MALLOC(0x108)) unk_613360;
+    new unk_613360;
     sub_6134D0(gamePath);
     glo_6C3250.sub_53B6A0();
     sub_5ED7B0(glo_6C3250.get_unk44(), glo_6C3250.get_unk48(), glo_6C3250.get_unk4C(), 32, 0);
@@ -397,13 +396,13 @@ int sub_401190() {
     bool runforever = sub_612E10("runforever");
     if (sub_612E10("shiplist") && !sub_612E10("noresources") &&
         !sub_612E10("noraceresources") && !sub_612E10("archive")) {
-        sub_613DD0("mc2_xbox.shiplist", MC2_MALLOC(0x30000), 0x30000);
+        sub_613DD0("mc2_xbox.shiplist", new std::uint8_t[0x30000], 0x30000);
     }
     sub_401170();
 
     do {
         sub_53A7E0("assets_p.dat");
-        glo_85D3F8 = new (MC2_MALLOC(0x27C4)) unk_600960(global_hWnd);
+        glo_85D3F8 = new unk_600960(global_hWnd);
         unk_402560 *esi = sub_402560();
         esi->sub_401860();
         sub_4028E0();

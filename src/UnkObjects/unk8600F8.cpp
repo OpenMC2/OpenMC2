@@ -17,8 +17,11 @@
 **********************************************************************/
 
 #include "unk8600F8.hpp"
+
 #include <string>
 #include <boost/lexical_cast.hpp>
+
+#include "..\Memory.hpp"
 
 // Remove from Linked List?
 void unk_8600F8::loc_611DC0() {
@@ -45,7 +48,7 @@ unk_612150 *unk_8600F8::sub_6124A0(const char *a) {
 // mc2: 0x00611E70
 uint32_t unk_8600F8::get_entry_index(const char *a) {
     if (this->entries == nullptr) {
-        this->entries = new(MC2_MALLOC(this->max_entries * 4)) hash_map_entry*;
+        this->entries = new hash_map_entry*[this->max_entries];
         std::memset(this->entries, 0, this->max_entries * 4);
     }
 
@@ -73,9 +76,9 @@ bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
         return true;
     }
 
-    hash_map_entry *newEntry = new(MC2_MALLOC(sizeof(hash_map_entry))) hash_map_entry;
+    hash_map_entry *newEntry = new hash_map_entry;
     if (newEntry != nullptr) {
-        newEntry->name = MC2_STRDUP(a);
+        newEntry->name = mc2_strdup(a);
         newEntry->value = b;
         newEntry->next = this->entries[index];
     }
