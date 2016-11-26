@@ -46,8 +46,8 @@ private:
     std::uint8_t unk02;
     std::uint8_t unk03;
     std::uint8_t pad04[0x4];
-    std::uint32_t max_entries;  // 0x08
-    std::uint32_t num_entries;  // 0x0C
+    std::int32_t max_entries;  // 0x08
+    std::int32_t num_entries;  // 0x0C
     hash_map_entry **entries;    // 0x10
     unk_8600F8 *unk14;
 

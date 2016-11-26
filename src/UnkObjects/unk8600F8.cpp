@@ -116,51 +116,26 @@ bool unk_8600F8::sub_611FE0(indexed_map_entry *index_entry) {
 }
 
 unk_8600F8::hash_map_entry *unk_8600F8::sub_611F60(int32_t entryIndex) {
-    if (entryIndex == -1)
+    if (entryIndex < 0 || entryIndex >= this->num_entries)
         return nullptr;
 
-    int hashEntryIndex = -1;
-    int numFoundEntries = -1;
-    int edx = 0;
-    int esi = 0;
-    bool entryFound = false;
+    std::int32_t hashIndex = 0;
     hash_map_entry *entry = nullptr;
-
-    hash_map_entry *lastFound = nullptr;
-
-    do {
-        if (hashEntryIndex >= (int)this->max_entries)
+    while (entry == nullptr) {
+        if (hashIndex >= this->max_entries)
             return nullptr;
-        if (entryFound) {
-            entryFound = false;
+        entry = this->entries[hashIndex++];
+    }
 
-            entry = entry->next;
-
-            if (entry == nullptr) {
-                continue;
-            }
-
-            if (entry == lastFound) {
-                continue;
-            }
-
-            entryFound = true;
-            numFoundEntries++;
-            continue;
+    for (std::int32_t currentIndex = 0; currentIndex < entryIndex; ++currentIndex) {
+        entry = entry->next;
+        
+        while (entry == nullptr) {
+            if (hashIndex >= this->max_entries)
+                return nullptr;
+            entry = this->entries[hashIndex++];
         }
-
-        if (hashEntryIndex >= (int)(this->max_entries - 1))
-            return nullptr;
-
-        entry = this->entries[++hashEntryIndex];
-
-        if (entry == nullptr)
-            continue;
-
-        entryFound = true;
-        lastFound = entry;
-        numFoundEntries++;
-    } while (entryIndex != numFoundEntries);
+    }
 
     return entry;
 }
