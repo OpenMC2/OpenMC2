@@ -85,15 +85,6 @@ static void sub_612A80(char *args) {
 
         value = new unk_612150;
 
-        if (value != nullptr) {
-            value->count = 0;
-            value->args = nullptr;
-        }
-        if (value == nullptr) {
-            // The original code forces an access violation instead
-            mc2_log_fatal("MC2 MALLOC Failed");
-        }
-
         nextSeperator = value_str;
         if (*nextSeperator != '\0') {
             while (*nextSeperator != '\0' && *nextSeperator != '-') {
@@ -183,7 +174,7 @@ static void sub_53A890(const char *args) {
 void game_set_window_title(char *title) {
     HWND hWnd = global_hWnd;
     global_WindowText = title;
-    if (hWnd != NULL)
+    if (hWnd != nullptr)
         SetWindowTextA(global_hWnd, title);
 }
 
@@ -191,7 +182,7 @@ void game_set_window_title(char *title) {
 void check_sku_version() {
     global_SKUVersion = 0; //SKU VERSION SLUS-20209
 
-    char *skuVersion = NULL;
+    char *skuVersion = nullptr;
 
     switch (global_SKUVersion) {
     case 0:

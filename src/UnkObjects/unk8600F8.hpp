@@ -23,8 +23,8 @@
 #include "../Addresses.hpp"
 
 struct unk_612150 {
-    std::uint32_t count;
-    char **args;
+    std::uint32_t count = 0;
+    char **args = nullptr;
 };
 
 class unk_8600F8 {
@@ -33,6 +33,10 @@ public:
         char *name;
         unk_612150 *value;
         hash_map_entry *next;
+        
+        hash_map_entry() = default;
+        inline hash_map_entry(char *name, unk_612150 *value, hash_map_entry *next) :
+            name(name), value(value), next(next) { }
     };
 
     struct indexed_map_entry {

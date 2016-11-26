@@ -32,7 +32,7 @@ void unk_8600F8::loc_611DC0() {
 }
 
 unk_612150 *unk_8600F8::sub_6124A0(const char *a) {
-    if (this->entries == NULL) {
+    if (this->entries == nullptr) {
         return nullptr;
     }
 
@@ -76,12 +76,7 @@ bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
         return true;
     }
 
-    hash_map_entry *newEntry = new hash_map_entry;
-    if (newEntry != nullptr) {
-        newEntry->name = mc2_strdup(a);
-        newEntry->value = b;
-        newEntry->next = this->entries[index];
-    }
+	hash_map_entry *newEntry = new hash_map_entry(mc2_strdup(a), b, this->entries[index]);
 
     this->entries[index] = newEntry;
     this->num_entries++;
