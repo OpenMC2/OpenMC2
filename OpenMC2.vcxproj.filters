@@ -95,5 +95,8 @@
     <ClInclude Include="src\Memory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk577510.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

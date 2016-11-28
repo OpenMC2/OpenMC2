@@ -115,6 +115,7 @@
     <ClInclude Include="src\Memory.hpp" />
     <ClInclude Include="src\UnkObjects\unk402560.hpp" />
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
+    <ClInclude Include="src\UnkObjects\unk577510.hpp" />
     <ClInclude Include="src\UnkObjects\unk600960.hpp" />
     <ClInclude Include="src\UnkObjects\unk613360.hpp" />
     <ClInclude Include="src\UnkObjects\unk6C2E88.hpp" />

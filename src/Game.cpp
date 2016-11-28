@@ -26,6 +26,8 @@
 #include "Logging.hpp"
 #include "Memory.hpp"
 #include "UnkObjects/unk402560.hpp"
+#include "UnkObjects/unk5769E0.hpp"
+#include "UnkObjects/unk577510.hpp"
 #include "UnkObjects/unk600960.hpp"
 #include "UnkObjects/unk613360.hpp"
 #include "UnkObjects/unk6C2E88.hpp"
@@ -349,6 +351,57 @@ bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value
 
     *value_arg = value->args[value_index];
     return true;
+}
+
+void sub_53A7B0(const char *a, std::uint32_t b, bool c, std::uint32_t d, std::uint32_t e) {
+	sub_612C70(loc_6C3690);
+
+	// sub_577390:
+	sub_5ED240(a, d, e);
+	if (c)
+		sub_5ED7B0(640, 480, 32, 32, 0);
+	if (!sub_5F12F0())
+		mc2_log_fatal("Could not start graphics.  "
+			"Please check that you're in 32bpp mode "
+			"and you have a DX9-class video driver.");
+
+	glo_6C52E4 = new unk_577510;
+	glo_6C52E8 = new unk_5769E0;
+	glo_6C52E4->sub_5775A0(glo_6C52E8, b << 20, 1, 1, sub_612E10("checkalloc"));
+	glo_6C52E0 = global_primary_unk5769E0;
+	global_primary_unk5769E0 = glo_6C52E8;
+}
+
+void sub_53A7E0(const char *archive) {
+	mc2_log_C("ARGS: %s", loc_6C3690);
+	sub_612A80(loc_6C3690);
+
+	if (sub_612E10("nosmallocator")) {
+		mc2_log_C("Disabling smallocator");
+		global_primary_unk5769E0->sub_575B10();
+	}
+
+	sub_577480(archive);
+	global_texture_dir_name = "texture_x";
+	global_mod_dir_name = "xmod";
+	sub_5F9E20();
+
+	if (sub_612E10("memorylog")) {
+		// Code calls sub_5C3530(6), which is a nop
+	}
+}
+
+void sub_53A870() {
+	sub_5F9E30();
+	sub_612C70(loc_6C3690);
+	sub_612F00();
+
+	// sub_5774A0:
+	sub_5F0BC0();
+	sub_5FD2D0();
+	sub_612130();
+	glo_6C52E4->sub_577610();
+	sub_617AA0();
 }
 
 void sub_5ECBE0() {
