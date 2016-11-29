@@ -76,7 +76,7 @@ bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
         return true;
     }
 
-	hash_map_entry *newEntry = new hash_map_entry(mc2_strdup(a), b, this->entries[index]);
+    hash_map_entry *newEntry = new hash_map_entry(mc2_strdup(a), b, this->entries[index]);
 
     this->entries[index] = newEntry;
     this->num_entries++;

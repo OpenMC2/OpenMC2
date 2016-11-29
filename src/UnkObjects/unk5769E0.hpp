@@ -68,9 +68,9 @@ public:
 
     void sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8_t d);
 
-	inline void sub_575B10() {
-		MC2_PROC_MEMBER<void>(0x00575B10, this);
-	}
+    inline void sub_575B10() {
+        MC2_PROC_MEMBER<void>(0x00575B10, this);
+    }
 };
 
 #define global_last_unk5769E0 (MC2_GLOBAL<unk_5769E0 *>(0x006C5240)) // glo_6C5240

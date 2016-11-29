@@ -23,19 +23,19 @@
 
 class unk_577510 {
 public:
-	std::uint32_t unk00 = 0;
-	std::uint32_t unk04 = 0;
-	std::uint32_t unk08 = 0;
-	std::uint32_t unk0C = 0;
-	std::uint32_t unk10;
+    std::uint32_t unk00 = 0;
+    std::uint32_t unk04 = 0;
+    std::uint32_t unk08 = 0;
+    std::uint32_t unk0C = 0;
+    std::uint32_t unk10;
 
-	void sub_5775A0(unk_5769E0 *a, std::uint32_t b, std::uint32_t c, std::uint32_t d, bool e) {
-		MC2_PROC_MEMBER<void>(0x005775A0, this, a, b, c, d, e);
-	}
+    void sub_5775A0(unk_5769E0 *a, std::uint32_t b, std::uint32_t c, std::uint32_t d, bool e) {
+        MC2_PROC_MEMBER<void>(0x005775A0, this, a, b, c, d, e);
+    }
 
-	inline void sub_577610() {
-		MC2_PROC_MEMBER<void>(0x00577610, this);
-	}
+    inline void sub_577610() {
+        MC2_PROC_MEMBER<void>(0x00577610, this);
+    }
 };
 
 #define glo_6C52E4 (MC2_GLOBAL<unk_577510 *>(0x006C52E4))

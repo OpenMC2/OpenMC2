@@ -68,13 +68,13 @@ void OpenMC2_Hooks() {
     Hook_x86(&hook_5772E0, &mc2_malloc_info);
     Hook_x86(&hook_577320, &mc2_free);
 
-	Hook_x86(&hook_5772A0, &mc2_malloc);
+    Hook_x86(&hook_5772A0, &mc2_malloc);
     Hook_x86(&hook_577350, &mc2_free);
 
-	Hook_x86(&hook_613EA0, &mc2_aligned_malloc);
-	Hook_x86(&hook_613EF0, &mc2_aligned_free);
+    Hook_x86(&hook_613EA0, &mc2_aligned_malloc);
+    Hook_x86(&hook_613EF0, &mc2_aligned_free);
 
-	Hook_x86(&hook_614A10, &mc2_strdup_info);
+    Hook_x86(&hook_614A10, &mc2_strdup_info);
 }
 
 // mc2: 0x00401010
