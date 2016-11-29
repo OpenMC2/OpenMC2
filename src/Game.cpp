@@ -509,8 +509,8 @@ int sub_401190() {
     sub_5ED7B0(glo_6C3250.get_unk44(), glo_6C3250.get_unk48(), glo_6C3250.get_unk4C(), 32, 0);
     sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;
-    std::memcpy(loc_692E20, glo_679810, 10 * sizeof(void *));
-    loc_692E20[2] = loc_4010B0;
+    *loc_692E20 = *glo_679810;
+    loc_692E20->sub_08 = loc_4010B0;
     glo_679810 = loc_692E20;
     sub_53A1B0();
     bool runforever = sub_612E10("runforever");

@@ -17,8 +17,33 @@
 **********************************************************************/
 
 #pragma once
-
+#include <Windows.h>
 #include "Addresses.hpp"
+
+struct unk_679810_funcTable{
+    HANDLE (*sub_00)(char *path, bool unk2);
+    void (*sub_04)();
+    void (*sub_08)();
+    void (*sub_0C)();
+    void (*sub_10)();
+    void (*close_file)(HANDLE file); // 0x14
+    void (*sub_18)();
+    void (*sub_1C)();
+    void (*sub_20)();
+    bool (*sub_24)();
+    void (*sub_28)();
+};
+
+// size: 0x1C
+struct file_handle_struct {
+    unk_679810_funcTable *file_funcs; // 0x00
+    HANDLE handle; // 0x04
+    uint32_t unk_08;
+    uint32_t unk_0C;
+    uint32_t unk_10;
+    uint32_t unk_14;
+    uint32_t unk_18;
+};
 
 int sub_401190();
 
@@ -49,9 +74,10 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define sub_612C70 (MC2_PROC_PTR<void, char *>(0x00612C70))
 #define sub_613DD0 (MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0))
 #define sub_617AA0 (MC2_PROC_PTR<void>(0x00617AA0))
+#define sub_617BB0 (MC2_PROC_PTR<file_handle_struct *, char *, HANDLE, unk_679810_funcTable *>(0x00617BB0))
 #define sub_627145 (MC2_PROC_PTR<bool, const char *, const char *>(0x00627145))
 
-#define loc_4010B0 (MC2_POINTER<void>(0x004010B0))
+#define loc_4010B0 (MC2_PROC_PTR<void>(0x004010B0))
 
 #define global_texture_dir_name (MC2_GLOBAL<const char *>(0x006754AC))
 #define global_mod_dir_name (MC2_GLOBAL<const char *>(0x00675518))
@@ -66,14 +92,16 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define glo_675030 (MC2_GLOBAL<std::uint32_t>)(0x00675030)
 #define glo_6754A4 (MC2_GLOBAL<std::uint32_t>(0x006754A4))
 #define glo_6754A8 (MC2_GLOBAL<std::uint32_t>(0x006754A8))
-#define glo_679810 (MC2_GLOBAL<void **>(0x00679810))
-#define glo_692E1C (MC2_GLOBAL<void *>(0x00692E1C))
+
+#define glo_679810 (MC2_GLOBAL<unk_679810_funcTable *>(0x00679810))
+#define glo_679814 (MC2_GLOBAL<unk_679810_funcTable *>(0x00679814))
+#define glo_692E1C (MC2_GLOBAL<unk_679810_funcTable *>(0x00692E1C))
 #define global_LanguageID (MC2_GLOBAL<std::uint32_t>(0x006C2C5C))
 #define glo_6C2C64 (MC2_GLOBAL<std::uint8_t>(0x006C2C64))
 #define glo_6CE210 (MC2_GLOBAL<std::uint8_t>(0x006CE210))
 #define glo_6CE211 (MC2_GLOBAL<std::uint8_t>(0x006CE211))
 
-#define loc_692E20 (MC2_POINTER<void *>(0x00692E20))
+#define loc_692E20 (MC2_POINTER<unk_679810_funcTable>(0x00692E20))
 #define loc_6C3690 (MC2_POINTER<char>(0x006C3690)) // size: 0x200
 
 #define global_hWnd (MC2_GLOBAL<HWND>(0x00858364))
@@ -95,6 +123,7 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define glo_85FBDC (MC2_GLOBAL<float>(0x0085FBDC))
 #define glo_85FBE0 (MC2_GLOBAL<float>(0x0085FBE0))
 #define glo_8602D4 (MC2_GLOBAL<std::uint8_t>(0x008602D4))
+#define glo_860AD8 (MC2_GLOBAL<bool(*)(char *path, bool unk2)>(0x00860AD8))
 #define glo_86D8A8 (MC2_GLOBAL<std::uint32_t>(0x0086D8A8))
 #define global_WindowText (MC2_GLOBAL<char *>(0x00858390))
 #define global_SKUVersion (MC2_GLOBAL<std::uint32_t>(0x006C2C58))
