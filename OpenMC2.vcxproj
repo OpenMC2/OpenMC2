@@ -106,6 +106,7 @@
     <ClCompile Include="src\UnkObjects\unk613330.cpp" />
     <ClCompile Include="src\UnkObjects\unk613360.cpp" />
     <ClCompile Include="src\UnkObjects\unk616420.cpp" />
+    <ClCompile Include="src\UnkObjects\unk6C3250.cpp" />
     <ClCompile Include="src\UnkObjects\unk8600F8.cpp" />
     <ClCompile Include="src\UnkObjects\unk86D28C.cpp" />
   </ItemGroup>

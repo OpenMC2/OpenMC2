@@ -18,13 +18,13 @@
 
 #include "unk616420.hpp"
 
-unk_616420::unk_616420(char *unk1, uint32_t unk2) {
+unk_616420::unk_616420(char *unk1, file_handle_struct *unk2) {
     this->unk9C = 0;
     vtable = MC2_POINTER<void *>(0x0062FF40);
     sub_615130(unk1, unk2);
 }
     
-void unk_616420::sub_615130(char *unk1, uint32_t unk2) {
+void unk_616420::sub_615130(char *unk1, file_handle_struct *unk2) {
     this->unk04 = unk1;
     this->unk08 = 1;
     this->unk0C = unk2;

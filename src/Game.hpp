@@ -74,7 +74,7 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define sub_612C70 (MC2_PROC_PTR<void, char *>(0x00612C70))
 #define sub_613DD0 (MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0))
 #define sub_617AA0 (MC2_PROC_PTR<void>(0x00617AA0))
-#define sub_617BB0 (MC2_PROC_PTR<file_handle_struct *, char *, HANDLE, unk_679810_funcTable *>(0x00617BB0))
+#define register_file_handle (MC2_PROC_PTR<file_handle_struct *, char *, HANDLE, unk_679810_funcTable *>(0x00617BB0))
 #define sub_627145 (MC2_PROC_PTR<bool, const char *, const char *>(0x00627145))
 
 #define loc_4010B0 (MC2_PROC_PTR<void>(0x004010B0))
@@ -102,6 +102,7 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define glo_6CE211 (MC2_GLOBAL<std::uint8_t>(0x006CE211))
 
 #define loc_692E20 (MC2_POINTER<unk_679810_funcTable>(0x00692E20))
+#define loc_679884 (MC2_POINTER<unk_679810_funcTable>(0x00679884))
 #define loc_6C3690 (MC2_POINTER<char>(0x006C3690)) // size: 0x200
 
 #define global_hWnd (MC2_GLOBAL<HWND>(0x00858364))

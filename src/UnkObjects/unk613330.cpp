@@ -46,16 +46,16 @@ file_handle_struct *sub_617C40(char *path, bool unk2) {
     HANDLE file = fileFuncs->sub_00(path, unk2);
     
     if (file == INVALID_HANDLE_VALUE)
-        return { 0 };
+        return nullptr;
 
     if (glo_860AD8 != nullptr) {
         if (glo_860AD8(path, unk2) == false) {
             fileFuncs->close_file(file);
-            return { 0 };
+            return nullptr;
         }
     }
 
-    return sub_617BB0(path, file, fileFuncs);
+    return register_file_handle(path, file, fileFuncs);
 }
 
 // mc2: 0x00613780
@@ -63,7 +63,7 @@ file_handle_struct *unk_613330::impl_1C(char *unk1, char *unk2, int32_t unk3, in
     char unk5[256];
     vir_04(unk5, 256, unk1, unk2);
 
-    return sub_617C40(unk5, (bool)unk4);// (MC2_PROC_PTR<file_handle_struct *, char *, int32_t>(0x00617C40))(unk5, unk4);
+    return sub_617C40(unk5, (bool)unk4);
 }
 
 // mc2: 0x006134F0

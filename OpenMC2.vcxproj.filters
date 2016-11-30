@@ -57,6 +57,9 @@
     <ClCompile Include="src\UnkObjects\unk616420.cpp">
       <Filter>Source Files\UnkObjects</Filter>
     </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk6C3250.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
