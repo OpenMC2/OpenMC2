@@ -46,4 +46,8 @@ public:
     int32_t sub_47C920(char *unk1, uint32_t unk2) {
         return MC2_PROC_MEMBER<int32_t, unk_616420, char *, uint32_t>(0x0047C920, this, unk1, unk2);
     }
+
+    int32_t read_integer() {
+        return MC2_PROC_MEMBER<int32_t, unk_616420>(0x00615790, this);
+    }
 };

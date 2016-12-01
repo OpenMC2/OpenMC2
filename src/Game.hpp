@@ -47,6 +47,8 @@ struct file_handle_struct {
 
 int sub_401190();
 
+int sub_5E1B50(const char *path);
+
 int sub_6181F0();
 
 void sub_612F00();
