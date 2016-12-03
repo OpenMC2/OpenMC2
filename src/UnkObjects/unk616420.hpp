@@ -50,4 +50,8 @@ public:
     int32_t read_integer() {
         return MC2_PROC_MEMBER<int32_t, unk_616420>(0x00615790, this);
     }
+
+    void sub_615740(char *format, const void *args) {
+        MC2_PROC_MEMBER<void, unk_616420, char *, const void *>(0x00615740, this, format, args);
+    }
 };

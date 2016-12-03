@@ -246,6 +246,10 @@ int sub_5E1B50(const char *path) {
     return -1;
 }
 
+const char *sub_5E1B40(int id) {
+    return LanguageShortList[id];
+}
+
 constexpr const char *GameModes[5] = {
     "cruise", "arcade", "adventure", "frontend", "raceeditor",
 };

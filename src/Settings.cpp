@@ -46,9 +46,9 @@ bool Settings::load_settings_file() {
 
     glo_679810 = loc_679884;
 
-    file_handle_struct* file = glo_860220->impl_1C("userdata\\options.cfg", "", 0, 1);
+    file_handle_struct* file = glo_860220->vir_1C("userdata\\options.cfg", "", 0, 1);
     if (file == nullptr) {
-        file = glo_860220->impl_1C("userdata\\default.cfg", "", 0, 1);
+        file = glo_860220->vir_1C("userdata\\default.cfg", "", 0, 1);
     }
 
     glo_679810 = fileFuncs;
@@ -115,6 +115,42 @@ bool Settings::load_settings_file() {
 
     set_require_saving(false);
 
+    MC2_PROC_MEMBER<void, file_handle_struct>(0x00617FB0, file);
+
+    return true;
+}
+
+bool Settings::save_to_settings_file() {
+    unk_679810_funcTable *fileFuncs = glo_679810;
+
+    glo_679810 = loc_679884;
+
+    file_handle_struct* file = glo_860220->vir_20("userdata\\options.cfg", "", 0, 1);
+    if (file == nullptr) {
+        return false;
+    }
+
+    unk_616420 option("options", file);
+
+    option.sub_615740("Audio Driver: %s\n", this->get_audio_driver());
+    option.sub_615740("ScreenWidth: %d\n", reinterpret_cast<const void *>(this->get_screen_width()));
+    option.sub_615740("ScreenHeight: %d\n", reinterpret_cast<const void *>(this->get_screen_height()));
+    option.sub_615740("ScreenDepth: %d\n", reinterpret_cast<const void *>(this->get_screen_depth()));
+    option.sub_615740("DrawDistance: %d\n", reinterpret_cast<const void *>(this->get_draw_distance()));
+    option.sub_615740("EnvironmentMapping: %d\n", reinterpret_cast<const void *>(this->get_environment_mapping()));
+    option.sub_615740("Reflections: %d\n", reinterpret_cast<const void *>(this->get_reflections()));
+    option.sub_615740("Shadows: %d\n", reinterpret_cast<const void *>(this->get_shadows()));
+    option.sub_615740("FullscreenEffects: %d\n", reinterpret_cast<const void *>(this->get_fullscreen_effects()));
+    const char *language = sub_5E1B40(this->language_id);
+    if (language != nullptr) {
+        option.sub_615740("Language: %s\n", reinterpret_cast<const void *>(language));
+    }
+    // In the original this was a var arg input but it is simpler to split it up
+    option.sub_615740("InputDevice: %d ", reinterpret_cast<const void *>(this->get_input_device_1()));
+    option.sub_615740("%d\n", reinterpret_cast<const void *>(this->get_input_device_2()));
+
+    set_require_saving(false);
+    
     MC2_PROC_MEMBER<void, file_handle_struct>(0x00617FB0, file);
 
     return true;

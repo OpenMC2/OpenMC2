@@ -40,14 +40,16 @@ private:
     std::int32_t language_id; // 0x6C
     bool requires_saving; // 0x70
     bool unk71;
-
+    
+    // mc2: 0x0053B370
+    bool save_to_settings_file();
+    // mc2: 0x0053B930
+    void set_defualts();
 public:
     // mc2: 0x0053B990
     Settings();
 
-    // mc2: 0x0053B930
-    void set_defualts();
-
+    // mc2: 0x0049C460
     void set_require_saving(bool unk1) {
         this->requires_saving = unk1;
     }
@@ -60,11 +62,6 @@ public:
         if (this->requires_saving == false)
             return false;
         return save_to_settings_file();
-    }
-
-    // mc2: 0x0053B370
-    bool save_to_settings_file() {
-        return MC2_PROC_MEMBER<bool, Settings>(0x0053B370, this);
     }
 
     // mc2: 0x0053B520
@@ -174,6 +171,7 @@ public:
     std::uint32_t get_fullscreen_effects() const { return this->fullscreen_effects; } // mc2:0x0053B360
     std::uint32_t get_environment_mapping() const { return this->environment_mapping; } // mc2:0x005AEBA0
     std::uint32_t get_shadows() const { return this->shadows; } // mc2:0x0055E920
+    std::uint32_t get_draw_distance() const { return this->draw_distance; } // mc2:0x0055E940
 };
 
 #define glo_Settings (MC2_GLOBAL<Settings>(0x006C3250))
