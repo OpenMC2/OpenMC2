@@ -26,13 +26,13 @@
 #include "CommandLine.hpp"
 #include "Logging.hpp"
 #include "Memory.hpp"
+#include "Settings.hpp"
 #include "UnkObjects/unk402560.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 #include "UnkObjects/unk577510.hpp"
 #include "UnkObjects/unk600960.hpp"
 #include "UnkObjects/unk613360.hpp"
 #include "UnkObjects/unk6C2E88.hpp"
-#include "UnkObjects/unk6C3250.hpp"
 #include "UnkObjects/unk6C3890.hpp"
 #include "UnkObjects/unk8600F8.hpp"
 
@@ -505,8 +505,8 @@ int sub_401190() {
     sub_612EB0("path", 0, &gamePath);
     new unk_613360;
     sub_6134D0(gamePath);
-    glo_6C3250.load_config_file();
-    sub_5ED7B0(glo_6C3250.get_screen_width(), glo_6C3250.get_screen_height(), glo_6C3250.get_screen_depth(), 32, 0);
+    glo_Settings.load_settings_file();
+    sub_5ED7B0(glo_Settings.get_screen_width(), glo_Settings.get_screen_height(), glo_Settings.get_screen_depth(), 32, 0);
     sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;
     *loc_692E20 = *glo_679810;

@@ -20,10 +20,10 @@
 
 #include <cstdint>
 
-#include "../Addresses.hpp"
-#include "../Game.hpp"
+#include "Addresses.hpp"
+#include "Game.hpp"
 
-class unk_6C3250 {
+class Settings {
 private:
     std::uint32_t unk00;
     char audio_driver[0x40];
@@ -43,7 +43,7 @@ private:
 
 public:
     // mc2: 0x0053B990
-    unk_6C3250();
+    Settings();
 
     // mc2: 0x0053B930
     void set_defualts();
@@ -53,18 +53,18 @@ public:
     }
 
     // mc2: 0x0053B6A0
-    bool load_config_file();
+    bool load_settings_file();
 
     // mc2: 0x0053B510
-    bool save_config_file() {
+    bool save_settings_file() {
         if (this->requires_saving == false)
             return false;
-        return save_to_config_file();
+        return save_to_settings_file();
     }
 
     // mc2: 0x0053B370
-    bool save_to_config_file() {
-        return MC2_PROC_MEMBER<bool, unk_6C3250>(0x0053B370, this);
+    bool save_to_settings_file() {
+        return MC2_PROC_MEMBER<bool, Settings>(0x0053B370, this);
     }
 
     // mc2: 0x0053B520
@@ -164,9 +164,16 @@ public:
         set_require_saving(true);
     }
 
-    inline std::uint32_t unk_6C3250::get_screen_width() const { return this->screen_width; } // mc2: 0x004DBA90
-    inline std::uint32_t unk_6C3250::get_screen_height() const { return this->screen_height; } // mc2: 0x0055E930
-    inline std::uint32_t unk_6C3250::get_screen_depth() const { return this->screen_depth; } // mc2: 0x0053B320
+    std::uint32_t get_screen_width() const { return this->screen_width; } // mc2: 0x004DBA90
+    std::uint32_t get_screen_height() const { return this->screen_height; } // mc2: 0x0055E930
+    std::uint32_t get_screen_depth() const { return this->screen_depth; } // mc2: 0x0053B320
+    const char *get_audio_driver() const { return this->audio_driver; } // mc2:0x0053B310
+    std::uint32_t get_input_device_1() const { return this->input_device_1; } // mc2:0x0053B330
+    std::uint32_t get_input_device_2() const { return this->input_device_2; } // mc2:0x0053B340
+    std::uint32_t get_reflections() const { return this->reflections; } // mc2:0x0053B350
+    std::uint32_t get_fullscreen_effects() const { return this->fullscreen_effects; } // mc2:0x0053B360
+    std::uint32_t get_environment_mapping() const { return this->environment_mapping; } // mc2:0x005AEBA0
+    std::uint32_t get_shadows() const { return this->shadows; } // mc2:0x0055E920
 };
 
-#define glo_6C3250 (MC2_GLOBAL<unk_6C3250>(0x006C3250))
+#define glo_Settings (MC2_GLOBAL<Settings>(0x006C3250))

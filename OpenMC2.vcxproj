@@ -102,11 +102,11 @@
     <ClCompile Include="src\Memory.cpp" />
     <ClCompile Include="src\OpenMC2.cpp" />
     <ClCompile Include="src\CommandLine.cpp" />
+    <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\UnkObjects\unk5769E0.cpp" />
     <ClCompile Include="src\UnkObjects\unk613330.cpp" />
     <ClCompile Include="src\UnkObjects\unk613360.cpp" />
     <ClCompile Include="src\UnkObjects\unk616420.cpp" />
-    <ClCompile Include="src\UnkObjects\unk6C3250.cpp" />
     <ClCompile Include="src\UnkObjects\unk8600F8.cpp" />
     <ClCompile Include="src\UnkObjects\unk86D28C.cpp" />
   </ItemGroup>
@@ -117,6 +117,7 @@
     <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\Logging.hpp" />
     <ClInclude Include="src\Memory.hpp" />
+    <ClInclude Include="src\Settings.hpp" />
     <ClInclude Include="src\UnkObjects\unk402560.hpp" />
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
     <ClInclude Include="src\UnkObjects\unk577510.hpp" />
@@ -125,7 +126,6 @@
     <ClInclude Include="src\UnkObjects\unk613360.hpp" />
     <ClInclude Include="src\UnkObjects\unk616420.hpp" />
     <ClInclude Include="src\UnkObjects\unk6C2E88.hpp" />
-    <ClInclude Include="src\UnkObjects\unk6C3250.hpp" />
     <ClInclude Include="src\UnkObjects\unk6C3890.hpp" />
     <ClInclude Include="src\UnkObjects\unk8600F8.hpp" />
     <ClInclude Include="src\UnkObjects\unk86D28C.hpp" />

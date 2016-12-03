@@ -16,18 +16,18 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk6C3250.hpp"
-#include "unk613330.hpp"
-#include "unk616420.hpp"
-#include "../Game.hpp"
+#include "Settings.hpp"
+#include "UnkObjects/unk613330.hpp"
+#include "UnkObjects/unk616420.hpp"
+#include "Game.hpp"
 
-unk_6C3250::unk_6C3250() {
+Settings::Settings() {
     this->requires_saving = false;
     this->unk71 = false;
     set_defualts();
 }
 
-void unk_6C3250::set_defualts() {
+void Settings::set_defualts() {
     this->unk00 = 0;
     set_audio_driver("Miles Fast 2D Positional Audio");
     set_screen_width(640);
@@ -41,7 +41,7 @@ void unk_6C3250::set_defualts() {
     this->language_id = 0;
 }
 
-bool unk_6C3250::load_config_file() {
+bool Settings::load_settings_file() {
     unk_679810_funcTable *fileFuncs = glo_679810;
 
     glo_679810 = loc_679884;
