@@ -21,7 +21,27 @@
 #include "unk616420.hpp"
 #include "../Game.hpp"
 
-bool unk_6C3250::sub_53B6A0() {
+unk_6C3250::unk_6C3250() {
+    this->requires_saving = false;
+    this->unk71 = false;
+    set_defualts();
+}
+
+void unk_6C3250::set_defualts() {
+    this->unk00 = 0;
+    set_audio_driver("Miles Fast 2D Positional Audio");
+    set_screen_width(640);
+    set_screen_height(480);
+    set_screen_depth(32);
+    set_draw_distance(1);
+    set_environment_mapping(1);
+    set_reflections(1);
+    set_shadows(1);
+    set_fullscreen_effects(1);
+    this->language_id = 0;
+}
+
+bool unk_6C3250::load_config_file() {
     unk_679810_funcTable *fileFuncs = glo_679810;
 
     glo_679810 = loc_679884;
@@ -41,7 +61,7 @@ bool unk_6C3250::sub_53B6A0() {
     if (option.sub_6154D0("AudioDriver:", 1)) {
         if (option.sub_47C920(buffer, 0xFF) >= 0) {
             buffer[255] = '\0';
-            sub_53B520(buffer);
+            set_audio_driver(buffer);
         }
     }
 
@@ -93,11 +113,9 @@ bool unk_6C3250::sub_53B6A0() {
         set_input_device(device_1, device_2);
     }
 
-    sub_49C460(false);
+    set_require_saving(false);
 
     MC2_PROC_MEMBER<void, file_handle_struct>(0x00617FB0, file);
 
     return true;
-    //53b7CD
-    //return MC2_PROC_MEMBER<bool>(0x0053B6A0, this);
 }

@@ -25,7 +25,8 @@
 
 class unk_6C3250 {
 private:
-    std::uint8_t pad00[0x44];
+    std::uint32_t unk00;
+    char audio_driver[0x40];
     std::uint32_t screen_width; //0x44
     std::uint32_t screen_height; //0x48
     std::uint32_t screen_depth; //0x4C
@@ -37,16 +38,41 @@ private:
     std::int32_t input_device_1; //0x64
     std::int32_t input_device_2; //0x68
     std::int32_t language_id; // 0x6C
-    bool unk70;
+    bool requires_saving; // 0x70
+    bool unk71;
 
 public:
-    void sub_49C460(bool unk1) {
-        this->unk70 = unk1;
+    // mc2: 0x0053B990
+    unk_6C3250();
+
+    // mc2: 0x0053B930
+    void set_defualts();
+
+    void set_require_saving(bool unk1) {
+        this->requires_saving = unk1;
     }
 
-    bool sub_53B6A0();
-    void sub_53B520(char *unk1) {
-        MC2_PROC_MEMBER<void, unk_6C3250, char *>(0x0053B520, this, unk1);
+    // mc2: 0x0053B6A0
+    bool load_config_file();
+
+    // mc2: 0x0053B510
+    bool save_config_file() {
+        if (this->requires_saving == false)
+            return false;
+        return save_to_config_file();
+    }
+
+    // mc2: 0x0053B370
+    bool save_to_config_file() {
+        return MC2_PROC_MEMBER<bool, unk_6C3250>(0x0053B370, this);
+    }
+
+    // mc2: 0x0053B520
+    void set_audio_driver(char *driver) {
+        safe_strncpy(this->audio_driver, driver, sizeof(this->audio_driver));
+        this->audio_driver[sizeof(this->audio_driver) - 1] = '\0';
+        unk71 = true;
+        set_require_saving(true);
     }
 
     // mc2: 0x0053B550
@@ -55,7 +81,7 @@ public:
             return;
 
         this->screen_width = new_width;
-        sub_49C460(true);
+        set_require_saving(true);
     }
     
     // mc2: 0x0053B570
@@ -64,7 +90,7 @@ public:
             return;
 
         this->screen_height = new_height;
-        sub_49C460(true);
+        set_require_saving(true);
     }
     
     // mc2: 0x0053B590
@@ -73,7 +99,7 @@ public:
             return;
 
         this->screen_depth = new_depth;
-        sub_49C460(true);
+        set_require_saving(true);
     }
     
     // mc2: 0x0053B5B0
@@ -82,7 +108,7 @@ public:
             return;
 
         this->draw_distance = new_distance;
-        sub_49C460(true);
+        set_require_saving(true);
     }
     
     // mc2: 0x0053B600
@@ -91,7 +117,7 @@ public:
             return;
 
         this->environment_mapping = new_mapping;
-        sub_49C460(true);
+        set_require_saving(true);
     }
     
     // mc2: 0x0053B620
@@ -100,7 +126,7 @@ public:
             return;
 
         this->reflections = new_reflections;
-        sub_49C460(true);
+        set_require_saving(true);
     }
     
     // mc2: 0x0053B640
@@ -109,7 +135,7 @@ public:
             return;
 
         this->shadows = new_shadows;
-        sub_49C460(true);
+        set_require_saving(true);
     }
     
     // mc2: 0x0053B660
@@ -118,14 +144,14 @@ public:
             return;
 
         this->fullscreen_effects = new_effects;
-        sub_49C460(true);
+        set_require_saving(true);
     }
 
     // mc2: 0x0053B680
     void set_language_id(int32_t id) {
         this->language_id = id;
         global_LanguageID = id;
-        sub_49C460(true);
+        set_require_saving(true);
     }
     
     // mc2: 0x0053B5D0
@@ -135,7 +161,7 @@ public:
 
         this->input_device_1 = device_1;
         this->input_device_2 = device_2;
-        sub_49C460(true);
+        set_require_saving(true);
     }
 
     inline std::uint32_t unk_6C3250::get_screen_width() const { return this->screen_width; } // mc2: 0x004DBA90
