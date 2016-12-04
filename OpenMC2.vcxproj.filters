@@ -33,9 +33,6 @@
     <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\UnkObjects\unk86D28C.cpp">
-      <Filter>Source Files\UnkObjects</Filter>
-    </ClCompile>
     <ClCompile Include="src\UnkObjects\unk5769E0.cpp">
       <Filter>Source Files\UnkObjects</Filter>
     </ClCompile>
@@ -60,6 +57,9 @@
     <ClCompile Include="src\Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\FileHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
@@ -78,9 +78,6 @@
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\UnkObjects\unk6C3890.hpp">
-      <Filter>Header Files\UnkObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\UnkObjects\unk86D28C.hpp">
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp">
@@ -114,6 +111,9 @@
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\Settings.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FileHandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

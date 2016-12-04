@@ -19,14 +19,14 @@
 #pragma once
 
 #include "../Addresses.hpp"
-#include "../Game.hpp"
+#include "../FileHandler.hpp"
 
 class unk_616420 {
 protected:
     void *vtable;
     char *unk04;
     uint32_t unk08;
-    file_handle_struct *unk0C;
+    FileHandler *unk0C;
     uint32_t unk10;
     uint32_t unk14;
     uint8_t unk18;
@@ -35,9 +35,9 @@ protected:
     uint32_t unk9C;
 
 public:
-    unk_616420(char *unk1, file_handle_struct *unk2);
+    unk_616420(char *unk1, FileHandler *unk2);
 
-    void sub_615130(char *unk1, file_handle_struct *unk2);
+    void sub_615130(char *unk1, FileHandler *unk2);
 
     bool sub_6154D0(char *unk1, uint32_t unk2) {
         return MC2_PROC_MEMBER<bool, unk_616420, char *, uint32_t>(0x006154D0, this, unk1, unk2);

@@ -17,33 +17,8 @@
 **********************************************************************/
 
 #pragma once
-#include <Windows.h>
 #include "Addresses.hpp"
-
-struct unk_679810_funcTable{
-    HANDLE (*sub_00)(char *path, bool unk2);
-    void (*sub_04)();
-    void (*sub_08)();
-    void (*sub_0C)();
-    void (*sub_10)();
-    void (*close_file)(HANDLE file); // 0x14
-    void (*sub_18)();
-    void (*sub_1C)();
-    void (*sub_20)();
-    bool (*sub_24)();
-    void (*sub_28)();
-};
-
-// size: 0x1C
-struct file_handle_struct {
-    unk_679810_funcTable *file_funcs; // 0x00
-    HANDLE handle; // 0x04
-    uint32_t unk_08;
-    uint32_t unk_0C;
-    uint32_t unk_10;
-    uint32_t unk_14;
-    uint32_t unk_18;
-};
+#include "FileHandler.hpp"
 
 int sub_401190();
 
@@ -77,7 +52,6 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define sub_612C70 (MC2_PROC_PTR<void, char *>(0x00612C70))
 #define sub_613DD0 (MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0))
 #define sub_617AA0 (MC2_PROC_PTR<void>(0x00617AA0))
-#define register_file_handle (MC2_PROC_PTR<file_handle_struct *, char *, HANDLE, unk_679810_funcTable *>(0x00617BB0))
 #define sub_627145 (MC2_PROC_PTR<bool, const char *, const char *>(0x00627145))
 
 #define loc_4010B0 (MC2_PROC_PTR<void>(0x004010B0))

@@ -97,6 +97,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Config.cpp" />
+    <ClCompile Include="src\FileHandler.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Logging.cpp" />
     <ClCompile Include="src\Memory.cpp" />
@@ -108,12 +109,12 @@
     <ClCompile Include="src\UnkObjects\unk613360.cpp" />
     <ClCompile Include="src\UnkObjects\unk616420.cpp" />
     <ClCompile Include="src\UnkObjects\unk8600F8.cpp" />
-    <ClCompile Include="src\UnkObjects\unk86D28C.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp" />
     <ClInclude Include="src\CommandLine.hpp" />
     <ClInclude Include="src\Config.hpp" />
+    <ClInclude Include="src\FileHandler.hpp" />
     <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\Logging.hpp" />
     <ClInclude Include="src\Memory.hpp" />
@@ -128,7 +129,6 @@
     <ClInclude Include="src\UnkObjects\unk6C2E88.hpp" />
     <ClInclude Include="src\UnkObjects\unk6C3890.hpp" />
     <ClInclude Include="src\UnkObjects\unk8600F8.hpp" />
-    <ClInclude Include="src\UnkObjects\unk86D28C.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

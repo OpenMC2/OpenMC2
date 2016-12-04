@@ -239,7 +239,7 @@ int sub_5E1B50(const char *path) {
     for (int i = 0; i < 10; ++i) {
         const char *language = LanguageShortList[i];
 
-        if (sub_627145(path, language)) {
+        if (!sub_627145(path, language)) {
             return i;
         }
     }

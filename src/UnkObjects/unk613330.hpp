@@ -20,7 +20,7 @@
 
 #include "../Addresses.hpp"
 
-struct file_handle_struct;
+class FileHandler;
 
 class unk_613330 {
 public:
@@ -32,8 +32,8 @@ public:
         void (__thiscall *vir_10)(unk_613330 *);
         void (__thiscall *vir_14)(unk_613330 *);
         void (__thiscall *vir_18)(unk_613330 *);
-        file_handle_struct *(__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, int32_t unk3, int32_t unk4);
-        file_handle_struct *(__thiscall *vir_20)(unk_613330 *, char *unk1, char *unk2, int32_t unk3);
+        FileHandler *(__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, int32_t unk3, int32_t unk4);
+        FileHandler *(__thiscall *vir_20)(unk_613330 *, char *unk1, char *unk2, int32_t unk3);
         bool (__thiscall unk_613330::* vir_24)(char *unk1);
         void (__thiscall unk_613330::* vir_28)(char *destination, char *unk2, char *extension);
     };
@@ -42,7 +42,7 @@ protected:
 public:
     unk_613330();
     
-    file_handle_struct *__thiscall impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4); //0x1C
+    FileHandler *__thiscall impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4); //0x1C
     bool __thiscall impl_24(char *unk1); //0x24
     void __thiscall impl_28(char *destination, char *unk2, char *extension); //0x28
 
@@ -67,10 +67,10 @@ public:
     inline void vir_18(){
         static_cast<unk_613330_vTable*>(vtable)->vir_18(this);
     }
-    inline file_handle_struct *vir_1C(char* unk1, char* unk2, int32_t unk3, int32_t extension){
+    inline FileHandler *vir_1C(char* unk1, char* unk2, int32_t unk3, int32_t extension){
         return (this->*static_cast<unk_613330_vTable*>(vtable)->vir_1C)(unk1, unk2, unk3, extension);
     }
-    inline file_handle_struct *vir_20(char* unk1, char* unk2, int32_t unk3){
+    inline FileHandler *vir_20(char* unk1, char* unk2, int32_t unk3){
         return static_cast<unk_613330_vTable*>(vtable)->vir_20(this, unk1, unk2, unk3);
     }
     inline bool vir_24(char *unk1){

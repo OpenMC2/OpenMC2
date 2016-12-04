@@ -46,7 +46,7 @@ bool Settings::load_settings_file() {
 
     glo_679810 = loc_679884;
 
-    file_handle_struct* file = glo_860220->vir_1C("userdata\\options.cfg", "", 0, 1);
+    FileHandler* file = glo_860220->vir_1C("userdata\\options.cfg", "", 0, 1);
     if (file == nullptr) {
         file = glo_860220->vir_1C("userdata\\default.cfg", "", 0, 1);
     }
@@ -115,8 +115,7 @@ bool Settings::load_settings_file() {
 
     set_require_saving(false);
 
-    MC2_PROC_MEMBER<void, file_handle_struct>(0x00617FB0, file);
-
+    file->sub_617FB0();
     return true;
 }
 
@@ -125,7 +124,7 @@ bool Settings::save_to_settings_file() {
 
     glo_679810 = loc_679884;
 
-    file_handle_struct* file = glo_860220->vir_20("userdata\\options.cfg", "", 0);
+    FileHandler* file = glo_860220->vir_20("userdata\\options.cfg", "", 0);
     if (file == nullptr) {
         return false;
     }
@@ -151,7 +150,6 @@ bool Settings::save_to_settings_file() {
 
     set_require_saving(false);
     
-    MC2_PROC_MEMBER<void, file_handle_struct>(0x00617FB0, file);
-
+    file->sub_617FB0();
     return true;
 }

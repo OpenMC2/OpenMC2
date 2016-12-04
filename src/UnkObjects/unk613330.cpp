@@ -31,7 +31,7 @@ static unk_613330::unk_613330_vTable unk_613330_vtable = {
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00406990),
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613770),
     &unk_613330::impl_1C,
-    MC2_PROC_MEMBER_PTR<file_handle_struct *, unk_613330, char *, char *, int32_t>(0x00613800),
+    MC2_PROC_MEMBER_PTR<FileHandler *, unk_613330, char *, char *, int32_t>(0x00613800),
     &unk_613330::impl_24,
     &unk_613330::impl_28
 };
@@ -40,7 +40,7 @@ unk_613330::unk_613330() : vtable(&unk_613330_vtable) {
     glo_860220 = this;
 }
 
-file_handle_struct *sub_617C40(char *path, bool unk2) {
+FileHandler *sub_617C40(char *path, bool unk2) {
     unk_679810_funcTable *fileFuncs = unk2 ? glo_679810 : glo_679814;
     
     HANDLE file = fileFuncs->sub_00(path, unk2);
@@ -59,7 +59,7 @@ file_handle_struct *sub_617C40(char *path, bool unk2) {
 }
 
 // mc2: 0x00613780
-file_handle_struct *unk_613330::impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4) {
+FileHandler *unk_613330::impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4) {
     char unk5[256];
     vir_04(unk5, 256, unk1, unk2);
 
