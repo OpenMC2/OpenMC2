@@ -17,6 +17,8 @@
 **********************************************************************/
 
 #include "unk616420.hpp"
+#include <cstdarg>
+#include <cstdio>
 
 unk_616420::unk_616420(char *unk1, FileHandler *unk2) {
     this->unk9C = 0;
@@ -32,4 +34,13 @@ void unk_616420::sub_615130(char *unk1, FileHandler *unk2) {
     this->unk14 = 0;
     this->unk18 = 0;
     this->unk98 = 0;
+}
+
+void sub_615740(unk_616420 *_this, char *format, ...) {
+    char buffer[512];
+    va_list args;
+    va_start(args, format);
+    std::vsnprintf(buffer, 512, format, args);
+    _this->vir_94(buffer, 0);
+    va_end(args);
 }

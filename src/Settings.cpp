@@ -131,22 +131,22 @@ bool Settings::save_to_settings_file() {
 
     unk_616420 option("options", file);
 
-    option.sub_615740(&option, "Audio Driver: %s\n", this->get_audio_driver());
-    option.sub_615740(&option, "ScreenWidth: %d\n", reinterpret_cast<const void *>(this->get_screen_width()));
-    option.sub_615740(&option, "ScreenHeight: %d\n", reinterpret_cast<const void *>(this->get_screen_height()));
-    option.sub_615740(&option, "ScreenDepth: %d\n", reinterpret_cast<const void *>(this->get_screen_depth()));
-    option.sub_615740(&option, "DrawDistance: %d\n", reinterpret_cast<const void *>(this->get_draw_distance()));
-    option.sub_615740(&option, "EnvironmentMapping: %d\n", reinterpret_cast<const void *>(this->get_environment_mapping()));
-    option.sub_615740(&option, "Reflections: %d\n", reinterpret_cast<const void *>(this->get_reflections()));
-    option.sub_615740(&option, "Shadows: %d\n", reinterpret_cast<const void *>(this->get_shadows()));
-    option.sub_615740(&option, "FullscreenEffects: %d\n", reinterpret_cast<const void *>(this->get_fullscreen_effects()));
+    sub_615740(&option, "Audio Driver: %s\n", this->get_audio_driver());
+    sub_615740(&option, "ScreenWidth: %d\n", this->get_screen_width());
+    sub_615740(&option, "ScreenHeight: %d\n", this->get_screen_height());
+    sub_615740(&option, "ScreenDepth: %d\n", this->get_screen_depth());
+    sub_615740(&option, "DrawDistance: %d\n", this->get_draw_distance());
+    sub_615740(&option, "EnvironmentMapping: %d\n", this->get_environment_mapping());
+    sub_615740(&option, "Reflections: %d\n", this->get_reflections());
+    sub_615740(&option, "Shadows: %d\n", this->get_shadows());
+    sub_615740(&option, "FullscreenEffects: %d\n", this->get_fullscreen_effects());
     const char *language = sub_5E1B40(this->language_id);
     if (language != nullptr) {
-        option.sub_615740(&option, "Language: %s\n", reinterpret_cast<const void *>(language));
+        sub_615740(&option, "Language: %s\n", language);
     }
     // In the original this was a var arg input but it is simpler to split it up
-    option.sub_615740(&option, "InputDevice: %d ", reinterpret_cast<const void *>(this->get_input_device_1()));
-    option.sub_615740(&option, "%d\n", reinterpret_cast<const void *>(this->get_input_device_2()));
+    sub_615740(&option, "InputDevice: %d %d\n", this->get_input_device_1(), this->get_input_device_2());
+    //sub_615740(&option, "%d\n", reinterpret_cast<const void *>(this->get_input_device_2()));
 
     set_require_saving(false);
     
