@@ -31,7 +31,7 @@ static unk_613330::unk_613330_vTable unk_613330_vtable = {
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00406990),
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613770),
     &unk_613330::impl_1C,
-    MC2_PROC_MEMBER_PTR<FileHandler *, unk_613330, char *, char *, int32_t>(0x00613800),
+    &unk_613330::impl_20,
     &unk_613330::impl_24,
     &unk_613330::impl_28
 };
@@ -58,12 +58,31 @@ FileHandler *sub_617C40(char *path, bool unk2) {
     return register_file_handle(path, file, fileFuncs);
 }
 
+FileHandler *sub_617CA0(char *path) {
+    unk_679810_funcTable *fileFuncs = glo_679814;
+    
+    HANDLE file = fileFuncs->sub_04(path);
+    
+    if (file == INVALID_HANDLE_VALUE)
+        return nullptr;
+
+    return register_file_handle(path, file, fileFuncs);
+}
+
 // mc2: 0x00613780
 FileHandler *unk_613330::impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4) {
     char unk5[256];
     vir_04(unk5, 256, unk1, unk2);
 
     return sub_617C40(unk5, (bool)unk4);
+}
+
+// mc2: 0x00613800
+FileHandler *unk_613330::impl_20(char *unk1, char *unk2, int32_t unk3) {
+    char buffer[256];
+    vir_04(buffer, 256, unk1, unk2);
+
+    return sub_617CA0(buffer);
 }
 
 // mc2: 0x006134F0

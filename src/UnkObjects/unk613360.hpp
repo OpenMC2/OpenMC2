@@ -32,7 +32,7 @@ public:
         void (__thiscall *vir_14)(unk_613330 *);
         void (__thiscall *vir_18)(unk_613330 *);
         FileHandler *(__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, int32_t unk3, int32_t unk4);
-        FileHandler *(__thiscall *vir_20)(unk_613330 *, char *unk1, char *unk2, int32_t unk3);
+        FileHandler *(__thiscall unk_613330::* vir_20)(char *unk1, char *unk2, int32_t unk3);
         bool (__thiscall unk_613330::* vir_24)(char *unk1);
         void (__thiscall unk_613330::* vir_28)(char *destination, char *unk2, char *extension);
     };

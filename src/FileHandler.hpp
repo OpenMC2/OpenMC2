@@ -23,7 +23,7 @@
 
 struct unk_679810_funcTable{
     HANDLE (*sub_00)(char *path, bool unk2);
-    void (*sub_04)();
+    HANDLE (*sub_04)(char *path);
     void (*sub_08)();
     void (*sub_0C)();
     void (*sub_10)();
