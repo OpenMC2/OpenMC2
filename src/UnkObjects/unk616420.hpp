@@ -62,6 +62,9 @@ public:
         void(__thiscall *vir_8C)(unk_616420 *);
         void(__thiscall *vir_90)(unk_616420 *);
         void(__thiscall *vir_94)(unk_616420 *, char *, uint32_t);
+        void(__thiscall *vir_98)(unk_616420 *);
+        void(__thiscall *vir_9C)(unk_616420 *);
+        void(__thiscall *vir_100)(unk_616420 *);
     };
 protected:
     void *vtable;
