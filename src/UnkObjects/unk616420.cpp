@@ -59,7 +59,7 @@ static unk_616420::unk_616420_vTable unk_616420_vtable = {
     MC2_PROC_MEMBER_PTR<void, unk_616420>(0x00615C30),
     MC2_PROC_MEMBER_PTR<void, unk_616420>(0x00615BF0),
     MC2_PROC_MEMBER_PTR<void, unk_616420>(0x006156F0),
-    MC2_PROC_MEMBER_PTR<void, unk_616420, char *, uint32_t>(0x00615B70),
+    &unk_616420::impl_94,
     MC2_PROC_MEMBER_PTR<void, unk_616420>(0x00615DA0),
     MC2_PROC_MEMBER_PTR<void, unk_616420>(0x00615BF0),
     MC2_PROC_MEMBER_PTR<void, unk_616420>(0x00615BF0)
@@ -88,4 +88,32 @@ void sub_615740(unk_616420 *_this, char *format, ...) {
     std::vsnprintf(buffer, 512, format, args);
     _this->vir_94(buffer, 0);
     va_end(args);
+}
+
+bool unk_616420::impl_94(char *unk1, uint32_t unk2) {
+    char *message = *unk1 == '\0' ? "\"\"" : unk1;
+
+    int len = strlen(message);
+    int32_t bytes_written = this->unk0C->sub_617E40(message, len);
+
+    int unk3 = len + unk2;
+
+    if (unk2 == 0) {
+        return unk3 == bytes_written;
+    }
+    bytes_written += unk2;
+
+    FileHandler *file_handle = this->unk0C;
+    for (; unk2 != 0; --unk2) {
+        if (file_handle->unk_14 == 0 &&
+            file_handle->unk_10 < this->unk0C->buffer_size) {
+
+            file_handle->text_buffer[this->unk0C->unk_10] = '\t';
+            file_handle->unk_10++;
+            continue;
+        }
+
+        file_handle->sub_617F40('\t');
+    }
+    return unk3 == bytes_written;
 }

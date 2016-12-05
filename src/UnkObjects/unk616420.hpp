@@ -61,7 +61,7 @@ public:
         void(__thiscall *vir_88)(unk_616420 *);
         void(__thiscall *vir_8C)(unk_616420 *);
         void(__thiscall *vir_90)(unk_616420 *);
-        void(__thiscall *vir_94)(unk_616420 *, char *, uint32_t);
+        bool(__thiscall unk_616420::* vir_94)(char *, uint32_t);
         void(__thiscall *vir_98)(unk_616420 *);
         void(__thiscall *vir_9C)(unk_616420 *);
         void(__thiscall *vir_100)(unk_616420 *);
@@ -83,9 +83,13 @@ public:
 
     void sub_615130(char *unk1, FileHandler *unk2);
 
-    void vir_94(char *unk1, uint32_t unk2) {
-        static_cast<unk_616420_vTable*>(vtable)->vir_94(this, unk1, unk2);
+    bool vir_94(char *unk1, uint32_t unk2) {
+        return (this->*static_cast<unk_616420_vTable*>(vtable)->vir_94)(unk1, unk2);
     }
+
+    // Use vir_94() to call
+    // mc2: 0x00615B70
+    bool impl_94(char *unk1, uint32_t unk2);
 
     bool sub_6154D0(char *unk1, uint32_t unk2) {
         return MC2_PROC_MEMBER<bool, unk_616420, char *, uint32_t>(0x006154D0, this, unk1, unk2);

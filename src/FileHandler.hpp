@@ -42,9 +42,9 @@ public:
     HANDLE handle; // 0x04
     char *text_buffer; //0x08
     uint32_t unk_0C;
-    uint32_t unk_10;
+    int32_t unk_10;
     uint32_t unk_14;
-    uint32_t buffer_size; // 0x18
+    int32_t buffer_size; // 0x18
 
     void sub_617FB0();
 
@@ -52,8 +52,12 @@ public:
         MC2_PROC_MEMBER<void>(0x00617AF0, this);
     }
 
-    inline void sub_617E40(char *a, size_t b) {
-        MC2_PROC_MEMBER<void>(0x00617E40, this, a, b);
+    inline int32_t sub_617E40(char *a, size_t b) {
+        return MC2_PROC_MEMBER<int32_t>(0x00617E40, this, a, b);
+    }
+
+    inline void sub_617F40(char a) {
+        MC2_PROC_MEMBER<void>(0x00617F40, this, a);
     }
 };
 
