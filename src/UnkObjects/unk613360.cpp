@@ -52,10 +52,10 @@ void unk_613360::impl_04(char *destination, int32_t unk2, char *unk3, char *exte
     char *path;
     char* default_path = glo_860120;
     if (unk104 != 0) {
-        path = (char *)&this->unk04;
+        path = this->unk04;
     }
     else {
-        path = (char *)default_path;
+        path = default_path;
     }
 
     safe_strncpy(destination, path, 256);

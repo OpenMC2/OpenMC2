@@ -144,9 +144,7 @@ bool Settings::save_to_settings_file() {
     if (language != nullptr) {
         sub_615740(&option, "Language: %s\n", language);
     }
-    // In the original this was a var arg input but it is simpler to split it up
     sub_615740(&option, "InputDevice: %d %d\n", this->get_input_device_1(), this->get_input_device_2());
-    //sub_615740(&option, "%d\n", reinterpret_cast<const void *>(this->get_input_device_2()));
 
     set_require_saving(false);
     

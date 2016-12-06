@@ -48,22 +48,21 @@ FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable
     int32_t i = 0;
     FileHandler *freeHandle = glo_FileHandles;
 
-    do {
-        if (freeHandle->file_funcs == nullptr) {
-            freeHandle->unk_0C = 0;
-            freeHandle->unk_10 = 0;
-            freeHandle->unk_14 = 0;
-            freeHandle->handle = file;
-            freeHandle->buffer_size = 0x1000;
-            freeHandle->text_buffer = glo_FileHandle_TextBuffer[i];
-            freeHandle->file_funcs = fileFuncs;
-            if (i > glo_679818) {
-                glo_679818 = i;
-            }
-            return freeHandle;
+    for (int32_t i = 0; freeHandle < glo_FileHandles_end; freeHandle++, ++i){
+        if (freeHandle->file_funcs != nullptr) {
+            continue;
         }
-        ++i;
-    } while (++freeHandle < glo_FileHandles_end);
+
+        freeHandle->unk_0C = 0;
+        freeHandle->unk_10 = 0;
+        freeHandle->unk_14 = 0;
+        freeHandle->handle = file;
+        freeHandle->buffer_size = 0x1000;
+        freeHandle->text_buffer = glo_FileHandle_TextBuffer[i];
+        freeHandle->file_funcs = fileFuncs;
+        glo_679818 = max(glo_679818, i);
+        return freeHandle;
+    }
 
     sub_617AA0();
     mc2_log_error("Out of file handles.");

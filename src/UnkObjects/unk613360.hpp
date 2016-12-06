@@ -37,7 +37,7 @@ public:
         void (__thiscall unk_613330::* vir_28)(char *destination, char *unk2, char *extension);
     };
 private:
-    std::uint8_t unk04[0x100];
+    char unk04[0x100];
     std::uint32_t unk104;
 
 public:
