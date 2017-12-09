@@ -16,16 +16,18 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#ifndef INIT_FUNCTION
-#define INIT_FUNCTION BinkStubInit
-#endif
+#include "../Addresses.hpp"
 
-STUB_SYMBOL(BinkNextFrame, 4)
-STUB_SYMBOL(BinkCopyToBuffer, 28)
-STUB_SYMBOL(BinkOpenMiles, 4)
-STUB_SYMBOL(BinkSetSoundSystem, 8)
-STUB_SYMBOL(BinkSetVolume, 12)
-STUB_SYMBOL(BinkClose, 4)
-STUB_SYMBOL(BinkWait, 4)
-STUB_SYMBOL(BinkOpen, 8)
-STUB_SYMBOL(BinkDoFrame, 4)
+constexpr std::uintptr_t BinkStart = 0x0062D260;
+
+constexpr const char *BinkNames[] = {
+    "_BinkNextFrame@4",
+    "_BinkCopyToBuffer@28",
+    "_BinkOpenMiles@4",
+    "_BinkSetSoundSystem@8",
+    "_BinkSetVolume@12",
+    "_BinkClose@4",
+    "_BinkWait@4",
+    "_BinkOpen@8",
+    "_BinkDoFrame@4",
+};

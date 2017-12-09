@@ -53,3 +53,14 @@ char * __cdecl mc2_strdup(const char *str) {
 char * _cdecl mc2_strdup_info(const char *str, const char * /* file */, std::int32_t /* line */) {
     return mc2_strdup(str);
 }
+
+AUTO_HOOK_X86(hook_5772E0, mc2_malloc_info);
+AUTO_HOOK_X86(hook_577320, mc2_free);
+
+AUTO_HOOK_X86(hook_5772A0, mc2_malloc);
+AUTO_HOOK_X86(hook_577350, mc2_free);
+
+AUTO_HOOK_X86(hook_613EA0, mc2_aligned_malloc);
+AUTO_HOOK_X86(hook_613EF0, mc2_aligned_free);
+
+AUTO_HOOK_X86(hook_614A10, mc2_strdup_info);
