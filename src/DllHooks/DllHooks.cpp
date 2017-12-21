@@ -16,12 +16,30 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#pragma once
+#include "DllHooks.hpp"
+#include "BinkSymbols.hpp"
+#include "MssSymbols.hpp"
 
-#include <boost/filesystem/path.hpp>
+#include "../Addresses.hpp"
 
-void MssStubInit(const boost::filesystem::path &path);
+#include <boost/dll.hpp>
 
-extern "C" {
-    // Put Mss Functions Here as Their Usage is Discovered
+static boost::dll::shared_library BinkDll;
+static boost::dll::shared_library AIL_Dll;
+
+void AddDllHooks(const boost::filesystem::path &mc2_dir) {
+    BinkDll.load(mc2_dir / "binkw32.dll");
+    AIL_Dll.load(mc2_dir / "mss32.dll");
+
+    void **func = MC2_POINTER<void *>(BinkStart);
+    for (const char *bink_func : BinkNames) {
+        *func = &BinkDll.get<char>(bink_func);
+        ++func;
+    }
+
+    func = MC2_POINTER<void *>(AIL_Start);
+    for (const char *ail_func : AIL_Names) {
+        *func = &AIL_Dll.get<char>(ail_func);
+        ++func;
+    }
 }

@@ -18,10 +18,6 @@
 
 #pragma once
 
-#include <boost/filesystem/path.hpp>
+#include <boost/filesystem.hpp>
 
-void BinkStubInit(const boost::filesystem::path &path);
-
-extern "C" {
-    // Put Bink Functions Here as Their Usage is Discovered
-}
+void AddDllHooks(const boost::filesystem::path &mc2_dir);

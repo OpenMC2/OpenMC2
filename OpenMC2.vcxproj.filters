@@ -19,6 +19,12 @@
     <Filter Include="Header Files\UnkObjects">
       <UniqueIdentifier>{97e45950-21e4-4427-a7d8-1b555c43df41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\DllHooks">
+      <UniqueIdentifier>{c1935215-f9b4-47e9-bfc1-fc5c953cf773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DllHooks">
+      <UniqueIdentifier>{516bb59f-100f-441b-a5c6-27f46a45eaf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\OpenMC2.cpp">
@@ -59,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="src\FileHandler.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DllHooks\DllHooks.cpp">
+      <Filter>Source Files\DllHooks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +124,15 @@
     </ClInclude>
     <ClInclude Include="src\FileHandler.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DllHooks\DllHooks.hpp">
+      <Filter>Header Files\DllHooks</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DllHooks\BinkSymbols.hpp">
+      <Filter>Header Files\DllHooks</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DllHooks\MssSymbols.hpp">
+      <Filter>Header Files\DllHooks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

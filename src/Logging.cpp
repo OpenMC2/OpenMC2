@@ -214,3 +214,5 @@ void mc2_log_fatal(const char *format, ...) {
 
     std::terminate();
 }
+
+AUTO_HOOK_FNPTR(0x00679880, mc2_log_level_v);

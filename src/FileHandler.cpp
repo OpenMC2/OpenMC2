@@ -39,7 +39,7 @@ void sub_618050(FileHandler *a, const char *format, ...) {
     va_list ap;
     va_start(ap, format);
     size_t len = std::vsnprintf(buffer, 0x400, format, ap);
-    a->sub_617E40(buffer, max(len, (size_t) 0));
+    a->sub_617E40(buffer, std::max(len, (size_t) 0));
     va_end(ap);
 }
 
@@ -60,7 +60,7 @@ FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable
         freeHandle->buffer_size = 0x1000;
         freeHandle->text_buffer = glo_FileHandle_TextBuffer[i];
         freeHandle->file_funcs = fileFuncs;
-        glo_679818 = max(glo_679818, i);
+        glo_679818 = std::max(glo_679818, i);
         return freeHandle;
     }
 

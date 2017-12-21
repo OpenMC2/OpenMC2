@@ -24,8 +24,7 @@
 #include <shobjidl.h>
 #include <windows.h>
 
-#include <BinkStub.hpp>
-#include <MssStub.hpp>
+#include "DllHooks/DllHooks.hpp"
 
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
@@ -170,8 +169,7 @@ void load_config() {
     // This should be set via the debug options, but that doesn't work correctly as-is.
     boost::filesystem::current_path(gamepath);
 
-    BinkStubInit(gamepath / "binkw32.dll");
-    MssStubInit(gamepath / "mss32.dll");
+    AddDllHooks(gamepath);
 
     glo_windowed_mode = config.get<bool>("window");
 }
