@@ -22,8 +22,8 @@
 #include "../FileHandler.hpp"
 
 class unk_616420 {
-public:
-    struct unk_616420_vTable {
+private:
+    struct vtable_t {
         void(__thiscall *vir_00)(unk_616420 *);
         void(__thiscall *vir_04)(unk_616420 *);
         void(__thiscall *vir_08)(unk_616420 *);
@@ -61,47 +61,51 @@ public:
         void(__thiscall *vir_88)(unk_616420 *);
         void(__thiscall *vir_8C)(unk_616420 *);
         void(__thiscall *vir_90)(unk_616420 *);
-        bool(__thiscall unk_616420::* vir_94)(char *, uint32_t);
+        bool(__thiscall unk_616420::* vir_94)(const char *, std::uint32_t);
         void(__thiscall *vir_98)(unk_616420 *);
         void(__thiscall *vir_9C)(unk_616420 *);
         void(__thiscall *vir_100)(unk_616420 *);
     };
+    static vtable_t vtable_values;
+
 protected:
     void *vtable;
     char *unk04;
-    uint32_t unk08;
+    std::uint32_t unk08;
     FileHandler *unk0C;
-    uint32_t unk10;
-    uint32_t unk14;
-    uint8_t unk18;
-    uint8_t unk19[0x7F];
-    uint32_t unk98;
-    uint32_t unk9C;
+    std::uint32_t unk10;
+    std::uint32_t unk14;
+    std::uint8_t unk18;
+    std::uint8_t unk19[0x7F];
+    std::uint32_t unk98;
+    std::uint32_t unk9C;
 
 public:
     unk_616420(char *unk1, FileHandler *unk2);
 
     void sub_615130(char *unk1, FileHandler *unk2);
 
-    bool vir_94(char *unk1, uint32_t unk2) {
-        return (this->*static_cast<unk_616420_vTable*>(vtable)->vir_94)(unk1, unk2);
+    bool vir_94(char *unk1, std::uint32_t unk2) {
+        return (this->*static_cast<vtable_t*>(vtable)->vir_94)(unk1, unk2);
     }
 
     // Use vir_94() to call
     // mc2: 0x00615B70
-    bool impl_94(char *unk1, uint32_t unk2);
+    bool impl_94(const char *unk1, std::uint32_t unk2);
 
-    bool sub_6154D0(char *unk1, uint32_t unk2) {
-        return MC2_PROC_MEMBER<bool, unk_616420, char *, uint32_t>(0x006154D0, this, unk1, unk2);
+    bool sub_6154D0(char *unk1, std::uint32_t unk2) {
+        return MC2_PROC_MEMBER<bool, unk_616420, char *, std::uint32_t>(0x006154D0, this, unk1, unk2);
     }
 
-    int32_t sub_47C920(char *unk1, uint32_t unk2) {
-        return MC2_PROC_MEMBER<int32_t, unk_616420, char *, uint32_t>(0x0047C920, this, unk1, unk2);
+    std::int32_t sub_47C920(char *unk1, std::uint32_t unk2) {
+        return MC2_PROC_MEMBER<std::int32_t, unk_616420, char *, std::uint32_t>(0x0047C920, this, unk1, unk2);
     }
 
-    int32_t read_integer() {
-        return MC2_PROC_MEMBER<int32_t, unk_616420>(0x00615790, this);
+    std::int32_t read_integer() {
+        return MC2_PROC_MEMBER<std::int32_t, unk_616420>(0x00615790, this);
     }
 };
 
-void sub_615740(unk_616420 *_this, char *format, ...);
+static_assert(sizeof(unk_616420) == 0xA0, "Bad Size: unk_616420");
+
+void sub_615740(unk_616420 *unk1, char *format, ...);

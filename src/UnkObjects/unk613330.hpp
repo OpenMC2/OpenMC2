@@ -23,63 +23,68 @@
 class FileHandler;
 
 class unk_613330 {
-public:
-    struct unk_613330_vTable{
+private:
+    struct vtable_t{
         void (__thiscall *vir_00)(unk_613330 *);
-        void (__thiscall *vir_04)(unk_613330 *, char *destination, int32_t unk2, char *unk3, char *extension);
+        void (__thiscall *vir_04)(unk_613330 *, char *destination, std::uint32_t unk2, char *unk3, char *extension);
         void (__thiscall *vir_08)(unk_613330 *);
         void (__thiscall *vir_0C)(unk_613330 *);
         void (__thiscall *vir_10)(unk_613330 *);
         void (__thiscall *vir_14)(unk_613330 *);
         void (__thiscall *vir_18)(unk_613330 *);
-        FileHandler *(__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, int32_t unk3, int32_t unk4);
-        FileHandler *(__thiscall unk_613330::* vir_20)(char *unk1, char *unk2, int32_t unk3);
-        bool (__thiscall unk_613330::* vir_24)(char *unk1);
-        void (__thiscall unk_613330::* vir_28)(char *destination, char *unk2, char *extension);
+        FileHandler *(unk_613330::*vir_1C)(char *unk1, char *unk2, std::uint32_t unk3, bool extension);
+        FileHandler *(unk_613330::*vir_20)(char *unk1, char *unk2, std::uint32_t unk3);
+        bool (unk_613330::*vir_24)(char *unk1);
+        void (unk_613330::*vir_28)(char *destination, const char *unk2, const char *extension);
     };
+    static vtable_t vtable_values;
+
 protected:
     void *vtable;
+
 public:
     unk_613330();
     
-    FileHandler *__thiscall impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4); //0x1C
-    FileHandler *__thiscall impl_20(char *unk1, char *unk2, int32_t unk3); // 0x20
+    FileHandler *__thiscall impl_1C(char *unk1, char *unk2, std::uint32_t unk3, bool extension); //0x1C
+    FileHandler *__thiscall impl_20(char *unk1, char *unk2, std::uint32_t unk3); // 0x20
     bool __thiscall impl_24(char *unk1); //0x24
-    void __thiscall impl_28(char *destination, char *unk2, char *extension); //0x28
+    void __thiscall impl_28(char *destination, const char *unk2, const char *extension); //0x28
 
     inline void vir_00() {
-        static_cast<unk_613330_vTable*>(vtable)->vir_00(this);
+        static_cast<vtable_t*>(vtable)->vir_00(this);
     }
-    inline void vir_04(char *destination, int32_t unk2, char *unk3, char *unk4){
-        static_cast<unk_613330_vTable*>(vtable)->vir_04(this, destination, unk2, unk3, unk4);
+    inline void vir_04(char *destination, std::uint32_t unk2, char *unk3, char *unk4){
+        static_cast<vtable_t*>(vtable)->vir_04(this, destination, unk2, unk3, unk4);
     }
     inline void vir_08(){
-        static_cast<unk_613330_vTable*>(vtable)->vir_08(this);
+        static_cast<vtable_t*>(vtable)->vir_08(this);
     }
     inline void vir_0C(){
-        static_cast<unk_613330_vTable*>(vtable)->vir_0C(this);
+        static_cast<vtable_t*>(vtable)->vir_0C(this);
     }
     inline void vir_10(){
-        static_cast<unk_613330_vTable*>(vtable)->vir_10(this);
+        static_cast<vtable_t*>(vtable)->vir_10(this);
     }
     inline void vir_14(){
-        static_cast<unk_613330_vTable*>(vtable)->vir_14(this);
+        static_cast<vtable_t*>(vtable)->vir_14(this);
     }
     inline void vir_18(){
-        static_cast<unk_613330_vTable*>(vtable)->vir_18(this);
+        static_cast<vtable_t*>(vtable)->vir_18(this);
     }
-    inline FileHandler *vir_1C(char* unk1, char* unk2, int32_t unk3, int32_t extension){
-        return (this->*static_cast<unk_613330_vTable*>(vtable)->vir_1C)(unk1, unk2, unk3, extension);
+    inline FileHandler *vir_1C(char* unk1, char* unk2, std::uint32_t unk3, bool extension){
+        return (this->*static_cast<vtable_t*>(vtable)->vir_1C)(unk1, unk2, unk3, extension);
     }
-    inline FileHandler *vir_20(char* unk1, char* unk2, int32_t unk3){
-        return (this->*static_cast<unk_613330_vTable*>(vtable)->vir_20)(unk1, unk2, unk3);
+    inline FileHandler *vir_20(char* unk1, char* unk2, std::uint32_t unk3){
+        return (this->*static_cast<vtable_t*>(vtable)->vir_20)(unk1, unk2, unk3);
     }
     inline bool vir_24(char *unk1){
-        return (this->*static_cast<unk_613330_vTable*>(vtable)->vir_24)(unk1);
+        return (this->*static_cast<vtable_t*>(vtable)->vir_24)(unk1);
     }
-    inline void vir_28(char *destination, char *unk2, char *extension){
-        (this->*static_cast<unk_613330_vTable*>(vtable)->vir_28)(destination, unk2, extension);
+    inline void vir_28(char *destination, const char *unk2, const char *extension){
+        (this->*static_cast<vtable_t*>(vtable)->vir_28)(destination, unk2, extension);
     }
 };
+
+static_assert(sizeof(unk_613330) == 4, "Bad Size: unk_613330");
 
 #define glo_860220 (MC2_GLOBAL<unk_613330*>(0x00860220))

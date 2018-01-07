@@ -36,8 +36,6 @@
 #include "UnkObjects/unk6C3890.hpp"
 #include "UnkObjects/unk8600F8.hpp"
 
-void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, int32_t unk5);
-
 static void sub_612A80(char *args) {
     glo_8600F0 = 0;
     glo_8600EC = nullptr;
@@ -123,7 +121,7 @@ static void sub_612A80(char *args) {
         if (value->count == 0)
             continue;
 
-        uint32_t values_index = 0;
+        std::uint32_t values_index = 0;
         do {
             char *cur_value_str = value_str;
             if (*value_str != '\0') {
@@ -154,7 +152,7 @@ void sub_612F00() {
         unk_612150 *value = index_entry.value;
         if (value != nullptr) {
             if (value->count != 0) {
-                for (uint32_t i = 0; i < value->count; ++i) {
+                for (std::uint32_t i = 0; i < value->count; ++i) {
                     delete [] value->args[i];
                 }
                 value->count = 0;
@@ -239,7 +237,7 @@ int sub_5E1B50(const char *path) {
     for (int i = 0; i < 10; ++i) {
         const char *language = LanguageShortList[i];
 
-        if (!sub_627145(path, language)) {
+        if (stricmp(path, language) == 0) {
             return i;
         }
     }
@@ -258,7 +256,7 @@ bool sub_539DE0(const char *path) {
     for (int i = 0; i < 5; ++i) {
         const char *unk = GameModes[i];
 
-        if (sub_627145(path, unk)) {
+        if (stricmp(path, unk) == 0) {
             glo_6C2C60 = i;
             return true;
         }
@@ -425,14 +423,14 @@ void sub_5F5690() {
     }
     else if (glo_85AE8C == 0) {
         glo_6754A4 = 60;
-        glo_6754A8 = 0x3C888889;
+        glo_6754A8 = 1.0f/60.0f;
         return;
     }
     glo_6754A4 = 50;
-    glo_6754A8 = 0x3CA3D70A;
+    glo_6754A8 = 1.0f/50.0f;
 }
 
-void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, int32_t unk5) {
+void sub_5ED7B0(std::int32_t width, std::int32_t height, std::int32_t cdepth, std::int32_t zdepth, std::int32_t unk5) {
 	if (sub_612E10("ref")) {
 		glo_858373 = 1;
 		glo_858374 = 1;
@@ -509,7 +507,7 @@ int sub_401190() {
     sub_612EB0("path", 0, &gamePath);
     new unk_613360;
     sub_6134D0(gamePath);
-    glo_Settings.load_settings_file();
+    glo_Settings.load_settings();
     sub_5ED7B0(glo_Settings.get_screen_width(), glo_Settings.get_screen_height(), glo_Settings.get_screen_depth(), 32, 0);
     sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;

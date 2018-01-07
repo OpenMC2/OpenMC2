@@ -22,7 +22,7 @@
 #include <string>
 
 // mc2:0x00659B38
-static unk_613360::unk_613360_vTable unk_613360_vtable = {
+unk_613360::vtable_t unk_613360::vtable_values = {
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005ED480),
     &unk_613360::impl_04,
     MC2_PROC_MEMBER_PTR<void, unk_613360>(0x00613380),
@@ -37,28 +37,19 @@ static unk_613360::unk_613360_vTable unk_613360_vtable = {
 };
 
 unk_613360::unk_613360(){
-    vtable = &unk_613360_vtable;
+    vtable = &vtable_values;
     unk104 = 0;
 }
 
 //mc2:0x006136C0
-void unk_613360::impl_04(char *destination, int32_t unk2, char *unk3, char *extension) {
+void unk_613360::impl_04(char *destination, std::uint32_t unk2, char *unk3, char *extension) {
     if (vir_24(unk3) == false) {
-        *destination = 0;
+        destination[0] = '\0';
         vir_28(destination, unk3, extension);
         return;
     }
 
-    char *path;
-    char* default_path = glo_860120;
-    if (unk104 != 0) {
-        path = this->unk04;
-    }
-    else {
-        path = default_path;
-    }
-
-    safe_strncpy(destination, path, 256);
+    safe_strncpy(destination, (this->unk104 != 0) ? this->unk04 : glo_860120, 256);
     vir_28(destination, unk3, extension);
 }
 

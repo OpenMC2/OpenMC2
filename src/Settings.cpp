@@ -21,19 +21,21 @@
 #include "UnkObjects/unk616420.hpp"
 #include "Game.hpp"
 
+//mc2: 0x0053B990
 Settings::Settings() {
     this->requires_saving = false;
     this->unk71 = false;
     set_defualts();
 }
 
+//mc2: 0x0053B930
 void Settings::set_defualts() {
     this->unk00 = 0;
     set_audio_driver("Miles Fast 2D Positional Audio");
     set_screen_width(640);
     set_screen_height(480);
     set_screen_depth(32);
-    set_draw_distance(1);
+    set_draw_distance(500);
     set_environment_mapping(1);
     set_reflections(1);
     set_shadows(1);
@@ -41,7 +43,8 @@ void Settings::set_defualts() {
     this->language_id = 0;
 }
 
-bool Settings::load_settings_file() {
+//mc2: 0x0053B6A0
+bool Settings::load_settings() {
     unk_679810_funcTable *fileFuncs = glo_679810;
 
     glo_679810 = loc_679884;
@@ -119,12 +122,13 @@ bool Settings::load_settings_file() {
     return true;
 }
 
-bool Settings::save_to_settings_file() {
+//mc2: 0x0053B370
+bool Settings::save_settings_force() {
     unk_679810_funcTable *fileFuncs = glo_679810;
-
     glo_679810 = loc_679884;
-
     FileHandler* file = glo_860220->vir_20("userdata\\options.cfg", "", 0);
+    glo_679810 = fileFuncs;
+
     if (file == nullptr) {
         return false;
     }

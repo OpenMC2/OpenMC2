@@ -30,6 +30,8 @@ int sub_6181F0();
 void sub_612F00();
 bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_arg);
 
+void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, int32_t unk5);
+
 #define sub_401170 (MC2_PROC_PTR<void>(0x00401170))
 #define sub_4017E0 (MC2_PROC_PTR<void>(0x004017E0))
 #define sub_402590 (MC2_PROC_PTR<void>(0x00402590))
@@ -52,13 +54,11 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define sub_612C70 (MC2_PROC_PTR<void, char *>(0x00612C70))
 #define sub_613DD0 (MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0))
 #define sub_617AA0 (MC2_PROC_PTR<void>(0x00617AA0))
-#define sub_627145 (MC2_PROC_PTR<bool, const char *, const char *>(0x00627145))
 
 #define loc_4010B0 (MC2_PROC_PTR<void>(0x004010B0))
 
 #define global_texture_dir_name (MC2_GLOBAL<const char *>(0x006754AC))
 #define global_mod_dir_name (MC2_GLOBAL<const char *>(0x00675518))
-#define glo_675030 (MC2_GLOBAL<std::uint32_t>)(0x00675030)
 // This is just 1.0
 #define glo_1_P_0 (MC2_GLOBAL<float>(0x0062D57C))
 
@@ -68,7 +68,7 @@ bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_a
 #define glo_674FB8 (MC2_GLOBAL<std::uint32_t>(0x00674FB8))
 #define glo_675030 (MC2_GLOBAL<std::uint32_t>)(0x00675030)
 #define glo_6754A4 (MC2_GLOBAL<std::uint32_t>(0x006754A4))
-#define glo_6754A8 (MC2_GLOBAL<std::uint32_t>(0x006754A8))
+#define glo_6754A8 (MC2_GLOBAL<float>(0x006754A8))
 
 #define glo_679810 (MC2_GLOBAL<unk_679810_funcTable *>(0x00679810))
 #define glo_679814 (MC2_GLOBAL<unk_679810_funcTable *>(0x00679814))

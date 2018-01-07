@@ -21,7 +21,7 @@
 #include <cstdio>
 
 // mc2:0x0062FF40
-static unk_616420::unk_616420_vTable unk_616420_vtable = {
+ unk_616420::vtable_t unk_616420::vtable_values = {
     MC2_PROC_MEMBER_PTR<void, unk_616420>(0x004BCFD0),
     MC2_PROC_MEMBER_PTR<void, unk_616420>(0x00615220),
     MC2_PROC_MEMBER_PTR<void, unk_616420>(0x00615780),
@@ -67,7 +67,7 @@ static unk_616420::unk_616420_vTable unk_616420_vtable = {
 
 unk_616420::unk_616420(char *unk1, FileHandler *unk2) {
     this->unk9C = 0;
-    vtable = &unk_616420_vtable;
+    vtable = &vtable_values;
     sub_615130(unk1, unk2);
 }
     
@@ -81,39 +81,30 @@ void unk_616420::sub_615130(char *unk1, FileHandler *unk2) {
     this->unk98 = 0;
 }
 
-void sub_615740(unk_616420 *_this, char *format, ...) {
+void sub_615740(unk_616420 *unk1, char *format, ...) {
     char buffer[512];
     va_list args;
     va_start(args, format);
     std::vsnprintf(buffer, 512, format, args);
-    _this->vir_94(buffer, 0);
+    unk1->vir_94(buffer, 0);
     va_end(args);
 }
 
-bool unk_616420::impl_94(char *unk1, uint32_t unk2) {
-    char *message = *unk1 == '\0' ? "\"\"" : unk1;
+//mc2: 0x00615B70
+bool unk_616420::impl_94(const char *unk1, std::uint32_t unk2) {
+    const char *message = unk1[0] == '\0' ? R"("")" : unk1;
 
     int len = strlen(message);
-    int32_t bytes_written = this->unk0C->sub_617E40(message, len);
+    std::int32_t bytes_written = this->unk0C->sub_617E40(message, len) + unk2;
+    int total_length = len + unk2;
 
-    int unk3 = len + unk2;
-
-    if (unk2 == 0) {
-        return unk3 == bytes_written;
-    }
-    bytes_written += unk2;
-
-    FileHandler *file_handle = this->unk0C;
     for (; unk2 != 0; --unk2) {
-        if (file_handle->unk_14 == 0 &&
-            file_handle->unk_10 < this->unk0C->buffer_size) {
-
-            file_handle->text_buffer[this->unk0C->unk_10] = '\t';
-            file_handle->unk_10++;
-            continue;
+        if (this->unk0C->unk_14 == 0 &&
+            this->unk0C->unk_10 < this->unk0C->buffer_size) {
+            this->unk0C->text_buffer[this->unk0C->unk_10++] = '\t';
+        } else {
+            this->unk0C->sub_617F40('\t');
         }
-
-        file_handle->sub_617F40('\t');
     }
-    return unk3 == bytes_written;
+    return bytes_written == total_length;
 }

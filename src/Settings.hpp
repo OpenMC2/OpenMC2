@@ -42,7 +42,7 @@ private:
     bool unk71;
     
     // mc2: 0x0053B370
-    bool save_to_settings_file();
+    bool save_settings_force();
     // mc2: 0x0053B930
     void set_defualts();
 public:
@@ -55,25 +55,24 @@ public:
     }
 
     // mc2: 0x0053B6A0
-    bool load_settings_file();
+    bool load_settings();
 
     // mc2: 0x0053B510
-    bool save_settings_file() {
+    bool save_settings() {
         if (this->requires_saving == false)
             return false;
-        return save_to_settings_file();
+        return save_settings_force();
     }
 
     // mc2: 0x0053B520
     void set_audio_driver(char *driver) {
         safe_strncpy(this->audio_driver, driver, sizeof(this->audio_driver));
-        this->audio_driver[sizeof(this->audio_driver) - 1] = '\0';
         unk71 = true;
         set_require_saving(true);
     }
 
     // mc2: 0x0053B550
-    void set_screen_width(uint32_t new_width) {
+    void set_screen_width(std::uint32_t new_width) {
         if (this->screen_width == new_width)
             return;
 
@@ -82,7 +81,7 @@ public:
     }
     
     // mc2: 0x0053B570
-    void set_screen_height(uint32_t new_height) {
+    void set_screen_height(std::uint32_t new_height) {
         if (this->screen_height == new_height)
             return;
 
@@ -91,7 +90,7 @@ public:
     }
     
     // mc2: 0x0053B590
-    void set_screen_depth(uint32_t new_depth) {
+    void set_screen_depth(std::uint32_t new_depth) {
         if (this->screen_depth == new_depth)
             return;
 
@@ -100,7 +99,7 @@ public:
     }
     
     // mc2: 0x0053B5B0
-    void set_draw_distance(uint32_t new_distance) {
+    void set_draw_distance(std::uint32_t new_distance) {
         if (this->draw_distance == new_distance)
             return;
 
@@ -109,7 +108,7 @@ public:
     }
     
     // mc2: 0x0053B600
-    void set_environment_mapping(uint32_t new_mapping) {
+    void set_environment_mapping(std::uint32_t new_mapping) {
         if (this->environment_mapping == new_mapping)
             return;
 
@@ -118,7 +117,7 @@ public:
     }
     
     // mc2: 0x0053B620
-    void set_reflections(uint32_t new_reflections) {
+    void set_reflections(std::uint32_t new_reflections) {
         if (this->reflections == new_reflections)
             return;
 
@@ -127,7 +126,7 @@ public:
     }
     
     // mc2: 0x0053B640
-    void set_shadows(uint32_t new_shadows) {
+    void set_shadows(std::uint32_t new_shadows) {
         if (this->shadows == new_shadows)
             return;
 
@@ -136,7 +135,7 @@ public:
     }
     
     // mc2: 0x0053B660
-    void set_fullscreen_effects(uint32_t new_effects) {
+    void set_fullscreen_effects(std::uint32_t new_effects) {
         if (this->fullscreen_effects == new_effects)
             return;
 

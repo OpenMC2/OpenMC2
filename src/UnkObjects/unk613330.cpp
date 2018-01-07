@@ -22,9 +22,9 @@
 #include <string>
 
 // mc2:0x00659B0C
-static unk_613330::unk_613330_vTable unk_613330_vtable = {
+unk_613330::vtable_t unk_613330::vtable_values = {
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005ED480),
-    MC2_PROC_MEMBER_PTR<void, unk_613330, char*, int32_t, char*, char*>(0x00619AB9),
+    MC2_PROC_MEMBER_PTR<void, unk_613330, char*, std::uint32_t, char*, char*>(0x00619AB9),
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00619AB9),
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00619AB9),
     MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005CA940),
@@ -36,49 +36,45 @@ static unk_613330::unk_613330_vTable unk_613330_vtable = {
     &unk_613330::impl_28
 };
 
-unk_613330::unk_613330() : vtable(&unk_613330_vtable) {
+unk_613330::unk_613330() : vtable(&vtable_values) {
     glo_860220 = this;
 }
 
-FileHandler *sub_617C40(char *path, bool unk2) {
-    unk_679810_funcTable *fileFuncs = unk2 ? glo_679810 : glo_679814;
+FileHandler *sub_617C40(char *path, bool extension) {
+    unk_679810_funcTable *fileFuncs = extension ? glo_679810 : glo_679814;
     
-    HANDLE file = fileFuncs->sub_00(path, unk2);
+    HANDLE file = fileFuncs->sub_00(path, extension);
     
     if (file == INVALID_HANDLE_VALUE)
         return nullptr;
 
-    if (glo_860AD8 != nullptr) {
-        if (glo_860AD8(path, unk2) == false) {
-            fileFuncs->close_file(file);
-            return nullptr;
-        }
+    if (glo_860AD8 != nullptr && glo_860AD8(path, extension) == false) {
+        fileFuncs->close_file(file);
+        return nullptr;
     }
 
     return register_file_handle(path, file, fileFuncs);
 }
 
 FileHandler *sub_617CA0(char *path) {
-    unk_679810_funcTable *fileFuncs = glo_679814;
-    
-    HANDLE file = fileFuncs->sub_04(path);
+    HANDLE file = glo_679814->sub_04(path);
     
     if (file == INVALID_HANDLE_VALUE)
         return nullptr;
 
-    return register_file_handle(path, file, fileFuncs);
+    return register_file_handle(path, file, glo_679814);
 }
 
 // mc2: 0x00613780
-FileHandler *unk_613330::impl_1C(char *unk1, char *unk2, int32_t unk3, int32_t unk4) {
-    char unk5[256];
-    vir_04(unk5, 256, unk1, unk2);
+FileHandler *unk_613330::impl_1C(char *unk1, char *unk2, std::uint32_t unk3, bool extension) {
+    char buffer[256];
+    vir_04(buffer, 256, unk1, unk2);
 
-    return sub_617C40(unk5, (bool)unk4);
+    return sub_617C40(buffer, extension);
 }
 
 // mc2: 0x00613800
-FileHandler *unk_613330::impl_20(char *unk1, char *unk2, int32_t unk3) {
+FileHandler *unk_613330::impl_20(char *unk1, char *unk2, std::uint32_t unk3) {
     char buffer[256];
     vir_04(buffer, 256, unk1, unk2);
 
@@ -100,16 +96,13 @@ bool unk_613330::impl_24(char *unk1) {
 }
 
 // mc2: 0x00613520
-void unk_613330::impl_28(char *destination, char *unk2, char *extension) {
-    strcat_s(destination, 256, unk2);
-    char *extension_loc = strrchr(destination, '.');
-    if (extension_loc != nullptr) {
-        if (*extension == 0)
-            return;
-
-        if (sub_627145(extension_loc + 1, extension) == 0)
-            return;
+void unk_613330::impl_28(char *destination, const char *unk2, const char *extension) {
+    safe_strcat(destination, 256, unk2);
+    
+    const char *extension_loc = std::strrchr(unk2, '.');
+    if (extension_loc != nullptr && 
+        (extension[0] == '\0' || stricmp(extension_loc + 1, extension) == 0) ) {
+        safe_strcat(destination, 256, ".");
+        safe_strcat(destination, 256, extension);
     }
-    strcat_s(destination, 256, ".");
-    strcat_s(destination, 256, extension);
 }

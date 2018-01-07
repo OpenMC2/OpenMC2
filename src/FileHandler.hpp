@@ -41,10 +41,10 @@ public:
     unk_679810_funcTable *file_funcs; // 0x00
     HANDLE handle; // 0x04
     char *text_buffer; //0x08
-    uint32_t unk_0C;
-    int32_t unk_10;
-    uint32_t unk_14;
-    int32_t buffer_size; // 0x18
+    std::uint32_t unk_0C;
+    std::int32_t unk_10;
+    std::uint32_t unk_14;
+    std::int32_t buffer_size; // 0x18
 
     void sub_617FB0();
 
@@ -52,8 +52,8 @@ public:
         MC2_PROC_MEMBER<void>(0x00617AF0, this);
     }
 
-    inline int32_t sub_617E40(char *a, size_t b) {
-        return MC2_PROC_MEMBER<int32_t>(0x00617E40, this, a, b);
+    inline std::int32_t sub_617E40(const char *a, size_t b) {
+        return MC2_PROC_MEMBER<std::int32_t>(0x00617E40, this, a, b);
     }
 
     inline void sub_617F40(char a) {
@@ -69,4 +69,4 @@ FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable
 #define glo_FileHandles_end (MC2_POINTER<FileHandler>(0x00860C30))
 #define glo_FileHandle_TextBuffer (MC2_POINTER<char [0x1000]>(0x00860C30))
 #define glo_86D28C (MC2_GLOBAL<FileHandler *>(0x0086D28C))
-#define glo_679818 (MC2_GLOBAL<int32_t>(0x00679818))
+#define glo_679818 (MC2_GLOBAL<std::int32_t>(0x00679818))

@@ -38,30 +38,28 @@ void sub_618050(FileHandler *a, const char *format, ...) {
     char buffer[0x400];
     va_list ap;
     va_start(ap, format);
-    size_t len = std::vsnprintf(buffer, 0x400, format, ap);
-    a->sub_617E40(buffer, std::max(len, (size_t) 0));
+    int len = std::vsnprintf(buffer, 0x400, format, ap);
+    a->sub_617E40(buffer, std::min(std::max(len, 0), 0x3FF));
     va_end(ap);
 }
 
 // mc2: 0x00617BB0
 FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable * fileFuncs) {
-    int32_t i = 0;
+    std::int32_t i = 0;
     FileHandler *freeHandle = glo_FileHandles;
 
-    for (int32_t i = 0; freeHandle < glo_FileHandles_end; freeHandle++, ++i){
-        if (freeHandle->file_funcs != nullptr) {
-            continue;
+    for (std::int32_t i = 0; freeHandle < glo_FileHandles_end; freeHandle++, ++i){
+        if (freeHandle->file_funcs == nullptr) {
+            freeHandle->unk_0C = 0;
+            freeHandle->unk_10 = 0;
+            freeHandle->unk_14 = 0;
+            freeHandle->handle = file;
+            freeHandle->buffer_size = 0x1000;
+            freeHandle->text_buffer = glo_FileHandle_TextBuffer[i];
+            freeHandle->file_funcs = fileFuncs;
+            glo_679818 = std::max(glo_679818, i);
+            return freeHandle;
         }
-
-        freeHandle->unk_0C = 0;
-        freeHandle->unk_10 = 0;
-        freeHandle->unk_14 = 0;
-        freeHandle->handle = file;
-        freeHandle->buffer_size = 0x1000;
-        freeHandle->text_buffer = glo_FileHandle_TextBuffer[i];
-        freeHandle->file_funcs = fileFuncs;
-        glo_679818 = std::max(glo_679818, i);
-        return freeHandle;
     }
 
     sub_617AA0();
