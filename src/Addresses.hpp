@@ -24,7 +24,9 @@
 #define NOMINMAX
 #include <windows.h>
 
-#define safe_strncpy(dest, src, len) ((void) strncpy_s(dest, len, src, len - 1))
+#define safe_strncpy(dest, src, len) ((void) strncpy_s((dest), (len), (src), (len) - 1))
+#define safe_strcat(dest, len, src) ((void) strcat_s((dest), (len), (src)))
+#define stricmp(A, B) (_stricmp((A), (B)))
 
 // Helper Functions
 
@@ -62,6 +64,11 @@ inline T (&__cdecl MC2_PROC_PTR(const std::uintptr_t address))(Types...) {
 template<class T, class... Types>
 inline T (&__cdecl MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
     return *reinterpret_cast<T(__cdecl *)(Types..., ...)>(MC2_OFFSET() + address);
+}
+
+template<class T, class X, class... Types>
+inline T(__thiscall *MC2_PROC_MEMBER_PTR(const std::uintptr_t address))(X *, Types...) {
+    return reinterpret_cast<T(__thiscall *)(X *, Types...)>(MC2_OFFSET() + address);
 }
 
 
@@ -123,7 +130,9 @@ Auto_Hook_Fnptr_Obj<T, Types...> Auto_Hook_Fnptr_Func(std::uint32_t in, T(&out)(
 
 // Functions
 
+#define MC2_STRRCHR(s, c) ((MC2_PROC_PTR<char *, char *, char>(0x0061AB10))(s, c)) // Dont use
 #define sub_61A5DC (MC2_PROC_PTR<uint32_t, char *>(0x0061A5DC))
+#define MC2_VSPRINTF(b, f, args) ((MC2_PROC_PTR<int, char *, char *, va_list>(0x006198B5))(b, f, args)) // Use vsnprintf instead
 
 // Global Variables
 

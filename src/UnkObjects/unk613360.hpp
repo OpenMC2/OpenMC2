@@ -19,14 +19,34 @@
 #pragma once
 
 #include "../Addresses.hpp"
+#include "unk613330.hpp"
 
-class unk_613360 {
+class unk_613360 : public unk_613330 {
 private:
-    std::uint8_t pad00[0x108];
+    struct vtable_t{
+        void (__thiscall *vir_00)(unk_613330 *);
+        void (__thiscall unk_613360::* vir_04)(char *destination, std::uint32_t unk2, char *unk3, char *extension);
+        void (__thiscall *vir_08)(unk_613360 *);
+        void (__thiscall unk_613360::* vir_0C)();
+        void (__thiscall *vir_10)(unk_613330 *);
+        void (__thiscall *vir_14)(unk_613330 *);
+        void (__thiscall *vir_18)(unk_613330 *);
+        FileHandler *(__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, std::uint32_t unk3, bool extension);
+        FileHandler *(__thiscall unk_613330::* vir_20)(char *unk1, char *unk2, std::uint32_t unk3);
+        bool (__thiscall unk_613330::* vir_24)(char *unk1);
+        void (__thiscall unk_613330::* vir_28)(char *destination, const char *unk2, const char *extension);
+    };
+    static vtable_t vtable_values;
+
+private:
+    char unk04[0x100];
+    std::uint32_t unk104;
 
 public:
-    inline unk_613360() {
-        MC2_PROC_MEMBER<void>(0x00613360, this);
-    }
+    unk_613360();
 
+    void impl_04(char *destination, std::uint32_t unk2, char *unk3, char *extension);
+    void impl_0C();
 };
+
+static_assert(sizeof(unk_613360) == 0x108, "Bad Size: unk_613330");

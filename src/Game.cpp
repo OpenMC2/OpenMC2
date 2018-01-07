@@ -22,16 +22,17 @@
 #include <windows.h>
 #include <cstring>
 
+#include "Config.hpp"
 #include "CommandLine.hpp"
 #include "Logging.hpp"
 #include "Memory.hpp"
+#include "Settings.hpp"
 #include "UnkObjects/unk402560.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 #include "UnkObjects/unk577510.hpp"
 #include "UnkObjects/unk600960.hpp"
 #include "UnkObjects/unk613360.hpp"
 #include "UnkObjects/unk6C2E88.hpp"
-#include "UnkObjects/unk6C3250.hpp"
 #include "UnkObjects/unk6C3890.hpp"
 #include "UnkObjects/unk8600F8.hpp"
 
@@ -120,7 +121,7 @@ static void sub_612A80(char *args) {
         if (value->count == 0)
             continue;
 
-        uint32_t values_index = 0;
+        std::uint32_t values_index = 0;
         do {
             char *cur_value_str = value_str;
             if (*value_str != '\0') {
@@ -151,7 +152,7 @@ void sub_612F00() {
         unk_612150 *value = index_entry.value;
         if (value != nullptr) {
             if (value->count != 0) {
-                for (uint32_t i = 0; i < value->count; ++i) {
+                for (std::uint32_t i = 0; i < value->count; ++i) {
                     delete [] value->args[i];
                 }
                 value->count = 0;
@@ -236,11 +237,15 @@ int sub_5E1B50(const char *path) {
     for (int i = 0; i < 10; ++i) {
         const char *language = LanguageShortList[i];
 
-        if (sub_627145(path, language)) {
+        if (stricmp(path, language) == 0) {
             return i;
         }
     }
     return -1;
+}
+
+const char *sub_5E1B40(int id) {
+    return LanguageShortList[id];
 }
 
 constexpr const char *GameModes[5] = {
@@ -251,7 +256,7 @@ bool sub_539DE0(const char *path) {
     for (int i = 0; i < 5; ++i) {
         const char *unk = GameModes[i];
 
-        if (sub_627145(path, unk)) {
+        if (stricmp(path, unk) == 0) {
             glo_6C2C60 = i;
             return true;
         }
@@ -412,6 +417,79 @@ void sub_5ECBE0() {
     }
 }
 
+void sub_5F5690() {
+    if (glo_85AE98 != 0) {
+        glo_85AE8C = 1;
+    }
+    else if (glo_85AE8C == 0) {
+        glo_6754A4 = 60;
+        glo_6754A8 = 1.0f/60.0f;
+        return;
+    }
+    glo_6754A4 = 50;
+    glo_6754A8 = 1.0f/50.0f;
+}
+
+void sub_5ED7B0(std::int32_t width, std::int32_t height, std::int32_t cdepth, std::int32_t zdepth, std::int32_t unk5) {
+	if (sub_612E10("ref")) {
+		glo_858373 = 1;
+		glo_858374 = 1;
+	}
+	else if (sub_612E10("blade") || sub_612E10("bladed")) {
+		glo_858376 = 1;
+		glo_858374 = 1;
+	}
+	else if (sub_612E10("swage")) {
+		glo_858375 = 1;
+		glo_858374 = 1;
+	}
+	else if (sub_612E10("sw")) {
+		glo_858374 = 1;
+	}
+	
+	if (sub_612E10("sysmem")) {
+		glo_858377 = 1;
+	}
+
+	if (sub_612E10("novblank")) {
+		glo_675030 = 0;
+	}
+
+	if (sub_612E10("window")) {
+		glo_windowed_mode = 1;
+	}
+	else if (sub_612E10("fs") || sub_612E10("fullscreen")) {
+		glo_windowed_mode = 0;
+	}
+
+    // Use preset vars if available
+    sub_612E30("width", 0, &width);
+    sub_612E30("height", 0, &height);
+    sub_612E30("cdepth", 0, &cdepth);
+    sub_612E30("zdepth", 0, &zdepth);
+
+    sub_5F5690();
+
+    if (glo_858371 != 0) {
+        width = GetSystemMetrics(SM_CXFULLSCREEN);
+        height = GetSystemMetrics(SM_CYFULLSCREEN);
+        glo_858388 = 0;
+        glo_85839C = 0;
+    }
+    
+    glo_858377 = glo_858374;
+    glo_674FB4 = cdepth;
+    glo_674FB8 = zdepth;
+    glo_674FAC = width;
+    glo_674FB0 = height;
+    glo_85FBC4 = width;
+    glo_85FBB0 = height;
+    glo_8583B0 = static_cast<float>(width);
+    glo_85838C = static_cast<float>(height);    
+    glo_85FBDC = static_cast<float>(1.0 / width);
+    glo_85FBE0 = static_cast<float>(1.0 / height);
+}
+
 // mc2: 0x00401190
 int sub_401190() {
     sub_53A890("mc.exe -path=. -archive=assets_p.dat");
@@ -429,12 +507,12 @@ int sub_401190() {
     sub_612EB0("path", 0, &gamePath);
     new unk_613360;
     sub_6134D0(gamePath);
-    glo_6C3250.sub_53B6A0();
-    sub_5ED7B0(glo_6C3250.get_unk44(), glo_6C3250.get_unk48(), glo_6C3250.get_unk4C(), 32, 0);
+    glo_Settings.load_settings();
+    sub_5ED7B0(glo_Settings.get_screen_width(), glo_Settings.get_screen_height(), glo_Settings.get_screen_depth(), 32, 0);
     sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;
-    std::memcpy(loc_692E20, glo_679810, 10 * sizeof(void *));
-    loc_692E20[2] = loc_4010B0;
+    *loc_692E20 = *glo_679810;
+    loc_692E20->sub_08 = loc_4010B0;
     glo_679810 = loc_692E20;
     sub_53A1B0();
     bool runforever = sub_612E10("runforever");
