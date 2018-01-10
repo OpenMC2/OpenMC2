@@ -23,13 +23,13 @@
 
 // mc2:0x00659B0C
 unk_613330::vtable_t unk_613330::vtable_values = {
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005ED480),
-    MC2_PROC_MEMBER_PTR<void, unk_613330, char*, std::uint32_t, char*, char*>(0x00619AB9),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00619AB9),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00619AB9),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005CA940),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00406990),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613770),
+    &mc2_proc_thiscall<0x005ED480, void, unk_613330>{},
+    &mc2_proc_thiscall<0x00619AB9, void, unk_613330, char*, std::uint32_t, char*, char*>{},
+    &mc2_proc_thiscall<0x00619AB9, void, unk_613330>{},
+    &mc2_proc_thiscall<0x00619AB9, void, unk_613330>{},
+    &mc2_proc_thiscall<0x005CA940, void, unk_613330>{},
+    &mc2_proc_thiscall<0x00406990, void, unk_613330>{},
+    &mc2_proc_thiscall<0x00613770, void, unk_613330>{},
     &unk_613330::impl_1C,
     &unk_613330::impl_20,
     &unk_613330::impl_24,
@@ -37,18 +37,18 @@ unk_613330::vtable_t unk_613330::vtable_values = {
 };
 
 unk_613330::unk_613330() : vtable(&vtable_values) {
-    glo_860220 = this;
+    *loc_860220 = this;
 }
 
 FileHandler *sub_617C40(char *path, bool extension) {
-    unk_679810_funcTable *fileFuncs = extension ? glo_679810 : glo_679814;
+    unk_679810_funcTable *fileFuncs = extension ? *loc_679810 : *loc_679814;
     
     HANDLE file = fileFuncs->sub_00(path, extension);
     
     if (file == INVALID_HANDLE_VALUE)
         return nullptr;
 
-    if (glo_860AD8 != nullptr && glo_860AD8(path, extension) == false) {
+    if (*loc_860AD8 != nullptr && (*loc_860AD8)(path, extension) == false) {
         fileFuncs->close_file(file);
         return nullptr;
     }
@@ -57,12 +57,12 @@ FileHandler *sub_617C40(char *path, bool extension) {
 }
 
 FileHandler *sub_617CA0(char *path) {
-    HANDLE file = glo_679814->sub_04(path);
+    HANDLE file = (*loc_679814)->sub_04(path);
     
     if (file == INVALID_HANDLE_VALUE)
         return nullptr;
 
-    return register_file_handle(path, file, glo_679814);
+    return register_file_handle(path, file, *loc_679814);
 }
 
 // mc2: 0x00613780

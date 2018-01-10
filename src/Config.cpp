@@ -171,5 +171,5 @@ void load_config() {
 
     AddDllHooks(gamepath);
 
-    glo_windowed_mode = config.get<bool>("window");
+    *loc_windowed_mode = config.get<bool>("window");
 }

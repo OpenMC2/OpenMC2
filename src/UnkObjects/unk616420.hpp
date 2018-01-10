@@ -24,47 +24,47 @@
 class unk_616420 {
 private:
     struct vtable_t {
-        void(__thiscall *vir_00)(unk_616420 *);
-        void(__thiscall *vir_04)(unk_616420 *);
-        void(__thiscall *vir_08)(unk_616420 *);
-        void(__thiscall *vir_0C)(unk_616420 *);
-        void(__thiscall *vir_10)(unk_616420 *);
-        void(__thiscall *vir_14)(unk_616420 *);
-        void(__thiscall *vir_18)(unk_616420 *);
-        void(__thiscall *vir_1C)(unk_616420 *);
-        void(__thiscall *vir_20)(unk_616420 *);
-        void(__thiscall *vir_24)(unk_616420 *);
-        void(__thiscall *vir_28)(unk_616420 *);
-        void(__thiscall *vir_2C)(unk_616420 *);
-        void(__thiscall *vir_30)(unk_616420 *);
-        void(__thiscall *vir_34)(unk_616420 *);
-        void(__thiscall *vir_38)(unk_616420 *);
-        void(__thiscall *vir_3C)(unk_616420 *);
-        void(__thiscall *vir_40)(unk_616420 *);
-        void(__thiscall *vir_44)(unk_616420 *);
-        void(__thiscall *vir_48)(unk_616420 *);
-        void(__thiscall *vir_4C)(unk_616420 *);
-        void(__thiscall *vir_50)(unk_616420 *);
-        void(__thiscall *vir_54)(unk_616420 *);
-        void(__thiscall *vir_58)(unk_616420 *);
-        void(__thiscall *vir_5C)(unk_616420 *);
-        void(__thiscall *vir_60)(unk_616420 *);
-        void(__thiscall *vir_64)(unk_616420 *);
-        void(__thiscall *vir_68)(unk_616420 *);
-        void(__thiscall *vir_6C)(unk_616420 *);
-        void(__thiscall *vir_70)(unk_616420 *);
-        void(__thiscall *vir_74)(unk_616420 *);
-        void(__thiscall *vir_78)(unk_616420 *);
-        void(__thiscall *vir_7C)(unk_616420 *);
-        void(__thiscall *vir_80)(unk_616420 *);
-        void(__thiscall *vir_84)(unk_616420 *);
-        void(__thiscall *vir_88)(unk_616420 *);
-        void(__thiscall *vir_8C)(unk_616420 *);
-        void(__thiscall *vir_90)(unk_616420 *);
-        bool(__thiscall unk_616420::* vir_94)(const char *, std::uint32_t);
-        void(__thiscall *vir_98)(unk_616420 *);
-        void(__thiscall *vir_9C)(unk_616420 *);
-        void(__thiscall *vir_100)(unk_616420 *);
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_00;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_04;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_08;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_0C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_10;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_14;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_18;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_1C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_20;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_24;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_28;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_2C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_30;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_34;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_38;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_3C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_40;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_44;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_48;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_4C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_50;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_54;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_58;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_5C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_60;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_64;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_68;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_6C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_70;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_74;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_78;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_7C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_80;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_84;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_88;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_8C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_90;
+        mc2_proc_thiscall_ptr<bool, unk_616420, const char *, std::uint32_t> vir_94;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_98;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_9C;
+        mc2_proc_thiscall_ptr<void, unk_616420> vir_100;
     };
     static vtable_t vtable_values;
 
@@ -86,7 +86,7 @@ public:
     void sub_615130(char *unk1, FileHandler *unk2);
 
     bool vir_94(char *unk1, std::uint32_t unk2) {
-        return (this->*static_cast<vtable_t*>(vtable)->vir_94)(unk1, unk2);
+        return static_cast<vtable_t*>(vtable)->vir_94(this, unk1, unk2);
     }
 
     // Use vir_94() to call
@@ -94,15 +94,15 @@ public:
     bool impl_94(const char *unk1, std::uint32_t unk2);
 
     bool sub_6154D0(char *unk1, std::uint32_t unk2) {
-        return MC2_PROC_MEMBER<bool, unk_616420, char *, std::uint32_t>(0x006154D0, this, unk1, unk2);
+        return mc2_call_proc_thiscall<0x006154D0, bool>(this, unk1, unk2);
     }
 
     std::int32_t sub_47C920(char *unk1, std::uint32_t unk2) {
-        return MC2_PROC_MEMBER<std::int32_t, unk_616420, char *, std::uint32_t>(0x0047C920, this, unk1, unk2);
+        return mc2_call_proc_thiscall<0x0047C920, std::int32_t>(this, unk1, unk2);
     }
 
     std::int32_t read_integer() {
-        return MC2_PROC_MEMBER<std::int32_t, unk_616420>(0x00615790, this);
+        return mc2_call_proc_thiscall<0x00615790, std::int32_t>(this);
     }
 };
 

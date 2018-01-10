@@ -25,10 +25,10 @@ private:
 
 
 public:
-    inline void sub_53ACB0(const char *a) {
-        MC2_PROC_MEMBER<void>(0x0053ACB0, this, a);
+    void sub_53ACB0(const char *a) {
+        return mc2_call_proc_thiscall<0x0053ACB0, void>(this, a);
     }
 
 };
 
-#define glo_6C2E88 (MC2_GLOBAL<unk_6C2E88>(0x006C2E88))
+constexpr mc2_pointer<0x006C2E88, unk_6C2E88> loc_6C2E88;

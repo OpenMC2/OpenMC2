@@ -45,16 +45,16 @@ void Settings::set_defualts() {
 
 //mc2: 0x0053B6A0
 bool Settings::load_settings() {
-    unk_679810_funcTable *fileFuncs = glo_679810;
+    unk_679810_funcTable *fileFuncs = *loc_679810;
 
-    glo_679810 = loc_679884;
+    *loc_679810 = loc_679884;
 
-    FileHandler* file = glo_860220->vir_1C("userdata\\options.cfg", "", 0, 1);
+    FileHandler* file = (*loc_860220)->vir_1C("userdata\\options.cfg", "", 0, 1);
     if (file == nullptr) {
-        file = glo_860220->vir_1C("userdata\\default.cfg", "", 0, 1);
+        file = (*loc_860220)->vir_1C("userdata\\default.cfg", "", 0, 1);
     }
 
-    glo_679810 = fileFuncs;
+    *loc_679810 = fileFuncs;
     if (file == nullptr) {
         return false;
     }
@@ -124,10 +124,10 @@ bool Settings::load_settings() {
 
 //mc2: 0x0053B370
 bool Settings::save_settings_force() {
-    unk_679810_funcTable *fileFuncs = glo_679810;
-    glo_679810 = loc_679884;
-    FileHandler* file = glo_860220->vir_20("userdata\\options.cfg", "", 0);
-    glo_679810 = fileFuncs;
+    unk_679810_funcTable *fileFuncs = *loc_679810;
+    *loc_679810 = loc_679884;
+    FileHandler* file = (*loc_860220)->vir_20("userdata\\options.cfg", "", 0);
+    *loc_679810 = fileFuncs;
 
     if (file == nullptr) {
         return false;

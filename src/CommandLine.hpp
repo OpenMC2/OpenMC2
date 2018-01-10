@@ -64,11 +64,9 @@ void print_help();
 
 void sub_612910(std::int32_t argc, char **argv);
 
-#define global_cmdline (MC2_GLOBAL<cmdline_info *>(0x00860110)) // glo_860110
-#define global_exe_name (MC2_GLOBAL<char *>(0x00860114)) // glo_860114
-#define global_help_has_printed (MC2_GLOBAL<bool>(0x00860118)) // glo_860118
-#define global_argc (MC2_GLOBAL<std::int32_t>(0x0086D7E8)) // glo_86D7E8
-#define global_argv (MC2_GLOBAL<char **>(0x0086D7EC)) // glo_86D7EC
+constexpr mc2_pointer<0x00860110, cmdline_info *> location_cmdline;
+constexpr mc2_pointer<0x00860114, const char *> location_exe_name;
+constexpr mc2_pointer<0x00860118, bool> location_help_has_printed;
 
-#define glo_8600EC (MC2_GLOBAL<char **>(0x008600EC))
-#define glo_8600F0 (MC2_GLOBAL<std::int32_t>(0x008600F0))
+constexpr mc2_pointer<0x008600EC, char **> loc_8600EC;
+constexpr mc2_pointer<0x008600F0, std::int32_t> loc_8600F0;

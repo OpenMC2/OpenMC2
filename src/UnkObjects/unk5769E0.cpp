@@ -23,7 +23,7 @@
 
 // mc2: 0x005769E0
 unk_5769E0::unk_5769E0() {
-    unk00 = MC2_POINTER<void>(0x00651408); // virtual function pointers?
+    unk00 = mc2_pointer<0x00651408, void>(); // virtual function pointers?
 
     unk08 = nullptr;
     unk0C = 0;
@@ -48,18 +48,18 @@ unk_5769E0::unk_5769E0() {
     unk114 = 0x0040;
     unk116 = 0x7800;
 
-    unk04 = global_last_unk5769E0;
-    global_last_unk5769E0 = this;
+    unk04 = *location_last_unk5769E0;
+    *location_last_unk5769E0 = this;
 
     // A lot of function-pointers?
-    if (MC2_GLOBAL<void *>(0x00679784) != MC2_POINTER<void>(0x005764A0))
-        MC2_GLOBAL<void *>(0x00679784) = MC2_POINTER<void>(0x005764A0);
-    if (MC2_GLOBAL<void *>(0x00679788) != MC2_POINTER<void>(0x00576530))
-        MC2_GLOBAL<void *>(0x00679788) = MC2_POINTER<void>(0x00576530);
-    if (MC2_GLOBAL<void *>(0x0067978C) != MC2_POINTER<void>(0x005769C0))
-        MC2_GLOBAL<void *>(0x0067978C) = MC2_POINTER<void>(0x005769C0);
-    if (MC2_GLOBAL<void *>(0x00679790) != MC2_POINTER<void>(0x005769D0))
-        MC2_GLOBAL<void *>(0x00679790) = MC2_POINTER<void>(0x005769D0);
+    if (*mc2_pointer<0x00679784, void *>() != mc2_pointer<0x005764A0, void>())
+        *mc2_pointer<0x00679784, void *>() = mc2_pointer<0x005764A0, void>();
+    if (*mc2_pointer<0x00679788, void *>() != mc2_pointer<0x00576530, void>())
+        *mc2_pointer<0x00679788, void *>() = mc2_pointer<0x00576530, void>();
+    if (*mc2_pointer<0x0067978C, void *>() != mc2_pointer<0x005769C0, void>())
+        *mc2_pointer<0x0067978C, void *>() = mc2_pointer<0x005769C0, void>();
+    if (*mc2_pointer<0x00679790, void *>() != mc2_pointer<0x005769D0, void>())
+        *mc2_pointer<0x00679790, void *>() = mc2_pointer<0x005769D0, void>();
 }
 
 // mc2: 0x00575BA0
@@ -74,8 +74,8 @@ void unk_5769E0::sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8
     unk110 = 0;
 
     if (sub_612E10("allocid") != 0) {
-        glo_6C5254 = true;
-        sub_612E30("allocid", 0, &glo_6C524C);
+        *loc_6C5254 = true;
+        sub_612E30("allocid", 0, loc_6C524C);
     }
 
     unk0C = b;

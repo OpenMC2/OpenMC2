@@ -22,4 +22,4 @@
 
 void load_config();
 
-#define glo_windowed_mode (MC2_GLOBAL<bool>(0x00858370))
+constexpr mc2_pointer<0x00858370, bool> loc_windowed_mode;

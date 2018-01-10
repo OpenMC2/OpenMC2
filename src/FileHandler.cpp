@@ -45,20 +45,18 @@ void sub_618050(FileHandler *a, const char *format, ...) {
 
 // mc2: 0x00617BB0
 FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable * fileFuncs) {
-    std::int32_t i = 0;
-    FileHandler *freeHandle = glo_FileHandles;
-
-    for (std::int32_t i = 0; freeHandle < glo_FileHandles_end; freeHandle++, ++i){
-        if (freeHandle->file_funcs == nullptr) {
-            freeHandle->unk_0C = 0;
-            freeHandle->unk_10 = 0;
-            freeHandle->unk_14 = 0;
-            freeHandle->handle = file;
-            freeHandle->buffer_size = 0x1000;
-            freeHandle->text_buffer = glo_FileHandle_TextBuffer[i];
-            freeHandle->file_funcs = fileFuncs;
-            glo_679818 = std::max(glo_679818, i);
-            return freeHandle;
+    for (size_t i = 0; i < (*loc_FileHandles).size(); ++i){
+        FileHandler &freeHandle = (*loc_FileHandles)[i];
+        if (freeHandle.file_funcs == nullptr) {
+            freeHandle.unk_0C = 0;
+            freeHandle.unk_10 = 0;
+            freeHandle.unk_14 = 0;
+            freeHandle.handle = file;
+            freeHandle.buffer_size = 0x1000;
+            freeHandle.text_buffer = (*loc_FileHandle_TextBuffer)[i];
+            freeHandle.file_funcs = fileFuncs;
+            *loc_679818 = std::max(*loc_679818, (std::int32_t) i);
+            return &freeHandle;
         }
     }
 

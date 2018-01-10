@@ -26,7 +26,7 @@
 // Remove from Linked List?
 void unk_8600F8::loc_611DC0() {
     unk_8600F8 **x;
-    for (x = &glo_8600E8; *x != nullptr && *x != this; x = &(*x)->unk14);
+    for (x = loc_8600E8; *x != nullptr && *x != this; x = &(*x)->unk14);
     *x = this->unk14;
     this->unk14 = nullptr;
 }
@@ -85,15 +85,15 @@ bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
         return true;
     }
     
-    if (glo_679778 == 0)
+    if (!*loc_679778)
         return true;
 
-    uint32_t esi_store = glo_8602C8;
-    glo_8602C8 = 5;
+    std::uint32_t esi_store = *loc_8602C8;
+    *loc_8602C8 = 5;
     // Increase num entry size?
     sub_6125A0(this->max_entries * 4);
 
-    glo_8602C8 = esi_store;
+    *loc_8602C8 = esi_store;
 
     return true;
 }
@@ -151,12 +151,12 @@ bool unk_8600F8::sub_612020(indexed_map_entry *index_entry) {
 }
 
 bool sub_612E10(const char* key) {
-    unk_612150 *result = glo_8600F8.sub_6124A0(key);
+    unk_612150 *result = loc_8600F8->sub_6124A0(key);
     return result != nullptr;
 }
 
 bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value) {
-    unk_612150 *entry = glo_8600F8.sub_6124A0(key);
+    unk_612150 *entry = loc_8600F8->sub_6124A0(key);
 
     if (entry == nullptr || index >= entry->count)
         return false;

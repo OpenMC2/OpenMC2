@@ -31,13 +31,13 @@ void AddDllHooks(const boost::filesystem::path &mc2_dir) {
     BinkDll.load(mc2_dir / "binkw32.dll");
     AIL_Dll.load(mc2_dir / "mss32.dll");
 
-    void **func = MC2_POINTER<void *>(BinkStart);
+    void **func = mc2_pointer<BinkStart, void *>();
     for (const char *bink_func : BinkNames) {
         *func = &BinkDll.get<char>(bink_func);
         ++func;
     }
 
-    func = MC2_POINTER<void *>(AIL_Start);
+    func = mc2_pointer<AIL_Start, void *>();
     for (const char *ail_func : AIL_Names) {
         *func = &AIL_Dll.get<char>(ail_func);
         ++func;

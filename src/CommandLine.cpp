@@ -27,8 +27,8 @@
 
 // mc2: 0x006131E0
 void parse_commandline(std::int32_t argc, char **argv) {
-    if (argc != 0 && argv != nullptr) global_exe_name = argv[0];
-    else global_exe_name = "unknown";
+    if (argc != 0 && argv != nullptr) *location_exe_name = argv[0];
+    else *location_exe_name = "unknown";
     if (argc <= 1) return;
 
     bool c = false;
@@ -36,7 +36,7 @@ void parse_commandline(std::int32_t argc, char **argv) {
         if (strcmp(argv[i], "-help") == 0) print_help();
         else if (argv[i][0] == '-' && (argv[i][1] < '0' || argv[i][1] > '9')) {
             c = true;
-            for (cmdline_info &x : global_cmdline) {
+            for (cmdline_info &x : *location_cmdline) {
                 if (x.index == 0) {
                     std::uint32_t namelen = std::strlen(x.name);
                     if (std::strncmp(argv[i] + 1, x.name, namelen) == 0) {
@@ -52,7 +52,7 @@ void parse_commandline(std::int32_t argc, char **argv) {
                 }
             }
         } else if (!c) {
-            for (cmdline_info &x : global_cmdline)
+            for (cmdline_info &x : *location_cmdline)
                 if (x.index == i) x.value = argv[i];
         }
     }
@@ -60,23 +60,23 @@ void parse_commandline(std::int32_t argc, char **argv) {
 
 // mc2: 0x00612FB0
 void print_help() {
-    if (!global_help_has_printed) {
-        global_help_has_printed = true;
+    if (!*location_help_has_printed) {
+        *location_help_has_printed = true;
 
         std::int32_t best = 0;
-        for (cmdline_info &x : global_cmdline)
+        for (cmdline_info &x : *location_cmdline)
             if (x.index > best) best = x.index;
 
-        mc2_log_print("%s ", global_exe_name);
+        mc2_log_print("%s ", *location_exe_name);
         for (int i = 0; i < best; ++i)
-            for (cmdline_info &x : global_cmdline)
+            for (cmdline_info &x : *location_cmdline)
                 if (x.index == i + 1)
                     mc2_log_print("%s ", x.name);
         mc2_log_print("[options]\n");
 
         for (int i = 0; i < 2; ++i) {
             if (i == 1) mc2_log_print("\n[options] are number of the following:\n");
-            for (cmdline_info &x : global_cmdline) {
+            for (cmdline_info &x : *location_cmdline) {
                 if ((x.index == 0) != (i == 0)) {
                     if (i == 0) mc2_log_print("%s: ", x.name);
                     else mc2_log_print("-%s: ", x.name);
@@ -108,11 +108,11 @@ void print_help() {
 
 // mc2: 0x00612910
 void sub_612910(std::int32_t argc, char **argv) {
-    glo_8600F0 = argc;
-    glo_8600EC = argv;
+    *loc_8600F0 = argc;
+    *loc_8600EC = argv;
 
-    for (std::int32_t i = 0; glo_8600EC != nullptr && i < argc; ++i) {
-        if (argv[i][0] == '-' && glo_8600F8.sub_6124A0(&argv[i][1]) == 0) {
+    for (std::int32_t i = 0; *loc_8600EC != nullptr && i < argc; ++i) {
+        if (argv[i][0] == '-' && loc_8600F8->sub_6124A0(&argv[i][1]) == 0) {
             char *c = std::strchr(argv[i], '=');
             unk_612150 *y = new unk_612150;
             y->count = (c != nullptr) ? 1 : 0;
@@ -124,10 +124,10 @@ void sub_612910(std::int32_t argc, char **argv) {
             }
             if (c != nullptr) {
                 *c = 0;
-                glo_8600F8.sub_612150(&argv[i][1], y);
+                loc_8600F8->sub_612150(&argv[i][1], y);
                 argv[i] = c + 1;
             } else {
-                glo_8600F8.sub_612150(&argv[i][1], y);
+                loc_8600F8->sub_612150(&argv[i][1], y);
             }
             i += (c == nullptr) ? 1 : 0;
             y->args = new char *[y->count];
@@ -138,5 +138,5 @@ void sub_612910(std::int32_t argc, char **argv) {
             continue;
         }
     }
-    glo_8600F8.loc_611DC0();
+    loc_8600F8->loc_611DC0();
 }

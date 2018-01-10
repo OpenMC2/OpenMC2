@@ -23,13 +23,13 @@
 
 // mc2:0x00659B38
 unk_613360::vtable_t unk_613360::vtable_values = {
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005ED480),
+    &mc2_proc_thiscall<0x005ED480, void, unk_613330>{},
     &unk_613360::impl_04,
-    MC2_PROC_MEMBER_PTR<void, unk_613360>(0x00613380),
+    &mc2_proc_thiscall<0x00613380, void, unk_613360>{},
     &unk_613360::impl_0C,
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005CA940),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00406990),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613770),
+    &mc2_proc_thiscall<0x005CA940, void, unk_613330>{},
+    &mc2_proc_thiscall<0x00406990, void, unk_613330>{},
+    &mc2_proc_thiscall<0x00613770, void, unk_613330>{},
     &unk_613330::impl_1C,
     &unk_613330::impl_20,
     &unk_613330::impl_24,
@@ -49,7 +49,7 @@ void unk_613360::impl_04(char *destination, std::uint32_t unk2, char *unk3, char
         return;
     }
 
-    safe_strncpy(destination, (this->unk104 != 0) ? this->unk04 : glo_860120, 256);
+    safe_strncpy(destination, (this->unk104 != 0) ? this->unk04 : *loc_860120, sizeof(*loc_860120));
     vir_28(destination, unk3, extension);
 }
 

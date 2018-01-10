@@ -19,12 +19,13 @@
 #pragma once
 
 #include "Addresses.hpp"
-#include <Windows.h>
+
+#include <array>
 
 struct unk_679810_funcTable{
     HANDLE (*sub_00)(char *path, bool unk2);
     HANDLE (*sub_04)(char *path);
-    void (*sub_08)();
+    mc2_proc_ptr<void> sub_08;
     void (*sub_0C)();
     void (*sub_10)();
     void (*close_file)(HANDLE file); // 0x14
@@ -49,24 +50,24 @@ public:
     void sub_617FB0();
 
     inline void sub_617AF0() {
-        MC2_PROC_MEMBER<void>(0x00617AF0, this);
+        return mc2_call_proc_thiscall<0x00617AF0, void>(this);
     }
 
     inline std::int32_t sub_617E40(const char *a, size_t b) {
-        return MC2_PROC_MEMBER<std::int32_t>(0x00617E40, this, a, b);
+        return mc2_call_proc_thiscall<0x00617E40, std::int32_t>(this, a, b);
     }
 
     inline void sub_617F40(char a) {
-        MC2_PROC_MEMBER<void>(0x00617F40, this, a);
+        return mc2_call_proc_thiscall<0x00617F40, void>(this, a);
     }
 };
+
+static_assert(sizeof(FileHandler) == 0x1C, "BAD SIZE");
 
 void sub_618050(FileHandler *a, const char *format, ...);
 FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable * fileFuncs);
 
-#define glo_FileHandles (MC2_POINTER<FileHandler>(0x00860AE0))
-//Array end
-#define glo_FileHandles_end (MC2_POINTER<FileHandler>(0x00860C30))
-#define glo_FileHandle_TextBuffer (MC2_POINTER<char [0x1000]>(0x00860C30))
-#define glo_86D28C (MC2_GLOBAL<FileHandler *>(0x0086D28C))
-#define glo_679818 (MC2_GLOBAL<std::int32_t>(0x00679818))
+constexpr mc2_pointer<0x00860AE0, std::array<FileHandler, 12>> loc_FileHandles;
+constexpr mc2_pointer<0x00860C30, std::array<char[0x1000], 12>> loc_FileHandle_TextBuffer;
+constexpr mc2_pointer<0x0086D28C, FileHandler *> loc_86D28C;
+constexpr mc2_pointer<0x00679818, std::int32_t> loc_679818;

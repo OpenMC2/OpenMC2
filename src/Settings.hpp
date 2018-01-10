@@ -146,7 +146,7 @@ public:
     // mc2: 0x0053B680
     void set_language_id(int32_t id) {
         this->language_id = id;
-        global_LanguageID = id;
+        *location_LanguageID = id;
         set_require_saving(true);
     }
     
@@ -173,4 +173,4 @@ public:
     std::uint32_t get_draw_distance() const { return this->draw_distance; } // mc2:0x0055E940
 };
 
-#define glo_Settings (MC2_GLOBAL<Settings>(0x006C3250))
+constexpr mc2_pointer<0x006C3250, Settings> loc_Settings;

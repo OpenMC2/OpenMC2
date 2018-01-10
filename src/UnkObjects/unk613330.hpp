@@ -25,17 +25,17 @@ class FileHandler;
 class unk_613330 {
 private:
     struct vtable_t{
-        void (__thiscall *vir_00)(unk_613330 *);
-        void (__thiscall *vir_04)(unk_613330 *, char *destination, std::uint32_t unk2, char *unk3, char *extension);
-        void (__thiscall *vir_08)(unk_613330 *);
-        void (__thiscall *vir_0C)(unk_613330 *);
-        void (__thiscall *vir_10)(unk_613330 *);
-        void (__thiscall *vir_14)(unk_613330 *);
-        void (__thiscall *vir_18)(unk_613330 *);
-        FileHandler *(unk_613330::*vir_1C)(char *unk1, char *unk2, std::uint32_t unk3, bool extension);
-        FileHandler *(unk_613330::*vir_20)(char *unk1, char *unk2, std::uint32_t unk3);
-        bool (unk_613330::*vir_24)(char *unk1);
-        void (unk_613330::*vir_28)(char *destination, const char *unk2, const char *extension);
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_00;
+        mc2_proc_thiscall_ptr<void, unk_613330, char *, std::uint32_t, char *, char *> vir_04;
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_08;
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_0C;
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_10;
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_14;
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_18;
+        mc2_proc_thiscall_ptr<FileHandler *, unk_613330, char *, char *, std::uint32_t, bool> vir_1C;
+        mc2_proc_thiscall_ptr<FileHandler *, unk_613330, char *, char *, std::uint32_t> vir_20;
+        mc2_proc_thiscall_ptr<bool, unk_613330, char *> vir_24;
+        mc2_proc_thiscall_ptr<void, unk_613330, char *, const char *, const char *> vir_28;
     };
     static vtable_t vtable_values;
 
@@ -72,19 +72,19 @@ public:
         static_cast<vtable_t*>(vtable)->vir_18(this);
     }
     inline FileHandler *vir_1C(char* unk1, char* unk2, std::uint32_t unk3, bool extension){
-        return (this->*static_cast<vtable_t*>(vtable)->vir_1C)(unk1, unk2, unk3, extension);
+        return static_cast<vtable_t*>(vtable)->vir_1C(this, unk1, unk2, unk3, extension);
     }
-    inline FileHandler *vir_20(char* unk1, char* unk2, std::uint32_t unk3){
-        return (this->*static_cast<vtable_t*>(vtable)->vir_20)(unk1, unk2, unk3);
+    inline FileHandler *vir_20(char* unk1, char* unk2, std::uint32_t unk3) {
+        return static_cast<vtable_t*>(vtable)->vir_20(this, unk1, unk2, unk3);
     }
-    inline bool vir_24(char *unk1){
-        return (this->*static_cast<vtable_t*>(vtable)->vir_24)(unk1);
+    inline bool vir_24(char *unk1) {
+        return static_cast<vtable_t*>(vtable)->vir_24(this, unk1);
     }
-    inline void vir_28(char *destination, const char *unk2, const char *extension){
-        (this->*static_cast<vtable_t*>(vtable)->vir_28)(destination, unk2, extension);
+    inline void vir_28(char *destination, const char *unk2, const char *extension) {
+        return static_cast<vtable_t*>(vtable)->vir_28(this, destination, unk2, extension);
     }
 };
 
 static_assert(sizeof(unk_613330) == 4, "Bad Size: unk_613330");
 
-#define glo_860220 (MC2_GLOBAL<unk_613330*>(0x00860220))
+constexpr mc2_pointer<0x00860220, unk_613330 *> loc_860220;

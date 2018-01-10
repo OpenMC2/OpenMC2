@@ -30,12 +30,12 @@ public:
     std::uint32_t unk10;
 
     void sub_5775A0(unk_5769E0 *a, std::uint32_t b, std::uint32_t c, std::uint32_t d, bool e) {
-        MC2_PROC_MEMBER<void>(0x005775A0, this, a, b, c, d, e);
+        return mc2_call_proc_thiscall<0x005775A0, void>(this, a, b, c, d, e);
     }
 
-    inline void sub_577610() {
-        MC2_PROC_MEMBER<void>(0x00577610, this);
+    void sub_577610() {
+        return mc2_call_proc_thiscall<0x00577610, void>(this);
     }
 };
 
-#define glo_6C52E4 (MC2_GLOBAL<unk_577510 *>(0x006C52E4))
+constexpr mc2_pointer<0x006C52E4, unk_577510 *> loc_6C52E4;

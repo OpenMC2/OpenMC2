@@ -24,17 +24,17 @@
 class unk_613360 : public unk_613330 {
 private:
     struct vtable_t{
-        void (__thiscall *vir_00)(unk_613330 *);
-        void (__thiscall unk_613360::* vir_04)(char *destination, std::uint32_t unk2, char *unk3, char *extension);
-        void (__thiscall *vir_08)(unk_613360 *);
-        void (__thiscall unk_613360::* vir_0C)();
-        void (__thiscall *vir_10)(unk_613330 *);
-        void (__thiscall *vir_14)(unk_613330 *);
-        void (__thiscall *vir_18)(unk_613330 *);
-        FileHandler *(__thiscall unk_613330::* vir_1C)(char *unk1, char *unk2, std::uint32_t unk3, bool extension);
-        FileHandler *(__thiscall unk_613330::* vir_20)(char *unk1, char *unk2, std::uint32_t unk3);
-        bool (__thiscall unk_613330::* vir_24)(char *unk1);
-        void (__thiscall unk_613330::* vir_28)(char *destination, const char *unk2, const char *extension);
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_00;
+        mc2_proc_thiscall_ptr<void, unk_613360, char *, std::uint32_t, char *, char *> vir_04;
+        mc2_proc_thiscall_ptr<void, unk_613360> vir_08;
+        mc2_proc_thiscall_ptr<void, unk_613360> vir_0C;
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_10;
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_14;
+        mc2_proc_thiscall_ptr<void, unk_613330> vir_18;
+        mc2_proc_thiscall_ptr<FileHandler *, unk_613330, char *, char *, std::uint32_t, bool> vir_1C;
+        mc2_proc_thiscall_ptr<FileHandler *, unk_613330, char *, char *, std::uint32_t> vir_20;
+        mc2_proc_thiscall_ptr<bool, unk_613330, char *> vir_24;
+        mc2_proc_thiscall_ptr<void, unk_613330, char *, const char *, const char *> vir_28;
     };
     static vtable_t vtable_values;
 

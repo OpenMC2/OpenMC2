@@ -27,31 +27,30 @@
 #include <iostream>
 #include <cstdint>
 
-#include <boost/dll.hpp>
+#include "UnkObjects/unk8600F8.hpp"
 
 static_assert(sizeof(std::uintptr_t) == 4, "Compilation Not x86");
 static_assert(sizeof(char) == 1, "Strings are not expected size");
 static_assert(sizeof(bool) == 1, "Bools are not expected size");
 
-
 void load_mc2_dll() {
-    Hook_x86(mc2_crt_call_main, mc2_crt_end_main);
+    mc2_hook_x86(mc2_crt_call_main, &mc2_crt_end_main);
     mc2_crt_start_main();
 }
 
 // mc2: 0x00401010
 int StartOpenMC2(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // Init MC2_MALLOC
-    if ((glo_682E18 & 1) == 0) {
-        glo_682E18 |= 1;
-        glo_67A760 = loc_67A770;
+    if ((*loc_682E18 & 1) == 0) {
+        *loc_682E18 |= 1;
+        *loc_67A760 = loc_67A770;
     }
 
     load_config();
 
     unk_5769E0 a;
-    a.sub_575BA0(glo_67A760, 0x18680, 1, 0);
-    global_primary_unk5769E0 = &a;
+    a.sub_575BA0(*loc_67A760, 0x18680, 1, 0);
+    *location_primary_unk5769E0 = &a;
     parse_commandline(__argc, __argv);
     sub_612910(__argc, __argv);
 

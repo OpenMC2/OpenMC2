@@ -36,4 +36,4 @@ public:
 
 };
 
-#define glo_6C3890 (MC2_GLOBAL<unk_6C3890 *>(0x006C3890))
+constexpr mc2_pointer<0x006C3890, unk_6C3890 *> loc_6C3890;

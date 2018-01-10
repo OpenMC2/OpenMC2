@@ -56,34 +56,33 @@ constexpr char *levelEscClear[] = {
 // I'm not exactly sure what the purpose of these are, but they're in the code.
 
 inline void ind_86D284(char *text) {
-    void (*glo_86D284)(char *) = MC2_GLOBAL<void (*)(char *)>(0x0086D284);
-    if (glo_86D284 != nullptr) {
-        MC2_GLOBAL<std::uint8_t>(0x0086D280) = 1;
-        glo_86D284(text);
+    static constexpr mc2_pointer<0x0086D284, mc2_proc_ptr<void, char *>> glo_86D284;
+    if (*glo_86D284 != nullptr) {
+        *mc2_pointer<0x0086D280, std::uint8_t>() = 1;
+        (*glo_86D284)(text);
     }
 }
 
 // mc2: 0x00618470
 inline void ind_86D290() {
-    void (*glo_86D290)() = MC2_GLOBAL<void (*)()>(0x0086D290);
-    if (glo_86D290 != nullptr) glo_86D290();
+    static constexpr mc2_pointer<0x0086D290, mc2_proc_ptr<void>> glo_86D290;
+    if (*glo_86D290 != nullptr) (*glo_86D290)();
 }
 
 // mc2: 0x00618480
 inline void ind_86D294() {
-    void (*glo_86D294)() = MC2_GLOBAL<void (*)()>(0x0086D294);
-    if (glo_86D294 != nullptr) glo_86D294();
+    static constexpr mc2_pointer<0x0086D294, mc2_proc_ptr<void>> glo_86D294;
+    if (*glo_86D294 != nullptr) (*glo_86D294)();
 }
 
 
 // mc2: 0x00618270
 static void clog_add(char *text) {
-    global_clog_end = ++global_clog_end % 20;
-    if (global_clog_end == global_clog_begin)
-        global_clog_begin = ++global_clog_begin % 20;
+    *location_clog_end = ++(*location_clog_end) % 20;
+    if (*location_clog_end == *location_clog_begin)
+        *location_clog_begin = ++(*location_clog_begin) % 20;
 
-    // I think sub_619910 is strncpy, but I'm not certain
-    safe_strncpy(&loc_86CC40[80 * global_clog_end], text, 80);
+    safe_strncpy((*loc_86CC40)[*location_clog_end], text, 80);
 }
 
 // mc2: 0x006182C0
@@ -121,8 +120,8 @@ void __cdecl mc2_log_level_v(LogLevels level, const char *format, va_list ap) {
     char text[0x1000];
     std::vsnprintf(text, 0x1000, format, ap);
 
-    if ((global_mbox_error && level == LOG_LEVEL_ERROR) ||
-        (global_mbox_fatal && level == LOG_LEVEL_FATAL_ERROR)) {
+    if ((*location_mbox_error && level == LOG_LEVEL_ERROR) ||
+        (*location_mbox_fatal && level == LOG_LEVEL_FATAL_ERROR)) {
         ind_86D290();
         MessageBoxA(nullptr, text, levelLabels[level], MB_ICONERROR);
         if (level == LOG_LEVEL_ERROR) ind_86D294();
@@ -140,14 +139,14 @@ void __cdecl mc2_log_level_v(LogLevels level, const char *format, va_list ap) {
     clog_add(text);
     print_ansi_esc(output); // indirctly through off_67984C
 
-    if (glo_86D28C != nullptr) {
-        sub_618050(glo_86D28C, "%s%s%s", levelEscLabels[level], text, levelEscClear[level]);
-        glo_86D28C->sub_617AF0();
+    if (*loc_86D28C != nullptr) {
+        sub_618050(*loc_86D28C, "%s%s%s", levelEscLabels[level], text, levelEscClear[level]);
+        (*loc_86D28C)->sub_617AF0();
     }
 
     if (level == LOG_LEVEL_FATAL_ERROR) ind_86D284(text);
 
-    glo_86D298 = true;
+    *loc_86D298 = true;
 }
 
 // All references to sub_6184A0 are indirectly called
@@ -155,7 +154,7 @@ void __cdecl mc2_log_level_v(LogLevels level, const char *format, va_list ap) {
 
 // mc2: 0x00618610
 void mc2_log_print(const char *format, ...) {
-    if (global_log_level_flags & 0x02) {
+    if (*location_log_level_flags & 0x02) {
         va_list ap;
         va_start(ap, format);
         mc2_log_level_v(LOG_LEVEL_PRINT, format, ap);
@@ -165,7 +164,7 @@ void mc2_log_print(const char *format, ...) {
 
 // mc2: 0x00618630
 void mc2_log_B(const char *format, ...) {
-    if (global_log_level_flags & 0x02) {
+    if (*location_log_level_flags & 0x02) {
         va_list ap;
         va_start(ap, format);
         mc2_log_level_v(LOG_LEVEL_B, format, ap);
@@ -175,7 +174,7 @@ void mc2_log_B(const char *format, ...) {
 
 // mc2: 0x00618650
 void mc2_log_C(const char *format, ...) {
-    if (global_log_level_flags & 0x02) {
+    if (*location_log_level_flags & 0x02) {
         va_list ap;
         va_start(ap, format);
         mc2_log_level_v(LOG_LEVEL_C, format, ap);
@@ -185,7 +184,7 @@ void mc2_log_C(const char *format, ...) {
 
 // mc2: 0x00618670
 void mc2_log_warning(const char *format, ...) {
-    if (global_log_level_flags & 0x04) {
+    if (*location_log_level_flags & 0x04) {
         va_list ap;
         va_start(ap, format);
         mc2_log_level_v(LOG_LEVEL_WARNING, format, ap);
@@ -195,7 +194,7 @@ void mc2_log_warning(const char *format, ...) {
 
 // mc2: 0x00618690
 void mc2_log_error(const char *format, ...) {
-    if (global_log_level_flags & 0x08) {
+    if (*location_log_level_flags & 0x08) {
         va_list ap;
         va_start(ap, format);
         mc2_log_level_v(LOG_LEVEL_ERROR, format, ap);
@@ -215,4 +214,4 @@ void mc2_log_fatal(const char *format, ...) {
     std::terminate();
 }
 
-AUTO_HOOK_FNPTR(0x00679880, mc2_log_level_v);
+AUTO_HOOK_FNPTR_ADDR(0x00679880, mc2_log_level_v);

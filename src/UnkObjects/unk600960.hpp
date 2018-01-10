@@ -29,10 +29,10 @@ private:
     std::uint8_t pad00[0x27C4];
 
 public:
-    inline unk_600960(HWND hWnd) {
-        MC2_PROC_MEMBER<void>(0x00600960, this, hWnd);
+    unk_600960(HWND hWnd) {
+        mc2_call_proc_thiscall<0x00600960, void>(this, hWnd);
     }
 
 };
 
-#define glo_85D3F8 (MC2_GLOBAL<unk_600960 *>(0x0085D3F8))
+constexpr mc2_pointer<0x0085D3F8, unk_600960 *> loc_85D3F8;
