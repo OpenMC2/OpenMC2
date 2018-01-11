@@ -67,7 +67,7 @@
 
 unk_616420::unk_616420(char *unk1, FileHandler *unk2) {
     this->unk9C = 0;
-    vtable = &vtable_values;
+    vtable = &unk_616420::vtable_values;
     sub_615130(unk1, unk2);
 }
     

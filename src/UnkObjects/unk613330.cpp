@@ -36,7 +36,7 @@ unk_613330::vtable_t unk_613330::vtable_values = {
     &unk_613330::impl_28
 };
 
-unk_613330::unk_613330() : vtable(&vtable_values) {
+unk_613330::unk_613330() : vtable(&unk_613330::vtable_values) {
     glo_860220 = this;
 }
 
@@ -48,7 +48,7 @@ FileHandler *sub_617C40(char *path, bool extension) {
     if (file == INVALID_HANDLE_VALUE)
         return nullptr;
 
-    if (glo_860AD8 != nullptr && glo_860AD8(path, extension) == false) {
+    if (glo_860AD8 != nullptr && !glo_860AD8(path, extension)) {
         fileFuncs->close_file(file);
         return nullptr;
     }
@@ -100,8 +100,8 @@ void unk_613330::impl_28(char *destination, const char *unk2, const char *extens
     safe_strcat(destination, 256, unk2);
     
     const char *extension_loc = std::strrchr(unk2, '.');
-    if (extension_loc != nullptr && 
-        (extension[0] == '\0' || stricmp(extension_loc + 1, extension) == 0) ) {
+    if (extension_loc == nullptr ||
+        (extension[0] != '\0' && stricmp(extension_loc + 1, extension) != 0)) {
         safe_strcat(destination, 256, ".");
         safe_strcat(destination, 256, extension);
     }

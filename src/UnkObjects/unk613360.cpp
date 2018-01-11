@@ -36,8 +36,8 @@ unk_613360::vtable_t unk_613360::vtable_values = {
     &unk_613330::impl_28
 };
 
-unk_613360::unk_613360(){
-    vtable = &vtable_values;
+unk_613360::unk_613360() {
+    vtable = &unk_613360::vtable_values;
     unk104 = 0;
 }
 

@@ -32,10 +32,10 @@ private:
         void (__thiscall *vir_10)(unk_613330 *);
         void (__thiscall *vir_14)(unk_613330 *);
         void (__thiscall *vir_18)(unk_613330 *);
-        FileHandler *(unk_613330::*vir_1C)(char *unk1, char *unk2, std::uint32_t unk3, bool extension);
-        FileHandler *(unk_613330::*vir_20)(char *unk1, char *unk2, std::uint32_t unk3);
-        bool (unk_613330::*vir_24)(char *unk1);
-        void (unk_613330::*vir_28)(char *destination, const char *unk2, const char *extension);
+        FileHandler *(__thiscall unk_613330::*vir_1C)(char *unk1, char *unk2, std::uint32_t unk3, bool extension);
+        FileHandler *(__thiscall unk_613330::*vir_20)(char *unk1, char *unk2, std::uint32_t unk3);
+        bool (__thiscall unk_613330::*vir_24)(char *unk1);
+        void (__thiscall unk_613330::*vir_28)(char *destination, const char *unk2, const char *extension);
     };
     static vtable_t vtable_values;
 
