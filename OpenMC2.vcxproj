@@ -93,6 +93,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\CInit.cpp" />
     <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\DllHooks\DllHooks.cpp" />
     <ClCompile Include="src\FileHandler.cpp" />

@@ -24,8 +24,8 @@
 #include "Memory.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 
-#include <iostream>
-#include <cstdint>
+#include <exception>
+#include <cstdlib>
 
 static_assert(sizeof(std::uintptr_t) == 4, "Compilation Not x86");
 static_assert(sizeof(char) == 1, "Strings are not expected size");
@@ -37,52 +37,31 @@ static_assert(sizeof(bool) == 1, "Bools are not expected size");
 #define mc2_winminor MC2_GLOBAL<DWORD>(0x0086D7E4)
 #define mc2_osver MC2_GLOBAL<DWORD>(0x0086D7D8)
 #define mc2_winver MC2_GLOBAL<DWORD>(0x0086D7DC)
-#define mc2_acmdln MC2_GLOBAL<LPSTR>(0x0086EDC4)
-#define mc2_aenvptr MC2_GLOBAL<LPSTR>(0x0086D818)
 
 #define mc2__heap_init MC2_PROC_PTR<std::uint32_t, std::uint32_t>(0x0061CFB1)
-#define mc2__RTC_Initialize MC2_PROC_PTR<void>(0x0061C7F1)
 #define mc2__ioinit MC2_PROC_PTR<std::int32_t>(0x0061CDEC)
-#define mc2___ctrGenEnvironmentStringsA MC2_PROC_PTR<LPSTR>(0x0061CCCA)
-#define mc2_setargv MC2_PROC_PTR<std::int32_t>(0x006192D5)
-#define mc2__setenvp MC2_PROC_PTR<std::int32_t>(0x0061CC03)
-#define mc2_cinit MC2_PROC_PTR<std::uint32_t>(0x006193FE)
-#define mc2__wincmdln MC2_PROC_PTR<LPSTR>(0x0061CB9A)
-#define mc2__cexit MC2_PROC_PTR<void>(0x00619547)
+#define mc2___endstdio MC2_PROC_PTR<void>(0x0061BC18)
+#define mc2__reset_excflt  MC2_PROC_PTR<void>(0x0061EEE5)
+
+int mc2_cinit();
 
 
 // mc2: 0x0061958A
 void load_mc2_dll() { // WinMainCRTSetup()
     //__SEH_prolog
-#pragma warning (disable: 4996)
-    OSVERSIONINFOA win_ver;
-    win_ver.dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
-    GetVersionExA(&win_ver);
-#pragma warning (default: 4996)
 
-    mc2_osplatform = win_ver.dwPlatformId;
-    mc2_winmajor = win_ver.dwMajorVersion;
-    mc2_winminor = win_ver.dwMinorVersion;
-    mc2_osver = win_ver.dwBuildNumber & 0x7FFF;
-    if (win_ver.dwPlatformId != VER_PLATFORM_WIN32_NT) mc2_osver |= 0x8000;
-    mc2_winver = (win_ver.dwMajorVersion << 8) + win_ver.dwMinorVersion;
+    // Setup key parts of _cexit
+    std::atexit(mc2__reset_excflt);
+    std::atexit(mc2___endstdio);
 
-    /*
-     * Original had code to check here for a "CLR header" in the
-     * exe, but the code that uses the result has been removed.
-     * (It related to how to exit the program)
-     */
+    mc2_osplatform = VER_PLATFORM_WIN32_NT; // OpenMC2 doesn't support anything else
+    mc2_winmajor = 6; // OpenMC2 doesn't officially support XP
+    // (plus, specifying too high a version here doesn't produce any errors)
 
     if (mc2__heap_init(0) == 0) std::terminate(); // fast_error_exit(_RT_HEAPINIT)
-    mc2__RTC_Initialize();
     if (mc2__ioinit() < 0) std::terminate(); // _amsg_exit(_RT_LOWIOINIT)
 
-    mc2_acmdln = GetCommandLineA();
-    mc2_aenvptr = mc2___ctrGenEnvironmentStringsA();
-    if (mc2_setargv() < 0) std::terminate(); // _amsg_exit(_RT_SPACEARG)
-    if (mc2__setenvp() < 0) std::terminate(); // _amsg_exit(_RT_SPACEENV)
-
-    std::uint32_t initret = mc2_cinit(); // <- Magic
+    int initret = mc2_cinit(); // <- Magic
     if (initret != 0) std::terminate(); // _amsg_exit(initret)
 
     // remove call to WinMain and exit
@@ -114,7 +93,10 @@ int StartOpenMC2() {
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     load_mc2_dll();
-    int result = StartOpenMC2();
-    mc2__cexit();
-    return result;
+    return StartOpenMC2();
 }
+
+#pragma warning (disable: 4996)
+AUTO_HOOK_X86(0x0061A76D, std::atexit);
+AUTO_HOOK_X86(0x0061B7C1, std::getenv);
+#pragma warning (default: 4996)

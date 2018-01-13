@@ -31,7 +31,7 @@ void * __cdecl mc2_malloc_info(std::uint32_t size, const char * /* file */, std:
 }
 
 void __cdecl mc2_free(void *ptr) {
-    operator delete(ptr);
+    if (ptr != nullptr) operator delete(ptr);
 }
 
 void * __cdecl mc2_aligned_malloc(std::uint32_t size, std::uint32_t align) {
@@ -39,7 +39,7 @@ void * __cdecl mc2_aligned_malloc(std::uint32_t size, std::uint32_t align) {
 }
 
 void __cdecl mc2_aligned_free(void *ptr) {
-    _aligned_free(ptr);
+    if (ptr != nullptr) _aligned_free(ptr);
 }
 
 char * __cdecl mc2_strdup(const char *str) {
