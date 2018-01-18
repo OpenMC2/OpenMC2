@@ -23,7 +23,14 @@
 
 #include "Logging.hpp"
 #include "Memory.hpp"
-#include "UnkObjects/unk8600F8.hpp"
+#include "UnkObjects/unk612850.hpp"
+
+// mc2: 0x00612F80
+cmdline_info::cmdline_info(std::int32_t index, const char *name, const char *desc) :
+index(index), name(name), desc(desc), value(nullptr) {
+    next = global_cmdline;
+    global_cmdline = this;
+}
 
 // mc2: 0x006131E0
 void parse_commandline(std::int32_t argc, char **argv) {
@@ -85,10 +92,10 @@ void print_help() {
                     mc2_log_print("%.*s", std::max(rowlen, 0), "          ");
                     rowlen += 69;
 
-                    char *c = x.desc;
+                    const char *c = x.desc;
                     while (*c != '\0') {
-                        char *s = c++;
-                        for (char *d = c; d - s < rowlen; ++d)
+                        const char *s = c++;
+                        for (const char *d = c; d - s < rowlen; ++d)
                             if (*d == ' ' || *(d - 1) == '-') c = d;
                             else if (*d == '\0') {
                                 mc2_log_print("%s\n", s);

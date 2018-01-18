@@ -20,15 +20,19 @@
 
 #include "../Addresses.hpp"
 
-class unk_6C2E88 {
+class unk_6144B0 {
 private:
-
+    void *unk00;
+    std::uint16_t unk04;
+    std::uint16_t unk06;
 
 public:
-    inline void sub_53ACB0(const char *a) {
-        MC2_PROC_MEMBER<void>(0x0053ACB0, this, a);
-    }
-
+    unk_6144B0(void *unk00, std::uint16_t unk06) :
+    unk00(unk00), unk04(0), unk06(unk06) { }
 };
 
-#define glo_6C2E88 (MC2_GLOBAL<unk_6C2E88>(0x006C2E88))
+#define glo_860300 MC2_GLOBAL<unk_6144B0>(0x00860300)
+#define glo_860618 MC2_GLOBAL<unk_6144B0>(0x00860618)
+
+#define loc_860308 MC2_POINTER<void>(0x00860308)
+#define loc_860508 MC2_POINTER<void>(0x00860508)

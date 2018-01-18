@@ -53,7 +53,6 @@ void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, i
 #define sub_612130 (MC2_PROC_PTR<void>(0x00612130))
 #define sub_612C70 (MC2_PROC_PTR<void, char *>(0x00612C70))
 #define sub_613DD0 (MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0))
-#define sub_617AA0 (MC2_PROC_PTR<void>(0x00617AA0))
 
 #define loc_4010B0 (MC2_PROC_PTR<void>(0x004010B0))
 
@@ -94,8 +93,7 @@ void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, i
 #define glo_85838C (MC2_GLOBAL<float>(0x0085838C))
 #define glo_85839C (MC2_GLOBAL<std::uint32_t>(0x0085839C))
 #define glo_8583B0 (MC2_GLOBAL<float>(0x008583B0))
-#define glo_85AE8C (MC2_GLOBAL<std::uint8_t>(0x0085AE8C))
-#define glo_85AE98 (MC2_GLOBAL<std::uint32_t>(0x0085AE98))
+#define glo_pal_mode (MC2_GLOBAL<bool>(0x0085AE8C))
 #define glo_85FBB0 (MC2_GLOBAL<std::uint32_t>(0x0085FBB0))
 #define glo_85FBC4 (MC2_GLOBAL<std::uint32_t>(0x0085FBC4))
 #define glo_85FBDC (MC2_GLOBAL<float>(0x0085FBDC))

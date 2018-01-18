@@ -16,7 +16,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk8600F8.hpp"
+#include "unk612850.hpp"
 
 #include <string>
 #include <boost/lexical_cast.hpp>
@@ -24,14 +24,14 @@
 #include "..\Memory.hpp"
 
 // Remove from Linked List?
-void unk_8600F8::loc_611DC0() {
-    unk_8600F8 **x;
+void unk_612850::loc_611DC0() {
+    unk_612850 **x;
     for (x = &glo_8600E8; *x != nullptr && *x != this; x = &(*x)->unk14);
     *x = this->unk14;
     this->unk14 = nullptr;
 }
 
-unk_612150 *unk_8600F8::sub_6124A0(const char *a) {
+unk_612150 *unk_612850::sub_6124A0(const char *a) {
     if (this->entries == nullptr) {
         return nullptr;
     }
@@ -46,7 +46,7 @@ unk_612150 *unk_8600F8::sub_6124A0(const char *a) {
 }
 
 // mc2: 0x00611E70
-uint32_t unk_8600F8::get_entry_index(const char *a) {
+uint32_t unk_612850::get_entry_index(const char *a) {
     if (this->entries == nullptr) {
         this->entries = new hash_map_entry*[this->max_entries];
         std::memset(this->entries, 0, this->max_entries * 4);
@@ -63,7 +63,7 @@ uint32_t unk_8600F8::get_entry_index(const char *a) {
     return hash % this->max_entries;
 }
 
-bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
+bool unk_612850::sub_612150(const char *a, unk_612150 *b) {
     int index = get_entry_index(a);
 
     for (hash_map_entry *entry = this->entries[index]; entry != nullptr; entry = entry->next) {
@@ -98,7 +98,7 @@ bool unk_8600F8::sub_612150(const char *a, unk_612150 *b) {
     return true;
 }
 
-bool unk_8600F8::sub_611FE0(indexed_map_entry *index_entry) {
+bool unk_612850::sub_611FE0(indexed_map_entry *index_entry) {
     if (this->entries == nullptr)
         return false;
 
@@ -113,7 +113,7 @@ bool unk_8600F8::sub_611FE0(indexed_map_entry *index_entry) {
     return true;
 }
 
-unk_8600F8::hash_map_entry *unk_8600F8::sub_611F60(int32_t entryIndex) {
+unk_612850::hash_map_entry *unk_612850::sub_611F60(int32_t entryIndex) {
     if (entryIndex < 0 || entryIndex >= this->num_entries)
         return nullptr;
 
@@ -138,7 +138,7 @@ unk_8600F8::hash_map_entry *unk_8600F8::sub_611F60(int32_t entryIndex) {
     return entry;
 }
 
-bool unk_8600F8::sub_612020(indexed_map_entry *index_entry) {
+bool unk_612850::sub_612020(indexed_map_entry *index_entry) {
     hash_map_entry *entry = sub_611F60(index_entry->index + 1);
 
     if (entry == nullptr)

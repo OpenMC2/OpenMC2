@@ -62,7 +62,11 @@ public:
 };
 
 void sub_618050(FileHandler *a, const char *format, ...);
+
+// mc2: 0x00617BB0
 FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable * fileFuncs);
+
+#define sub_617AA0 (MC2_PROC_PTR<void>(0x00617AA0))
 
 #define glo_FileHandles (MC2_POINTER<FileHandler>(0x00860AE0))
 //Array end

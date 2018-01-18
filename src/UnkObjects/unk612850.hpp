@@ -27,7 +27,7 @@ struct unk_612150 {
     char **args = nullptr;
 };
 
-class unk_8600F8 {
+class unk_612850 {
 public:
     struct hash_map_entry {
         char *name;
@@ -53,9 +53,19 @@ private:
     std::int32_t max_entries;  // 0x08
     std::int32_t num_entries;  // 0x0C
     hash_map_entry **entries;  // 0x10
-    unk_8600F8 *unk14;
+    unk_612850 *unk14;
 
 public:
+    unk_612850(std::uint32_t a = 101, std::uint32_t b = 0, std::uint32_t c = 32,
+        std::uint32_t d = 1, std::uint32_t e = 0) {
+        MC2_PROC_MEMBER<void>(0x00612850, this, a, b, c, d, e);
+    }
+
+    // mc2: 0x006126B0
+    ~unk_612850() {
+        MC2_PROC_MEMBER<void>(0x006126B0, this);
+    }
+
     void loc_611DC0();
     
     inline hash_map_entry *sub_611DF0(const char *a, unk_612150 *b, hash_map_entry *unk_loc) {
@@ -79,11 +89,24 @@ public:
 
     bool sub_612020(indexed_map_entry *eax);
 
-    hash_map_entry *unk_8600F8::sub_611F60(int32_t unk);
+    hash_map_entry *unk_612850::sub_611F60(int32_t unk);
 };
 
 bool sub_612E10(const char *key);
 bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value);
 
-#define glo_8600E8 (MC2_GLOBAL<unk_8600F8 *>(0x008600E8))
-#define glo_8600F8 (MC2_GLOBAL<unk_8600F8>(0x008600F8))
+#define glo_69685C MC2_GLOBAL<unk_612850>(0x0069685C)
+#define glo_697E24 MC2_GLOBAL<unk_612850>(0x00697E24)
+#define glo_6C50F0 MC2_GLOBAL<unk_612850>(0x006C50F0)
+#define glo_6C5224 MC2_GLOBAL<unk_612850>(0x006C5224)
+#define glo_6CE228 MC2_GLOBAL<unk_612850>(0x006CE228)
+#define glo_857850 MC2_GLOBAL<unk_612850>(0x00857850)
+#define glo_857868 MC2_GLOBAL<unk_612850>(0x00857868)
+#define glo_858288 MC2_GLOBAL<unk_612850>(0x00858288)
+#define glo_8582AC MC2_GLOBAL<unk_612850>(0x008582AC)
+#define glo_8586B8 MC2_GLOBAL<unk_612850>(0x008586B8)
+#define glo_85ADDC MC2_GLOBAL<unk_612850>(0x0085ADDC)
+#define glo_85AE60 MC2_GLOBAL<unk_612850>(0x0085AE60)
+#define glo_8600F8 MC2_GLOBAL<unk_612850>(0x008600F8)
+
+#define glo_8600E8 MC2_GLOBAL<unk_612850 *>(0x008600E8)

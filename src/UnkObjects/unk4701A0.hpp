@@ -18,22 +18,19 @@
 
 #pragma once
 
-#include <cstdint>
-
 #include "../Addresses.hpp"
 
-class unk_6C3890 {
+class unk_4701A0 {
 private:
-    struct {
-        void *unk00;
-        void (__thiscall *unk04)(unk_6C3890 *, std::uint32_t);
-    } *vtable;
+    // Based on the constructor, this class
+    // is AT LEAST 0x90 bytes big, and appears
+    // to be all floating point numbers.
+    float unk00[36];
 
 public:
-    inline void vir04(std::uint32_t a) {
-        this->vtable->unk04(this, a);
+    unk_4701A0() {
+        MC2_PROC_MEMBER<void>(0x004701A0, this);
     }
-
 };
 
-#define glo_6C3890 (MC2_GLOBAL<unk_6C3890 *>(0x006C3890))
+#define glo_6967C0 MC2_GLOBAL<unk_4701A0>(0x006967C0)

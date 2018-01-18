@@ -28,13 +28,13 @@
 #include "Memory.hpp"
 #include "Settings.hpp"
 #include "UnkObjects/unk402560.hpp"
+#include "UnkObjects/unk404B90.hpp"
+#include "UnkObjects/unk53AF00.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 #include "UnkObjects/unk577510.hpp"
 #include "UnkObjects/unk600960.hpp"
+#include "UnkObjects/unk612850.hpp"
 #include "UnkObjects/unk613360.hpp"
-#include "UnkObjects/unk6C2E88.hpp"
-#include "UnkObjects/unk6C3890.hpp"
-#include "UnkObjects/unk8600F8.hpp"
 
 static void sub_612A80(char *args) {
     glo_8600F0 = 0;
@@ -146,7 +146,7 @@ static void sub_612A80(char *args) {
 }
 
 void sub_612F00() {
-    unk_8600F8::indexed_map_entry index_entry;
+    unk_612850::indexed_map_entry index_entry;
 
     for (bool valid = glo_8600F8.sub_611FE0(&index_entry); valid; valid = glo_8600F8.sub_612020(&index_entry)) {
         unk_612150 *value = index_entry.value;
@@ -417,17 +417,19 @@ void sub_5ECBE0() {
     }
 }
 
-void sub_5F5690() {
-    if (glo_85AE98 != 0) {
-        glo_85AE8C = 1;
+// mc2: 0x005F5690
+void set_pal_mode() {
+    if (glo_pal_cmdline.value != nullptr) {
+        glo_pal_mode = true;
     }
-    else if (glo_85AE8C == 0) {
+    
+    if (!glo_pal_mode) {
         glo_6754A4 = 60;
-        glo_6754A8 = 1.0f/60.0f;
-        return;
+        glo_6754A8 = 1.0f / 60.0f;
+    } else {
+        glo_6754A4 = 50;
+        glo_6754A8 = 1.0f / 50.0f;
     }
-    glo_6754A4 = 50;
-    glo_6754A8 = 1.0f/50.0f;
 }
 
 void sub_5ED7B0(std::int32_t width, std::int32_t height, std::int32_t cdepth, std::int32_t zdepth, std::int32_t unk5) {
@@ -468,7 +470,7 @@ void sub_5ED7B0(std::int32_t width, std::int32_t height, std::int32_t cdepth, st
     sub_612E30("cdepth", 0, &cdepth);
     sub_612E30("zdepth", 0, &zdepth);
 
-    sub_5F5690();
+    set_pal_mode();
 
     if (glo_858371 != 0) {
         width = GetSystemMetrics(SM_CXFULLSCREEN);

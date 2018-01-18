@@ -25,21 +25,24 @@
 
 class cmdline_info {
 public:
-    char *name; // 0x00
-    char *desc; // 0x04
-    char *value; // 0x08
+    const char *name; // 0x00
+    const char *desc; // 0x04
+    const char *value; // 0x08
     std::int32_t index; // 0x0C
     cmdline_info *next; // 0x10
+
+    // mc2: 0x00612F80
+    cmdline_info(std::int32_t index, const char *name, const char *desc);
 
     // C++ Magic
     class iterator : public std::iterator<std::forward_iterator_tag, cmdline_info> {
     public:
         inline iterator(cmdline_info *c) : info(c) { }
         inline iterator() : info(nullptr) { }
-        inline cmdline_info &operator*() { return *info; }
-        inline cmdline_info *operator->() { return info; }
-        inline bool operator==(iterator &o) { return info == o.info; }
-        inline bool operator!=(iterator &o) { return info != o.info; }
+        inline cmdline_info &operator*() const { return *info; }
+        inline cmdline_info *operator->() const { return info; }
+        inline bool operator==(const iterator &o) const { return info == o.info; }
+        inline bool operator!=(const iterator &o) const { return info != o.info; }
         inline iterator &operator++() { info = info->next; return *this; }
         inline iterator operator++(int i) { iterator tmp(*this); info = info->next; return tmp; }
 
@@ -63,6 +66,8 @@ void parse_commandline(std::int32_t argc, char **argv);
 void print_help();
 
 void sub_612910(std::int32_t argc, char **argv);
+
+#define glo_pal_cmdline (MC2_GLOBAL<cmdline_info>(0x0085AE90)) // glo_85AE90
 
 #define global_cmdline (MC2_GLOBAL<cmdline_info *>(0x00860110)) // glo_860110
 #define global_exe_name (MC2_GLOBAL<char *>(0x00860114)) // glo_860114
