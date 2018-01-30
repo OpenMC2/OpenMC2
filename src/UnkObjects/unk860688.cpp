@@ -24,6 +24,8 @@ unk_860688::unk_860688(std::array<char, 4> signature, void(__cdecl *callback)(vo
     glo_860688 = this;
 }
 
+unk_860688 *&glo_860688 = MC2_GLOBAL<unk_860688 *>(0x00860688);
+
 unk_860688 glo_673E3C({ 'V', 'B', 'N', '0' }, &MC2_PROC_PTR<void, void *>(0x0056CDE0));
 unk_860688 glo_673EE0({ 'P', 'I', 'V', '0' }, [](void *) { });
 unk_860688 glo_674100({ 'B', 'N', 'D', '0' }, &MC2_PROC_PTR<void, void *>(0x0059E510));
@@ -34,5 +36,3 @@ unk_860688 glo_6745AC({ 'F', 'N', 'T', '0' }, &MC2_PROC_PTR<void, void *>(0x005E
 unk_860688 glo_675494({ 'M', 'I', 'P', '0' }, &MC2_PROC_PTR<void, void *>(0x005F5520));
 unk_860688 glo_675508({ 'T', 'E', 'X', '0' }, &MC2_PROC_PTR<void, void *>(0x005FA060));
 unk_860688 glo_6781B0({ 'P', 'A', 'L', '0' }, &MC2_PROC_PTR<void, void *>(0x005FC400));
-
-unk_860688 *&glo_860688 = MC2_GLOBAL<unk_860688 *>(0x00860688);

@@ -36,7 +36,7 @@ std::array<void *, AIL_Count> &AIL_Pointers = MC2_GLOBAL<std::array<void *, AIL_
 template<size_t N>
 void set_pointers(const boost::dll::shared_library &dll,
     const std::array<const char *, N> &names, std::array<void *, N> &pointers) {
-    for (boost::tuple<const char *, void *> v : boost::combine(names, pointers)) {
+    for (boost::tuple<const char *, void *&> v : boost::combine(names, pointers)) {
         boost::get<1>(v) = &dll.get<char>(boost::get<0>(v));
     }
 }
