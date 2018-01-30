@@ -18,8 +18,6 @@
 
 #include "Logging.hpp"
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
 #include <cstdio>
 #include <cstring>
 #include <string>
@@ -216,3 +214,13 @@ void mc2_log_fatal(const char *format, ...) {
 }
 
 AUTO_HOOK_FNPTR(0x00679880, mc2_log_level_v);
+
+bool &global_mbox_fatal = MC2_GLOBAL<bool>(0x00679844); // glo_679844
+std::uint8_t &global_log_level_flags = MC2_GLOBAL<std::uint8_t>(0x00679848); // glo_679848
+
+std::int32_t &global_clog_begin = MC2_GLOBAL<std::int32_t>(0x0086CC38); // glo_86CC38
+std::int32_t &global_clog_end = MC2_GLOBAL<std::int32_t>(0x0086CC3C); // glo_86CC3C
+bool &global_mbox_error = MC2_GLOBAL<bool>(0x0086D288); // glo_86D288
+bool &glo_86D298 = MC2_GLOBAL<bool>(0x0086D298);
+
+char *loc_86CC40 = MC2_POINTER<char>(0x0086CC40);

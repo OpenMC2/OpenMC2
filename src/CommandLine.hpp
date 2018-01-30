@@ -67,13 +67,13 @@ void print_help();
 
 void sub_612910(std::int32_t argc, char **argv);
 
-#define glo_pal_cmdline (MC2_GLOBAL<cmdline_info>(0x0085AE90)) // glo_85AE90
+extern cmdline_info &glo_pal_cmdline; // glo_85AE90
 
-#define global_cmdline (MC2_GLOBAL<cmdline_info *>(0x00860110)) // glo_860110
-#define global_exe_name (MC2_GLOBAL<char *>(0x00860114)) // glo_860114
-#define global_help_has_printed (MC2_GLOBAL<bool>(0x00860118)) // glo_860118
-#define global_argc (MC2_GLOBAL<std::int32_t>(0x0086D7E8)) // glo_86D7E8
-#define global_argv (MC2_GLOBAL<char **>(0x0086D7EC)) // glo_86D7EC
+extern cmdline_info *&global_cmdline; // glo_860110
+extern char *&global_exe_name; // glo_860114
+extern bool &global_help_has_printed; // glo_860118
+extern std::int32_t &global_argc; // glo_86D7E8
+extern char **&global_argv; // glo_86D7EC
 
-#define glo_8600EC (MC2_GLOBAL<char **>(0x008600EC))
-#define glo_8600F0 (MC2_GLOBAL<std::int32_t>(0x008600F0))
+extern char **&glo_8600EC;
+extern std::int32_t &glo_8600F0;

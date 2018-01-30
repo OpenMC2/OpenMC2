@@ -173,3 +173,5 @@ void load_config() {
 
     glo_windowed_mode = config.get<bool>("window");
 }
+
+bool &glo_windowed_mode = MC2_GLOBAL<bool>(0x00858370);

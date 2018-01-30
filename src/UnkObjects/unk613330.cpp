@@ -106,3 +106,5 @@ void unk_613330::impl_28(char *destination, const char *unk2, const char *extens
         safe_strcat(destination, 256, extension);
     }
 }
+
+unk_613330 *&glo_860220 = MC2_GLOBAL<unk_613330 *>(0x00860220);

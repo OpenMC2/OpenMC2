@@ -33,3 +33,5 @@ unk_5DDA50::unk_5DDA50() {
 }
 
 static unk_5DDA50 var_858284; // calls constructor on launch
+
+std::array<float, 641> &glo_857880 = MC2_GLOBAL<std::array<float, 641>>(0x00857880);

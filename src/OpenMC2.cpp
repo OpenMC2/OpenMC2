@@ -17,6 +17,7 @@
  **********************************************************************/
 
 #include "Addresses.hpp"
+#include "CInit.hpp"
 #include "CommandLine.hpp"
 #include "Config.hpp"
 #include "Game.hpp"
@@ -32,18 +33,13 @@ static_assert(sizeof(char) == 1, "Strings are not expected size");
 static_assert(sizeof(bool) == 1, "Bools are not expected size");
 
 
-#define mc2_osplatform MC2_GLOBAL<DWORD>(0x0086D7D4)
-#define mc2_winmajor MC2_GLOBAL<DWORD>(0x0086D7E0)
-#define mc2_winminor MC2_GLOBAL<DWORD>(0x0086D7E4)
-#define mc2_osver MC2_GLOBAL<DWORD>(0x0086D7D8)
-#define mc2_winver MC2_GLOBAL<DWORD>(0x0086D7DC)
+static DWORD &mc2_osplatform = MC2_GLOBAL<DWORD>(0x0086D7D4);
+static DWORD &mc2_winmajor = MC2_GLOBAL<DWORD>(0x0086D7E0);
 
-#define mc2__heap_init MC2_PROC_PTR<std::uint32_t, std::uint32_t>(0x0061CFB1)
-#define mc2__ioinit MC2_PROC_PTR<std::int32_t>(0x0061CDEC)
-#define mc2___endstdio MC2_PROC_PTR<void>(0x0061BC18)
-#define mc2__reset_excflt  MC2_PROC_PTR<void>(0x0061EEE5)
-
-int mc2_cinit();
+static auto &mc2__heap_init = MC2_PROC_PTR<std::uint32_t, std::uint32_t>(0x0061CFB1);
+static auto &mc2__ioinit = MC2_PROC_PTR<std::int32_t>(0x0061CDEC);
+static auto &mc2___endstdio = MC2_PROC_PTR<void>(0x0061BC18);
+static auto &mc2__reset_excflt = MC2_PROC_PTR<void>(0x0061EEE5);
 
 
 // mc2: 0x0061958A
@@ -100,3 +96,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 AUTO_HOOK_X86(0x0061A76D, std::atexit);
 AUTO_HOOK_X86(0x0061B7C1, std::getenv);
 #pragma warning (default: 4996)
+
+std::uint32_t(__cdecl &sub_61A5DC)(char *) = MC2_PROC_PTR<uint32_t, char *>(0x0061A5DC);
+
+void *&glo_67A760 = MC2_GLOBAL<void *>(0x0067A760);
+void *loc_67A770 = MC2_POINTER<void>(0x0067A770);
+bool &glo_682E18 = MC2_GLOBAL<bool>(0x00682E18);
+std::uint32_t &glo_8602C8 = MC2_GLOBAL<uint32_t>(0x008602C8);
+std::uint8_t &glo_679778 = MC2_GLOBAL<std::uint8_t>(0x00679778);

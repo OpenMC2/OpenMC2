@@ -27,12 +27,12 @@ private:
     std::uint16_t unk06;
 
 public:
-    unk_6144B0(void *unk00, std::uint16_t unk06) :
+    constexpr unk_6144B0(void *unk00, std::uint16_t unk06) :
     unk00(unk00), unk04(0), unk06(unk06) { }
 };
 
-#define glo_860300 MC2_GLOBAL<unk_6144B0>(0x00860300)
-#define glo_860618 MC2_GLOBAL<unk_6144B0>(0x00860618)
+extern unk_6144B0 &glo_860300;
+extern unk_6144B0 &glo_860618;
 
-#define loc_860308 MC2_POINTER<void>(0x00860308)
-#define loc_860508 MC2_POINTER<void>(0x00860508)
+extern void *loc_860308;
+extern void *loc_860508;

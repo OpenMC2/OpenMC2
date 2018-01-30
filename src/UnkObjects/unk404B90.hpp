@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include <cstdint>
-
 #include "../Addresses.hpp"
 
 class unk_404B90 {
@@ -40,4 +38,4 @@ public:
 
 };
 
-#define glo_6C3890 (MC2_GLOBAL<unk_404B90 *>(0x006C3890))
+extern unk_404B90 *&glo_6C3890;

@@ -22,24 +22,29 @@
 
 #include "../Addresses.hpp"
 
+#include <array>
+
 #include <boost/dll.hpp>
+#include <boost/range/combine.hpp>
 
 static boost::dll::shared_library BinkDll;
 static boost::dll::shared_library AIL_Dll;
 
+std::array<void *, BinkCount> &BinkPointers = MC2_GLOBAL<std::array<void *, BinkCount>>(0x0062D260);
+std::array<void *, AIL_Count> &AIL_Pointers = MC2_GLOBAL<std::array<void *, AIL_Count>>(0x0062D290);
+
+template<size_t N>
+void set_pointers(const boost::dll::shared_library &dll,
+    const std::array<const char *, N> &names, std::array<void *, N> &pointers) {
+    for (boost::tuple<const char *, void *> v : boost::combine(names, pointers)) {
+        boost::get<1>(v) = &dll.get<char>(boost::get<0>(v));
+    }
+}
+
 void AddDllHooks(const boost::filesystem::path &mc2_dir) {
     BinkDll.load(mc2_dir / "binkw32.dll");
+    set_pointers(BinkDll, BinkNames, BinkPointers);
+
     AIL_Dll.load(mc2_dir / "mss32.dll");
-
-    void **func = MC2_POINTER<void *>(BinkStart);
-    for (const char *bink_func : BinkNames) {
-        *func = &BinkDll.get<char>(bink_func);
-        ++func;
-    }
-
-    func = MC2_POINTER<void *>(AIL_Start);
-    for (const char *ail_func : AIL_Names) {
-        *func = &AIL_Dll.get<char>(ail_func);
-        ++func;
-    }
+    set_pointers(AIL_Dll, AIL_Names, AIL_Pointers);
 }

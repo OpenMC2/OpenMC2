@@ -28,4 +28,4 @@ public:
     unk_5406A0() = default;
 };
 
-#define glo_6C32C4 MC2_GLOBAL<unk_5406A0>(0x006C32C4)
+extern unk_5406A0 &glo_6C32C4;

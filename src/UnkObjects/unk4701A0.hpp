@@ -33,4 +33,4 @@ public:
     }
 };
 
-#define glo_6967C0 MC2_GLOBAL<unk_4701A0>(0x006967C0)
+extern unk_4701A0 &glo_6967C0;

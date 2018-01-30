@@ -18,9 +18,12 @@
 
 #include "../Addresses.hpp"
 
-constexpr std::uintptr_t AIL_Start = 0x0062D290;
+#include <array>
 
-constexpr const char *AIL_Names[] = {
+constexpr size_t AIL_Count = 41;
+extern std::array<void *, AIL_Count> &AIL_Pointers;
+
+constexpr std::array<const char *, AIL_Count> AIL_Names = {
     "_AIL_stream_status@4",
     "_AIL_open_stream@12",
     "_AIL_start_stream@4",

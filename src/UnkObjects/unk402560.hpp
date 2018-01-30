@@ -35,5 +35,4 @@ public:
     
 };
 
-#define sub_402560 (MC2_PROC_PTR<unk_402560 *>(0x00402560))
-
+extern unk_402560 *(__cdecl &sub_402560)();

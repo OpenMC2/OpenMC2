@@ -30,9 +30,9 @@ public:
     }
 };
 
-#define glo_692E68 MC2_GLOBAL<unk_611C60>(0x00692E68)
-#define glo_6993A4 MC2_GLOBAL<unk_611C60>(0x006993A4)
-#define glo_858358 MC2_GLOBAL<unk_611C60>(0x00858358)
-#define glo_85835C MC2_GLOBAL<unk_611C60>(0x0085835C)
-#define glo_858354 MC2_GLOBAL<unk_611C60>(0x00858354)
-#define glo_8602FC MC2_GLOBAL<unk_611C60>(0x008602FC)
+extern unk_611C60 &glo_692E68;
+extern unk_611C60 &glo_6993A4;
+extern unk_611C60 &glo_858358;
+extern unk_611C60 &glo_85835C;
+extern unk_611C60 &glo_858354;
+extern unk_611C60 &glo_8602FC;

@@ -130,19 +130,12 @@ Auto_Hook_Fnptr_Obj<T, Types...> Auto_Hook_Fnptr_Func(std::uint32_t in, T(&out)(
 
 // Functions
 
-#define MC2_STRRCHR(s, c) ((MC2_PROC_PTR<char *, char *, char>(0x0061AB10))(s, c)) // Dont use
-#define sub_61A5DC (MC2_PROC_PTR<uint32_t, char *>(0x0061A5DC))
-#define MC2_VSPRINTF(b, f, args) ((MC2_PROC_PTR<int, char *, char *, va_list>(0x006198B5))(b, f, args)) // Use vsnprintf instead
+extern std::uint32_t(__cdecl &sub_61A5DC)(char *);
 
 // Global Variables
 
-#define glo_67A760 (MC2_GLOBAL<void *>(0x0067A760))
-#define loc_67A770 (MC2_POINTER<void>(0x0067A770))
-#define glo_682E18 (MC2_GLOBAL<bool>(0x00682E18))
-#define glo_8602C8 (MC2_GLOBAL<uint32_t>(0x008602C8))
-#define glo_679778 (MC2_GLOBAL<std::uint8_t>(0x00679778))
-
-// MC2 Pre-Main Stuff
-#define mc2_crt_start_main (MC2_PROC_PTR<void>(0x0061958A))
-#define mc2_crt_call_main (MC2_PROC_PTR<void>(0x0061970D))
-#define mc2_crt_end_main (MC2_PROC_PTR<void>(0x00619754))
+extern void *&glo_67A760;
+extern void *loc_67A770;
+extern bool &glo_682E18;
+extern std::uint32_t &glo_8602C8;
+extern std::uint8_t &glo_679778;

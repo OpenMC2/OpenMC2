@@ -164,3 +164,19 @@ bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value) {
     *decimal_value = boost::lexical_cast<int32_t>(entry->args[index]);
     return true;
 }
+
+unk_612850 &glo_69685C = MC2_GLOBAL<unk_612850>(0x0069685C);
+unk_612850 &glo_697E24 = MC2_GLOBAL<unk_612850>(0x00697E24);
+unk_612850 &glo_6C50F0 = MC2_GLOBAL<unk_612850>(0x006C50F0);
+unk_612850 &glo_6C5224 = MC2_GLOBAL<unk_612850>(0x006C5224);
+unk_612850 &glo_6CE228 = MC2_GLOBAL<unk_612850>(0x006CE228);
+unk_612850 &glo_857850 = MC2_GLOBAL<unk_612850>(0x00857850);
+unk_612850 &glo_857868 = MC2_GLOBAL<unk_612850>(0x00857868);
+unk_612850 &glo_858288 = MC2_GLOBAL<unk_612850>(0x00858288);
+unk_612850 &glo_8582AC = MC2_GLOBAL<unk_612850>(0x008582AC);
+unk_612850 &glo_8586B8 = MC2_GLOBAL<unk_612850>(0x008586B8);
+unk_612850 &glo_85ADDC = MC2_GLOBAL<unk_612850>(0x0085ADDC);
+unk_612850 &glo_85AE60 = MC2_GLOBAL<unk_612850>(0x0085AE60);
+unk_612850 &glo_8600F8 = MC2_GLOBAL<unk_612850>(0x008600F8);
+
+unk_612850 *&glo_8600E8 = MC2_GLOBAL<unk_612850 *>(0x008600E8);

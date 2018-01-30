@@ -18,9 +18,12 @@
 
 #include "../Addresses.hpp"
 
-constexpr std::uintptr_t BinkStart = 0x0062D260;
+#include <array>
 
-constexpr const char *BinkNames[] = {
+constexpr size_t BinkCount = 9;
+extern std::array<void *, BinkCount> &BinkPointers;
+
+constexpr std::array<const char *, BinkCount> BinkNames = {
     "_BinkNextFrame@4",
     "_BinkCopyToBuffer@28",
     "_BinkOpenMiles@4",

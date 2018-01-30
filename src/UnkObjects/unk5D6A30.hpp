@@ -37,10 +37,10 @@ public:
     }
 };
 
-#define glo_6CE520 MC2_GLOBAL<unk_5D6A30>(0x006CE520)
-#define glo_6CE52C MC2_GLOBAL<unk_5D6A30>(0x006CE52C)
-#define glo_6CE538 MC2_GLOBAL<unk_5D6A30>(0x006CE538)
-#define glo_6CE544 MC2_GLOBAL<unk_5D6A30>(0x006CE544)
-#define glo_6CE550 MC2_GLOBAL<unk_5D6A30>(0x006CE550)
-#define glo_6CE55C MC2_GLOBAL<unk_5D6A30>(0x006CE55C)
-#define glo_6CE568 MC2_GLOBAL<unk_5D6A30>(0x006CE568)
+extern unk_5D6A30 &glo_6CE520;
+extern unk_5D6A30 &glo_6CE52C;
+extern unk_5D6A30 &glo_6CE538;
+extern unk_5D6A30 &glo_6CE544;
+extern unk_5D6A30 &glo_6CE550;
+extern unk_5D6A30 &glo_6CE55C;
+extern unk_5D6A30 &glo_6CE568;

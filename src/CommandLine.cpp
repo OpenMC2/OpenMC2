@@ -147,3 +147,14 @@ void sub_612910(std::int32_t argc, char **argv) {
     }
     glo_8600F8.loc_611DC0();
 }
+
+cmdline_info &glo_pal_cmdline = MC2_GLOBAL<cmdline_info>(0x0085AE90); // glo_85AE90
+
+cmdline_info *&global_cmdline = MC2_GLOBAL<cmdline_info *>(0x00860110); // glo_860110
+char *&global_exe_name = MC2_GLOBAL<char *>(0x00860114); // glo_860114
+bool &global_help_has_printed = MC2_GLOBAL<bool>(0x00860118); // glo_860118
+std::int32_t &global_argc = MC2_GLOBAL<std::int32_t>(0x0086D7E8); // glo_86D7E8
+char **&global_argv = MC2_GLOBAL<char **>(0x0086D7EC); // glo_86D7EC
+
+char **&glo_8600EC = MC2_GLOBAL<char **>(0x008600EC);
+std::int32_t &glo_8600F0 = MC2_GLOBAL<std::int32_t>(0x008600F0);

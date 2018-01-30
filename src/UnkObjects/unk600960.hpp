@@ -18,10 +18,6 @@
 
 #pragma once
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <cstdint>
-
 #include "../Addresses.hpp"
 
 class unk_600960 {
@@ -35,4 +31,4 @@ public:
 
 };
 
-#define glo_85D3F8 (MC2_GLOBAL<unk_600960 *>(0x0085D3F8))
+extern unk_600960 *&glo_85D3F8;

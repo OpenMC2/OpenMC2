@@ -35,5 +35,5 @@ public:
     }
 };
 
-#define glo_699890 MC2_GLOBAL<unk_579410>(0x00699890)
-#define glo_69B6A0 MC2_GLOBAL<unk_579410>(0x0069B6A0)
+extern unk_579410 &glo_699890;
+extern unk_579410 &glo_69B6A0;

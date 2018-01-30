@@ -173,4 +173,4 @@ public:
     std::uint32_t get_draw_distance() const { return this->draw_distance; } // mc2:0x0055E940
 };
 
-#define glo_Settings (MC2_GLOBAL<Settings>(0x006C3250))
+extern Settings &glo_Settings;

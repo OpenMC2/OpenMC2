@@ -38,4 +38,4 @@ public:
     }
 };
 
-#define glo_6C52E4 (MC2_GLOBAL<unk_577510 *>(0x006C52E4))
+extern unk_577510 *&glo_6C52E4;

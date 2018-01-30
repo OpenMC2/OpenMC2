@@ -18,8 +18,6 @@
 
 #include "Game.hpp"
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
 #include <cstring>
 
 #include "Config.hpp"
@@ -167,10 +165,10 @@ void sub_612F00() {
 }
 
 static void sub_53A890(const char *args) {
-    sub_612C70(loc_6C3690);
-    safe_strncpy(loc_6C3690, args, 0x200);
+    sub_612C70(glo_6C3690);
+    safe_strncpy(glo_6C3690, args, sizeof(glo_6C3690));
     sub_612F00();
-    sub_612A80(loc_6C3690);
+    sub_612A80(glo_6C3690);
 }
 
 // mc2: 0x005EDA50
@@ -192,9 +190,10 @@ void check_sku_version() {
         skuVersion = "SLUS-20209";
         break;
     case 1:
+    case 2:
         skuVersion = "SLES-51054";
         break;
-    case 2:
+    case 3:
         skuVersion = "SLPM-20209";
         break;
     default:
@@ -359,7 +358,7 @@ bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value
 }
 
 void sub_53A7B0(const char *a, std::uint32_t b, bool c, std::uint32_t d, std::uint32_t e) {
-    sub_612C70(loc_6C3690);
+    sub_612C70(glo_6C3690);
 
     // sub_577390:
     sub_5ED240(a, d, e);
@@ -378,8 +377,8 @@ void sub_53A7B0(const char *a, std::uint32_t b, bool c, std::uint32_t d, std::ui
 }
 
 void sub_53A7E0(const char *archive) {
-    mc2_log_C("ARGS: %s", loc_6C3690);
-    sub_612A80(loc_6C3690);
+    mc2_log_C("ARGS: %s", glo_6C3690);
+    sub_612A80(glo_6C3690);
 
     if (sub_612E10("nosmallocator")) {
         mc2_log_C("Disabling smallocator");
@@ -398,7 +397,7 @@ void sub_53A7E0(const char *archive) {
 
 void sub_53A870() {
     sub_5F9E30();
-    sub_612C70(loc_6C3690);
+    sub_612C70(glo_6C3690);
     sub_612F00();
 
     // sub_5774A0:
@@ -513,9 +512,9 @@ int sub_401190() {
     sub_5ED7B0(glo_Settings.get_screen_width(), glo_Settings.get_screen_height(), glo_Settings.get_screen_depth(), 32, 0);
     sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;
-    *loc_692E20 = *glo_679810;
-    loc_692E20->sub_08 = loc_4010B0;
-    glo_679810 = loc_692E20;
+    glo_692E20 = *glo_679810;
+    glo_692E20.sub_08 = &sub_4010B0;
+    glo_679810 = &glo_692E20;
     sub_53A1B0();
     bool runforever = sub_612E10("runforever");
     if (sub_612E10("shiplist") && !sub_612E10("noresources") &&
@@ -562,7 +561,7 @@ int sub_401190() {
     return 0;
 }
 
-#define sub_6178E0 (MC2_PROC_PTR<int, LPEXCEPTION_POINTERS>(0x006178E0))
+static int(__cdecl &sub_6178E0)(LPEXCEPTION_POINTERS) = MC2_PROC_PTR<int, LPEXCEPTION_POINTERS>(0x006178E0);
 
 int sub_6181F0() {
     __try {
@@ -573,3 +572,84 @@ int sub_6181F0() {
     }
     return 0;
 }
+
+void(__cdecl &sub_4010B0)() = MC2_PROC_PTR<void>(0x004010B0);
+void(__cdecl &sub_401170)() = MC2_PROC_PTR<void>(0x00401170);
+void(__cdecl &sub_4017E0)() = MC2_PROC_PTR<void>(0x004017E0);
+void(__cdecl &sub_402590)() = MC2_PROC_PTR<void>(0x00402590);
+void(__cdecl &sub_4028E0)() = MC2_PROC_PTR<void>(0x004028E0);
+void(__cdecl &sub_404BF0)() = MC2_PROC_PTR<void>(0x00404BF0);
+void(__cdecl &sub_53A1B0)() = MC2_PROC_PTR<void>(0x0053A1B0);
+void(__cdecl &sub_53A7D0)() = MC2_PROC_PTR<void>(0x0053A7D0);
+void(__cdecl &sub_53A8F0)() = MC2_PROC_PTR<void>(0x0053A8F0);
+void(__cdecl &sub_577480)(const char *) = MC2_PROC_PTR<void, const char *>(0x00577480);
+void(__cdecl &sub_5ECB90)() = MC2_PROC_PTR<void>(0x005ECB90);
+void(__cdecl &sub_5ED220)() = MC2_PROC_PTR<void>(0x005ED220);
+void(__cdecl &sub_5ED240)(const char *, std::uint32_t, std::uint32_t) = MC2_PROC_PTR<void, const char *, std::uint32_t, std::uint32_t>(0x005ED240);
+void(__cdecl &sub_5EDA50)(const char *) = MC2_PROC_PTR<void, const char *>(0x005EDA50);
+void(__cdecl &sub_5F0BC0)() = MC2_PROC_PTR<void>(0x005F0BC0);
+bool(__cdecl &sub_5F12F0)() = MC2_PROC_PTR<bool>(0x005F12F0);
+void(__cdecl &sub_5F9E20)() = MC2_PROC_PTR<void>(0x005F9E20);
+void(__cdecl &sub_5F9E30)() = MC2_PROC_PTR<void>(0x005F9E30);
+void(__cdecl &sub_5FD2D0)() = MC2_PROC_PTR<void>(0x005FD2D0);
+void(__cdecl &sub_612130)() = MC2_PROC_PTR<void>(0x00612130);
+void(__cdecl &sub_612C70)(char *) = MC2_PROC_PTR<void, char *>(0x00612C70);
+void(__cdecl &sub_613DD0)(const char *, void *, std::uint32_t) = MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0);
+
+const char *&global_texture_dir_name = MC2_GLOBAL<const char *>(0x006754AC);
+const char *&global_mod_dir_name = MC2_GLOBAL<const char *>(0x00675518);
+
+std::uint32_t &glo_674FAC = MC2_GLOBAL<std::uint32_t>(0x00674FAC);
+std::uint32_t &glo_674FB0 = MC2_GLOBAL<std::uint32_t>(0x00674FB0);
+std::uint32_t &glo_674FB4 = MC2_GLOBAL<std::uint32_t>(0x00674FB4);
+std::uint32_t &glo_674FB8 = MC2_GLOBAL<std::uint32_t>(0x00674FB8);
+std::uint32_t &glo_675030 = MC2_GLOBAL<std::uint32_t>(0x00675030);
+std::uint32_t &glo_6754A4 = MC2_GLOBAL<std::uint32_t>(0x006754A4);
+float &glo_6754A8 = MC2_GLOBAL<float>(0x006754A8);
+
+unk_679810_funcTable *&glo_679810 = MC2_GLOBAL<unk_679810_funcTable *>(0x00679810);
+unk_679810_funcTable *&glo_679814 = MC2_GLOBAL<unk_679810_funcTable *>(0x00679814);
+unk_679810_funcTable *&glo_692E1C = MC2_GLOBAL<unk_679810_funcTable *>(0x00692E1C);
+std::uint32_t &global_LanguageID = MC2_GLOBAL<std::uint32_t>(0x006C2C5C); // glo_6C2C5C
+std::uint8_t &glo_6CE210 = MC2_GLOBAL<std::uint8_t>(0x006CE210);
+std::uint8_t &glo_6CE211 = MC2_GLOBAL<std::uint8_t>(0x006CE211);
+
+unk_679810_funcTable &glo_692E20 = MC2_GLOBAL<unk_679810_funcTable>(0x00692E20);
+unk_679810_funcTable &glo_679884 = MC2_GLOBAL<unk_679810_funcTable>(0x00679884);
+char (&glo_6C3690)[0x200] = MC2_GLOBAL<char[0x200]>(0x006C3690);
+
+HWND &global_hWnd = MC2_GLOBAL<HWND>(0x00858364);
+std::uint8_t &glo_858371 = MC2_GLOBAL<std::uint8_t>(0x00858371);
+std::uint8_t &glo_858373 = MC2_GLOBAL<std::uint8_t>(0x00858373);
+std::uint8_t &glo_858374 = MC2_GLOBAL<std::uint8_t>(0x00858374);
+std::uint8_t &glo_858375 = MC2_GLOBAL<std::uint8_t>(0x00858375);
+std::uint8_t &glo_858376 = MC2_GLOBAL<std::uint8_t>(0x00858376);
+std::uint8_t &glo_858377 = MC2_GLOBAL<std::uint8_t>(0x00858377);
+std::uint32_t &glo_85837C = MC2_GLOBAL<std::uint32_t>(0x0085837C);
+std::uint32_t &glo_858388 = MC2_GLOBAL<std::uint32_t>(0x00858388);
+float &glo_85838C = MC2_GLOBAL<float>(0x0085838C);
+std::uint32_t &glo_85839C = MC2_GLOBAL<std::uint32_t>(0x0085839C);
+float &glo_8583B0 = MC2_GLOBAL<float>(0x008583B0);
+bool &glo_pal_mode = MC2_GLOBAL<bool>(0x0085AE8C);
+std::uint32_t &glo_85FBB0 = MC2_GLOBAL<std::uint32_t>(0x0085FBB0);
+std::uint32_t &glo_85FBC4 = MC2_GLOBAL<std::uint32_t>(0x0085FBC4);
+float &glo_85FBDC = MC2_GLOBAL<float>(0x0085FBDC);
+float &glo_85FBE0 = MC2_GLOBAL<float>(0x0085FBE0);
+std::uint8_t &glo_8602D4 = MC2_GLOBAL<std::uint8_t>(0x008602D4);
+bool(__cdecl *&glo_860AD8)(char *, bool) = MC2_GLOBAL<bool(__cdecl *)(char *, bool)>(0x00860AD8);
+std::uint32_t &glo_86D8A8 = MC2_GLOBAL<std::uint32_t>(0x0086D8A8);
+char * &global_WindowText = MC2_GLOBAL<char *>(0x00858390);
+std::uint32_t &global_SKUVersion = MC2_GLOBAL<std::uint32_t>(0x006C2C58);
+std::uint32_t &glo_66315C = MC2_GLOBAL<std::uint32_t>(0x0066315C);
+
+std::uint32_t &glo_6C2C60 = MC2_GLOBAL<std::uint32_t>(0x006C2C60);
+std::uint8_t &glo_6C2C64 = MC2_GLOBAL<std::uint8_t>(0x006C2C64);
+std::uint8_t &glo_unlock_races = MC2_GLOBAL<std::uint8_t>(0x006C2C66);
+std::uint8_t &glo_unlock_cities = MC2_GLOBAL<std::uint8_t>(0x006C2C67);
+std::uint8_t &glo_unlock_vehicles = MC2_GLOBAL<std::uint8_t>(0x006C2C68);
+std::uint8_t &glo_unlock_customization = MC2_GLOBAL<std::uint8_t>(0x006C2C69);
+std::uint8_t &glo_unlock_abilities = MC2_GLOBAL<std::uint8_t>(0x006C2C6A);
+std::uint8_t &glo_unlock_difficulty = MC2_GLOBAL<std::uint8_t>(0x006C2C6B);
+char *glo_860120 = MC2_POINTER<char>(0x00860120);
+void(__cdecl *&glo_6754C4)() = MC2_GLOBAL<void(__cdecl *)()>(0x006754C4);
+void(__cdecl *&glo_858328)() = MC2_GLOBAL<void(__cdecl *)()>(0x00858328);

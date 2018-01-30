@@ -87,4 +87,4 @@ public:
 
 static_assert(sizeof(unk_613330) == 4, "Bad Size: unk_613330");
 
-#define glo_860220 (MC2_GLOBAL<unk_613330*>(0x00860220))
+extern unk_613330 *&glo_860220;

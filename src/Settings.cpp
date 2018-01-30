@@ -47,7 +47,7 @@ void Settings::set_defualts() {
 bool Settings::load_settings() {
     unk_679810_funcTable *fileFuncs = glo_679810;
 
-    glo_679810 = loc_679884;
+    glo_679810 = &glo_679884;
 
     FileHandler* file = glo_860220->vir_1C("userdata\\options.cfg", "", 0, 1);
     if (file == nullptr) {
@@ -125,7 +125,7 @@ bool Settings::load_settings() {
 //mc2: 0x0053B370
 bool Settings::save_settings_force() {
     unk_679810_funcTable *fileFuncs = glo_679810;
-    glo_679810 = loc_679884;
+    glo_679810 = &glo_679884;
     FileHandler* file = glo_860220->vir_20("userdata\\options.cfg", "", 0);
     glo_679810 = fileFuncs;
 
@@ -155,3 +155,5 @@ bool Settings::save_settings_force() {
     file->sub_617FB0();
     return true;
 }
+
+Settings &glo_Settings = MC2_GLOBAL<Settings>(0x006C3250);

@@ -34,5 +34,5 @@ public:
     }
 };
 
-#define glo_6C933C MC2_GLOBAL<unk_59D370>(0x006C933C)
-#define glo_6C93A8 MC2_GLOBAL<unk_59D370>(0x006C93A8)
+extern unk_59D370 &glo_6C933C;
+extern unk_59D370 &glo_6C93A8;

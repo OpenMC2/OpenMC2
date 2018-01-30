@@ -95,18 +95,18 @@ public:
 bool sub_612E10(const char *key);
 bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value);
 
-#define glo_69685C MC2_GLOBAL<unk_612850>(0x0069685C)
-#define glo_697E24 MC2_GLOBAL<unk_612850>(0x00697E24)
-#define glo_6C50F0 MC2_GLOBAL<unk_612850>(0x006C50F0)
-#define glo_6C5224 MC2_GLOBAL<unk_612850>(0x006C5224)
-#define glo_6CE228 MC2_GLOBAL<unk_612850>(0x006CE228)
-#define glo_857850 MC2_GLOBAL<unk_612850>(0x00857850)
-#define glo_857868 MC2_GLOBAL<unk_612850>(0x00857868)
-#define glo_858288 MC2_GLOBAL<unk_612850>(0x00858288)
-#define glo_8582AC MC2_GLOBAL<unk_612850>(0x008582AC)
-#define glo_8586B8 MC2_GLOBAL<unk_612850>(0x008586B8)
-#define glo_85ADDC MC2_GLOBAL<unk_612850>(0x0085ADDC)
-#define glo_85AE60 MC2_GLOBAL<unk_612850>(0x0085AE60)
-#define glo_8600F8 MC2_GLOBAL<unk_612850>(0x008600F8)
+extern unk_612850 &glo_69685C;
+extern unk_612850 &glo_697E24;
+extern unk_612850 &glo_6C50F0;
+extern unk_612850 &glo_6C5224;
+extern unk_612850 &glo_6CE228;
+extern unk_612850 &glo_857850;
+extern unk_612850 &glo_857868;
+extern unk_612850 &glo_858288;
+extern unk_612850 &glo_8582AC;
+extern unk_612850 &glo_8586B8;
+extern unk_612850 &glo_85ADDC;
+extern unk_612850 &glo_85AE60;
+extern unk_612850 &glo_8600F8;
 
-#define glo_8600E8 MC2_GLOBAL<unk_612850 *>(0x008600E8)
+extern unk_612850 *&glo_8600E8;

@@ -45,20 +45,18 @@ void sub_618050(FileHandler *a, const char *format, ...) {
 
 // mc2: 0x00617BB0
 FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable * fileFuncs) {
-    std::int32_t i = 0;
-    FileHandler *freeHandle = glo_FileHandles;
-
-    for (std::int32_t i = 0; freeHandle < glo_FileHandles_end; freeHandle++, ++i){
-        if (freeHandle->file_funcs == nullptr) {
-            freeHandle->unk_0C = 0;
-            freeHandle->unk_10 = 0;
-            freeHandle->unk_14 = 0;
-            freeHandle->handle = file;
-            freeHandle->buffer_size = 0x1000;
-            freeHandle->text_buffer = glo_FileHandle_TextBuffer[i];
-            freeHandle->file_funcs = fileFuncs;
+    for (std::int32_t i = 0; i < static_cast<std::int32_t>(glo_FileHandles.size()); ++i){
+        FileHandler &freeHandle = glo_FileHandles[i];
+        if (freeHandle.file_funcs == nullptr) {
+            freeHandle.unk_0C = 0;
+            freeHandle.unk_10 = 0;
+            freeHandle.unk_14 = 0;
+            freeHandle.handle = file;
+            freeHandle.buffer_size = 0x1000;
+            freeHandle.text_buffer = glo_FileHandle_TextBuffer[i];
+            freeHandle.file_funcs = fileFuncs;
             glo_679818 = std::max(glo_679818, i);
-            return freeHandle;
+            return &freeHandle;
         }
     }
 
@@ -66,3 +64,10 @@ FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable
     mc2_log_error("Out of file handles.");
     return nullptr;
 }
+
+void(__cdecl &sub_617AA0)() = MC2_PROC_PTR<void>(0x00617AA0);
+
+std::array<FileHandler, 12> &glo_FileHandles = MC2_GLOBAL<std::array<FileHandler, 12>>(0x00860AE0);
+std::array<char[0x1000], 12> &glo_FileHandle_TextBuffer = MC2_GLOBAL<std::array<char[0x1000], 12>>(0x00860C30);
+FileHandler *&glo_86D28C = MC2_GLOBAL<FileHandler *>(0x0086D28C);
+std::int32_t &glo_679818 = MC2_GLOBAL<std::int32_t>(0x00679818);

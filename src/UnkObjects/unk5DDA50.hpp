@@ -27,4 +27,4 @@ public:
     unk_5DDA50();
 };
 
-#define glo_857880 MC2_GLOBAL<std::array<float, 641>>(0x00857880)
+extern std::array<float, 641> &glo_857880;

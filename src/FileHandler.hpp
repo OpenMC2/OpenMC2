@@ -19,7 +19,8 @@
 #pragma once
 
 #include "Addresses.hpp"
-#include <Windows.h>
+
+#include <array>
 
 struct unk_679810_funcTable{
     HANDLE (*sub_00)(char *path, bool unk2);
@@ -66,11 +67,9 @@ void sub_618050(FileHandler *a, const char *format, ...);
 // mc2: 0x00617BB0
 FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable * fileFuncs);
 
-#define sub_617AA0 (MC2_PROC_PTR<void>(0x00617AA0))
+extern void(__cdecl &sub_617AA0)();
 
-#define glo_FileHandles (MC2_POINTER<FileHandler>(0x00860AE0))
-//Array end
-#define glo_FileHandles_end (MC2_POINTER<FileHandler>(0x00860C30))
-#define glo_FileHandle_TextBuffer (MC2_POINTER<char [0x1000]>(0x00860C30))
-#define glo_86D28C (MC2_GLOBAL<FileHandler *>(0x0086D28C))
-#define glo_679818 (MC2_GLOBAL<std::int32_t>(0x00679818))
+extern std::array<FileHandler, 12> &glo_FileHandles;
+extern std::array<char[0x1000], 12> &glo_FileHandle_TextBuffer;
+extern FileHandler *&glo_86D28C;
+extern std::int32_t &glo_679818;

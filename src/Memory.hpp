@@ -20,17 +20,6 @@
 
 #include "Addresses.hpp"
 
-#define hook_5772E0 (MC2_PROC_PTR<void *, std::uint32_t, const char *, std::int32_t>(0x005772E0))
-#define hook_577320 (MC2_PROC_PTR<void, void*>(0x00577320))
-
-#define hook_5772A0 (MC2_PROC_PTR<void *, std::uint32_t>(0x005772A0))
-#define hook_577350 (MC2_PROC_PTR<void, void*>(0x00577350))
-
-#define hook_613EA0 (MC2_PROC_PTR<void *, std::uint32_t, std::uint32_t>(0x00613EA0))
-#define hook_613EF0 (MC2_PROC_PTR<void, void*>(0x00613EF0))
-
-#define hook_614A10 (MC2_PROC_PTR<char *, const char *, const char *, std::int32_t>(0x00614A10))
-
 void * __cdecl mc2_malloc(std::uint32_t size);
 void * __cdecl mc2_malloc_info(std::uint32_t size, const char *file, std::int32_t line);
 void __cdecl mc2_free(void *ptr);

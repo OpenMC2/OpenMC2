@@ -34,4 +34,4 @@ public:
     }
 };
 
-#define glo_85D400 MC2_GLOBAL<unk_602740>(0x0085D400)
+extern unk_602740 &glo_85D400;

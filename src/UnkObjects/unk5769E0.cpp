@@ -89,3 +89,12 @@ void unk_5769E0::sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8
     if (c != 0) std::memset(unk24, 0, 0x80);
     std::memset(unkA4, 0, 0x40);
 }
+
+unk_5769E0 *&global_last_unk5769E0 = MC2_GLOBAL<unk_5769E0 *>(0x006C5240); // glo_6C5240
+bool &glo_6C5254 = MC2_GLOBAL<bool>(0x006C5254);
+unk_5769E0 *&global_primary_unk5769E0 = MC2_GLOBAL<unk_5769E0 *>(0x006C5258); // glo_6C5258
+
+int32_t &glo_6C524C = MC2_GLOBAL<int32_t>(0x006C524C);
+unk_5769E0 *&glo_6C52E0 = MC2_GLOBAL<unk_5769E0 *>(0x006C52E0);
+unk_5769E0 *&glo_6C52E8 = MC2_GLOBAL<unk_5769E0 *>(0x006C52E8);
+

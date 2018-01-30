@@ -34,4 +34,4 @@ public:
     unk_860688(std::array<char, 4> signature, void(__cdecl *callback)(void *));
 };
 
-#define glo_860688 MC2_GLOBAL<unk_860688 *>(0x00860688)
+extern unk_860688 *&glo_860688;

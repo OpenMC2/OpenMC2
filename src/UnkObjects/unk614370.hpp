@@ -31,4 +31,4 @@ public:
 
 };
 
-#define glo_860608 MC2_GLOBAL<unk_614370>(0x00860608)
+extern unk_614370 &glo_860608;

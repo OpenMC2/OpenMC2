@@ -44,4 +44,4 @@ public:
 
 };
 
-#define glo_858500 MC2_GLOBAL<unk_5FB2E0>(0x00858500)
+extern unk_5FB2E0 &glo_858500;

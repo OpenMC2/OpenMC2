@@ -16,7 +16,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "Addresses.hpp"
+#include "CInit.hpp"
 #include "CommandLine.hpp"
 #include "FileHandler.hpp"
 #include "Settings.hpp"
@@ -41,27 +41,25 @@
 #include "UnkObjects/unk6144B0.hpp"
 #include "UnkObjects/unk860688.hpp"
 
-#include <cmath>
-#include <cstdlib>
 #include <new>
 
-#define mc2___security_init_cookie MC2_PROC_PTR<void>(0x00625D30)
+static auto &mc2___security_init_cookie = MC2_PROC_PTR<void>(0x00625D30);
 
-#define mc2__cfltcvt_tab MC2_GLOBAL<void(__cdecl *)(double *, char *, int, int, int)>(0x00679D18)
-#define mc2__cropzeros_tab MC2_GLOBAL<void(__cdecl *)(char *)>(0x00679D1C)
-#define mc2__fassign_tab MC2_GLOBAL<void(__cdecl *)(int, char *, char *)>(0x00679D20)
-#define mc2__forcdecpt_tab MC2_GLOBAL<void(__cdecl *)(char *)>(0x00679D24)
-#define mc2__positive_tab MC2_GLOBAL<int(__cdecl *)(double *)>(0x00679D28)
-#define mc2__cldcvt_tab MC2_GLOBAL<void(__cdecl *)(double *, char *, int, int, int)>(0x00679D20)
+static auto &mc2__cfltcvt_tab = MC2_GLOBAL<void(__cdecl *)(double *, char *, int, int, int)>(0x00679D18);
+static auto &mc2__cropzeros_tab = MC2_GLOBAL<void(__cdecl *)(char *)>(0x00679D1C);
+static auto &mc2__fassign_tab = MC2_GLOBAL<void(__cdecl *)(int, char *, char *)>(0x00679D20);
+static auto &mc2__forcdecpt_tab = MC2_GLOBAL<void(__cdecl *)(char *)>(0x00679D24);
+static auto &mc2__positive_tab = MC2_GLOBAL<int(__cdecl *)(double *)>(0x00679D28);
+static auto &mc2__cldcvt_tab = MC2_GLOBAL<void(__cdecl *)(double *, char *, int, int, int)>(0x00679D20);
 
-#define mc2__fptrap MC2_PROC_PTR<void>(0x00624670)
-#define mc2__cfltcvt MC2_PROC_PTR<void, double *, char *, int, int, int>(0x0061C725)
-#define mc2__cropzeros MC2_PROC_PTR<void, char *>(0x0061C3EB)
-#define mc2__fassign MC2_PROC_PTR<void, int, char *, char *>(0x0061C450)
-#define mc2__forcdecpt MC2_PROC_PTR<void, char *>(0x0061C393)
-#define mc2__positive MC2_PROC_PTR<int, double *>(0x0061C436)
+static auto &mc2__fptrap = MC2_PROC_PTR<void>(0x00624670);
+static auto &mc2__cfltcvt = MC2_PROC_PTR<void, double *, char *, int, int, int>(0x0061C725);
+static auto &mc2__cropzeros = MC2_PROC_PTR<void, char *>(0x0061C3EB);
+static auto &mc2__fassign = MC2_PROC_PTR<void, int, char *, char *>(0x0061C450);
+static auto &mc2__forcdecpt = MC2_PROC_PTR<void, char *>(0x0061C393);
+static auto &mc2__positive = MC2_PROC_PTR<int, double *>(0x0061C436);
 
-#define glo_86D7C4 MC2_GLOBAL<std::int32_t>(0x0086D7C4)
+static std::int32_t &glo_86D7C4 = MC2_GLOBAL<std::int32_t>(0x0086D7C4);
 
 void mc2__FPinit_proc() {
     // __cfltcvt_init
@@ -104,66 +102,65 @@ static int test_sse2() {
     return 0;
 }
 
-constexpr float sqrt_12_constant = 7.136496544f; // 2.0f * sqrt(12.732395f)
-constexpr float sqrt_9_8_constant = 259.2296143f; // sqrt(9.8f / 0.00525f) * 6.0f
-
 /*
 * MC2 had a lot of float variables initialized to constant
 * values on launch, so I set them all here for simplicity.
 */
 static void init_float_constants() {
-    MC2_GLOBAL<float>(0x00692E80) = sqrt_12_constant; // sub_629D10
-    MC2_GLOBAL<float>(0x00692EAC) = sqrt_12_constant; // sub_629D30
-    MC2_GLOBAL<float>(0x00692EBC) = sqrt_12_constant; // sub_629D50
-    MC2_GLOBAL<float>(0x00692EC4) = sqrt_12_constant; // sub_629D70
-    MC2_GLOBAL<float>(0x00692EC8) = sqrt_12_constant; // sub_629D90
-    MC2_GLOBAL<float>(0x00696764) = sqrt_12_constant; // sub_629DF0
-    MC2_GLOBAL<float>(0x006967B0) = sqrt_12_constant; // sub_629E10
-    MC2_GLOBAL<float>(0x00696850) = sqrt_12_constant; // sub_629E40
-    MC2_GLOBAL<float>(0x00697B8C) = sqrt_12_constant; // sub_629EA0
-    MC2_GLOBAL<float>(0x00697C18) = sqrt_12_constant; // sub_629EC0
-    MC2_GLOBAL<float>(0x00698490) = sqrt_12_constant; // sub_629F90
-    MC2_GLOBAL<float>(0x00698620) = sqrt_12_constant; // sub_629FB0
-    MC2_GLOBAL<float>(0x0069910C) = sqrt_12_constant; // sub_62A050
-    MC2_GLOBAL<float>(0x006993A0) = sqrt_12_constant; // sub_62A070
-    MC2_GLOBAL<float>(0x0069948C) = sqrt_12_constant; // sub_62A0D0
-    MC2_GLOBAL<float>(0x00699690) = sqrt_12_constant; // sub_62A0F0
-    MC2_GLOBAL<float>(0x0069B5F8) = sqrt_12_constant; // sub_62A110
-    MC2_GLOBAL<float>(0x00699860) = 200.0f; // sub_62A130
-    MC2_GLOBAL<float>(0x0069B698) = 5.0f / 6.0f; /* (44.704f / -26.8224f) * -0.5f */ // sub_62A140
-    MC2_GLOBAL<float>(0x0069988C) = 5.0f; // sub_62A1A0
-    MC2_GLOBAL<float>(0x00699864) = 2.0f; // sub_62A1B0
-    MC2_GLOBAL<float>(0x0069B658) = 0.2f; // sub_62A1C0
-    MC2_GLOBAL<float>(0x00699868) = 0.22352f; // sub_62A1D0
-    MC2_GLOBAL<float>(0x0069B69C) = 44.704f; // sub_62A1E0
-    MC2_GLOBAL<float>(0x0069B660) = 1.34112f; // sub_62A1F0
-    MC2_GLOBAL<float>(0x00699888) = -1.78816f; // sub_62A200
-    MC2_GLOBAL<float>(0x0069B664) = -26.8224f; // sub_62A210
-    MC2_GLOBAL<float>(0x0069B65C) = -5.36448f; /* -1.78816f * 3.0f */ // sub_62A220
-    MC2_GLOBAL<float>(0x0069985C) = -26.8224f; // sub_62A240
-    MC2_GLOBAL<float>(0x0069B748) = 5.0f / 6.0f; // sub_62A250
-    MC2_GLOBAL<float>(0x0069B78C) = sqrt_12_constant; // sub_62A260
-    MC2_GLOBAL<float>(0x0069C7A8) = sqrt_12_constant; // sub_62A280
-    MC2_GLOBAL<float>(0x0069C7AC) = sqrt_12_constant; // sub_62A2A0
-    MC2_GLOBAL<float>(0x0069C7B0) = sqrt_12_constant; // sub_62A2C0
-    MC2_GLOBAL<float>(0x0069C7B4) = sqrt_12_constant; // sub_62A2E0
-    MC2_GLOBAL<float>(0x0069C7BC) = sqrt_12_constant; // sub_62A300
-    MC2_GLOBAL<float>(0x0069C7C0) = sqrt_12_constant; // sub_62A320
-    MC2_GLOBAL<float>(0x0069C7C4) = sqrt_12_constant; // sub_62A340
-    MC2_GLOBAL<float>(0x0069C7C8) = sqrt_12_constant; // sub_62A360
-    MC2_GLOBAL<float>(0x0069C7CC) = sqrt_12_constant; // sub_62A380
-    MC2_GLOBAL<float>(0x0069C7D8) = sqrt_12_constant; // sub_62A3A0
-    MC2_GLOBAL<float>(0x0069C7E0) = sqrt_12_constant; // sub_62A3C0
-    MC2_GLOBAL<float>(0x006C2600) = sqrt_12_constant; // sub_62A3F0
-    MC2_GLOBAL<float>(0x006C39A4) = 50.0f; // sub_62A480
-    MC2_GLOBAL<float>(0x006C39A0) = 90.0f; // sub_62A490
-    MC2_GLOBAL<float>(0x006C520C) = 26.8224f; /* 1609.344f / 60.0f */ // sub_62A4C0
-    MC2_GLOBAL<float>(0x006C521C) = sqrt_12_constant; // sub_62A500
-    MC2_GLOBAL<float>(0x006C5220) = 0.02f; /* 1.0f / 50.0f */ // sub_62A520
-    MC2_GLOBAL<float>(0x006C9034) = 9.8f; /* (float) fabs((double) -9.8f) */ // sub_62C580
-    MC2_GLOBAL<float>(0x006C9030) = 0.00525f; /* 0.035f * 0.15f */ // sub_62C590
-    MC2_GLOBAL<float>(0x006C902C) = sqrt_9_8_constant; // sub_62C5B0
-    MC2_GLOBAL<float>(0x006CE510) = 1.0f / 330.0f; // sub_62C670
+    /* 2.0f * sqrt(12.732395f) */
+    glo_692E80 = sqrt_12_constant; // sub_629D10
+    glo_692EAC = sqrt_12_constant; // sub_629D30
+    glo_692EBC = sqrt_12_constant; // sub_629D50
+    glo_692EC4 = sqrt_12_constant; // sub_629D70
+    glo_692EC8 = sqrt_12_constant; // sub_629D90
+    glo_696764 = sqrt_12_constant; // sub_629DF0
+    glo_6967B0 = sqrt_12_constant; // sub_629E10
+    glo_696850 = sqrt_12_constant; // sub_629E40
+    glo_697B8C = sqrt_12_constant; // sub_629EA0
+    glo_697C18 = sqrt_12_constant; // sub_629EC0
+    glo_698490 = sqrt_12_constant; // sub_629F90
+    glo_698620 = sqrt_12_constant; // sub_629FB0
+    glo_69910C = sqrt_12_constant; // sub_62A050
+    glo_6993A0 = sqrt_12_constant; // sub_62A070
+    glo_69948C = sqrt_12_constant; // sub_62A0D0
+    glo_699690 = sqrt_12_constant; // sub_62A0F0
+    glo_69B5F8 = sqrt_12_constant; // sub_62A110
+    glo_69B78C = sqrt_12_constant; // sub_62A260
+    glo_69C7A8 = sqrt_12_constant; // sub_62A280
+    glo_69C7AC = sqrt_12_constant; // sub_62A2A0
+    glo_69C7B0 = sqrt_12_constant; // sub_62A2C0
+    glo_69C7B4 = sqrt_12_constant; // sub_62A2E0
+    glo_69C7BC = sqrt_12_constant; // sub_62A300
+    glo_69C7C0 = sqrt_12_constant; // sub_62A320
+    glo_69C7C4 = sqrt_12_constant; // sub_62A340
+    glo_69C7C8 = sqrt_12_constant; // sub_62A360
+    glo_69C7CC = sqrt_12_constant; // sub_62A380
+    glo_69C7D8 = sqrt_12_constant; // sub_62A3A0
+    glo_69C7E0 = sqrt_12_constant; // sub_62A3C0
+    glo_6C2600 = sqrt_12_constant; // sub_62A3F0
+    glo_6C521C = sqrt_12_constant; // sub_62A500
+
+    glo_699860 = 200.0f; // sub_62A130
+    glo_69B698 = 5.0f / 6.0f; /* (44.704f / -26.8224f) * -0.5f */ // sub_62A140
+    glo_69988C = 5.0f; // sub_62A1A0
+    glo_699864 = 2.0f; // sub_62A1B0
+    glo_69B658 = 0.2f; // sub_62A1C0
+    glo_699868 = 0.22352f; // sub_62A1D0
+    glo_69B69C = 44.704f; // sub_62A1E0
+    glo_69B660 = 1.34112f; // sub_62A1F0
+    glo_699888 = -1.78816f; // sub_62A200
+    glo_69B664 = -26.8224f; // sub_62A210
+    glo_69B65C = -5.36448f; /* -1.78816f * 3.0f */ // sub_62A220
+    glo_69985C = -26.8224f; // sub_62A240
+    glo_69B748 = 5.0f / 6.0f; // sub_62A250
+    glo_6C39A4 = 50.0f; // sub_62A480
+    glo_6C39A0 = 90.0f; // sub_62A490
+    glo_6C520C = 26.8224f; /* 1609.344f / 60.0f */ // sub_62A4C0
+    glo_6C5220 = 0.02f; /* 1.0f / 50.0f */ // sub_62A520
+    glo_6C9034 = 9.8f; /* (float) fabs((double) -9.8f) */ // sub_62C580
+    glo_6C9030 = 0.00525f; /* 0.035f * 0.15f */ // sub_62C590
+    glo_6C902C = sqrt_9_8_constant; /* sqrt(9.8f / 0.00525f) * 6.0f */ // sub_62C5B0
+    glo_6CE510 = 1.0f / 330.0f; // sub_62C670
 }
 
 static void mc2_xc() {
@@ -265,3 +262,56 @@ int mc2_cinit() {
 
     return 0;
 }
+
+float &glo_692E80 = MC2_GLOBAL<float>(0x00692E80); // = sqrt_12_constant
+float &glo_692EAC = MC2_GLOBAL<float>(0x00692EAC); // = sqrt_12_constant
+float &glo_692EBC = MC2_GLOBAL<float>(0x00692EBC); // = sqrt_12_constant
+float &glo_692EC4 = MC2_GLOBAL<float>(0x00692EC4); // = sqrt_12_constant
+float &glo_692EC8 = MC2_GLOBAL<float>(0x00692EC8); // = sqrt_12_constant
+float &glo_696764 = MC2_GLOBAL<float>(0x00696764); // = sqrt_12_constant
+float &glo_6967B0 = MC2_GLOBAL<float>(0x006967B0); // = sqrt_12_constant
+float &glo_696850 = MC2_GLOBAL<float>(0x00696850); // = sqrt_12_constant
+float &glo_697B8C = MC2_GLOBAL<float>(0x00697B8C); // = sqrt_12_constant
+float &glo_697C18 = MC2_GLOBAL<float>(0x00697C18); // = sqrt_12_constant
+float &glo_698490 = MC2_GLOBAL<float>(0x00698490); // = sqrt_12_constant
+float &glo_698620 = MC2_GLOBAL<float>(0x00698620); // = sqrt_12_constant
+float &glo_69910C = MC2_GLOBAL<float>(0x0069910C); // = sqrt_12_constant
+float &glo_6993A0 = MC2_GLOBAL<float>(0x006993A0); // = sqrt_12_constant
+float &glo_69948C = MC2_GLOBAL<float>(0x0069948C); // = sqrt_12_constant
+float &glo_699690 = MC2_GLOBAL<float>(0x00699690); // = sqrt_12_constant
+float &glo_69B5F8 = MC2_GLOBAL<float>(0x0069B5F8); // = sqrt_12_constant
+float &glo_699860 = MC2_GLOBAL<float>(0x00699860); // = 200.0f
+float &glo_69B698 = MC2_GLOBAL<float>(0x0069B698); // = (44.704f / -26.8224f) * -0.5f
+float &glo_69988C = MC2_GLOBAL<float>(0x0069988C); // = 5.0f
+float &glo_699864 = MC2_GLOBAL<float>(0x00699864); // = 2.0f
+float &glo_69B658 = MC2_GLOBAL<float>(0x0069B658); // = 0.2f
+float &glo_699868 = MC2_GLOBAL<float>(0x00699868); // = 0.22352f
+float &glo_69B69C = MC2_GLOBAL<float>(0x0069B69C); // = 44.704f
+float &glo_69B660 = MC2_GLOBAL<float>(0x0069B660); // = 1.34112f
+float &glo_699888 = MC2_GLOBAL<float>(0x00699888); // = -1.78816f
+float &glo_69B664 = MC2_GLOBAL<float>(0x0069B664); // = -26.8224f
+float &glo_69B65C = MC2_GLOBAL<float>(0x0069B65C); // = -1.78816f * 3.0f
+float &glo_69985C = MC2_GLOBAL<float>(0x0069985C); // = -26.8224f
+float &glo_69B748 = MC2_GLOBAL<float>(0x0069B748); // = 5.0f / 6.0f
+float &glo_69B78C = MC2_GLOBAL<float>(0x0069B78C); // = sqrt_12_constant
+float &glo_69C7A8 = MC2_GLOBAL<float>(0x0069C7A8); // = sqrt_12_constant
+float &glo_69C7AC = MC2_GLOBAL<float>(0x0069C7AC); // = sqrt_12_constant
+float &glo_69C7B0 = MC2_GLOBAL<float>(0x0069C7B0); // = sqrt_12_constant
+float &glo_69C7B4 = MC2_GLOBAL<float>(0x0069C7B4); // = sqrt_12_constant
+float &glo_69C7BC = MC2_GLOBAL<float>(0x0069C7BC); // = sqrt_12_constant
+float &glo_69C7C0 = MC2_GLOBAL<float>(0x0069C7C0); // = sqrt_12_constant
+float &glo_69C7C4 = MC2_GLOBAL<float>(0x0069C7C4); // = sqrt_12_constant
+float &glo_69C7C8 = MC2_GLOBAL<float>(0x0069C7C8); // = sqrt_12_constant
+float &glo_69C7CC = MC2_GLOBAL<float>(0x0069C7CC); // = sqrt_12_constant
+float &glo_69C7D8 = MC2_GLOBAL<float>(0x0069C7D8); // = sqrt_12_constant
+float &glo_69C7E0 = MC2_GLOBAL<float>(0x0069C7E0); // = sqrt_12_constant
+float &glo_6C2600 = MC2_GLOBAL<float>(0x006C2600); // = sqrt_12_constant
+float &glo_6C39A4 = MC2_GLOBAL<float>(0x006C39A4); // = 50.0f
+float &glo_6C39A0 = MC2_GLOBAL<float>(0x006C39A0); // = 90.0f
+float &glo_6C520C = MC2_GLOBAL<float>(0x006C520C); // = 1609.344f / 60.0f
+float &glo_6C521C = MC2_GLOBAL<float>(0x006C521C); // = sqrt_12_constant
+float &glo_6C5220 = MC2_GLOBAL<float>(0x006C5220); // = 1.0f / 50.0f
+float &glo_6C9034 = MC2_GLOBAL<float>(0x006C9034); // = (float) fabs((double) -9.8f)
+float &glo_6C9030 = MC2_GLOBAL<float>(0x006C9030); // = 0.035f * 0.15f
+float &glo_6C902C = MC2_GLOBAL<float>(0x006C902C); // = sqrt_9_8_constant
+float &glo_6CE510 = MC2_GLOBAL<float>(0x006CE510); // = 1.0f / 330.0f
