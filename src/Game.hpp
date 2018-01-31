@@ -25,6 +25,7 @@ int sub_401190();
 int sub_5E1B50(const char *path);
 const char *sub_5E1B40(int id);
 
+void sub_6177E0(std::uint32_t max, DWORD ebp, FILE *log, const char *endline);
 int sub_6181F0();
 
 void sub_612F00();
@@ -54,6 +55,7 @@ extern void(__cdecl &sub_5FD2D0)();
 extern void(__cdecl &sub_612130)();
 extern void(__cdecl &sub_612C70)(char *);
 extern void(__cdecl &sub_613DD0)(const char *, void *, std::uint32_t);
+extern void(__cdecl &sub_617760)(char *, DWORD);
 
 extern const char *&global_texture_dir_name;
 extern const char *&global_mod_dir_name;

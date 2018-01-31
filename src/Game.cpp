@@ -561,7 +561,54 @@ int sub_401190() {
     return 0;
 }
 
-static int(__cdecl &sub_6178E0)(LPEXCEPTION_POINTERS) = MC2_PROC_PTR<int, LPEXCEPTION_POINTERS>(0x006178E0);
+/*
+ * Attempts to print a stack trace using stack frames
+ */
+void sub_6177E0(std::uint32_t depth, DWORD ebp, FILE *log, const char *) {
+    char buffer[0x200];
+    struct bp_frame {
+        bp_frame *prev;
+        DWORD caller;
+    };
+    bp_frame *frame = reinterpret_cast<bp_frame *>(ebp);
+
+    for (; depth > 0; --depth) {
+        __try {
+            if (frame == nullptr) break;
+            DWORD caller = frame->caller;
+            frame = frame->prev;
+            if (caller == 0) return;
+
+            sub_617760(buffer, caller);
+
+            if (log != nullptr) fprintf(log, "%s,", buffer);
+            else mc2_log_C("%s", buffer);
+        } __except (true) { break; }
+    }
+
+    if (depth > 0) {
+        if (log != nullptr) fprintf(log, "<invalid address>");
+        else mc2_log_C("<invalid address>");
+    } else {
+        if (log != nullptr) fprintf(log, "...");
+        else mc2_log_C("...");
+    }
+}
+
+static bool sub_6178E0(LPEXCEPTION_POINTERS except) {
+    char buffer[0x200];
+    PCONTEXT context = except->ContextRecord;
+    sub_617760(buffer, context->Eip);
+
+    mc2_log_C("\nEAX=%08X EBX=%08X ECX=%08X EDX=%08X\nESI=%08X EDI=%08X EBP=%08X ESP=%08X",
+        context->Eax, context->Ebx, context->Ecx, context->Edx,
+        context->Esi, context->Edi, context->Ebp, context->Esp
+    );
+    mc2_log_C("Exception %X at EIP=%s", except->ExceptionRecord->ExceptionCode, buffer);
+    sub_6177E0(16, context->Ebp, nullptr, "\n");
+
+    return true;
+}
 
 int sub_6181F0() {
     __try {
@@ -595,6 +642,7 @@ void(__cdecl &sub_5FD2D0)() = MC2_PROC_PTR<void>(0x005FD2D0);
 void(__cdecl &sub_612130)() = MC2_PROC_PTR<void>(0x00612130);
 void(__cdecl &sub_612C70)(char *) = MC2_PROC_PTR<void, char *>(0x00612C70);
 void(__cdecl &sub_613DD0)(const char *, void *, std::uint32_t) = MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0);
+void(__cdecl &sub_617760)(char *, DWORD) = MC2_PROC_PTR<void, char *, DWORD>(0x00617760);
 
 const char *&global_texture_dir_name = MC2_GLOBAL<const char *>(0x006754AC);
 const char *&global_mod_dir_name = MC2_GLOBAL<const char *>(0x00675518);
