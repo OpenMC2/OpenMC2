@@ -30,6 +30,7 @@
 #include "UnkObjects/unk53AF00.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 #include "UnkObjects/unk577510.hpp"
+#include "UnkObjects/unk5FAC30.hpp"
 #include "UnkObjects/unk600960.hpp"
 #include "UnkObjects/unk612850.hpp"
 #include "UnkObjects/unk613360.hpp"
@@ -376,6 +377,23 @@ void sub_53A7B0(const char *a, std::uint32_t b, bool c, std::uint32_t d, std::ui
     global_primary_unk5769E0 = glo_6C52E8;
 }
 
+static bool sub_577480(const char *archive) {
+    if (sub_612E10("archive")) {
+        sub_5FDD20();
+    } // no else?
+
+    //loc_5EF2DO
+    sub_5EE9F0();
+
+    glo_858378 = sub_5ED990();
+    glo_858378->sub_419DB0();
+
+    glo_858394 = sub_5ED990();
+    sub_5FAFE0(322, 2, 1024);
+
+    return true;
+}
+
 void sub_53A7E0(const char *archive) {
     mc2_log_C("ARGS: %s", glo_6C3690);
     sub_612A80(glo_6C3690);
@@ -564,7 +582,7 @@ int sub_401190() {
 /*
  * Attempts to print a stack trace using stack frames
  */
-void sub_6177E0(std::uint32_t depth, DWORD ebp, FILE *log, const char *) {
+void sub_6177E0(std::int32_t depth, DWORD ebp, FILE *log, const char *) {
     char buffer[0x200];
     struct bp_frame {
         bp_frame *prev;
@@ -629,16 +647,18 @@ void(__cdecl &sub_404BF0)() = MC2_PROC_PTR<void>(0x00404BF0);
 void(__cdecl &sub_53A1B0)() = MC2_PROC_PTR<void>(0x0053A1B0);
 void(__cdecl &sub_53A7D0)() = MC2_PROC_PTR<void>(0x0053A7D0);
 void(__cdecl &sub_53A8F0)() = MC2_PROC_PTR<void>(0x0053A8F0);
-void(__cdecl &sub_577480)(const char *) = MC2_PROC_PTR<void, const char *>(0x00577480);
 void(__cdecl &sub_5ECB90)() = MC2_PROC_PTR<void>(0x005ECB90);
 void(__cdecl &sub_5ED220)() = MC2_PROC_PTR<void>(0x005ED220);
 void(__cdecl &sub_5ED240)(const char *, std::uint32_t, std::uint32_t) = MC2_PROC_PTR<void, const char *, std::uint32_t, std::uint32_t>(0x005ED240);
 void(__cdecl &sub_5EDA50)(const char *) = MC2_PROC_PTR<void, const char *>(0x005EDA50);
+void(__cdecl &sub_5EE9F0)() = MC2_PROC_PTR<void>(0x005EE9F0);
 void(__cdecl &sub_5F0BC0)() = MC2_PROC_PTR<void>(0x005F0BC0);
 bool(__cdecl &sub_5F12F0)() = MC2_PROC_PTR<bool>(0x005F12F0);
 void(__cdecl &sub_5F9E20)() = MC2_PROC_PTR<void>(0x005F9E20);
 void(__cdecl &sub_5F9E30)() = MC2_PROC_PTR<void>(0x005F9E30);
+void(__cdecl &sub_5FAFE0)(std::uint32_t, std::uint32_t, std::uint32_t) = MC2_PROC_PTR<void, std::uint32_t, std::uint32_t, std::uint32_t>(0x005FAFE0);
 void(__cdecl &sub_5FD2D0)() = MC2_PROC_PTR<void>(0x005FD2D0);
+void(__cdecl &sub_5FDD20)() = MC2_PROC_PTR<void>(0x005FDD20);
 void(__cdecl &sub_612130)() = MC2_PROC_PTR<void>(0x00612130);
 void(__cdecl &sub_612C70)(char *) = MC2_PROC_PTR<void, char *>(0x00612C70);
 void(__cdecl &sub_613DD0)(const char *, void *, std::uint32_t) = MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0);

@@ -25,7 +25,7 @@ int sub_401190();
 int sub_5E1B50(const char *path);
 const char *sub_5E1B40(int id);
 
-void sub_6177E0(std::uint32_t max, DWORD ebp, FILE *log, const char *endline);
+void sub_6177E0(std::int32_t max, DWORD ebp, FILE *log, const char *endline);
 int sub_6181F0();
 
 void sub_612F00();
@@ -42,16 +42,18 @@ extern void(__cdecl &sub_404BF0)();
 extern void(__cdecl &sub_53A1B0)();
 extern void(__cdecl &sub_53A7D0)();
 extern void(__cdecl &sub_53A8F0)();
-extern void(__cdecl &sub_577480)(const char *);
 extern void(__cdecl &sub_5ECB90)();
 extern void(__cdecl &sub_5ED220)();
 extern void(__cdecl &sub_5ED240)(const char *, std::uint32_t, std::uint32_t);
 extern void(__cdecl &sub_5EDA50)(const char *);
+extern void(__cdecl &sub_5EE9F0)();
 extern void(__cdecl &sub_5F0BC0)();
 extern bool(__cdecl &sub_5F12F0)();
 extern void(__cdecl &sub_5F9E20)();
 extern void(__cdecl &sub_5F9E30)();
+extern void(__cdecl &sub_5FAFE0)(std::uint32_t, std::uint32_t, std::uint32_t);
 extern void(__cdecl &sub_5FD2D0)();
+extern void(__cdecl &sub_5FDD20)();
 extern void(__cdecl &sub_612130)();
 extern void(__cdecl &sub_612C70)(char *);
 extern void(__cdecl &sub_613DD0)(const char *, void *, std::uint32_t);
