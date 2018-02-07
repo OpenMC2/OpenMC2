@@ -203,7 +203,7 @@ void check_sku_version() {
         return;
     }
 
-    mc2_log_C("mcConfig:AutoDetectSku - product code '%s'", skuVersion);
+    mc2_log_info("mcConfig:AutoDetectSku - product code '%s'", skuVersion);
 }
 
 // mc2: 0x0053B9B0
@@ -309,7 +309,7 @@ void sub_53A000() {
             return;
         }
 
-        mc2_log_C("Setting language to %s (%d)", LanguageShortList[lang], lang);
+        mc2_log_info("Setting language to %s (%d)", LanguageShortList[lang], lang);
         global_LanguageID = lang;
     }
 
@@ -395,11 +395,11 @@ static bool sub_577480(const char *archive) {
 }
 
 void sub_53A7E0(const char *archive) {
-    mc2_log_C("ARGS: %s", glo_6C3690);
+    mc2_log_info("ARGS: %s", glo_6C3690);
     sub_612A80(glo_6C3690);
 
     if (sub_612E10("nosmallocator")) {
-        mc2_log_C("Disabling smallocator");
+        mc2_log_info("Disabling smallocator");
         global_primary_unk5769E0->sub_575B10();
     }
 
@@ -428,7 +428,7 @@ void sub_53A870() {
 
 void sub_5ECBE0() {
     if (glo_6754C4 != &sub_5ECB90) {
-        mc2_log_C("Installed bink gfxLoadImage support");
+        mc2_log_info("Installed bink gfxLoadImage support");
         glo_858328 = glo_6754C4;
         glo_6754C4 = &sub_5ECB90;
     }
@@ -570,7 +570,7 @@ int sub_401190() {
         sub_53A870();
 
         if (runforever)
-            mc2_log_C("\n\n-----------------------------------"
+            mc2_log_info("\n\n-----------------------------------"
                 "------------------------------------\n\n");
     } while (runforever);
 
@@ -600,16 +600,16 @@ void sub_6177E0(std::int32_t depth, DWORD ebp, FILE *log, const char *) {
             sub_617760(buffer, caller);
 
             if (log != nullptr) fprintf(log, "%s,", buffer);
-            else mc2_log_C("%s", buffer);
+            else mc2_log_info("%s", buffer);
         } __except (true) { break; }
     }
 
     if (depth > 0) {
         if (log != nullptr) fprintf(log, "<invalid address>");
-        else mc2_log_C("<invalid address>");
+        else mc2_log_info("<invalid address>");
     } else {
         if (log != nullptr) fprintf(log, "...");
-        else mc2_log_C("...");
+        else mc2_log_info("...");
     }
 }
 
@@ -618,11 +618,11 @@ static bool sub_6178E0(LPEXCEPTION_POINTERS except) {
     PCONTEXT context = except->ContextRecord;
     sub_617760(buffer, context->Eip);
 
-    mc2_log_C("\nEAX=%08X EBX=%08X ECX=%08X EDX=%08X\nESI=%08X EDI=%08X EBP=%08X ESP=%08X",
+    mc2_log_info("\nEAX=%08X EBX=%08X ECX=%08X EDX=%08X\nESI=%08X EDI=%08X EBP=%08X ESP=%08X",
         context->Eax, context->Ebx, context->Ecx, context->Edx,
         context->Esi, context->Edi, context->Ebp, context->Esp
     );
-    mc2_log_C("Exception %X at EIP=%s", except->ExceptionRecord->ExceptionCode, buffer);
+    mc2_log_info("Exception %X at EIP=%s", except->ExceptionRecord->ExceptionCode, buffer);
     sub_6177E0(16, context->Ebp, nullptr, "\n");
 
     return true;
@@ -632,7 +632,7 @@ int sub_6181F0() {
     __try {
         return sub_401190();
     } __except (sub_6178E0(GetExceptionInformation())) {
-        mc2_log_C("ExceptMain: Abnormal exit.");
+        mc2_log_info("ExceptMain: Abnormal exit.");
         return 1;
     }
     return 0;

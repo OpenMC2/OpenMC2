@@ -172,11 +172,11 @@ void mc2_log_B(const char *format, ...) {
 }
 
 // mc2: 0x00618650
-void mc2_log_C(const char *format, ...) {
+void mc2_log_info(const char *format, ...) {
     if (global_log_level_flags & 0x02) {
         va_list ap;
         va_start(ap, format);
-        mc2_log_level_v(LOG_LEVEL_C, format, ap);
+        mc2_log_level_v(LOG_LEVEL_INFO, format, ap);
         va_end(ap);
     }
 }

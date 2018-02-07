@@ -27,7 +27,7 @@ unk_5DDA50::unk_5DDA50() {
     // sine is computed slightly differently,
     // which causes an error of approx. +-2.3e-7.
     // It should be close enough, though.
-    for (int i = 0; i < glo_857880.size(); ++i) {
+    for (size_t i = 0; i < glo_857880.size(); ++i) {
         glo_857880[i] = std::sin(i * pi_256);
     }
 }

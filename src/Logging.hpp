@@ -25,7 +25,7 @@
 enum LogLevels {
     LOG_LEVEL_PRINT = 0,
     LOG_LEVEL_B,
-    LOG_LEVEL_C,
+    LOG_LEVEL_INFO,
     LOG_LEVEL_WARNING,
     LOG_LEVEL_ERROR,
     LOG_LEVEL_FATAL_ERROR
@@ -41,7 +41,7 @@ void mc2_log_print(const char *format, ...);
 void mc2_log_B(const char *format, ...);
 
 // sub_618650
-void mc2_log_C(const char *format, ...);
+void mc2_log_info(const char *format, ...);
 
 // sub_618670
 void mc2_log_warning(const char *format, ...);
