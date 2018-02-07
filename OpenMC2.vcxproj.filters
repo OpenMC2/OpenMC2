@@ -144,6 +144,9 @@
     <ClCompile Include="src\UnkObjects\unk5FAC30.cpp">
       <Filter>Source Files\UnkObjects</Filter>
     </ClCompile>
+    <ClCompile Include="src\Archive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
@@ -268,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="src\UnkObjects\unk5FAC30.hpp">
       <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Archive.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

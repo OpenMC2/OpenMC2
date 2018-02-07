@@ -94,6 +94,7 @@ public:
 
 bool sub_612E10(const char *key);
 bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value);
+bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_arg);
 
 extern unk_612850 &glo_69685C;
 extern unk_612850 &glo_697E24;

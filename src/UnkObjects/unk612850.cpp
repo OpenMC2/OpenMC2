@@ -165,6 +165,16 @@ bool sub_612E30(const char *key, std::uint32_t index, int32_t * decimal_value) {
     return true;
 }
 
+bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value_arg) {
+    unk_612150 *value = glo_8600F8.sub_6124A0(key);
+
+    if (value == nullptr || value_index >= value->count)
+        return false;
+
+    *value_arg = value->args[value_index];
+    return true;
+}
+
 unk_612850 &glo_69685C = MC2_GLOBAL<unk_612850>(0x0069685C);
 unk_612850 &glo_697E24 = MC2_GLOBAL<unk_612850>(0x00697E24);
 unk_612850 &glo_6C50F0 = MC2_GLOBAL<unk_612850>(0x006C50F0);

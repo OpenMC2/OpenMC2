@@ -20,11 +20,13 @@
 
 #include <cstring>
 
+#include "Archive.hpp"
 #include "Config.hpp"
 #include "CommandLine.hpp"
 #include "Logging.hpp"
 #include "Memory.hpp"
 #include "Settings.hpp"
+
 #include "UnkObjects/unk402560.hpp"
 #include "UnkObjects/unk404B90.hpp"
 #include "UnkObjects/unk53AF00.hpp"
@@ -348,16 +350,6 @@ void sub_6134D0(const char *var8) {
     }
 }
 
-bool sub_612EB0(const char * key, std::uint32_t value_index, const char ** value_arg) {
-    unk_612150 *value = glo_8600F8.sub_6124A0(key);
-
-    if (value == nullptr || value_index >= value->count)
-        return false;
-
-    *value_arg = value->args[value_index];
-    return true;
-}
-
 void sub_53A7B0(const char *a, std::uint32_t b, bool c, std::uint32_t d, std::uint32_t e) {
     sub_612C70(glo_6C3690);
 
@@ -658,7 +650,6 @@ void(__cdecl &sub_5F9E20)() = MC2_PROC_PTR<void>(0x005F9E20);
 void(__cdecl &sub_5F9E30)() = MC2_PROC_PTR<void>(0x005F9E30);
 void(__cdecl &sub_5FAFE0)(std::uint32_t, std::uint32_t, std::uint32_t) = MC2_PROC_PTR<void, std::uint32_t, std::uint32_t, std::uint32_t>(0x005FAFE0);
 void(__cdecl &sub_5FD2D0)() = MC2_PROC_PTR<void>(0x005FD2D0);
-void(__cdecl &sub_5FDD20)() = MC2_PROC_PTR<void>(0x005FDD20);
 void(__cdecl &sub_612130)() = MC2_PROC_PTR<void>(0x00612130);
 void(__cdecl &sub_612C70)(char *) = MC2_PROC_PTR<void, char *>(0x00612C70);
 void(__cdecl &sub_613DD0)(const char *, void *, std::uint32_t) = MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0);
@@ -699,6 +690,7 @@ float &glo_85838C = MC2_GLOBAL<float>(0x0085838C);
 std::uint32_t &glo_85839C = MC2_GLOBAL<std::uint32_t>(0x0085839C);
 float &glo_8583B0 = MC2_GLOBAL<float>(0x008583B0);
 bool &glo_pal_mode = MC2_GLOBAL<bool>(0x0085AE8C);
+bool &glo_85D1C0 = MC2_GLOBAL<bool>(0x0085D1C0);
 std::uint32_t &glo_85FBB0 = MC2_GLOBAL<std::uint32_t>(0x0085FBB0);
 std::uint32_t &glo_85FBC4 = MC2_GLOBAL<std::uint32_t>(0x0085FBC4);
 float &glo_85FBDC = MC2_GLOBAL<float>(0x0085FBDC);

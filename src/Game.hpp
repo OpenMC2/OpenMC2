@@ -25,11 +25,12 @@ int sub_401190();
 int sub_5E1B50(const char *path);
 const char *sub_5E1B40(int id);
 
+void sub_6134D0(const char *var8);
+
 void sub_6177E0(std::int32_t max, DWORD ebp, FILE *log, const char *endline);
 int sub_6181F0();
 
 void sub_612F00();
-bool sub_612EB0(const char *key, std::uint32_t value_index, const char **value_arg);
 
 void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, int32_t unk5);
 
@@ -53,7 +54,6 @@ extern void(__cdecl &sub_5F9E20)();
 extern void(__cdecl &sub_5F9E30)();
 extern void(__cdecl &sub_5FAFE0)(std::uint32_t, std::uint32_t, std::uint32_t);
 extern void(__cdecl &sub_5FD2D0)();
-extern void(__cdecl &sub_5FDD20)();
 extern void(__cdecl &sub_612130)();
 extern void(__cdecl &sub_612C70)(char *);
 extern void(__cdecl &sub_613DD0)(const char *, void *, std::uint32_t);
@@ -94,6 +94,7 @@ extern float &glo_85838C;
 extern std::uint32_t &glo_85839C;
 extern float &glo_8583B0;
 extern bool &glo_pal_mode;
+extern bool &glo_85D1C0;
 extern std::uint32_t &glo_85FBB0;
 extern std::uint32_t &glo_85FBC4;
 extern float &glo_85FBDC;
