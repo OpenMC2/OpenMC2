@@ -70,15 +70,10 @@ extern std::uint32_t &glo_675030;
 extern std::uint32_t &glo_6754A4;
 extern float &glo_6754A8;
 
-extern unk_679810_funcTable *&glo_679810;
-extern unk_679810_funcTable *&glo_679814;
-extern unk_679810_funcTable *&glo_692E1C;
 extern std::uint32_t &global_LanguageID; // glo_6C2C5C
 extern std::uint8_t &glo_6CE210;
 extern std::uint8_t &glo_6CE211;
 
-extern unk_679810_funcTable &glo_692E20;
-extern unk_679810_funcTable &glo_679884;
 extern char(&glo_6C3690)[0x200];
 
 extern HWND &global_hWnd;

@@ -22,24 +22,24 @@
 
 #include <array>
 
-struct unk_679810_funcTable{
-    HANDLE (*sub_00)(char *path, bool unk2);
-    HANDLE (*sub_04)(char *path);
-    void (*sub_08)();
-    void (*sub_0C)();
-    void (*sub_10)();
-    void (*close_file)(HANDLE file); // 0x14
-    void (*sub_18)();
-    void (*sub_1C)();
-    void (*sub_20)();
-    bool (*sub_24)();
-    void (*sub_28)();
-};
-
 // size: 0x1C
 class FileHandler {
-public:  
-    unk_679810_funcTable *file_funcs; // 0x00
+public:
+    struct FuncTable {
+        HANDLE(*sub_00)(const char *path, bool unk2);
+        HANDLE(*sub_04)(const char *path);
+        void(*sub_08)();
+        void(*sub_0C)();
+        void(*sub_10)();
+        void(*close_file)(HANDLE file); // 0x14
+        void(*sub_18)();
+        void(*sub_1C)();
+        void(*sub_20)();
+        bool(*sub_24)();
+        void(*sub_28)();
+    };
+
+    FuncTable *file_funcs; // 0x00
     HANDLE handle; // 0x04
     char *text_buffer; //0x08
     std::uint32_t unk_0C;
@@ -65,11 +65,21 @@ public:
 void sub_618050(FileHandler *a, const char *format, ...);
 
 // mc2: 0x00617BB0
-FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable * fileFuncs);
+FileHandler *register_file_handle(char * path, HANDLE file, FileHandler::FuncTable * fileFuncs);
 
 extern void(__cdecl &sub_617AA0)();
+extern FileHandler *(__cdecl &sub_617CD0)(const char *, FileHandler::FuncTable *, bool);
 
 extern std::array<FileHandler, 12> &glo_FileHandles;
 extern std::array<char[0x1000], 12> &glo_FileHandle_TextBuffer;
 extern FileHandler *&glo_86D28C;
 extern std::int32_t &glo_679818;
+
+extern FileHandler::FuncTable *&glo_679810;
+extern FileHandler::FuncTable *&glo_679814;
+extern FileHandler::FuncTable *&glo_692E1C;
+extern FileHandler::FuncTable *&glo_85D1C8;
+
+extern FileHandler::FuncTable &glo_6781C0;
+extern FileHandler::FuncTable &glo_679884;
+extern FileHandler::FuncTable &glo_692E20;

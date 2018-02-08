@@ -19,29 +19,33 @@
 #pragma once
 
 #include "Addresses.hpp"
+#include "FileHandler.hpp"
 
 class Archive {
 private:
     Archive * unk00;
-    std::int32_t unk04 = -1;
-    std::uint8_t pad08[4];
-    std::uint32_t unk0C = 0;
-    std::uint32_t unk10 = 0;
+    HANDLE unk04 = INVALID_HANDLE_VALUE;
+    HANDLE unk08;
+    void *unk0C = nullptr;
+    void *unk10 = nullptr;
     std::uint32_t unk14 = 0;
     std::uint8_t pad18[4];
-    std::uint32_t unk1C = 0;
+    FileHandler::FuncTable *unk1C = nullptr;
 
 public:
     // mc2: 0x005FC660
     Archive();
 
     // mc2: 0x005FC690
-    ~Archive() {
-        MC2_PROC_MEMBER<void>(0x005FC690, this);
+    ~Archive();
+
+    bool sub_5FD3A0(const char *file_name, FileHandler *file) {
+        return MC2_PROC_MEMBER<bool>(0x005FD3A0, this, file_name, file);
     }
 
+    bool sub_5FDBF0(const char *file_name, FileHandler::FuncTable *b, bool c);
     bool sub_5FDCE0(const char *file_name) {
-        return MC2_PROC_MEMBER<bool>(0x005FDCE0, this, file_name);
+        return this->sub_5FDBF0(file_name, nullptr, true);
     }
 };
 

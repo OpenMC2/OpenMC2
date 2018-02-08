@@ -44,7 +44,7 @@ void sub_618050(FileHandler *a, const char *format, ...) {
 }
 
 // mc2: 0x00617BB0
-FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable * fileFuncs) {
+FileHandler *register_file_handle(char * path, HANDLE file, FileHandler::FuncTable * fileFuncs) {
     for (std::int32_t i = 0; i < static_cast<std::int32_t>(glo_FileHandles.size()); ++i){
         FileHandler &freeHandle = glo_FileHandles[i];
         if (freeHandle.file_funcs == nullptr) {
@@ -66,8 +66,20 @@ FileHandler *register_file_handle(char * path, HANDLE file, unk_679810_funcTable
 }
 
 void(__cdecl &sub_617AA0)() = MC2_PROC_PTR<void>(0x00617AA0);
+FileHandler *(__cdecl &sub_617CD0)(const char *, FileHandler::FuncTable *, bool) =
+    MC2_PROC_PTR<FileHandler *, const char *, FileHandler::FuncTable *, bool>(0x00617CD0);
 
 std::array<FileHandler, 12> &glo_FileHandles = MC2_GLOBAL<std::array<FileHandler, 12>>(0x00860AE0);
 std::array<char[0x1000], 12> &glo_FileHandle_TextBuffer = MC2_GLOBAL<std::array<char[0x1000], 12>>(0x00860C30);
 FileHandler *&glo_86D28C = MC2_GLOBAL<FileHandler *>(0x0086D28C);
 std::int32_t &glo_679818 = MC2_GLOBAL<std::int32_t>(0x00679818);
+
+FileHandler::FuncTable *&glo_679810 = MC2_GLOBAL<FileHandler::FuncTable *>(0x00679810);
+FileHandler::FuncTable *&glo_679814 = MC2_GLOBAL<FileHandler::FuncTable *>(0x00679814);
+FileHandler::FuncTable *&glo_692E1C = MC2_GLOBAL<FileHandler::FuncTable *>(0x00692E1C);
+FileHandler::FuncTable *&glo_85D1C8 = MC2_GLOBAL<FileHandler::FuncTable *>(0x0085D1C8);
+
+FileHandler::FuncTable &glo_6781C0 = MC2_GLOBAL<FileHandler::FuncTable>(0x006781C0);
+FileHandler::FuncTable &glo_679884 = MC2_GLOBAL<FileHandler::FuncTable>(0x00679884);
+FileHandler::FuncTable &glo_692E20 = MC2_GLOBAL<FileHandler::FuncTable>(0x00692E20);
+

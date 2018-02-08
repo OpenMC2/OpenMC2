@@ -41,7 +41,7 @@ unk_613330::unk_613330() : vtable(&unk_613330::vtable_values) {
 }
 
 FileHandler *sub_617C40(char *path, bool extension) {
-    unk_679810_funcTable *fileFuncs = extension ? glo_679810 : glo_679814;
+    FileHandler::FuncTable *fileFuncs = extension ? glo_679810 : glo_679814;
     
     HANDLE file = fileFuncs->sub_00(path, extension);
     

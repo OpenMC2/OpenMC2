@@ -666,15 +666,10 @@ std::uint32_t &glo_675030 = MC2_GLOBAL<std::uint32_t>(0x00675030);
 std::uint32_t &glo_6754A4 = MC2_GLOBAL<std::uint32_t>(0x006754A4);
 float &glo_6754A8 = MC2_GLOBAL<float>(0x006754A8);
 
-unk_679810_funcTable *&glo_679810 = MC2_GLOBAL<unk_679810_funcTable *>(0x00679810);
-unk_679810_funcTable *&glo_679814 = MC2_GLOBAL<unk_679810_funcTable *>(0x00679814);
-unk_679810_funcTable *&glo_692E1C = MC2_GLOBAL<unk_679810_funcTable *>(0x00692E1C);
 std::uint32_t &global_LanguageID = MC2_GLOBAL<std::uint32_t>(0x006C2C5C); // glo_6C2C5C
 std::uint8_t &glo_6CE210 = MC2_GLOBAL<std::uint8_t>(0x006CE210);
 std::uint8_t &glo_6CE211 = MC2_GLOBAL<std::uint8_t>(0x006CE211);
 
-unk_679810_funcTable &glo_692E20 = MC2_GLOBAL<unk_679810_funcTable>(0x00692E20);
-unk_679810_funcTable &glo_679884 = MC2_GLOBAL<unk_679810_funcTable>(0x00679884);
 char (&glo_6C3690)[0x200] = MC2_GLOBAL<char[0x200]>(0x006C3690);
 
 HWND &global_hWnd = MC2_GLOBAL<HWND>(0x00858364);

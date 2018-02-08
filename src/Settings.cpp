@@ -45,7 +45,7 @@ void Settings::set_defualts() {
 
 //mc2: 0x0053B6A0
 bool Settings::load_settings() {
-    unk_679810_funcTable *fileFuncs = glo_679810;
+    FileHandler::FuncTable *fileFuncs = glo_679810;
 
     glo_679810 = &glo_679884;
 
@@ -124,7 +124,7 @@ bool Settings::load_settings() {
 
 //mc2: 0x0053B370
 bool Settings::save_settings_force() {
-    unk_679810_funcTable *fileFuncs = glo_679810;
+    FileHandler::FuncTable *fileFuncs = glo_679810;
     glo_679810 = &glo_679884;
     FileHandler* file = glo_860220->vir_20("userdata\\options.cfg", "", 0);
     glo_679810 = fileFuncs;
