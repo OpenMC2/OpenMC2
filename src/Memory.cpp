@@ -38,6 +38,10 @@ void * __cdecl mc2_aligned_malloc(std::uint32_t size, std::uint32_t align) {
     return _aligned_malloc(size, align);
 }
 
+void * __cdecl mc2_aligned_malloc_info(std::uint32_t size, std::uint32_t align, const char * /* file */, std::int32_t /* line */) {
+    return _aligned_malloc(size, align);
+}
+
 void __cdecl mc2_aligned_free(void *ptr) {
     if (ptr != nullptr) _aligned_free(ptr);
 }
@@ -60,7 +64,7 @@ AUTO_HOOK_X86(0x00577320, mc2_free);
 AUTO_HOOK_X86(0x005772A0, mc2_malloc);
 AUTO_HOOK_X86(0x00577350, mc2_free);
 
-AUTO_HOOK_X86(0x00613EA0, mc2_aligned_malloc);
+AUTO_HOOK_X86(0x00613EA0, mc2_aligned_malloc_info);
 AUTO_HOOK_X86(0x00613EF0, mc2_aligned_free);
 
 AUTO_HOOK_X86(0x00614A10, mc2_strdup_info);

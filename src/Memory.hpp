@@ -25,6 +25,7 @@ void * __cdecl mc2_malloc_info(std::uint32_t size, const char *file, std::int32_
 void __cdecl mc2_free(void *ptr);
 
 void * __cdecl mc2_aligned_malloc(std::uint32_t size, std::uint32_t align);
+void * __cdecl mc2_aligned_malloc_info(std::uint32_t size, std::uint32_t align, const char *file, std::int32_t line);
 void __cdecl mc2_aligned_free(void *ptr);
 
 char * __cdecl mc2_strdup(const char *str);

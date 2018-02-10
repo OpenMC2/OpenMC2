@@ -26,7 +26,7 @@
 class FileHandler {
 public:
     struct FuncTable {
-        HANDLE(*sub_00)(const char *path, bool unk2);
+        HANDLE(*open_file)(const char *path, bool unk2);
         HANDLE(*sub_04)(const char *path);
         void(*sub_08)();
         void(*sub_0C)();
@@ -49,26 +49,49 @@ public:
 
     void sub_617FB0();
 
-    inline void sub_617AF0() {
+    void sub_617AF0() {
         MC2_PROC_MEMBER<void>(0x00617AF0, this);
     }
 
-    inline std::int32_t sub_617E40(const char *a, size_t b) {
+    std::int32_t sub_617E40(const char *a, size_t b) {
         return MC2_PROC_MEMBER<std::int32_t>(0x00617E40, this, a, b);
     }
 
-    inline void sub_617F40(char a) {
+    void sub_617F40(char a) {
         MC2_PROC_MEMBER<void>(0x00617F40, this, a);
+    }
+
+    // mc2: 0x00617D20
+    std::uint32_t read(void *data, std::uint32_t size) {
+        return MC2_PROC_MEMBER<std::uint32_t>(0x00617D20, this, data, size);
+    }
+    template<class T>
+    std::uint32_t read(T &value) {
+        return read(&value, static_cast<std::uint32_t>(sizeof(T)));
+    }
+    template<class T>
+    std::uint32_t read_array(T *array, size_t count) {
+        return read(array, static_cast<std::uint32_t>(count * sizeof(T)));
+    }
+
+    // mc2: 0x00617F60
+    void seek(std::uint32_t offset) {
+        return MC2_PROC_MEMBER<void>(0x00617F60, this, offset);
+    }
+
+    // mc2: 0x00617FF0
+    std::uint32_t size() {
+        return MC2_PROC_MEMBER<std::uint32_t>(0x00617FF0, this);
     }
 };
 
+FileHandler *sub_617CD0(const char *, FileHandler::FuncTable *, bool);
 void sub_618050(FileHandler *a, const char *format, ...);
 
 // mc2: 0x00617BB0
-FileHandler *register_file_handle(char * path, HANDLE file, FileHandler::FuncTable * fileFuncs);
+FileHandler *register_file_handle(const char * path, HANDLE file, FileHandler::FuncTable * fileFuncs);
 
 extern void(__cdecl &sub_617AA0)();
-extern FileHandler *(__cdecl &sub_617CD0)(const char *, FileHandler::FuncTable *, bool);
 
 extern std::array<FileHandler, 12> &glo_FileHandles;
 extern std::array<char[0x1000], 12> &glo_FileHandle_TextBuffer;

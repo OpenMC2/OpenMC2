@@ -43,7 +43,7 @@ unk_613330::unk_613330() : vtable(&unk_613330::vtable_values) {
 FileHandler *sub_617C40(char *path, bool extension) {
     FileHandler::FuncTable *fileFuncs = extension ? glo_679810 : glo_679814;
     
-    HANDLE file = fileFuncs->sub_00(path, extension);
+    HANDLE file = fileFuncs->open_file(path, extension);
     
     if (file == INVALID_HANDLE_VALUE)
         return nullptr;

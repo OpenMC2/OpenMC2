@@ -95,7 +95,7 @@ extern std::uint32_t &glo_85FBC4;
 extern float &glo_85FBDC;
 extern float &glo_85FBE0;
 extern std::uint8_t &glo_8602D4;
-extern bool(__cdecl *&glo_860AD8)(char *, bool);
+extern bool(__cdecl *&glo_860AD8)(const char *, bool);
 extern std::uint32_t &glo_86D8A8;
 extern char * &global_WindowText;
 extern std::uint32_t &global_SKUVersion;

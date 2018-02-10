@@ -22,15 +22,26 @@
 #include "FileHandler.hpp"
 
 class Archive {
+public:
+    struct meta_t {
+        union {
+            std::uintptr_t nameOffset;
+            const char *name;
+            const std::uint8_t *nameRaw; // will help with decoding base64 names
+        };
+            
+        std::uint32_t dataOffset, decompressLen, compressLen;
+    };
+
 private:
-    Archive * unk00;
+    Archive *prevArchive;
     HANDLE unk04 = INVALID_HANDLE_VALUE;
     HANDLE unk08;
-    void *unk0C = nullptr;
-    void *unk10 = nullptr;
-    std::uint32_t unk14 = 0;
-    std::uint8_t pad18[4];
-    FileHandler::FuncTable *unk1C = nullptr;
+    std::uint8_t *nameBuffer = nullptr;
+    meta_t *metaBuffer = nullptr;
+    std::uint32_t numFiles = 0; // 0x14
+    std::uint32_t unk18;
+    FileHandler::FuncTable *fileFuncs = nullptr;
 
 public:
     // mc2: 0x005FC660
@@ -39,9 +50,7 @@ public:
     // mc2: 0x005FC690
     ~Archive();
 
-    bool sub_5FD3A0(const char *file_name, FileHandler *file) {
-        return MC2_PROC_MEMBER<bool>(0x005FD3A0, this, file_name, file);
-    }
+    bool sub_5FD3A0(const char *file_name, FileHandler *file);
 
     bool sub_5FDBF0(const char *file_name, FileHandler::FuncTable *b, bool c);
     bool sub_5FDCE0(const char *file_name) {
@@ -49,6 +58,11 @@ public:
     }
 };
 
-extern Archive *&glo_85D1C4;
-
 void sub_5FDD20();
+
+extern std::uint8_t *(__cdecl &sub_5FCBF0)(Archive::meta_t *, std::uint32_t, std::uint8_t *, std::uint32_t);
+extern void(__cdecl &sub_5FCFD0)(void *, std::uint32_t);
+
+extern bool &glo_85CD28;
+extern bool &glo_85CD30;
+extern Archive *&glo_85D1C4;
