@@ -140,7 +140,7 @@ void __cdecl mc2_log_level_v(LogLevels level, const char *format, va_list ap) {
 
     if (glo_86D28C != nullptr) {
         sub_618050(glo_86D28C, "%s%s%s", levelEscLabels[level], text, levelEscClear[level]);
-        glo_86D28C->sub_617AF0();
+        glo_86D28C->flush();
     }
 
     if (level == LOG_LEVEL_FATAL_ERROR) ind_86D284(text);

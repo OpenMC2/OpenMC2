@@ -99,9 +99,9 @@ bool unk_616420::impl_94(const char *unk1, std::uint32_t unk2) {
     int total_length = len + unk2;
 
     for (; unk2 != 0; --unk2) {
-        if (this->unk0C->unk_14 == 0 &&
-            this->unk0C->unk_10 < this->unk0C->buffer_size) {
-            this->unk0C->text_buffer[this->unk0C->unk_10++] = '\t';
+        if (this->unk0C->buffer_read == 0 &&
+            this->unk0C->buffer_offset < this->unk0C->buffer_size) {
+            this->unk0C->text_buffer[this->unk0C->buffer_offset++] = '\t';
         } else {
             this->unk0C->sub_617F40('\t');
         }

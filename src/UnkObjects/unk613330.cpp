@@ -56,15 +56,6 @@ FileHandler *sub_617C40(char *path, bool extension) {
     return register_file_handle(path, file, fileFuncs);
 }
 
-FileHandler *sub_617CA0(char *path) {
-    HANDLE file = glo_679814->sub_04(path);
-    
-    if (file == INVALID_HANDLE_VALUE)
-        return nullptr;
-
-    return register_file_handle(path, file, glo_679814);
-}
-
 // mc2: 0x00613780
 FileHandler *unk_613330::impl_1C(char *unk1, char *unk2, std::uint32_t unk3, bool extension) {
     char buffer[256];

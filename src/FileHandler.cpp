@@ -22,16 +22,123 @@
 #include "FileHandler.hpp"
 #include "Logging.hpp"
 
-void FileHandler::sub_617FB0(){
-    if (this->unk_14 == 0 &&
-        this->unk_10 != 0) {
-        sub_617AF0();
+void FileHandler::sub_617FB0() {
+    if (this->buffer_read == 0 &&
+        this->buffer_offset != 0) {
+        flush();
     }
 
     this->file_funcs->close_file(this->handle);
     this->handle = INVALID_HANDLE_VALUE;
     this->file_funcs = nullptr;
 }
+
+// mc2: 0x00617AF0
+std::int32_t FileHandler::flush() {
+    std::int32_t result = 0;
+    if (buffer_read == 0) {
+        if (buffer_offset != 0 && file_funcs->write != nullptr)
+            result = file_funcs->write(handle, text_buffer, buffer_offset);
+    } else if (buffer_read == buffer_offset && file_funcs->seek != nullptr) {
+        result = file_funcs->seek(handle, seek_pos + buffer_offset, SeekStart);
+    }
+
+    seek_pos += buffer_offset;
+    buffer_read = 0;
+    buffer_offset = 0;
+    if (file_funcs->sub_20 != nullptr) result = file_funcs->sub_20(handle);
+
+    return result;
+}
+
+// mc2: 0x00617D20
+std::int32_t FileHandler::read(void *data, std::int32_t size) {
+    if (buffer_read == 0 && buffer_offset != 0 && this->flush() < 0) return -1;
+    
+    std::int32_t buffer_used = 0;
+    const std::int32_t buffer_available = buffer_read - buffer_offset;
+    if (size > buffer_available) {
+        if (buffer_available > 0) {
+            std::memcpy(data, text_buffer + buffer_offset, buffer_available);
+            data = reinterpret_cast<std::uint8_t *>(data) + buffer_available;
+            size -= buffer_available;
+            buffer_used = buffer_available;
+        }
+
+        seek_pos += buffer_read;
+        buffer_read = 0;
+        buffer_offset = 0;
+
+        if (size >= buffer_size) {
+            // skip buffering if read would consume an entire buffer
+            std::int32_t read = this->file_funcs->read(handle, data, size);
+            if (read < 0) return -1;
+            seek_pos += read;
+            return read + buffer_used;
+        }
+
+        std::int32_t read = this->file_funcs->read(handle, text_buffer, buffer_size);
+        if (read < 0) return -1;
+        buffer_read = read;
+        size = std::min(size, read);
+    }
+
+    std::memcpy(data, text_buffer + buffer_offset, size);
+    buffer_offset += size;
+    return buffer_used + size;
+}
+
+// mc2: 0x00617F60
+std::int32_t FileHandler::seek(std::int32_t offset) {
+    if (offset >= seek_pos && offset < seek_pos + buffer_read) {
+        buffer_offset = offset - seek_pos;
+        return offset;
+    } else if (file_funcs->seek != nullptr) {
+        if (this->flush() < 0) return -1;
+        seek_pos = offset;
+        return file_funcs->seek(handle, offset, SeekStart);
+    } else {
+        seek_pos = offset;
+        return offset;
+    }
+}
+
+std::int32_t FileHandler::skip(std::int32_t count) {
+    if (count < buffer_read - buffer_offset) {
+        buffer_offset += count;
+        return seek_pos + buffer_offset;
+    } else if (file_funcs->seek != nullptr) {
+        if (this->flush() < 0) return -1;
+        seek_pos += count;
+        return file_funcs->seek(handle, seek_pos, SeekStart);
+    } else {
+        seek_pos += count;
+        return seek_pos;
+    }
+}
+
+// mc2: 0x00617FF0
+std::int32_t FileHandler::size() {
+    if (file_funcs->get_size != nullptr) {
+        return file_funcs->get_size(handle);
+    } else {
+        if (this->flush() < 0) return -1;
+        std::int32_t curpos = file_funcs->seek(handle, 0, SeekCurrent);
+        std::int32_t size = file_funcs->seek(handle, 0, SeekEnd);
+        file_funcs->seek(handle, curpos, SeekStart);
+        return size;
+    }
+}
+
+FileHandler *sub_617CA0(char *path) {
+    HANDLE file = glo_679814->sub_04(path);
+
+    if (file == INVALID_HANDLE_VALUE)
+        return nullptr;
+
+    return register_file_handle(path, file, glo_679814);
+}
+
 
 FileHandler *sub_617CD0(const char *file_name, FileHandler::FuncTable *funcs, bool c) {
     HANDLE x = funcs->open_file(file_name, c);
@@ -61,9 +168,9 @@ FileHandler *register_file_handle(const char * path, HANDLE file, FileHandler::F
     for (std::int32_t i = 0; i < static_cast<std::int32_t>(glo_FileHandles.size()); ++i){
         FileHandler &freeHandle = glo_FileHandles[i];
         if (freeHandle.file_funcs == nullptr) {
-            freeHandle.unk_0C = 0;
-            freeHandle.unk_10 = 0;
-            freeHandle.unk_14 = 0;
+            freeHandle.seek_pos = 0;
+            freeHandle.buffer_offset = 0;
+            freeHandle.buffer_read = 0;
             freeHandle.handle = file;
             freeHandle.buffer_size = 0x1000;
             freeHandle.text_buffer = glo_FileHandle_TextBuffer[i];

@@ -33,6 +33,7 @@ constexpr std::array<std::uint8_t, 4> DAVE_Magic{ { 'D', 'A', 'V', 'E' } };
 constexpr std::array<std::uint8_t, 4> Dave_Magic{ { 'D', 'a', 'v', 'e' } };
 
 constexpr std::array<std::uint8_t, 4> PK12_Magic{ { 'P', 'K',  1 ,  2  } };
+constexpr std::array<std::uint8_t, 4> PK34_Magic{ { 'P', 'K',  3 ,  4  } };
 constexpr std::array<std::uint8_t, 4> PK56_Magic{ { 'P', 'K',  5 ,  6  } };
 
 constexpr std::uint32_t Dave_Align = 0x800;
@@ -41,6 +42,17 @@ constexpr std::uint16_t ZIP_DEFLATE = 8;
 
 // ZIP File Headers
 #pragma pack(push, 1)
+struct ZIP_Local {
+    std::array<std::uint8_t, 4> magic;
+    std::uint16_t versionMin;
+    std::uint16_t genFlags;
+    std::uint16_t compression;
+    std::uint16_t modTime, modDate;
+    std::uint32_t crc;
+    std::uint32_t compressSize, uncompressSize;
+    std::uint16_t nameLen, extraLen;
+};
+
 struct ZIP_Central {
     std::array<std::uint8_t, 4> magic;
     std::uint16_t version, versionMin;
@@ -67,7 +79,8 @@ struct ZIP_End {
     std::uint16_t commentLen;
 };
 #pragma pack(pop)
-static_assert(sizeof(ZIP_Central) == 46, "Bad Size: ZIP_End");
+static_assert(sizeof(ZIP_Local) == 30, "Bad Size: ZIP_Local");
+static_assert(sizeof(ZIP_Central) == 46, "Bad Size: ZIP_Central");
 static_assert(sizeof(ZIP_End) == 22, "Bad Size: ZIP_End");
 
 // mc2: 0x005FC660
@@ -154,15 +167,15 @@ bool Archive::sub_5FD3A0(const char *file_name, FileHandler *file) {
         nameBuffer = reinterpret_cast<std::uint8_t *>(mc2_aligned_malloc(nameSize, 128));
 
         file->seek(eocd.cdirOffset);
-        std::uint32_t i, nameBuffLen = 0;
-        for (i = 0; i < eocd.cdirCount; ++i) {
+        std::uint32_t nameBuffLen = 0;
+        for (std::uint32_t i = 0; i < numFiles; ++i) {
             ZIP_Central central;
-            char name[0x100], extra[0x100], comment[0x100]; // TODO variable size
             file->read(central);
 
             if (central.magic != PK12_Magic) {
                 mc2_log_warning("%s: Central Directory Entry has incorrect magic.", file_name);
-                break;
+                file->sub_617FB0();
+                return false;
             }
             if (central.compression != ZIP_Uncompressed && central.compression != ZIP_DEFLATE) {
                 mc2_log_warning("%s: Compression method besides store or deflate encountered.", file_name);
@@ -170,26 +183,33 @@ bool Archive::sub_5FD3A0(const char *file_name, FileHandler *file) {
                 return false;
             }
 
-            assert(central.nameLen < 0x100);
-            file->read_array(name, central.nameLen);
-            name[central.nameLen++ & 0xFF] = '\0';
-
-            assert(central.extraLen <= 0x100);
-            file->read_array(extra, central.extraLen);
-            assert(central.extraLen <= 0x100);
-            file->read_array(comment, central.commentLen);
-
             metaBuffer[i].nameRaw = nameBuffer + nameBuffLen;
-            metaBuffer[i].dataOffset = central.fileOffset + central.nameLen + 30 - 1;
+            metaBuffer[i].dataOffset = central.fileOffset;
             metaBuffer[i].decompressLen = central.uncompressSize;
             metaBuffer[i].compressLen = central.compressSize;
 
-            std::memcpy(nameBuffer + nameBuffLen, name, central.nameLen);
+            file->read_array(nameBuffer + nameBuffLen, central.nameLen);
             nameBuffLen += central.nameLen;
+            nameBuffer[nameBuffLen++] = '\0';
+            file->skip(central.extraLen + central.commentLen);
+        }
+
+        for (std::uint32_t i = 0; i < numFiles; ++i) {
+            ZIP_Local local;
+            file->seek(metaBuffer[i].dataOffset);
+            file->read(local);
+
+            if (local.magic != PK34_Magic) {
+                mc2_log_warning("%s: Local File Header has incorrect magic.", file_name);
+                file->sub_617FB0();
+                return false;
+            }
+
+            metaBuffer[i].dataOffset += sizeof(local) + local.nameLen + local.extraLen;
         }
 
         mc2_log_info("%s: %d files in central directory (%d bytes + %d(%d) string heap).",
-            file_name, i, i * sizeof(meta_t), nameBuffLen, nameSize);
+            file_name, numFiles, numFiles * sizeof(meta_t), nameBuffLen, nameSize);
         std::sort(metaBuffer, metaBuffer + numFiles, [](const meta_t &a, const meta_t &b) {
             return compare_paths(a.name, b.name);
         });

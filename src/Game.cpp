@@ -523,7 +523,7 @@ int sub_401190() {
     sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;
     glo_692E20 = *glo_679810;
-    glo_692E20.sub_08 = &sub_4010B0;
+    glo_692E20.read = &sub_4010B0;
     glo_679810 = &glo_692E20;
     sub_53A1B0();
     bool runforever = sub_612E10("runforever");
@@ -630,7 +630,7 @@ int sub_6181F0() {
     return 0;
 }
 
-void(__cdecl &sub_4010B0)() = MC2_PROC_PTR<void>(0x004010B0);
+std::int32_t(__cdecl &sub_4010B0)(HANDLE, void *, std::uint32_t) = MC2_PROC_PTR<std::int32_t, HANDLE, void *, std::uint32_t>(0x004010B0);
 void(__cdecl &sub_401170)() = MC2_PROC_PTR<void>(0x00401170);
 void(__cdecl &sub_4017E0)() = MC2_PROC_PTR<void>(0x004017E0);
 void(__cdecl &sub_402590)() = MC2_PROC_PTR<void>(0x00402590);

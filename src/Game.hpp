@@ -34,7 +34,7 @@ void sub_612F00();
 
 void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, int32_t unk5);
 
-extern void(__cdecl &sub_4010B0)();
+extern std::int32_t(__cdecl &sub_4010B0)(HANDLE, void *, std::uint32_t);
 extern void(__cdecl &sub_401170)();
 extern void(__cdecl &sub_4017E0)();
 extern void(__cdecl &sub_402590)();
