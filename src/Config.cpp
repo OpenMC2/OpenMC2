@@ -62,7 +62,7 @@ static boost::filesystem::path try_default_paths() {
     for (const char *path : default_paths) {
         boost::filesystem::path folder(path);
         if (boost::filesystem::is_directory(folder) &&
-            boost::filesystem::is_regular_file(folder / "assets_p.dat"))
+            boost::filesystem::is_regular_file(folder / config_assets_name))
             return folder;
     }
     return boost::filesystem::path();
@@ -102,7 +102,7 @@ static boost::filesystem::path ask_game_path() {
                                 LPWSTR pathstr;
                                 if (SUCCEEDED(res = item->GetDisplayName(SIGDN_FILESYSPATH, &pathstr))) {
                                     path = pathstr;
-                                    if (boost::filesystem::is_regular_file(path / "assets_p.dat")) button = 0;
+                                    if (boost::filesystem::is_regular_file(path / config_assets_name)) button = 0;
                                     else path.clear(), button = MessageBox(nullptr, BadDirMessage, InfoBoxTitle, MB_OKCANCEL);
                                 }
                                 item->Release();
@@ -126,15 +126,21 @@ static boost::filesystem::path ask_game_path() {
     return path;
 }
 
-inline boost::filesystem::path get_config_path() {
+static boost::filesystem::path get_config_path() {
     return get_documents_path() / "OpenMC2" / "OpenMC2.config";
 }
 
-static config_tree get_defaults() {
-    config_tree tree;
-    tree.put("gamepath", "");
-    tree.put("window", false);
-    return tree;
+template<class T>
+static void set_default(config_tree &tree, bool &modified, const config_tree::key_type &key, T value) {
+    if (tree.count(key) == 0) tree.put(key, value), modified = true;
+}
+
+static bool set_defaults(config_tree &tree) {
+    bool modified = false;
+    set_default(tree, modified, "gamepath", "");
+    set_default(tree, modified, "window", false);
+    set_default(tree, modified, "assets", "assets_p.dat");
+    return modified;
 }
 
 // The default stream-translator adds redundant quotes
@@ -148,15 +154,18 @@ struct path_translator {
 constexpr path_translator<config_tree::data_type> config_tree_path_translator;
 
 void load_config() {
-    config_tree config = get_defaults();
-
+    config_tree config;
     boost::filesystem::path path(get_config_path());
     if (boost::filesystem::is_regular_file(path))
         boost::property_tree::read_info(path.string(), config);
+    bool modified = set_defaults(config);
 
     if (!boost::filesystem::is_directory(path.parent_path()))
         if (!boost::filesystem::create_directory(path.parent_path())) throw std::exception();
-    boost::property_tree::write_info(path.string(), config);
+    if (modified) boost::property_tree::write_info(path.string(), config);
+
+    glo_windowed_mode = config.get<bool>("window");
+    config_assets_name = config.get<std::string>("assets");
 
     boost::filesystem::path gamepath = config.get<boost::filesystem::path>("gamepath", config_tree_path_translator);
     if (gamepath.empty()) {
@@ -170,8 +179,8 @@ void load_config() {
     boost::filesystem::current_path(gamepath);
 
     AddDllHooks(gamepath);
-
-    glo_windowed_mode = config.get<bool>("window");
 }
+
+std::string config_assets_name;
 
 bool &glo_windowed_mode = MC2_GLOBAL<bool>(0x00858370);

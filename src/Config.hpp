@@ -20,6 +20,10 @@
 
 #include "Addresses.hpp"
 
+#include <string>
+
 void load_config();
+
+extern std::string config_assets_name;
 
 extern bool &glo_windowed_mode;

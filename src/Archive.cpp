@@ -17,6 +17,7 @@
 **********************************************************************/
 
 #include "Archive.hpp"
+#include "Config.hpp"
 #include "Game.hpp"
 #include "Logging.hpp"
 #include "Memory.hpp"
@@ -175,11 +176,8 @@ bool Archive::sub_5FD3A0(const char *file_name, FileHandler *file) {
 
             assert(central.extraLen <= 0x100);
             file->read_array(extra, central.extraLen);
-            if (central.extraLen > 0) mc2_log_info("extraLen=%d", central.extraLen);
-
             assert(central.extraLen <= 0x100);
             file->read_array(comment, central.commentLen);
-            if (central.commentLen > 0) mc2_log_info("cmtLen=%d", central.commentLen);
 
             metaBuffer[i].nameRaw = nameBuffer + nameBuffLen;
             metaBuffer[i].dataOffset = central.fileOffset + central.nameLen + 30 - 1;
@@ -224,15 +222,12 @@ void sub_5FDD20() {
         glo_85D1C0 = true;
     }
 
-    const char *file_name;
-    for (std::uint32_t i = 0; sub_612EB0("archive", i, &file_name); ++i) {
-        Archive *x = new Archive;
-        if (x->sub_5FDCE0(file_name)) {
-            sub_6134D0("");
-        } else {
-            mc2_log_error("Failed to load archive '%s'", file_name);
-            delete x;
-        }
+    Archive *x = new Archive;
+    if (x->sub_5FDCE0(config_assets_name.c_str())) {
+        sub_6134D0("");
+    } else {
+        mc2_log_error("Failed to load archive '%s'", config_assets_name.c_str());
+        delete x;
     }
 }
 
