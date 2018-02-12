@@ -103,7 +103,7 @@ bool unk_616420::impl_94(const char *unk1, std::uint32_t unk2) {
             this->unk0C->buffer_offset < this->unk0C->buffer_size) {
             this->unk0C->buffer[this->unk0C->buffer_offset++] = '\t';
         } else {
-            this->unk0C->sub_617F40('\t');
+            this->unk0C->put_char('\t');
         }
     }
     return bytes_written == total_length;
