@@ -95,13 +95,13 @@ bool unk_616420::impl_94(const char *unk1, std::uint32_t unk2) {
     const char *message = unk1[0] == '\0' ? R"("")" : unk1;
 
     int len = strlen(message);
-    std::int32_t bytes_written = this->unk0C->sub_617E40(message, len) + unk2;
+    std::int32_t bytes_written = this->unk0C->write(message, len) + unk2;
     int total_length = len + unk2;
 
     for (; unk2 != 0; --unk2) {
         if (this->unk0C->buffer_read == 0 &&
             this->unk0C->buffer_offset < this->unk0C->buffer_size) {
-            this->unk0C->text_buffer[this->unk0C->buffer_offset++] = '\t';
+            this->unk0C->buffer[this->unk0C->buffer_offset++] = '\t';
         } else {
             this->unk0C->sub_617F40('\t');
         }

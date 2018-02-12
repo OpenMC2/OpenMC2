@@ -34,8 +34,8 @@ public:
     struct FuncTable {
         HANDLE(*open_file)(const char *path, bool unk2); // 0x00
         HANDLE(*sub_04)(const char *path);
-        std::int32_t(*read)(HANDLE, void *, std::uint32_t); // 0x08
-        std::int32_t(*write)(HANDLE, void *, std::uint32_t); // 0x0C
+        std::int32_t(*read)(HANDLE, void *, std::int32_t); // 0x08
+        std::int32_t(*write)(HANDLE, const void *, std::int32_t); // 0x0C
         std::int32_t(*seek)(HANDLE, std::int32_t, Seek); // 0x10
         void(*close_file)(HANDLE file); // 0x14
         void(*sub_18)();
@@ -47,7 +47,7 @@ public:
 
     FuncTable *file_funcs; // 0x00
     HANDLE handle; // 0x04
-    char *text_buffer; //0x08
+    char *buffer; //0x08
     std::int32_t seek_pos; // 0x0C
     std::int32_t buffer_offset; // 0x10
     std::int32_t buffer_read; // 0x14
@@ -58,12 +58,11 @@ public:
     // mc2: 0x00617AF0
     std::int32_t flush();
 
-    std::int32_t sub_617E40(const char *a, size_t b) {
-        return MC2_PROC_MEMBER<std::int32_t>(0x00617E40, this, a, b);
-    }
-
-    void sub_617F40(char a) {
-        return MC2_PROC_MEMBER<void>(0x00617F40, this, a);
+    // mc2: 0x00617E40
+    std::int32_t write(const void *data, std::int32_t size);
+    // mc2: 0x00617F40
+    std::int32_t put_char(char c) {
+        return write(&c, 1) == 1 ? c : -1;
     }
 
     // mc2: 0x00617D20

@@ -38,7 +38,7 @@ std::int32_t FileHandler::flush() {
     std::int32_t result = 0;
     if (buffer_read == 0) {
         if (buffer_offset != 0 && file_funcs->write != nullptr)
-            result = file_funcs->write(handle, text_buffer, buffer_offset);
+            result = file_funcs->write(handle, buffer, buffer_offset);
     } else if (buffer_read == buffer_offset && file_funcs->seek != nullptr) {
         result = file_funcs->seek(handle, seek_pos + buffer_offset, SeekStart);
     }
@@ -51,6 +51,31 @@ std::int32_t FileHandler::flush() {
     return result;
 }
 
+// mc2: 0x00617E40
+std::int32_t FileHandler::write(const void *data, std::int32_t size) {
+    if (buffer_read > 0 && this->flush() < 0) return -1;
+    if (size < buffer_size) {
+        const std::int32_t buffer_available = buffer_size - buffer_offset;
+        if (size >= buffer_available) {
+            std::memcpy(buffer + buffer_offset, data, buffer_available);
+            data = reinterpret_cast<const std::uint8_t *>(data) + buffer_available;
+            size -= buffer_available;
+            buffer_offset = buffer_size;
+            if (this->flush() < 0) return -1;
+        }
+
+        std::memcpy(buffer + buffer_offset, data, size);
+        buffer_offset += size;
+        return size;
+    } else {
+        if (this->flush() < 0) return -1;
+        std::int32_t written = file_funcs->write(handle, data, size);
+        if (written < 0) return -1;
+        buffer_offset += written;
+        return written;
+    }
+}
+
 // mc2: 0x00617D20
 std::int32_t FileHandler::read(void *data, std::int32_t size) {
     if (buffer_read == 0 && buffer_offset != 0 && this->flush() < 0) return -1;
@@ -59,7 +84,7 @@ std::int32_t FileHandler::read(void *data, std::int32_t size) {
     const std::int32_t buffer_available = buffer_read - buffer_offset;
     if (size > buffer_available) {
         if (buffer_available > 0) {
-            std::memcpy(data, text_buffer + buffer_offset, buffer_available);
+            std::memcpy(data, buffer + buffer_offset, buffer_available);
             data = reinterpret_cast<std::uint8_t *>(data) + buffer_available;
             size -= buffer_available;
             buffer_used = buffer_available;
@@ -77,13 +102,13 @@ std::int32_t FileHandler::read(void *data, std::int32_t size) {
             return read + buffer_used;
         }
 
-        std::int32_t read = this->file_funcs->read(handle, text_buffer, buffer_size);
+        std::int32_t read = this->file_funcs->read(handle, buffer, buffer_size);
         if (read < 0) return -1;
         buffer_read = read;
         size = std::min(size, read);
     }
 
-    std::memcpy(data, text_buffer + buffer_offset, size);
+    std::memcpy(data, buffer + buffer_offset, size);
     buffer_offset += size;
     return buffer_used + size;
 }
@@ -153,13 +178,12 @@ FileHandler *sub_617CD0(const char *file_name, FileHandler::FuncTable *funcs, bo
     return nullptr;
 }
 
-// mc2: 0x00618050
 void sub_618050(FileHandler *a, const char *format, ...) {
     char buffer[0x400];
     va_list ap;
     va_start(ap, format);
     int len = std::vsnprintf(buffer, 0x400, format, ap);
-    a->sub_617E40(buffer, std::min(std::max(len, 0), 0x3FF));
+    a->write(buffer, std::min(std::max(len, 0), 0x3FF));
     va_end(ap);
 }
 
@@ -173,7 +197,7 @@ FileHandler *register_file_handle(const char * path, HANDLE file, FileHandler::F
             freeHandle.buffer_read = 0;
             freeHandle.handle = file;
             freeHandle.buffer_size = 0x1000;
-            freeHandle.text_buffer = glo_FileHandle_TextBuffer[i];
+            freeHandle.buffer = glo_FileHandle_TextBuffer[i];
             freeHandle.file_funcs = fileFuncs;
             glo_679818 = std::max(glo_679818, i);
             return &freeHandle;
