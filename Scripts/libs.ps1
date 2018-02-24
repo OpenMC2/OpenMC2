@@ -21,17 +21,21 @@ $majmin = $installed.split(".")
 if ($force -or ($majmin[0] -ne "$toolset;$expmaj") -or ($majmin[1] -lt $expmin)) {
   Write-Host "Updating dependencies..."
   
-  if (Test-path $libspath) {
+  if (Test-Path $libspath) {
     Remove-Item -Force -Recurse $libspath
   }
   New-Item -Force -ItemType Directory $libspath > $null
   
-  # This is a lot faster than Invoke-WebRequest
-  $wc = New-Object net.webclient
-  $wc.Downloadfile($zipurl, $zippath)
-  Add-Type -AssemblyName System.IO.Compression.FileSystem
-  [System.IO.Compression.ZipFile]::ExtractToDirectory($zippath, $libspath)
-  Remove-Item $zipPath -Force
+  # Github has disabled TLS <= 1.1, so make sure that net.webclient uses TLSv1.2
+  [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
   
-  "$toolset;$expmaj.$expmin" > $versionpath
+  # This is a lot faster than Invoke-WebRequest
+  (New-Object System.Net.WebClient).Downloadfile($zipurl, $zippath)
+  if (Test-Path $zippath) {
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    [System.IO.Compression.ZipFile]::ExtractToDirectory($zippath, $libspath)
+    Remove-Item $zipPath -Force
+    
+    "$toolset;$expmaj.$expmin" > $versionpath
+  }
 }
