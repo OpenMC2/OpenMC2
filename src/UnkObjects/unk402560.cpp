@@ -18,4 +18,4 @@
 
 #include "unk402560.hpp"
 
-unk_402560 *(__cdecl &sub_402560)() = MC2_PROC_PTR<unk_402560 *>(0x00402560);
+MC2_DEF_PROC(sub_402560, 0x00402560);

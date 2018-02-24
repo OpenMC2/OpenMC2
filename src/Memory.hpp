@@ -20,13 +20,13 @@
 
 #include "Addresses.hpp"
 
-void * __cdecl mc2_malloc(std::uint32_t size);
-void * __cdecl mc2_malloc_info(std::uint32_t size, const char *file, std::int32_t line);
-void __cdecl mc2_free(void *ptr);
+void *mc2_malloc(std::uint32_t size);
+void *mc2_malloc_info(std::uint32_t size, const char *file, std::int32_t line);
+void mc2_free(void *ptr);
 
-void * __cdecl mc2_aligned_malloc(std::uint32_t size, std::uint32_t align);
-void * __cdecl mc2_aligned_malloc_info(std::uint32_t size, std::uint32_t align, const char *file, std::int32_t line);
-void __cdecl mc2_aligned_free(void *ptr);
+void *mc2_aligned_malloc(std::uint32_t size, std::uint32_t align);
+void *mc2_aligned_malloc_info(std::uint32_t size, std::uint32_t align, const char *file, std::int32_t line);
+void mc2_aligned_free(void *ptr);
 
-char * __cdecl mc2_strdup(const char *str);
-char * _cdecl mc2_strdup_info(const char *str, const char * file, std::int32_t line);
+char *mc2_strdup(const char *str);
+char *mc2_strdup_info(const char *str, const char * file, std::int32_t line);

@@ -26,12 +26,12 @@
 class unk_860688 {
 private:
     std::array<char, 4> signature;
-    void (__cdecl *callback)(void *); // argument is pointer to some type
+    MC2_PROC_PTR<void, void *> callback; // argument is pointer to some type
     std::uint8_t pad08[4]{ };
     unk_860688 *next;
 
 public:
-    unk_860688(std::array<char, 4> signature, void(__cdecl *callback)(void *));
+    unk_860688(std::array<char, 4> signature, MC2_PROC_PTR<void, void *> callback);
 };
 
 extern unk_860688 *&glo_860688;

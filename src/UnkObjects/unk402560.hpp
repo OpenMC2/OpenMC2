@@ -26,13 +26,13 @@ private:
 
 public:
     inline void sub_401860() {
-        MC2_PROC_MEMBER<void>(0x00401860, this);
+        MC2_CALL_MEMBER<0x00401860, void>(this);
     }
 
     inline void sub_402120() {
-        MC2_PROC_MEMBER<void>(0x00402120, this);
+        MC2_CALL_MEMBER<0x00402120, void>(this);
     }
     
 };
 
-extern unk_402560 *(__cdecl &sub_402560)();
+extern MC2_PROC_PTR<unk_402560 *> sub_402560;

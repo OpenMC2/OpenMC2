@@ -26,11 +26,11 @@ private:
 
 public:
     unk_5FAC30() {
-        MC2_PROC_MEMBER<void>(0x005FAC30, this);
+        MC2_CALL_MEMBER<0x005FAC30, void>(this);
     }
 
     void sub_419DB0() {
-        MC2_PROC_MEMBER<void>(0x00419DB0, this);
+        return MC2_CALL_MEMBER<0x00419DB0, void>(this);
     }
 };
 

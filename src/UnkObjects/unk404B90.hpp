@@ -24,12 +24,12 @@ class unk_404B90 {
 private:
     struct {
         void *unk00;
-        void (__thiscall *unk04)(unk_404B90 *, std::uint32_t);
+        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> unk04;
     } *vtable;
 
 public:
     unk_404B90() {
-        MC2_PROC_MEMBER<void>(0x00404B90, this);
+        MC2_CALL_MEMBER<0x00404B90, void>(this);
     }
 
     inline void vir04(std::uint32_t a) {

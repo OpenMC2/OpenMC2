@@ -419,10 +419,10 @@ void sub_53A870() {
 }
 
 void sub_5ECBE0() {
-    if (glo_6754C4 != &sub_5ECB90) {
+    if (glo_6754C4 != sub_5ECB90) {
         mc2_log_info("Installed bink gfxLoadImage support");
         glo_858328 = glo_6754C4;
-        glo_6754C4 = &sub_5ECB90;
+        glo_6754C4 = sub_5ECB90;
     }
 }
 
@@ -523,7 +523,7 @@ int sub_401190() {
     sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;
     glo_692E20 = *glo_679810;
-    glo_692E20.read = &sub_4010B0;
+    glo_692E20.read = sub_4010B0;
     glo_679810 = &glo_692E20;
     sub_53A1B0();
     bool runforever = sub_612E10("runforever");
@@ -630,81 +630,81 @@ int sub_6181F0() {
     return 0;
 }
 
-std::int32_t(__cdecl &sub_4010B0)(HANDLE, void *, std::int32_t) = MC2_PROC_PTR<std::int32_t, HANDLE, void *, std::int32_t>(0x004010B0);
-void(__cdecl &sub_401170)() = MC2_PROC_PTR<void>(0x00401170);
-void(__cdecl &sub_4017E0)() = MC2_PROC_PTR<void>(0x004017E0);
-void(__cdecl &sub_402590)() = MC2_PROC_PTR<void>(0x00402590);
-void(__cdecl &sub_4028E0)() = MC2_PROC_PTR<void>(0x004028E0);
-void(__cdecl &sub_404BF0)() = MC2_PROC_PTR<void>(0x00404BF0);
-void(__cdecl &sub_53A1B0)() = MC2_PROC_PTR<void>(0x0053A1B0);
-void(__cdecl &sub_53A7D0)() = MC2_PROC_PTR<void>(0x0053A7D0);
-void(__cdecl &sub_53A8F0)() = MC2_PROC_PTR<void>(0x0053A8F0);
-void(__cdecl &sub_5ECB90)() = MC2_PROC_PTR<void>(0x005ECB90);
-void(__cdecl &sub_5ED220)() = MC2_PROC_PTR<void>(0x005ED220);
-void(__cdecl &sub_5ED240)(const char *, std::uint32_t, std::uint32_t) = MC2_PROC_PTR<void, const char *, std::uint32_t, std::uint32_t>(0x005ED240);
-void(__cdecl &sub_5EDA50)(const char *) = MC2_PROC_PTR<void, const char *>(0x005EDA50);
-void(__cdecl &sub_5EE9F0)() = MC2_PROC_PTR<void>(0x005EE9F0);
-void(__cdecl &sub_5F0BC0)() = MC2_PROC_PTR<void>(0x005F0BC0);
-bool(__cdecl &sub_5F12F0)() = MC2_PROC_PTR<bool>(0x005F12F0);
-void(__cdecl &sub_5F9E20)() = MC2_PROC_PTR<void>(0x005F9E20);
-void(__cdecl &sub_5F9E30)() = MC2_PROC_PTR<void>(0x005F9E30);
-void(__cdecl &sub_5FAFE0)(std::uint32_t, std::uint32_t, std::uint32_t) = MC2_PROC_PTR<void, std::uint32_t, std::uint32_t, std::uint32_t>(0x005FAFE0);
-void(__cdecl &sub_5FD2D0)() = MC2_PROC_PTR<void>(0x005FD2D0);
-void(__cdecl &sub_612130)() = MC2_PROC_PTR<void>(0x00612130);
-void(__cdecl &sub_612C70)(char *) = MC2_PROC_PTR<void, char *>(0x00612C70);
-void(__cdecl &sub_613DD0)(const char *, void *, std::uint32_t) = MC2_PROC_PTR<void, const char *, void *, std::uint32_t>(0x00613DD0);
-void(__cdecl &sub_617760)(char *, DWORD) = MC2_PROC_PTR<void, char *, DWORD>(0x00617760);
+MC2_DEF_PROC(sub_4010B0, 0x004010B0);
+MC2_DEF_PROC(sub_401170, 0x00401170);
+MC2_DEF_PROC(sub_4017E0, 0x004017E0);
+MC2_DEF_PROC(sub_402590, 0x00402590);
+MC2_DEF_PROC(sub_4028E0, 0x004028E0);
+MC2_DEF_PROC(sub_404BF0, 0x00404BF0);
+MC2_DEF_PROC(sub_53A1B0, 0x0053A1B0);
+MC2_DEF_PROC(sub_53A7D0, 0x0053A7D0);
+MC2_DEF_PROC(sub_53A8F0, 0x0053A8F0);
+MC2_DEF_PROC(sub_5ECB90, 0x005ECB90);
+MC2_DEF_PROC(sub_5ED220, 0x005ED220);
+MC2_DEF_PROC(sub_5ED240, 0x005ED240);
+MC2_DEF_PROC(sub_5EDA50, 0x005EDA50);
+MC2_DEF_PROC(sub_5EE9F0, 0x005EE9F0);
+MC2_DEF_PROC(sub_5F0BC0, 0x005F0BC0);
+MC2_DEF_PROC(sub_5F12F0, 0x005F12F0);
+MC2_DEF_PROC(sub_5F9E20, 0x005F9E20);
+MC2_DEF_PROC(sub_5F9E30, 0x005F9E30);
+MC2_DEF_PROC(sub_5FAFE0, 0x005FAFE0);
+MC2_DEF_PROC(sub_5FD2D0, 0x005FD2D0);
+MC2_DEF_PROC(sub_612130, 0x00612130);
+MC2_DEF_PROC(sub_612C70, 0x00612C70);
+MC2_DEF_PROC(sub_613DD0, 0x00613DD0);
+MC2_DEF_PROC(sub_617760, 0x00617760);
 
-const char *&global_texture_dir_name = MC2_GLOBAL<const char *>(0x006754AC);
-const char *&global_mod_dir_name = MC2_GLOBAL<const char *>(0x00675518);
+MC2_DEF_GLOBAL(global_texture_dir_name, 0x006754AC);
+MC2_DEF_GLOBAL(global_mod_dir_name, 0x00675518);
 
-std::uint32_t &glo_674FAC = MC2_GLOBAL<std::uint32_t>(0x00674FAC);
-std::uint32_t &glo_674FB0 = MC2_GLOBAL<std::uint32_t>(0x00674FB0);
-std::uint32_t &glo_674FB4 = MC2_GLOBAL<std::uint32_t>(0x00674FB4);
-std::uint32_t &glo_674FB8 = MC2_GLOBAL<std::uint32_t>(0x00674FB8);
-std::uint32_t &glo_675030 = MC2_GLOBAL<std::uint32_t>(0x00675030);
-std::uint32_t &glo_6754A4 = MC2_GLOBAL<std::uint32_t>(0x006754A4);
-float &glo_6754A8 = MC2_GLOBAL<float>(0x006754A8);
+MC2_DEF_GLOBAL(glo_674FAC, 0x00674FAC);
+MC2_DEF_GLOBAL(glo_674FB0, 0x00674FB0);
+MC2_DEF_GLOBAL(glo_674FB4, 0x00674FB4);
+MC2_DEF_GLOBAL(glo_674FB8, 0x00674FB8);
+MC2_DEF_GLOBAL(glo_675030, 0x00675030);
+MC2_DEF_GLOBAL(glo_6754A4, 0x006754A4);
+MC2_DEF_GLOBAL(glo_6754A8, 0x006754A8);
 
-std::uint32_t &global_LanguageID = MC2_GLOBAL<std::uint32_t>(0x006C2C5C); // glo_6C2C5C
-std::uint8_t &glo_6CE210 = MC2_GLOBAL<std::uint8_t>(0x006CE210);
-std::uint8_t &glo_6CE211 = MC2_GLOBAL<std::uint8_t>(0x006CE211);
+MC2_DEF_GLOBAL(global_LanguageID, 0x006C2C5C); // glo_6C2C5C
+MC2_DEF_GLOBAL(glo_6CE210, 0x006CE210);
+MC2_DEF_GLOBAL(glo_6CE211, 0x006CE211);
 
-char (&glo_6C3690)[0x200] = MC2_GLOBAL<char[0x200]>(0x006C3690);
+MC2_DEF_GLOBAL(glo_6C3690, 0x006C3690);
 
-HWND &global_hWnd = MC2_GLOBAL<HWND>(0x00858364);
-std::uint8_t &glo_858371 = MC2_GLOBAL<std::uint8_t>(0x00858371);
-std::uint8_t &glo_858373 = MC2_GLOBAL<std::uint8_t>(0x00858373);
-std::uint8_t &glo_858374 = MC2_GLOBAL<std::uint8_t>(0x00858374);
-std::uint8_t &glo_858375 = MC2_GLOBAL<std::uint8_t>(0x00858375);
-std::uint8_t &glo_858376 = MC2_GLOBAL<std::uint8_t>(0x00858376);
-std::uint8_t &glo_858377 = MC2_GLOBAL<std::uint8_t>(0x00858377);
-std::uint32_t &glo_85837C = MC2_GLOBAL<std::uint32_t>(0x0085837C);
-std::uint32_t &glo_858388 = MC2_GLOBAL<std::uint32_t>(0x00858388);
-float &glo_85838C = MC2_GLOBAL<float>(0x0085838C);
-std::uint32_t &glo_85839C = MC2_GLOBAL<std::uint32_t>(0x0085839C);
-float &glo_8583B0 = MC2_GLOBAL<float>(0x008583B0);
-bool &glo_pal_mode = MC2_GLOBAL<bool>(0x0085AE8C);
-bool &glo_85D1C0 = MC2_GLOBAL<bool>(0x0085D1C0);
-std::uint32_t &glo_85FBB0 = MC2_GLOBAL<std::uint32_t>(0x0085FBB0);
-std::uint32_t &glo_85FBC4 = MC2_GLOBAL<std::uint32_t>(0x0085FBC4);
-float &glo_85FBDC = MC2_GLOBAL<float>(0x0085FBDC);
-float &glo_85FBE0 = MC2_GLOBAL<float>(0x0085FBE0);
-std::uint8_t &glo_8602D4 = MC2_GLOBAL<std::uint8_t>(0x008602D4);
-bool(__cdecl *&glo_860AD8)(const char *, bool) = MC2_GLOBAL<bool(__cdecl *)(const char *, bool)>(0x00860AD8);
-std::uint32_t &glo_86D8A8 = MC2_GLOBAL<std::uint32_t>(0x0086D8A8);
-char * &global_WindowText = MC2_GLOBAL<char *>(0x00858390);
-std::uint32_t &global_SKUVersion = MC2_GLOBAL<std::uint32_t>(0x006C2C58);
-std::uint32_t &glo_66315C = MC2_GLOBAL<std::uint32_t>(0x0066315C);
+MC2_DEF_GLOBAL(global_hWnd, 0x00858364);
+MC2_DEF_GLOBAL(glo_858371, 0x00858371);
+MC2_DEF_GLOBAL(glo_858373, 0x00858373);
+MC2_DEF_GLOBAL(glo_858374, 0x00858374);
+MC2_DEF_GLOBAL(glo_858375, 0x00858375);
+MC2_DEF_GLOBAL(glo_858376, 0x00858376);
+MC2_DEF_GLOBAL(glo_858377, 0x00858377);
+MC2_DEF_GLOBAL(glo_85837C, 0x0085837C);
+MC2_DEF_GLOBAL(glo_858388, 0x00858388);
+MC2_DEF_GLOBAL(glo_85838C, 0x0085838C);
+MC2_DEF_GLOBAL(glo_85839C, 0x0085839C);
+MC2_DEF_GLOBAL(glo_8583B0, 0x008583B0);
+MC2_DEF_GLOBAL(glo_pal_mode, 0x0085AE8C);
+MC2_DEF_GLOBAL(glo_85D1C0, 0x0085D1C0);
+MC2_DEF_GLOBAL(glo_85FBB0, 0x0085FBB0);
+MC2_DEF_GLOBAL(glo_85FBC4, 0x0085FBC4);
+MC2_DEF_GLOBAL(glo_85FBDC, 0x0085FBDC);
+MC2_DEF_GLOBAL(glo_85FBE0, 0x0085FBE0);
+MC2_DEF_GLOBAL(glo_8602D4, 0x008602D4);
+MC2_DEF_GLOBAL(glo_860AD8, 0x00860AD8);
+MC2_DEF_GLOBAL(glo_86D8A8, 0x0086D8A8);
+MC2_DEF_GLOBAL(global_WindowText, 0x00858390);
+MC2_DEF_GLOBAL(global_SKUVersion, 0x006C2C58);
+MC2_DEF_GLOBAL(glo_66315C, 0x0066315C);
 
-std::uint32_t &glo_6C2C60 = MC2_GLOBAL<std::uint32_t>(0x006C2C60);
-std::uint8_t &glo_6C2C64 = MC2_GLOBAL<std::uint8_t>(0x006C2C64);
-std::uint8_t &glo_unlock_races = MC2_GLOBAL<std::uint8_t>(0x006C2C66);
-std::uint8_t &glo_unlock_cities = MC2_GLOBAL<std::uint8_t>(0x006C2C67);
-std::uint8_t &glo_unlock_vehicles = MC2_GLOBAL<std::uint8_t>(0x006C2C68);
-std::uint8_t &glo_unlock_customization = MC2_GLOBAL<std::uint8_t>(0x006C2C69);
-std::uint8_t &glo_unlock_abilities = MC2_GLOBAL<std::uint8_t>(0x006C2C6A);
-std::uint8_t &glo_unlock_difficulty = MC2_GLOBAL<std::uint8_t>(0x006C2C6B);
-char *glo_860120 = MC2_POINTER<char>(0x00860120);
-void(__cdecl *&glo_6754C4)() = MC2_GLOBAL<void(__cdecl *)()>(0x006754C4);
-void(__cdecl *&glo_858328)() = MC2_GLOBAL<void(__cdecl *)()>(0x00858328);
+MC2_DEF_GLOBAL(glo_6C2C60, 0x006C2C60);
+MC2_DEF_GLOBAL(glo_6C2C64, 0x006C2C64);
+MC2_DEF_GLOBAL(glo_unlock_races, 0x006C2C66);
+MC2_DEF_GLOBAL(glo_unlock_cities, 0x006C2C67);
+MC2_DEF_GLOBAL(glo_unlock_vehicles, 0x006C2C68);
+MC2_DEF_GLOBAL(glo_unlock_customization, 0x006C2C69);
+MC2_DEF_GLOBAL(glo_unlock_abilities, 0x006C2C6A);
+MC2_DEF_GLOBAL(glo_unlock_difficulty, 0x006C2C6B);
+MC2_DEF_POINTER(glo_860120, 0x00860120);
+MC2_DEF_GLOBAL(glo_6754C4, 0x006754C4);
+MC2_DEF_GLOBAL(glo_858328, 0x00858328);

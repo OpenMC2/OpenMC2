@@ -54,7 +54,7 @@ constexpr char *levelEscClear[] = {
 // I'm not exactly sure what the purpose of these are, but they're in the code.
 
 inline void ind_86D284(char *text) {
-    void (*glo_86D284)(char *) = MC2_GLOBAL<void (*)(char *)>(0x0086D284);
+    MC2_PROC_PTR<void, char *> glo_86D284 = MC2_GLOBAL<MC2_PROC_PTR<void, char *>>(0x0086D284);
     if (glo_86D284 != nullptr) {
         MC2_GLOBAL<std::uint8_t>(0x0086D280) = 1;
         glo_86D284(text);
@@ -63,13 +63,13 @@ inline void ind_86D284(char *text) {
 
 // mc2: 0x00618470
 inline void ind_86D290() {
-    void (*glo_86D290)() = MC2_GLOBAL<void (*)()>(0x0086D290);
+    MC2_PROC_PTR<void> glo_86D290 = MC2_GLOBAL<MC2_PROC_PTR<void>>(0x0086D290);
     if (glo_86D290 != nullptr) glo_86D290();
 }
 
 // mc2: 0x00618480
 inline void ind_86D294() {
-    void (*glo_86D294)() = MC2_GLOBAL<void (*)()>(0x0086D294);
+    MC2_PROC_PTR<void> glo_86D294 = MC2_GLOBAL<MC2_PROC_PTR<void>>(0x0086D294);
     if (glo_86D294 != nullptr) glo_86D294();
 }
 
@@ -115,7 +115,7 @@ static void print_ansi_esc(char *text) {
 
 
 // mc2: 0x006184A0
-void __cdecl mc2_log_level_v(LogLevels level, const char *format, va_list ap) {
+void mc2_log_level_v(LogLevels level, const char *format, va_list ap) {
     char text[0x1000];
     std::vsnprintf(text, 0x1000, format, ap);
 
@@ -213,14 +213,14 @@ void mc2_log_fatal(const char *format, ...) {
     std::terminate();
 }
 
-AUTO_HOOK_FNPTR(0x00679880, mc2_log_level_v);
+MC2_DEF_GLOBAL(global_mbox_fatal, 0x00679844); // glo_679844
+MC2_DEF_GLOBAL(global_log_level_flags, 0x00679848); // glo_679848
 
-bool &global_mbox_fatal = MC2_GLOBAL<bool>(0x00679844); // glo_679844
-std::uint8_t &global_log_level_flags = MC2_GLOBAL<std::uint8_t>(0x00679848); // glo_679848
+MC2_DEF_GLOBAL(global_clog_begin, 0x0086CC38); // glo_86CC38
+MC2_DEF_GLOBAL(global_clog_end, 0x0086CC3C); // glo_86CC3C
+MC2_DEF_GLOBAL(global_mbox_error, 0x0086D288); // glo_86D288
+MC2_DEF_GLOBAL(glo_86D298, 0x0086D298);
 
-std::int32_t &global_clog_begin = MC2_GLOBAL<std::int32_t>(0x0086CC38); // glo_86CC38
-std::int32_t &global_clog_end = MC2_GLOBAL<std::int32_t>(0x0086CC3C); // glo_86CC3C
-bool &global_mbox_error = MC2_GLOBAL<bool>(0x0086D288); // glo_86D288
-bool &glo_86D298 = MC2_GLOBAL<bool>(0x0086D298);
+MC2_DEF_POINTER(loc_86CC40, 0x0086CC40);
 
-char *loc_86CC40 = MC2_POINTER<char>(0x0086CC40);
+AUTO_HOOK_FNPTR(0x00679880, &mc2_log_level_v);

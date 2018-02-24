@@ -19,6 +19,7 @@
 #pragma once
 
 #include <cstdint>
+#include <type_traits>
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -30,107 +31,164 @@
 
 // Helper Functions
 
-extern "C" __declspec(dllimport) void mc2_import_start();
+template<class Ret, class... Args> class MC2_PROC_PTR;
+template<class Ret, class... Args> class MC2_PROC_VARARG_PTR;
+template<class Ret, class... Args> class MC2_PROC_STDCALL_PTR;
+template<class Ret, class C, class... Args> class MC2_PROC_MEMBER_PTR;
 
-inline std::intptr_t MC2_OFFSET() {
-    return reinterpret_cast<std::intptr_t>(&mc2_import_start) - 0x00401000;
-}
+namespace detail {
+    extern "C" __declspec(dllimport) void mc2_import_start();
+    template<class T>
+    inline T MC2_POINTER_BASIC(const std::uintptr_t address) {
+        return reinterpret_cast<T>(reinterpret_cast<std::uintptr_t>(&mc2_import_start) + address - 0x00401000);
+    }
 
-template<class T>
-inline T &MC2_GLOBAL(const std::uintptr_t address) {
-    return *reinterpret_cast<T *>(MC2_OFFSET() + address);
-}
+    template<class F, class X, class Ret, class... Args>
+    class MC2_PROC_PTR_BASE {
+    protected:
+        F func;
+        using ptr_type = F;
+        template<class T> friend class Auto_Hook_x86_Obj;
+        template<class T> friend class Auto_Hook_Fnptr_Obj;
+        template<class... Ts> friend void Hook_x86(const MC2_PROC_PTR_BASE<Ts...> &in, const MC2_PROC_PTR_BASE<Ts...> &out);
 
-template<class T>
-inline T *MC2_POINTER(const std::uintptr_t address) {
-    return reinterpret_cast<T *>(MC2_OFFSET() + address);
-}
+        constexpr MC2_PROC_PTR_BASE(F func) : func(func) { }
+        explicit MC2_PROC_PTR_BASE(std::uint32_t address) : func(detail::MC2_POINTER_BASIC<F>(address)) { }
 
-template<class T, class... Types>
-inline T MC2_PROC(const std::uintptr_t address, Types... args) {
-    return reinterpret_cast<T(__cdecl *)(Types...)>(MC2_OFFSET() + address)(args...);
-}
-
-template<class T, class X, class... Types>
-inline T MC2_PROC_MEMBER(const std::uintptr_t address, X *const self, Types... args) {
-    return reinterpret_cast<T(__thiscall *)(X *, Types...)>(MC2_OFFSET() + address)(self, args...);
-}
-
-template<class T, class... Types>
-inline T (&__cdecl MC2_PROC_PTR(const std::uintptr_t address))(Types...) {
-    return *reinterpret_cast<T(__cdecl *)(Types...)>(MC2_OFFSET() + address);
-}
-
-template<class T, class... Types>
-inline T (&__cdecl MC2_PROC_PTR_VA(const std::uintptr_t address))(Types..., ...) {
-    return *reinterpret_cast<T(__cdecl *)(Types..., ...)>(MC2_OFFSET() + address);
-}
-
-template<class T, class X, class... Types>
-inline T(__thiscall *MC2_PROC_MEMBER_PTR(const std::uintptr_t address))(X *, Types...) {
-    return reinterpret_cast<T(__thiscall *)(X *, Types...)>(MC2_OFFSET() + address);
-}
-
-
-template<class T, class... Types>
-inline void Hook_x86(T(&in)(Types...), T(&out)(Types...)) {
-#pragma pack(push, 1)
-    struct x86_jump {
-        const std::uint8_t cmd = 0xE9;
-        std::uintptr_t addr;
+    public:
+        Ret operator()(Args... args) const { return this->func(args...); }
+        friend constexpr bool operator==(const X &a, const X &b) { return a.func == b.func; }
+        friend constexpr bool operator!=(const X &a, const X &b) { return a.func != b.func; }
     };
+#define MC2_PROC_PTR_CONSTRUCTORS(X, ...) \
+constexpr X(typename __VA_ARGS__::ptr_type func) : __VA_ARGS__(func) { }\
+explicit X(std::uint32_t address) : __VA_ARGS__(address) { }
+
+    template<class Ret, class... Args> using CDECL_PTR = Ret(__cdecl *)(Args...);
+    template<class Ret, class... Args> using CDECL_BASE = MC2_PROC_PTR_BASE<CDECL_PTR<Ret, Args...>, MC2_PROC_PTR<Ret, Args...>, Ret, Args...>;
+    template<class Ret, class... Args> using VARARG_PTR = Ret(__cdecl *)(Args..., ...);
+    template<class Ret, class... Args> using VARARG_BASE = MC2_PROC_PTR_BASE<VARARG_PTR<Ret, Args...>, MC2_PROC_VARARG_PTR<Ret, Args...>, Ret, Args...>;
+    template<class Ret, class... Args> using STDCALL_PTR = Ret(__stdcall *)(Args...);
+    template<class Ret, class... Args> using STDCALL_BASE = MC2_PROC_PTR_BASE<STDCALL_PTR<Ret, Args...>, MC2_PROC_STDCALL_PTR<Ret, Args...>, Ret, Args...>;
+    template<class Ret, class C, class... Args> using MEMBER_PTR = Ret(__thiscall *)(C *, Args...);
+    template<class Ret, class C, class... Args> using MEMBER_MPTR = Ret(__thiscall C::*)(Args...);
+    template<class Ret, class C, class... Args> using MEMBER_BASE =  MC2_PROC_PTR_BASE<MEMBER_PTR<Ret, C, Args...>, MC2_PROC_MEMBER_PTR<Ret, C, Args...>, Ret, C *, Args...>;
+
+    template<class T, class Ret, class C, class... Args>
+    inline MEMBER_PTR<Ret, T, Args...> CAST(MEMBER_MPTR<Ret, C, Args...> mptr) {
+        union { MEMBER_MPTR<Ret, C, Args...> member; MEMBER_PTR<Ret, T, Args...> thiscall; };
+        member = mptr; return thiscall;
+    }
+    template<class T, class Ret, class C, class... Args>
+    inline MEMBER_PTR<Ret, T, Args...> CAST(MEMBER_PTR<Ret, C, Args...> ptr) {
+        return reinterpret_cast<MEMBER_PTR<Ret, T, Args...>>(ptr);
+    }
+
+    // Type Safety Magic
+    template<class T> using remove_ref_t = typename std::enable_if<std::is_lvalue_reference<T>::value, typename std::remove_reference<T>::type>::type;
+    template<class T> using remove_ptr_t = typename std::enable_if<std::is_pointer<T>::value, typename std::remove_pointer<T>::type>::type;
+    template<class T> class is_func : public std::conditional<std::is_pointer<T>::value, is_func<typename std::remove_pointer<T>::type>, std::is_function<T>>::type { };
+    template<class T> using non_func_t = typename std::enable_if<!is_func<T>::value, T>::type;
+
+
+    template<class... Ts>
+    inline void Hook_x86(const MC2_PROC_PTR_BASE<Ts...> &in, const MC2_PROC_PTR_BASE<Ts...> &out) {
+#pragma pack(push, 1)
+        struct x86_jump {
+            const std::uint8_t cmd = 0xE9;
+            std::uintptr_t addr;
+        };
 #pragma pack(pop)
-    static_assert(sizeof(x86_jump) == 5, "pragma pack failed");
+        static_assert(sizeof(x86_jump) == 5, "pragma pack failed");
 
-    x86_jump cmd;
-    cmd.addr = reinterpret_cast<std::uintptr_t>(out) - reinterpret_cast<std::uintptr_t>(in) - 5;
-    WriteProcessMemory(GetCurrentProcess(), in, &cmd, 5, nullptr);
+        x86_jump cmd;
+        cmd.addr = reinterpret_cast<std::uintptr_t>(out.func) - reinterpret_cast<std::uintptr_t>(in.func) - 5;
+        WriteProcessMemory(GetCurrentProcess(), in.func, &cmd, 5, nullptr);
+    }
+
+    template<class T> class Auto_Hook_x86_Obj { public: Auto_Hook_x86_Obj(std::uintptr_t in, const T &out) { Hook_x86(T(in), out); } };
+    template<class Ret, class... Args> Auto_Hook_x86_Obj<MC2_PROC_PTR<Ret, Args...>> Auto_Hook_x86(std::uintptr_t in, CDECL_PTR<Ret, Args...> out) { return { in, out }; }
+    template<class Ret, class... Args> Auto_Hook_x86_Obj<MC2_PROC_VARARG_PTR<Ret, Args...>> Auto_Hook_Vararg_x86(std::uintptr_t in, VARARG_PTR<Ret, Args...> out) { return { in, out }; }
+    template<class Ret, class... Args> Auto_Hook_x86_Obj<MC2_PROC_STDCALL_PTR<Ret, Args...>> Auto_Hook_Stdcall_x86(std::uintptr_t in, STDCALL_PTR<Ret, Args...> out) { return { in, out }; }
+    template<class Ret, class C, class... Args> Auto_Hook_x86_Obj<MC2_PROC_MEMBER_PTR<Ret, C, Args...>> Auto_Hook_Member_x86(std::uintptr_t in, MEMBER_PTR<Ret, C, Args...> out) { return { in, out }; }
+    template<class Ret, class C, class... Args> Auto_Hook_x86_Obj<MC2_PROC_MEMBER_PTR<Ret, C, Args...>> Auto_Hook_Member_x86(std::uintptr_t in, MEMBER_MPTR<Ret, C, Args...> out) { return { in, out }; }
+
+    template<class T> class Auto_Hook_Fnptr_Obj { public: Auto_Hook_Fnptr_Obj(std::uintptr_t in, const T &out) { *MC2_POINTER_BASIC<T *>(in) = out; } };
+    template<class Ret, class... Args> Auto_Hook_Fnptr_Obj<MC2_PROC_PTR<Ret, Args...>> Auto_Hook_Fnptr(std::uintptr_t in, CDECL_PTR<Ret, Args...> out) { return { in, out }; }
+    template<class Ret, class... Args> Auto_Hook_Fnptr_Obj<MC2_PROC_VARARG_PTR<Ret, Args...>> Auto_Hook_Vararg_Fnptr(std::uintptr_t in, VARARG_PTR<Ret, Args...> out) { return { in, out }; }
+    template<class Ret, class... Args> Auto_Hook_Fnptr_Obj<MC2_PROC_STDCALL_PTR<Ret, Args...>> Auto_Hook_Stdcall_Fnptr(std::uintptr_t in, STDCALL_PTR<Ret, Args...> out) { return { in, out }; }
+    template<class Ret, class C, class... Args> Auto_Hook_Fnptr_Obj<MC2_PROC_MEMBER_PTR<Ret, C, Args...>> Auto_Hook_Member_Fnptr(std::uintptr_t in, MEMBER_PTR<Ret, C, Args...> out) { return { in, out }; }
+    template<class Ret, class C, class... Args> Auto_Hook_Fnptr_Obj<MC2_PROC_MEMBER_PTR<Ret, C, Args...>> Auto_Hook_Member_Fnptr(std::uintptr_t in, MEMBER_MPTR<Ret, C, Args...> out) { return { in, out }; }
 }
 
-template<class T, class... Types>
-struct Auto_Hook_x86_Obj {
-    Auto_Hook_x86_Obj(T(&in)(Types...), T(&out)(Types...)) { Hook_x86(in, out); }
+template<class T> inline detail::non_func_t<T> &MC2_GLOBAL(const std::uintptr_t address) { return *detail::MC2_POINTER_BASIC<T *>(address); }
+template<class T> inline detail::non_func_t<T> *MC2_POINTER(const std::uintptr_t address) { return detail::MC2_POINTER_BASIC<T *>(address); }
+#define MC2_DEF_GLOBAL(var, address) decltype(var) var = MC2_GLOBAL<detail::remove_ref_t<decltype(var)>>(address)
+#define MC2_DEF_POINTER(var, address) decltype(var) var = MC2_POINTER<detail::remove_ptr_t<decltype(var)>>(address)
+#define MC2_DEF_PROC(proc, address) decltype(proc) proc(address)
+
+template<class Ret, class... Args>
+class MC2_PROC_PTR : public detail::CDECL_BASE<Ret, Args...> {
+public:
+    MC2_PROC_PTR_CONSTRUCTORS(MC2_PROC_PTR, detail::CDECL_BASE<Ret, Args...>)
 };
 
-template<class T, class... Types>
-Auto_Hook_x86_Obj<T, Types...> Auto_Hook_x86_Func(T(&in)(Types...), T(&out)(Types...)) {
-    return Auto_Hook_x86_Obj<T, Types...>(in, out);
-}
-
-template<class T, class... Types>
-Auto_Hook_x86_Obj<T, Types...> Auto_Hook_x86_Func(std::uint32_t in, T(&out)(Types...)) {
-    return Auto_Hook_x86_Obj<T, Types...>(MC2_PROC_PTR<T, Types...>(in), out);
-}
-
-#define AUTO_HOOK_X86(in, out) static const auto _hookobj_##in (Auto_Hook_x86_Func(in, out))
-
-
-template<class T, class... Types>
-inline void Hook_Fnptr(T(*&in)(Types...), T(&out)(Types...)) {
-    in = &out;
-}
-
-template<class T, class... Types>
-struct Auto_Hook_Fnptr_Obj {
-    Auto_Hook_Fnptr_Obj(T(*&in)(Types...), T(&out)(Types...)) { Hook_Fnptr(in, out); }
+template<class Ret, class... Args>
+class MC2_PROC_VARARG_PTR : public detail::VARARG_BASE<Ret, Args...> {
+public:
+    MC2_PROC_PTR_CONSTRUCTORS(MC2_PROC_VARARG_PTR, detail::VARARG_BASE<Ret, Args...>)
+    template<class... VARGS> Ret operator()(Args... args, VARGS... vargs) const { return this->func(args..., vargs...); }
 };
 
-template<class T, class... Types>
-Auto_Hook_Fnptr_Obj<T, Types...> Auto_Hook_Fnptr_Func(T(*&in)(Types...), T(&out)(Types...)) {
-    return Auto_Hook_Fnptr_Obj<T, Types...>(in, out);
+template<class Ret, class... Args>
+class MC2_PROC_STDCALL_PTR : public detail::STDCALL_BASE<Ret, Args...> {
+public:
+    MC2_PROC_PTR_CONSTRUCTORS(MC2_PROC_STDCALL_PTR, detail::STDCALL_BASE<Ret, Args...>)
+};
+
+template<class Ret, class C, class... Args>
+class MC2_PROC_MEMBER_PTR : public detail::MEMBER_BASE<Ret, C, Args...> {
+private:
+    using super = detail::MEMBER_BASE<Ret, C, Args...>;
+public:
+    MC2_PROC_PTR_CONSTRUCTORS(MC2_PROC_MEMBER_PTR, super)
+    MC2_PROC_MEMBER_PTR(detail::MEMBER_MPTR<Ret, C, Args...> func) : super(detail::CAST<C>(func)) { }
+    constexpr MC2_PROC_MEMBER_PTR(std::nullptr_t) : super(nullptr) { }
+};
+
+template<class Ret, class... Args>
+class MC2_PROC_MEMBER_PTR<Ret, void, Args...> : public detail::MEMBER_BASE<Ret, void, Args...> {
+private:
+    using super = detail::MEMBER_BASE<Ret, void, Args...>;
+public:
+    MC2_PROC_PTR_CONSTRUCTORS(MC2_PROC_MEMBER_PTR, super)
+    template<class C> MC2_PROC_MEMBER_PTR(detail::MEMBER_PTR<Ret, C, Args...> func) : super(detail::CAST<void>(func)) { }
+    template<class C> MC2_PROC_MEMBER_PTR(detail::MEMBER_MPTR<Ret, C, Args...> func) : super(detail::CAST<void>(func)) { }
+    constexpr MC2_PROC_MEMBER_PTR(std::nullptr_t) : super(nullptr) { }
+};
+
+#undef MC2_PROC_PTR_CONSTRUCTORS
+
+template<std::uintptr_t addr, class T, class X, class... Args>
+T MC2_CALL_MEMBER(X *x, Args... args) {
+    static const MC2_PROC_MEMBER_PTR<T, X, Args...> func(addr);
+    return func(x, args...);
 }
 
-template<class T, class... Types>
-Auto_Hook_Fnptr_Obj<T, Types...> Auto_Hook_Fnptr_Func(std::uint32_t in, T(&out)(Types...)) {
-    return Auto_Hook_Fnptr_Obj<T, Types...>(MC2_GLOBAL<T(*)(Types...)>(in), out);
-}
+#define AUTO_HOOK_X86(in, out) static const auto _hookobj_##in (detail::Auto_Hook_x86(in, out))
+#define AUTO_HOOK_VARARG_X86(in, out) static const auto _hookobj_##in (detail::Auto_Hook_Vararg_x86(in, out))
+#define AUTO_HOOK_STDCALL_X86(in, out) static const auto _hookobj_##in (detail::Auto_Hook_Stdcall_x86(in, out))
+#define AUTO_HOOK_MEMBER_X86(in, out) static const auto _hookobj_##in (detail::Auto_Hook_Member_x86(in, out))
 
-#define AUTO_HOOK_FNPTR(in, out) static const auto _hookobj_##in (Auto_Hook_Fnptr_Func(in, out))
+#define AUTO_HOOK_FNPTR(in, out) static const auto _hookobj_##in (detail::Auto_Hook_Fnptr(in, out))
+#define AUTO_HOOK_VARARG_FNPTR(in, out) static const auto _hookobj_##in (detail::Auto_Hook_Vararg_Fnptr(in, out))
+#define AUTO_HOOK_STDCALL_FNPTR(in, out) static const auto _hookobj_##in (detail::Auto_Hook_Stdcall_Fnptr(in, out))
+#define AUTO_HOOK_MEMBER_FNPTR(in, out) static const auto _hookobj_##in (detail::Auto_Hook_Member_Fnptr(in, out))
 
 
 // Functions
 
-extern std::uint32_t(__cdecl &sub_61A5DC)(char *);
+extern MC2_PROC_PTR<std::uint32_t, char *> sub_61A5DC;
 
 // Global Variables
 

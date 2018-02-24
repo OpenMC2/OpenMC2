@@ -18,4 +18,4 @@
 
 #include "unk404B90.hpp"
 
-unk_404B90 *&glo_6C3890 = MC2_GLOBAL<unk_404B90 *>(0x006C3890);
+MC2_DEF_GLOBAL(glo_6C3890, 0x006C3890);

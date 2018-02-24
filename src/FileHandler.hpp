@@ -32,17 +32,16 @@ public:
     };
 
     struct FuncTable {
-        HANDLE(*open_file)(const char *path, bool unk2); // 0x00
-        HANDLE(*sub_04)(const char *path);
-        std::int32_t(*read)(HANDLE, void *, std::int32_t); // 0x08
-        std::int32_t(*write)(HANDLE, const void *, std::int32_t); // 0x0C
-        std::int32_t(*seek)(HANDLE, std::int32_t, Seek); // 0x10
-        void(*close_file)(HANDLE file); // 0x14
-        void(*sub_18)();
-        std::int32_t(*get_size)(HANDLE); // 0x1C
-        std::int32_t(*sub_20)(HANDLE);
-        bool(*sub_24)();
-        void(*sub_28)();
+        MC2_PROC_PTR<HANDLE, const char *, bool> open_file; // 0x00
+        MC2_PROC_PTR<HANDLE, const char *> sub_04;
+        MC2_PROC_PTR<std::int32_t, HANDLE, void *, std::int32_t> read; // 0x08
+        MC2_PROC_PTR<std::int32_t, HANDLE, const void *, std::int32_t> write; // 0x0C
+        MC2_PROC_PTR<std::int32_t, HANDLE, std::int32_t, Seek> seek; // 0x10
+        MC2_PROC_PTR<void, HANDLE> close_file; // 0x14
+        MC2_PROC_PTR<void> sub_18;
+        MC2_PROC_PTR<std::int32_t, HANDLE> get_size; // 0x1C
+        MC2_PROC_PTR<std::int32_t, HANDLE> sub_20;
+        MC2_PROC_PTR<bool> sub_24;
     };
 
     FuncTable *file_funcs; // 0x00
@@ -92,7 +91,7 @@ void sub_618050(FileHandler *a, const char *format, ...);
 // mc2: 0x00617BB0
 FileHandler *register_file_handle(const char * path, HANDLE file, FileHandler::FuncTable * fileFuncs);
 
-extern void(__cdecl &sub_617AA0)();
+extern MC2_PROC_PTR<void> sub_617AA0;
 
 extern std::array<FileHandler, 12> &glo_FileHandles;
 extern std::array<char[0x1000], 12> &glo_FileHandle_TextBuffer;

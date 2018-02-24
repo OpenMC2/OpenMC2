@@ -58,18 +58,18 @@ private:
 public:
     unk_612850(std::uint32_t a = 101, std::uint32_t b = 0, std::uint32_t c = 32,
         std::uint32_t d = 1, std::uint32_t e = 0) {
-        MC2_PROC_MEMBER<void>(0x00612850, this, a, b, c, d, e);
+        MC2_CALL_MEMBER<0x00612850, void>(this, a, b, c, d, e);
     }
 
     // mc2: 0x006126B0
     ~unk_612850() {
-        MC2_PROC_MEMBER<void>(0x006126B0, this);
+        MC2_CALL_MEMBER<0x006126B0, void>(this);
     }
 
     void loc_611DC0();
     
     inline hash_map_entry *sub_611DF0(const char *a, unk_612150 *b, hash_map_entry *unk_loc) {
-        return MC2_PROC_MEMBER<hash_map_entry*>(0x00611DF0, this, a, b, unk_loc);
+        return MC2_CALL_MEMBER<0x00611DF0, hash_map_entry*>(this, a, b, unk_loc);
     }
 
     bool sub_612150(const char *a, unk_612150 *b);
@@ -78,13 +78,13 @@ public:
     unk_612150* sub_6124A0(const char *a);
 
     inline void sub_6125A0(uint32_t new_max_entries) {
-        MC2_PROC_MEMBER<void>(0x006125A0, this, new_max_entries);
+        return MC2_CALL_MEMBER<0x006125A0, void>(this, new_max_entries);
     }
 
     bool sub_611FE0(indexed_map_entry *eax);
 
     inline void sub_612050() {
-        MC2_PROC_MEMBER<void>(0x00612050, this);
+        return MC2_CALL_MEMBER<0x00612050, void>(this);
     }
 
     bool sub_612020(indexed_map_entry *eax);

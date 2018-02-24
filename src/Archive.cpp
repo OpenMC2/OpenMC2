@@ -251,10 +251,11 @@ void sub_5FDD20() {
     }
 }
 
-std::uint8_t *(__cdecl &sub_5FCBF0)(Archive::meta_t *, std::uint32_t, std::uint8_t *, std::uint32_t) =
-    MC2_PROC_PTR<std::uint8_t *, Archive::meta_t *, std::uint32_t, std::uint8_t *, std::uint32_t>(0x005FCBF0);
-void(__cdecl &sub_5FCFD0)(void *, std::uint32_t) = MC2_PROC_PTR<void, void *, std::uint32_t>(0x005FCFD0);
+MC2_DEF_PROC(sub_5FCBF0, 0x005FCBF0);
+MC2_DEF_PROC(sub_5FCFD0, 0x005FCFD0);
 
-bool &glo_85CD28 = MC2_GLOBAL<bool>(0x0085CD28);
-bool &glo_85CD30 = MC2_GLOBAL<bool>(0x0085CD30);
-Archive *&glo_85D1C4 = MC2_GLOBAL<Archive *>(0x0085D1C4);
+MC2_DEF_GLOBAL(glo_85CD28, 0x0085CD28);
+MC2_DEF_GLOBAL(glo_85CD30, 0x0085CD30);
+MC2_DEF_GLOBAL(glo_85D1C4, 0x0085D1C4);
+
+AUTO_HOOK_MEMBER_X86(0x005FD3A0, &Archive::sub_5FD3A0);

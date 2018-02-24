@@ -23,17 +23,17 @@
 
 // mc2:0x00659B0C
 unk_613330::vtable_t unk_613330::vtable_values = {
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005ED480),
-    MC2_PROC_MEMBER_PTR<void, unk_613330, char*, std::uint32_t, char*, char*>(0x00619AB9),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00619AB9),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00619AB9),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005CA940),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00406990),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613770),
+    MC2_PROC_MEMBER_PTR<void, void>(0x005ED480),
+    MC2_PROC_MEMBER_PTR<void, void, char*, std::uint32_t, char*, char*>(0x00619AB9),
+    MC2_PROC_MEMBER_PTR<void, void>(0x00619AB9),
+    MC2_PROC_MEMBER_PTR<void, void>(0x00619AB9),
+    MC2_PROC_MEMBER_PTR<void, void>(0x005CA940),
+    MC2_PROC_MEMBER_PTR<void, void>(0x00406990),
+    MC2_PROC_MEMBER_PTR<void, void>(0x00613770),
     &unk_613330::impl_1C,
     &unk_613330::impl_20,
     &unk_613330::impl_24,
-    &unk_613330::impl_28
+    &unk_613330::impl_28,
 };
 
 unk_613330::unk_613330() : vtable(&unk_613330::vtable_values) {
@@ -98,4 +98,4 @@ void unk_613330::impl_28(char *destination, const char *unk2, const char *extens
     }
 }
 
-unk_613330 *&glo_860220 = MC2_GLOBAL<unk_613330 *>(0x00860220);
+MC2_DEF_GLOBAL(glo_860220, 0x00860220);

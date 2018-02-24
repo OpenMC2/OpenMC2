@@ -23,17 +23,17 @@
 
 // mc2:0x00659B38
 unk_613360::vtable_t unk_613360::vtable_values = {
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005ED480),
+    MC2_PROC_MEMBER_PTR<void, void>(0x005ED480),
     &unk_613360::impl_04,
-    MC2_PROC_MEMBER_PTR<void, unk_613360>(0x00613380),
+    MC2_PROC_MEMBER_PTR<void, void>(0x00613380),
     &unk_613360::impl_0C,
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x005CA940),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00406990),
-    MC2_PROC_MEMBER_PTR<void, unk_613330>(0x00613770),
+    MC2_PROC_MEMBER_PTR<void, void>(0x005CA940),
+    MC2_PROC_MEMBER_PTR<void, void>(0x00406990),
+    MC2_PROC_MEMBER_PTR<void, void>(0x00613770),
     &unk_613330::impl_1C,
     &unk_613330::impl_20,
     &unk_613330::impl_24,
-    &unk_613330::impl_28
+    &unk_613330::impl_28,
 };
 
 unk_613360::unk_613360() {

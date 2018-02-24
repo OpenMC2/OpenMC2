@@ -30,11 +30,11 @@ public:
     std::uint32_t unk10;
 
     void sub_5775A0(unk_5769E0 *a, std::uint32_t b, std::uint32_t c, std::uint32_t d, bool e) {
-        MC2_PROC_MEMBER<void>(0x005775A0, this, a, b, c, d, e);
+        return MC2_CALL_MEMBER<0x005775A0, void>(this, a, b, c, d, e);
     }
 
     inline void sub_577610() {
-        MC2_PROC_MEMBER<void>(0x00577610, this);
+        return MC2_CALL_MEMBER<0x00577610, void>(this);
     }
 };
 

@@ -29,7 +29,7 @@ private:
 
 public:
     unk_4701A0() {
-        MC2_PROC_MEMBER<void>(0x004701A0, this);
+        MC2_CALL_MEMBER<0x004701A0, void>(this);
     }
 };
 

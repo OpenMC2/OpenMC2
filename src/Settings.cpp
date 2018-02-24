@@ -156,4 +156,4 @@ bool Settings::save_settings_force() {
     return true;
 }
 
-Settings &glo_Settings = MC2_GLOBAL<Settings>(0x006C3250);
+MC2_DEF_GLOBAL(glo_Settings, 0x006C3250);

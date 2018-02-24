@@ -183,4 +183,4 @@ void load_config() {
 
 std::string config_assets_name;
 
-bool &glo_windowed_mode = MC2_GLOBAL<bool>(0x00858370);
+MC2_DEF_GLOBAL(glo_windowed_mode, 0x00858370);

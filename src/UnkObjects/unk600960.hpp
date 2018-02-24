@@ -26,7 +26,7 @@ private:
 
 public:
     inline unk_600960(HWND hWnd) {
-        MC2_PROC_MEMBER<void>(0x00600960, this, hWnd);
+        MC2_CALL_MEMBER<0x00600960, void>(this, hWnd);
     }
 
 };

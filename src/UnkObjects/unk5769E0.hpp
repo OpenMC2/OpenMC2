@@ -63,13 +63,13 @@ public:
 
     // mc2: 0x00575B70
     inline ~unk_5769E0() {
-        MC2_PROC_MEMBER<void>(0x00575B70, this);
+        MC2_CALL_MEMBER<0x00575B70, void>(this);
     }
 
     void sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8_t d);
 
     inline void sub_575B10() {
-        MC2_PROC_MEMBER<void>(0x00575B10, this);
+        MC2_CALL_MEMBER<0x00575B10, void>(this);
     }
 };
 

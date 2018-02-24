@@ -26,11 +26,11 @@ private:
 
 public:
     unk_53AF00() {
-        MC2_PROC_MEMBER<void>(0x0053AF00, this);
+        MC2_CALL_MEMBER<0x0053AF00, void>(this);
     }
 
     void sub_53ACB0(const char *a) {
-        MC2_PROC_MEMBER<void>(0x0053ACB0, this, a);
+        MC2_CALL_MEMBER<0x0053ACB0, void>(this, a);
     }
 };
 

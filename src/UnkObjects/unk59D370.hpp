@@ -25,12 +25,12 @@ private:
 
 public:
     unk_59D370() {
-        MC2_PROC_MEMBER<void>(0x0059D370, this);
+        MC2_CALL_MEMBER<0x0059D370, void>(this);
     }
 
     // mc2: 0x0059F4B0
     ~unk_59D370() {
-        MC2_PROC_MEMBER<void>(0x0059F4B0, this);
+        MC2_CALL_MEMBER<0x0059F4B0, void>(this);
     }
 };
 

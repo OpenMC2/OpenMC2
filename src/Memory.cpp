@@ -22,31 +22,31 @@
 #include <algorithm>
 #include <new>
 
-void * __cdecl mc2_malloc(std::uint32_t size) {
+void *mc2_malloc(std::uint32_t size) {
     return operator new(size);
 }
 
-void * __cdecl mc2_malloc_info(std::uint32_t size, const char * /* file */, std::int32_t /* line */) {
+void *mc2_malloc_info(std::uint32_t size, const char * /* file */, std::int32_t /* line */) {
     return operator new(size);
 }
 
-void __cdecl mc2_free(void *ptr) {
+void mc2_free(void *ptr) {
     if (ptr != nullptr) operator delete(ptr);
 }
 
-void * __cdecl mc2_aligned_malloc(std::uint32_t size, std::uint32_t align) {
+void *mc2_aligned_malloc(std::uint32_t size, std::uint32_t align) {
     return _aligned_malloc(size, align);
 }
 
-void * __cdecl mc2_aligned_malloc_info(std::uint32_t size, std::uint32_t align, const char * /* file */, std::int32_t /* line */) {
+void *mc2_aligned_malloc_info(std::uint32_t size, std::uint32_t align, const char * /* file */, std::int32_t /* line */) {
     return _aligned_malloc(size, align);
 }
 
-void __cdecl mc2_aligned_free(void *ptr) {
+void mc2_aligned_free(void *ptr) {
     if (ptr != nullptr) _aligned_free(ptr);
 }
 
-char * __cdecl mc2_strdup(const char *str) {
+char *mc2_strdup(const char *str) {
     if (str == nullptr) return nullptr;
     size_t size = std::strlen(str) + 1;
     char *dup = new char[size];
@@ -54,17 +54,17 @@ char * __cdecl mc2_strdup(const char *str) {
     return dup;
 }
 
-char * _cdecl mc2_strdup_info(const char *str, const char * /* file */, std::int32_t /* line */) {
+char *mc2_strdup_info(const char *str, const char * /* file */, std::int32_t /* line */) {
     return mc2_strdup(str);
 }
 
-AUTO_HOOK_X86(0x005772E0, mc2_malloc_info);
-AUTO_HOOK_X86(0x00577320, mc2_free);
+AUTO_HOOK_X86(0x005772E0, &mc2_malloc_info);
+AUTO_HOOK_X86(0x00577320, &mc2_free);
 
-AUTO_HOOK_X86(0x005772A0, mc2_malloc);
-AUTO_HOOK_X86(0x00577350, mc2_free);
+AUTO_HOOK_X86(0x005772A0, &mc2_malloc);
+AUTO_HOOK_X86(0x00577350, &mc2_free);
 
-AUTO_HOOK_X86(0x00613EA0, mc2_aligned_malloc_info);
-AUTO_HOOK_X86(0x00613EF0, mc2_aligned_free);
+AUTO_HOOK_X86(0x00613EA0, &mc2_aligned_malloc_info);
+AUTO_HOOK_X86(0x00613EF0, &mc2_aligned_free);
 
-AUTO_HOOK_X86(0x00614A10, mc2_strdup_info);
+AUTO_HOOK_X86(0x00614A10, &mc2_strdup_info);

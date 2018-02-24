@@ -24,12 +24,12 @@ class unk_47BEA0 {
     // unknown size (but seems to be large)
 public:
     unk_47BEA0() {
-        MC2_PROC_MEMBER<void>(0x0047BEA0, this);
+        MC2_CALL_MEMBER<0x0047BEA0, void>(this);
     }
 
     // mc2: 0x0047BC30
     ~unk_47BEA0() {
-        MC2_PROC_MEMBER<void>(0x0047BC30, this);
+        MC2_CALL_MEMBER<0x0047BC30, void>(this);
     }
 };
 

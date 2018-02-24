@@ -28,12 +28,12 @@ private:
 
 public:
     unk_5D6A30() {
-        MC2_PROC_MEMBER<void>(0x005D6A30, this);
+        MC2_CALL_MEMBER<0x005D6A30, void>(this);
     }
 
     // mc2: 0x005D6AF0
     ~unk_5D6A30() {
-        MC2_PROC_MEMBER<void>(0x005D6AF0, this);
+        MC2_CALL_MEMBER<0x005D6AF0, void>(this);
     }
 };
 

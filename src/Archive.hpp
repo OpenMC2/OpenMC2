@@ -60,8 +60,8 @@ public:
 
 void sub_5FDD20();
 
-extern std::uint8_t *(__cdecl &sub_5FCBF0)(Archive::meta_t *, std::uint32_t, std::uint8_t *, std::uint32_t);
-extern void(__cdecl &sub_5FCFD0)(void *, std::uint32_t);
+extern MC2_PROC_PTR<std::uint8_t *, Archive::meta_t *, std::uint32_t, std::uint8_t *, std::uint32_t> sub_5FCBF0;
+extern MC2_PROC_PTR<void, void *, std::uint32_t> sub_5FCFD0;
 
 extern bool &glo_85CD28;
 extern bool &glo_85CD30;

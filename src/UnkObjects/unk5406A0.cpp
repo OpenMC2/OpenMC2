@@ -18,4 +18,4 @@
 
 #include "unk5406A0.hpp"
 
-unk_5406A0 &glo_6C32C4 = MC2_GLOBAL<unk_5406A0>(0x006C32C4);
+MC2_DEF_GLOBAL(glo_6C32C4, 0x006C32C4);

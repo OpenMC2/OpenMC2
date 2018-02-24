@@ -36,10 +36,10 @@ static_assert(sizeof(bool) == 1, "Bools are not expected size");
 static DWORD &mc2_osplatform = MC2_GLOBAL<DWORD>(0x0086D7D4);
 static DWORD &mc2_winmajor = MC2_GLOBAL<DWORD>(0x0086D7E0);
 
-static auto &mc2__heap_init = MC2_PROC_PTR<std::uint32_t, std::uint32_t>(0x0061CFB1);
-static auto &mc2__ioinit = MC2_PROC_PTR<std::int32_t>(0x0061CDEC);
-static auto &mc2___endstdio = MC2_PROC_PTR<void>(0x0061BC18);
-static auto &mc2__reset_excflt = MC2_PROC_PTR<void>(0x0061EEE5);
+static MC2_PROC_PTR<std::uint32_t, std::uint32_t> mc2__heap_init(0x0061CFB1);
+static MC2_PROC_PTR<std::int32_t> mc2__ioinit(0x0061CDEC);
+static MC2_PROC_PTR<void> mc2___endstdio(0x0061BC18);
+static MC2_PROC_PTR<void> mc2__reset_excflt(0x0061EEE5);
 
 
 // mc2: 0x0061958A
@@ -47,8 +47,8 @@ void load_mc2_dll() { // WinMainCRTSetup()
     //__SEH_prolog
 
     // Setup key parts of _cexit
-    std::atexit(mc2__reset_excflt);
-    std::atexit(mc2___endstdio);
+    std::atexit([]() { mc2__reset_excflt(); });
+    std::atexit([]() { mc2___endstdio(); });
 
     mc2_osplatform = VER_PLATFORM_WIN32_NT; // OpenMC2 doesn't support anything else
     mc2_winmajor = 6; // OpenMC2 doesn't officially support XP
@@ -93,14 +93,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 }
 
 #pragma warning (disable: 4996)
-AUTO_HOOK_X86(0x0061A76D, std::atexit);
-AUTO_HOOK_X86(0x0061B7C1, std::getenv);
+AUTO_HOOK_X86(0x0061A76D, &std::atexit);
+AUTO_HOOK_X86(0x0061B7C1, &std::getenv);
 #pragma warning (default: 4996)
 
-std::uint32_t(__cdecl &sub_61A5DC)(char *) = MC2_PROC_PTR<uint32_t, char *>(0x0061A5DC);
+MC2_DEF_PROC(sub_61A5DC, 0x0061A5DC);
 
-void *&glo_67A760 = MC2_GLOBAL<void *>(0x0067A760);
-void *loc_67A770 = MC2_POINTER<void>(0x0067A770);
-bool &glo_682E18 = MC2_GLOBAL<bool>(0x00682E18);
-std::uint32_t &glo_8602C8 = MC2_GLOBAL<uint32_t>(0x008602C8);
-std::uint8_t &glo_679778 = MC2_GLOBAL<std::uint8_t>(0x00679778);
+MC2_DEF_GLOBAL(glo_67A760, 0x0067A760);
+MC2_DEF_POINTER(loc_67A770, 0x0067A770);
+MC2_DEF_GLOBAL(glo_682E18, 0x00682E18);
+MC2_DEF_GLOBAL(glo_8602C8, 0x008602C8);
+MC2_DEF_GLOBAL(glo_679778, 0x00679778);

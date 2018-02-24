@@ -18,4 +18,4 @@
 
 #include "unk47BEA0.hpp"
 
-unk_47BEA0 &glo_6968B8 = MC2_GLOBAL<unk_47BEA0>(0x006968B8);
+MC2_DEF_GLOBAL(glo_6968B8, 0x006968B8);

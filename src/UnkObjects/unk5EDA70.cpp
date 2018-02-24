@@ -18,4 +18,4 @@
 
 #include "unk5EDA70.hpp"
 
-unk_5EDA70 &glo_858608 = MC2_GLOBAL<unk_5EDA70>(0x00858608);
+MC2_DEF_GLOBAL(glo_858608, 0x00858608);

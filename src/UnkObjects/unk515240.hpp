@@ -28,7 +28,7 @@ private:
 
 public:
     unk_515240() {
-        MC2_PROC_MEMBER<void>(0x00515240, this);
+        MC2_CALL_MEMBER<0x00515240, void>(this);
     }
 };
 

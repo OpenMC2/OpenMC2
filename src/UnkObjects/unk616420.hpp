@@ -22,50 +22,51 @@
 #include "../FileHandler.hpp"
 
 class unk_616420 {
-private:
+protected:
     struct vtable_t {
-        void(__thiscall *vir_00)(unk_616420 *);
-        void(__thiscall *vir_04)(unk_616420 *);
-        void(__thiscall *vir_08)(unk_616420 *);
-        void(__thiscall *vir_0C)(unk_616420 *);
-        void(__thiscall *vir_10)(unk_616420 *);
-        void(__thiscall *vir_14)(unk_616420 *);
-        void(__thiscall *vir_18)(unk_616420 *);
-        void(__thiscall *vir_1C)(unk_616420 *);
-        void(__thiscall *vir_20)(unk_616420 *);
-        void(__thiscall *vir_24)(unk_616420 *);
-        void(__thiscall *vir_28)(unk_616420 *);
-        void(__thiscall *vir_2C)(unk_616420 *);
-        void(__thiscall *vir_30)(unk_616420 *);
-        void(__thiscall *vir_34)(unk_616420 *);
-        void(__thiscall *vir_38)(unk_616420 *);
-        void(__thiscall *vir_3C)(unk_616420 *);
-        void(__thiscall *vir_40)(unk_616420 *);
-        void(__thiscall *vir_44)(unk_616420 *);
-        void(__thiscall *vir_48)(unk_616420 *);
-        void(__thiscall *vir_4C)(unk_616420 *);
-        void(__thiscall *vir_50)(unk_616420 *);
-        void(__thiscall *vir_54)(unk_616420 *);
-        void(__thiscall *vir_58)(unk_616420 *);
-        void(__thiscall *vir_5C)(unk_616420 *);
-        void(__thiscall *vir_60)(unk_616420 *);
-        void(__thiscall *vir_64)(unk_616420 *);
-        void(__thiscall *vir_68)(unk_616420 *);
-        void(__thiscall *vir_6C)(unk_616420 *);
-        void(__thiscall *vir_70)(unk_616420 *);
-        void(__thiscall *vir_74)(unk_616420 *);
-        void(__thiscall *vir_78)(unk_616420 *);
-        void(__thiscall *vir_7C)(unk_616420 *);
-        void(__thiscall *vir_80)(unk_616420 *);
-        void(__thiscall *vir_84)(unk_616420 *);
-        void(__thiscall *vir_88)(unk_616420 *);
-        void(__thiscall *vir_8C)(unk_616420 *);
-        void(__thiscall *vir_90)(unk_616420 *);
-        bool(__thiscall unk_616420::* vir_94)(const char *, std::uint32_t);
-        void(__thiscall *vir_98)(unk_616420 *);
-        void(__thiscall *vir_9C)(unk_616420 *);
-        void(__thiscall *vir_100)(unk_616420 *);
+        MC2_PROC_MEMBER_PTR<void, void> vir_00;
+        MC2_PROC_MEMBER_PTR<void, void> vir_04;
+        MC2_PROC_MEMBER_PTR<void, void> vir_08;
+        MC2_PROC_MEMBER_PTR<void, void> vir_0C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_10;
+        MC2_PROC_MEMBER_PTR<void, void> vir_14;
+        MC2_PROC_MEMBER_PTR<void, void> vir_18;
+        MC2_PROC_MEMBER_PTR<void, void> vir_1C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_20;
+        MC2_PROC_MEMBER_PTR<void, void> vir_24;
+        MC2_PROC_MEMBER_PTR<void, void> vir_28;
+        MC2_PROC_MEMBER_PTR<void, void> vir_2C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_30;
+        MC2_PROC_MEMBER_PTR<void, void> vir_34;
+        MC2_PROC_MEMBER_PTR<void, void> vir_38;
+        MC2_PROC_MEMBER_PTR<void, void> vir_3C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_40;
+        MC2_PROC_MEMBER_PTR<void, void> vir_44;
+        MC2_PROC_MEMBER_PTR<void, void> vir_48;
+        MC2_PROC_MEMBER_PTR<void, void> vir_4C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_50;
+        MC2_PROC_MEMBER_PTR<void, void> vir_54;
+        MC2_PROC_MEMBER_PTR<void, void> vir_58;
+        MC2_PROC_MEMBER_PTR<void, void> vir_5C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_60;
+        MC2_PROC_MEMBER_PTR<void, void> vir_64;
+        MC2_PROC_MEMBER_PTR<void, void> vir_68;
+        MC2_PROC_MEMBER_PTR<void, void> vir_6C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_70;
+        MC2_PROC_MEMBER_PTR<void, void> vir_74;
+        MC2_PROC_MEMBER_PTR<void, void> vir_78;
+        MC2_PROC_MEMBER_PTR<void, void> vir_7C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_80;
+        MC2_PROC_MEMBER_PTR<void, void> vir_84;
+        MC2_PROC_MEMBER_PTR<void, void> vir_88;
+        MC2_PROC_MEMBER_PTR<void, void> vir_8C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_90;
+        MC2_PROC_MEMBER_PTR<bool, void, const char *, std::uint32_t> vir_94;
+        MC2_PROC_MEMBER_PTR<void, void> vir_98;
+        MC2_PROC_MEMBER_PTR<void, void> vir_9C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_100;
     };
+private:
     static vtable_t vtable_values;
 
 protected:
@@ -86,7 +87,7 @@ public:
     void sub_615130(char *unk1, FileHandler *unk2);
 
     bool vir_94(char *unk1, std::uint32_t unk2) {
-        return (this->*static_cast<vtable_t*>(vtable)->vir_94)(unk1, unk2);
+        return static_cast<vtable_t*>(vtable)->vir_94(this, unk1, unk2);
     }
 
     // Use vir_94() to call
@@ -94,15 +95,15 @@ public:
     bool impl_94(const char *unk1, std::uint32_t unk2);
 
     bool sub_6154D0(char *unk1, std::uint32_t unk2) {
-        return MC2_PROC_MEMBER<bool, unk_616420, char *, std::uint32_t>(0x006154D0, this, unk1, unk2);
+        return MC2_CALL_MEMBER<0x006154D0, bool>(this, unk1, unk2);
     }
 
     std::int32_t sub_47C920(char *unk1, std::uint32_t unk2) {
-        return MC2_PROC_MEMBER<std::int32_t, unk_616420, char *, std::uint32_t>(0x0047C920, this, unk1, unk2);
+        return MC2_CALL_MEMBER<0x0047C920, std::int32_t>(this, unk1, unk2);
     }
 
     std::int32_t read_integer() {
-        return MC2_PROC_MEMBER<std::int32_t, unk_616420>(0x00615790, this);
+        return MC2_CALL_MEMBER<0x00615790, std::int32_t>(this);
     }
 };
 

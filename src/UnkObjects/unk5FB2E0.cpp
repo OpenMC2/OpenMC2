@@ -18,4 +18,4 @@
 
 #include "unk5FB2E0.hpp"
 
-unk_5FB2E0 &glo_858500 = MC2_GLOBAL<unk_5FB2E0>(0x00858500);
+MC2_DEF_GLOBAL(glo_858500, 0x00858500);

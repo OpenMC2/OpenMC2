@@ -30,8 +30,8 @@
 static boost::dll::shared_library BinkDll;
 static boost::dll::shared_library AIL_Dll;
 
-std::array<void *, BinkCount> &BinkPointers = MC2_GLOBAL<std::array<void *, BinkCount>>(0x0062D260);
-std::array<void *, AIL_Count> &AIL_Pointers = MC2_GLOBAL<std::array<void *, AIL_Count>>(0x0062D290);
+MC2_DEF_GLOBAL(BinkPointers, 0x0062D260);
+MC2_DEF_GLOBAL(AIL_Pointers, 0x0062D290);
 
 template<size_t N>
 void set_pointers(const boost::dll::shared_library &dll,
