@@ -80,6 +80,9 @@ int StartOpenMC2() {
     parse_commandline(__argc, __argv);
     sub_612910(__argc, __argv);
 
+    constexpr std::uint8_t axis_fix[] = { 0x90, 0xE9 };
+    detail::Hook_Raw(0x00603EBA, axis_fix);
+
     int b = sub_6181F0();
 
     sub_612F00();

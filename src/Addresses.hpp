@@ -106,6 +106,10 @@ explicit X(std::uint32_t address) : __VA_ARGS__(address) { }
         WriteProcessMemory(GetCurrentProcess(), in.func, &cmd, 5, nullptr);
     }
 
+    template<size_t N> inline void Hook_Raw(const std::uintptr_t address, const std::uint8_t (&data)[N]) {
+        WriteProcessMemory(GetCurrentProcess(), MC2_POINTER_BASIC<void *>(address), data, N, nullptr);
+    }
+
     template<class T> class Auto_Hook_x86_Obj { public: Auto_Hook_x86_Obj(std::uintptr_t in, const T &out) { Hook_x86(T(in), out); } };
     template<class Ret, class... Args> Auto_Hook_x86_Obj<MC2_PROC_PTR<Ret, Args...>> Auto_Hook_x86(std::uintptr_t in, CDECL_PTR<Ret, Args...> out) { return { in, out }; }
     template<class Ret, class... Args> Auto_Hook_x86_Obj<MC2_PROC_VARARG_PTR<Ret, Args...>> Auto_Hook_Vararg_x86(std::uintptr_t in, VARARG_PTR<Ret, Args...> out) { return { in, out }; }
