@@ -26,4 +26,17 @@ void load_config();
 
 extern std::string config_assets_name;
 
+struct net_config_t {
+    std::string main;
+    std::string master;
+    std::string natneg1;
+    std::string natneg2;
+};
+extern net_config_t net_config;
+
 extern bool &glo_windowed_mode;
+
+extern const char *&glo_6738A0;
+extern const char *&glo_6738A4;
+extern const char *&glo_6C4C74;
+extern char (&glo_6C4EA0)[64];

@@ -132,7 +132,7 @@ static boost::filesystem::path get_config_path() {
 
 template<class T>
 static void set_default(config_tree &tree, bool &modified, const config_tree::key_type &key, T value) {
-    if (tree.count(key) == 0) tree.put(key, value), modified = true;
+    if (!tree.get_child_optional(key)) tree.put(key, value), modified = true;
 }
 
 static bool set_defaults(config_tree &tree) {
@@ -140,6 +140,11 @@ static bool set_defaults(config_tree &tree) {
     set_default(tree, modified, "gamepath", "");
     set_default(tree, modified, "window", false);
     set_default(tree, modified, "assets", "assets_p.dat");
+
+    set_default(tree, modified, "net.main", "");
+    set_default(tree, modified, "net.master", "");
+    set_default(tree, modified, "net.natneg1", "");
+    set_default(tree, modified, "net.natneg2", "");
     return modified;
 }
 
@@ -175,6 +180,16 @@ void load_config() {
         boost::property_tree::write_info(path.string(), config);
     }
 
+    net_config.main = config.get<std::string>("net.main");
+    net_config.master = config.get<std::string>("net.master");
+    net_config.natneg1 = config.get<std::string>("net.natneg1");
+    net_config.natneg2 = config.get<std::string>("net.natneg2");
+
+    if (!net_config.main.empty()) glo_6C4C74 = net_config.main.c_str(); // ms0
+    if (!net_config.master.empty()) safe_strncpy(glo_6C4EA0, net_config.master.c_str(), sizeof(glo_6C4EA0)); // master
+    if (!net_config.natneg1.empty()) glo_6738A0 = net_config.natneg1.c_str(); // natneg1
+    if (!net_config.natneg2.empty()) glo_6738A4 = net_config.natneg2.c_str(); // natneg2
+
     // This should be set via the debug options, but that doesn't work correctly as-is.
     boost::filesystem::current_path(gamepath);
 
@@ -183,4 +198,11 @@ void load_config() {
 
 std::string config_assets_name;
 
+net_config_t net_config;
+
 MC2_DEF_GLOBAL(glo_windowed_mode, 0x00858370);
+
+MC2_DEF_GLOBAL(glo_6738A0, 0x006738A0);
+MC2_DEF_GLOBAL(glo_6738A4, 0x006738A4);
+MC2_DEF_GLOBAL(glo_6C4C74, 0x006C4C74);
+MC2_DEF_GLOBAL(glo_6C4EA0, 0x006C4EA0);
