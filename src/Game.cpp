@@ -235,7 +235,7 @@ constexpr const char *LanguageShortList[10] = {
     "pt", "jp", "ch", "ko", "no",
 };
 
-int sub_5E1B50(const char *path) {
+int get_language_id(const char *path) {
     for (int i = 0; i < 10; ++i) {
         const char *language = LanguageShortList[i];
 
@@ -246,7 +246,7 @@ int sub_5E1B50(const char *path) {
     return -1;
 }
 
-const char *sub_5E1B40(int id) {
+const char *get_language_string(int id) {
     return LanguageShortList[id];
 }
 
@@ -305,7 +305,7 @@ void sub_53A000() {
     if (sub_612E10("lang")) {
         const char *path;
         sub_612EB0("lang", 0, &path);
-        int lang = sub_5E1B50(path);
+        int lang = get_language_id(path);
         if (lang == -1) {
             mc2_log_error("Invalid language");
             return;
@@ -518,7 +518,7 @@ int sub_401190() {
     sub_612EB0("path", 0, &gamePath);
     new unk_613360;
     sub_6134D0(gamePath);
-    glo_Settings.load_settings();
+    //glo_Settings.load_settings();
     sub_5ED7B0(glo_Settings.get_screen_width(), glo_Settings.get_screen_height(), glo_Settings.get_screen_depth(), 32, 0);
     sub_53A7B0(gamePath, 48, 0, 0, 0); // main window creation
     glo_692E1C = glo_679810;

@@ -25,9 +25,10 @@
 #include <windows.h>
 
 #include "DllHooks/DllHooks.hpp"
+#include "Settings.hpp"
 
+#include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
@@ -36,8 +37,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-
-typedef boost::property_tree::iptree config_tree;
 
 static boost::filesystem::path get_documents_path() {
     PWSTR rawPath;
@@ -141,10 +140,15 @@ static bool set_defaults(config_tree &tree) {
     set_default(tree, modified, "window", false);
     set_default(tree, modified, "assets", "assets_p.dat");
 
+    boost::optional<config_tree &> settings = tree.get_child_optional("settings");
+    if (!settings) settings = tree.put_child("settings", { });
+    modified |= glo_Settings.tree_set_defaults(settings.get());
+
     set_default(tree, modified, "net.main", "");
     set_default(tree, modified, "net.master", "");
     set_default(tree, modified, "net.natneg1", "");
     set_default(tree, modified, "net.natneg2", "");
+
     return modified;
 }
 
@@ -162,23 +166,25 @@ void load_config() {
     config_tree config;
     boost::filesystem::path path(get_config_path());
     if (boost::filesystem::is_regular_file(path))
-        boost::property_tree::read_info(path.string(), config);
+        boost::property_tree::read_info(boost::filesystem::ifstream(path), config);
     bool modified = set_defaults(config);
 
     if (!boost::filesystem::is_directory(path.parent_path()))
         if (!boost::filesystem::create_directory(path.parent_path())) throw std::exception();
-    if (modified) boost::property_tree::write_info(path.string(), config);
+    if (modified) boost::property_tree::write_info(boost::filesystem::ofstream(path), config);
 
     glo_windowed_mode = config.get<bool>("window");
     config_assets_name = config.get<std::string>("assets");
 
-    boost::filesystem::path gamepath = config.get<boost::filesystem::path>("gamepath", config_tree_path_translator);
-    if (gamepath.empty()) {
-        gamepath = try_default_paths();
-        if (gamepath.empty()) gamepath = ask_game_path();
-        config.put("gamepath", gamepath, config_tree_path_translator);
-        boost::property_tree::write_info(path.string(), config);
+    config_gamepath = config.get<boost::filesystem::path>("gamepath", config_tree_path_translator);
+    if (config_gamepath.empty()) {
+        config_gamepath = try_default_paths();
+        if (config_gamepath.empty()) config_gamepath = ask_game_path();
+        config.put("gamepath", config_gamepath, config_tree_path_translator);
+        boost::property_tree::write_info(boost::filesystem::ofstream(path), config);
     }
+
+    glo_Settings.tree_load_settings(config.get_child("settings"));
 
     net_config.main = config.get<std::string>("net.main");
     net_config.master = config.get<std::string>("net.master");
@@ -191,11 +197,29 @@ void load_config() {
     if (!net_config.natneg2.empty()) glo_6738A4 = net_config.natneg2.c_str(); // natneg2
 
     // This should be set via the debug options, but that doesn't work correctly as-is.
-    boost::filesystem::current_path(gamepath);
-
-    AddDllHooks(gamepath);
+    boost::filesystem::current_path(config_gamepath);
+    AddDllHooks(config_gamepath);
 }
 
+void save_config() {
+    config_tree config;
+
+    config.put("gamepath", config_gamepath, config_tree_path_translator);
+    config.put("window", glo_windowed_mode);
+    config.put("assets", config_assets_name);
+
+    glo_Settings.tree_set_settings(config.put_child("settings", { }));
+
+    config.put("net.main", net_config.main);
+    config.put("net.master", net_config.master);
+    config.put("net.natneg1", net_config.natneg1);
+    config.put("net.natneg2", net_config.natneg2);
+
+    boost::filesystem::path path(get_config_path());
+    boost::property_tree::write_info(boost::filesystem::ofstream(path), config);
+}
+
+boost::filesystem::path config_gamepath;
 std::string config_assets_name;
 
 net_config_t net_config;

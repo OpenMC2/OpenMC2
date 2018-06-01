@@ -22,8 +22,14 @@
 
 #include <string>
 
-void load_config();
+#include <boost/filesystem/path.hpp>
+#include <boost/property_tree/ptree_fwd.hpp>
+typedef boost::property_tree::iptree config_tree;
 
+void load_config();
+void save_config();
+
+extern boost::filesystem::path config_gamepath;
 extern std::string config_assets_name;
 
 struct net_config_t {

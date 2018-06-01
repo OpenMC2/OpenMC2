@@ -20,13 +20,17 @@
 
 #include <cstdint>
 
+
 #include "Addresses.hpp"
+#include "Config.hpp"
 #include "Game.hpp"
 
 class Settings {
 private:
+    using input_t = std::pair<std::int32_t, std::int32_t>;
+
     std::uint32_t unk00;
-    char audio_driver[0x40];
+    char audio_driver[0x40]; //0x04
     std::uint32_t screen_width; //0x44
     std::uint32_t screen_height; //0x48
     std::uint32_t screen_depth; //0x4C
@@ -35,8 +39,7 @@ private:
     std::uint32_t reflections; //0x58
     std::uint32_t shadows; //0x5C
     std::uint32_t fullscreen_effects; //0x60
-    std::int32_t input_device_1; //0x64
-    std::int32_t input_device_2; //0x68
+    input_t input_device; //0x64
     std::int32_t language_id; // 0x6C
     bool requires_saving; // 0x70
     bool unk71;
@@ -44,7 +47,7 @@ private:
     // mc2: 0x0053B370
     bool save_settings_force();
     // mc2: 0x0053B930
-    void set_defualts();
+    void set_defaults();
 public:
     // mc2: 0x0053B990
     Settings();
@@ -54,6 +57,11 @@ public:
         this->requires_saving = unk1;
     }
 
+    // Config Functions
+    bool tree_set_defaults(config_tree &tree);
+    void tree_load_settings(config_tree &tree);
+    void tree_set_settings(config_tree &tree);
+
     // mc2: 0x0053B6A0
     bool load_settings();
 
@@ -61,11 +69,13 @@ public:
     bool save_settings() {
         if (this->requires_saving == false)
             return false;
-        return save_settings_force();
+        //return save_settings_force();
+        save_config();
+        return true;
     }
 
     // mc2: 0x0053B520
-    void set_audio_driver(char *driver) {
+    void set_audio_driver(const char *driver) {
         safe_strncpy(this->audio_driver, driver, sizeof(this->audio_driver));
         unk71 = true;
         set_require_saving(true);
@@ -144,19 +154,26 @@ public:
     }
 
     // mc2: 0x0053B680
-    void set_language_id(int32_t id) {
+    void set_language_id(std::int32_t id) {
         this->language_id = id;
         global_LanguageID = id;
         set_require_saving(true);
     }
     
     // mc2: 0x0053B5D0
-    void set_input_device(int32_t device_1, int32_t device_2) {
-        if (this->input_device_1 == device_1 && this->input_device_2 == device_2)
+    void set_input_device(std::int32_t device_1, std::int32_t device_2) {
+        if (this->input_device.first == device_1 && this->input_device.second == device_2)
             return;
 
-        this->input_device_1 = device_1;
-        this->input_device_2 = device_2;
+        this->input_device = { device_1, device_2 };
+        set_require_saving(true);
+    }
+
+    void set_input_device(input_t device) {
+        if (this->input_device.first == device.first && this->input_device.second == device.second)
+            return;
+
+        this->input_device = device;
         set_require_saving(true);
     }
 
@@ -164,8 +181,8 @@ public:
     std::uint32_t get_screen_height() const { return this->screen_height; } // mc2: 0x0055E930
     std::uint32_t get_screen_depth() const { return this->screen_depth; } // mc2: 0x0053B320
     const char *get_audio_driver() const { return this->audio_driver; } // mc2:0x0053B310
-    std::uint32_t get_input_device_1() const { return this->input_device_1; } // mc2:0x0053B330
-    std::uint32_t get_input_device_2() const { return this->input_device_2; } // mc2:0x0053B340
+    std::uint32_t get_input_device_1() const { return this->input_device.first; } // mc2:0x0053B330
+    std::uint32_t get_input_device_2() const { return this->input_device.second; } // mc2:0x0053B340
     std::uint32_t get_reflections() const { return this->reflections; } // mc2:0x0053B350
     std::uint32_t get_fullscreen_effects() const { return this->fullscreen_effects; } // mc2:0x0053B360
     std::uint32_t get_environment_mapping() const { return this->environment_mapping; } // mc2:0x005AEBA0

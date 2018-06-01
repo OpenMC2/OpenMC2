@@ -22,8 +22,8 @@
 
 int sub_401190();
 
-int sub_5E1B50(const char *path);
-const char *sub_5E1B40(int id);
+int get_language_id(const char *path);
+const char *get_language_string(int id);
 
 void sub_6134D0(const char *var8);
 
