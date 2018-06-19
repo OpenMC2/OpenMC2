@@ -113,6 +113,32 @@ static bool compare_paths(const char *a, const char *b) {
     }
 }
 
+static void sub_5FCF50(std::uint32_t *a, std::uint32_t *b, std::uint32_t *esi) {
+    std::uint32_t edx = a[0], ecx = a[1];
+    std::uint32_t eax = 0xC6EF3720;
+
+    for (int i = 32; i > 0; --i) {
+        ecx -= ((((edx >> 5) ^ (edx << 4)) + edx) ^ (esi[(eax >> 11) & 0x3] + eax));
+        eax += 0x61C88647;
+        edx -= ((ecx >> 5) ^ (ecx << 4) + ecx) ^ (esi[eax & 3] + eax);
+    }
+
+    b[0] = edx; b[1] = ecx;
+}
+
+static void sub_5FCFD0(void *metaBuffer, std::int32_t metaLen) {
+    if (glo_85CD10[0] != 0 || glo_85CD10[1] != 0) {
+        if (metaLen > 0) {
+            std::uint32_t *meta = reinterpret_cast<std::uint32_t *>(metaBuffer);
+            std::int32_t count = ((metaLen - 1) / (sizeof(std::uint32_t) * 2)) + 1;
+            do {
+                sub_5FCF50(meta, meta, glo_85CD10);
+                meta += 2;
+            } while (--count > 0);
+        }
+    }
+}
+
 bool Archive::sub_5FD3A0(const char *file_name, FileHandler *file) {
     std::array<std::uint8_t, 4> magic;
     file->read(magic);
@@ -252,8 +278,8 @@ void sub_5FDD20() {
 }
 
 MC2_DEF_PROC(sub_5FCBF0, 0x005FCBF0);
-MC2_DEF_PROC(sub_5FCFD0, 0x005FCFD0);
 
+MC2_DEF_GLOBAL(glo_85CD10, 0x0085CD10);
 MC2_DEF_GLOBAL(glo_85CD28, 0x0085CD28);
 MC2_DEF_GLOBAL(glo_85CD30, 0x0085CD30);
 MC2_DEF_GLOBAL(glo_85D1C4, 0x0085D1C4);

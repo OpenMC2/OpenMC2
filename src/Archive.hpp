@@ -37,8 +37,8 @@ private:
     Archive *prevArchive;
     HANDLE unk04 = INVALID_HANDLE_VALUE;
     HANDLE unk08;
-    std::uint8_t *nameBuffer = nullptr;
-    meta_t *metaBuffer = nullptr;
+    std::uint8_t *nameBuffer = nullptr; // 0x0C
+    meta_t *metaBuffer = nullptr; // 0x10
     std::uint32_t numFiles = 0; // 0x14
     std::uint32_t unk18;
     FileHandler::FuncTable *fileFuncs = nullptr;
@@ -61,8 +61,9 @@ public:
 void sub_5FDD20();
 
 extern MC2_PROC_PTR<std::uint8_t *, Archive::meta_t *, std::uint32_t, std::uint8_t *, std::uint32_t> sub_5FCBF0;
-extern MC2_PROC_PTR<void, void *, std::uint32_t> sub_5FCFD0;
+//extern MC2_PROC_PTR<void, void *, std::uint32_t> sub_5FCFD0;
 
+extern std::uint32_t (&glo_85CD10)[4];
 extern bool &glo_85CD28;
 extern bool &glo_85CD30;
 extern Archive *&glo_85D1C4;
