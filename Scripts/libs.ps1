@@ -1,7 +1,7 @@
-param([string]$toolset = "vs150", [switch]$force = $false)
+param([string]$toolset = "v141", [switch]$force = $false)
 
-$expmaj = "1"
-$expmin = "1"
+$expmaj = "2"
+$expmin = "0"
 
 $libspath = "$PSScriptRoot\..\libs"
 $versionpath = "$libspath\version.txt"
