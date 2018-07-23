@@ -20,6 +20,17 @@
 
 #include "../Addresses.hpp"
 
+class unk_614400 {
+private:
+    std::uint32_t unk00 = 0;
+    MC2_PROC_PTR<void> unk04;
+    std::uint32_t unk08 = 0;
+    std::uint32_t unk0C = 1;
+
+public:
+    constexpr unk_614400(MC2_PROC_PTR<void> arg1) : unk04(arg1) { }
+};
+
 class unk_6144B0 {
 private:
     void *unk00;
@@ -29,6 +40,10 @@ private:
 public:
     constexpr unk_6144B0(void *unk00, std::uint16_t unk06) :
     unk00(unk00), unk04(0), unk06(unk06) { }
+
+    void sub_6144D0(const unk_614400 *arg1) {
+        return MC2_CALL_MEMBER<0x006144D0, void>(this, arg1);
+    }
 };
 
 extern unk_6144B0 &glo_860300;

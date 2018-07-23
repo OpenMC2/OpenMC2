@@ -27,7 +27,7 @@
 #include "Memory.hpp"
 #include "Settings.hpp"
 
-#include "UnkObjects/unk402560.hpp"
+#include "UnkObjects/unk4020F0.hpp"
 #include "UnkObjects/unk404B90.hpp"
 #include "UnkObjects/unk53AF00.hpp"
 #include "UnkObjects/unk5769E0.hpp"
@@ -501,7 +501,6 @@ void sub_5ED7B0(std::int32_t width, std::int32_t height, std::int32_t cdepth, st
     glo_85FBE0 = static_cast<float>(1.0 / height);
 }
 
-// mc2: 0x00401190
 int sub_401190() {
     sub_53A890("mc.exe -path=. -archive=assets_p.dat");
     glo_85837C = 101;
@@ -536,8 +535,8 @@ int sub_401190() {
     do {
         sub_53A7E0("assets_p.dat");
         glo_85D3F8 = new unk_600960(global_hWnd);
-        unk_402560 *esi = sub_402560();
-        esi->sub_401860();
+        unk_4020F0 *game = sub_402560();
+        game->sub_401860();
         sub_4028E0();
         sub_404BF0();
 
@@ -555,7 +554,7 @@ int sub_401190() {
             glo_6C3890->vir04(15);
         }
 
-        esi->sub_402120();
+        game->sub_402120();
         sub_53A8F0();
         sub_402590();
         sub_4017E0();

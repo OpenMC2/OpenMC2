@@ -35,7 +35,7 @@ public:
         hash_map_entry *next;
         
         hash_map_entry() = default;
-        inline hash_map_entry(char *name, unk_612150 *value, hash_map_entry *next) :
+        hash_map_entry(char *name, unk_612150 *value, hash_map_entry *next) :
             name(name), value(value), next(next) { }
     };
 
@@ -45,7 +45,7 @@ public:
         unk_612150 *value;
     };
 
-private:
+public:
     std::uint8_t pad00[0x2];
     std::uint8_t unk02;
     std::uint8_t unk03;
@@ -68,7 +68,7 @@ public:
 
     void loc_611DC0();
     
-    inline hash_map_entry *sub_611DF0(const char *a, unk_612150 *b, hash_map_entry *unk_loc) {
+    hash_map_entry *sub_611DF0(const char *a, unk_612150 *b, hash_map_entry *unk_loc) {
         return MC2_CALL_MEMBER<0x00611DF0, hash_map_entry*>(this, a, b, unk_loc);
     }
 
@@ -77,13 +77,17 @@ public:
     uint32_t get_entry_index(const char *a);
     unk_612150* sub_6124A0(const char *a);
 
-    inline void sub_6125A0(uint32_t new_max_entries) {
+    void sub_6125A0(uint32_t new_max_entries) {
         return MC2_CALL_MEMBER<0x006125A0, void>(this, new_max_entries);
+    }
+
+    void sub_6126E0(std::uint32_t arg1) {
+        return MC2_CALL_MEMBER<0x006126E0, void>(this, arg1);
     }
 
     bool sub_611FE0(indexed_map_entry *eax);
 
-    inline void sub_612050() {
+    void sub_612050() {
         return MC2_CALL_MEMBER<0x00612050, void>(this);
     }
 

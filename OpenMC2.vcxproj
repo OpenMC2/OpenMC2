@@ -104,7 +104,7 @@
     <ClCompile Include="src\OpenMC2.cpp" />
     <ClCompile Include="src\CommandLine.cpp" />
     <ClCompile Include="src\Settings.cpp" />
-    <ClCompile Include="src\UnkObjects\unk402560.cpp" />
+    <ClCompile Include="src\UnkObjects\unk4020F0.cpp" />
     <ClCompile Include="src\UnkObjects\unk404B90.cpp" />
     <ClCompile Include="src\UnkObjects\unk4701A0.cpp" />
     <ClCompile Include="src\UnkObjects\unk47BEA0.cpp" />
@@ -148,7 +148,7 @@
     <ClInclude Include="src\Logging.hpp" />
     <ClInclude Include="src\Memory.hpp" />
     <ClInclude Include="src\Settings.hpp" />
-    <ClInclude Include="src\UnkObjects\unk402560.hpp" />
+    <ClInclude Include="src\UnkObjects\unk4020F0.hpp" />
     <ClInclude Include="src\UnkObjects\unk4701A0.hpp" />
     <ClInclude Include="src\UnkObjects\unk47BEA0.hpp" />
     <ClInclude Include="src\UnkObjects\unk515240.hpp" />

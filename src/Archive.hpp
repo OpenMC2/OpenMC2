@@ -61,7 +61,6 @@ public:
 void sub_5FDD20();
 
 extern MC2_PROC_PTR<std::uint8_t *, Archive::meta_t *, std::uint32_t, std::uint8_t *, std::uint32_t> sub_5FCBF0;
-//extern MC2_PROC_PTR<void, void *, std::uint32_t> sub_5FCFD0;
 
 extern std::uint32_t (&glo_85CD10)[4];
 extern bool &glo_85CD28;
