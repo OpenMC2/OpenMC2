@@ -20,49 +20,38 @@
 
 #include "../Addresses.hpp"
 
-class unk_4020F0 {
+// originally malloc'd in bangermgr.cpp
+class unk_4788D0 {
 protected:
     struct vtable_t {
-        MC2_PROC_MEMBER_PTR<unk_4020F0 *, void, bool> vir_00;
+        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_00;
     };
-
 private:
     static vtable_t vtable_values;
 
-    void *vtable;
-    std::uint32_t unk04;
-    std::uint8_t pad08[4];
+protected:
+    void *vtable = &vtable_values;
+    std::uint32_t unk04 = 0;
+    std::uint32_t unk08 = 0;
+    std::uint16_t unk0C = 0;
+    std::uint16_t unk0E = 0;
+    std::uint32_t unk10 = 0;
+    std::uint32_t unk14 = 0;
+    std::uint32_t unk18 = 0;
+    std::uint32_t unk1C = 0;
+    std::uint32_t unk20 = 0;
+    std::uint32_t unk24 = 0;
+    std::uint32_t unk28 = 0;
+    std::uint32_t unk2C = 0;
+    std::uint32_t unk30 = 0;
+    std::uint8_t pad34[0x8];
 
 public:
-    unk_4020F0() : vtable(&vtable_values), unk04(0) { }
-
-    unk_4020F0 *vir_00(bool unk0) {
-        return static_cast<vtable_t *>(vtable)->vir_00(this, unk0);
-    }
-
-    void sub_401860();
-
-    void sub_402120() {
-        return MC2_CALL_MEMBER<0x00402120, void>(this);
-    }
+    // constructor handled by default initialization
 };
+static_assert(sizeof(unk_4788D0) == 0x3C, "Wrong size for unk_4788D0");
 
-extern MC2_PROC_PTR<void> sub_4069B0;
-extern MC2_PROC_PTR<void> sub_40E240;
-extern MC2_PROC_PTR<void, const char *> sub_5670D0;
-extern MC2_PROC_PTR<void> sub_5D36D0;
-
-extern bool &glo_662284;
-extern const char *(&glo_662288);
-extern std::uint32_t &glo_6745C0;
-extern bool &glo_675024;
-extern const char *(&glo_675028);
-extern bool &glo_692E6C;
-
-extern unk_4020F0 *(&glo_692E7C);
-inline unk_4020F0 *sub_402560() {
-    return glo_692E7C = new unk_4020F0;
+extern unk_4788D0 *(&glo_6968B0);
+inline unk_4788D0 *sub_479100() {
+    return glo_6968B0 = new unk_4788D0();
 }
-
-extern std::uint32_t &glo_8582A8;
-extern const char *(&glo_8582C4);

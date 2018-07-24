@@ -106,16 +106,25 @@
     <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\UnkObjects\unk4020F0.cpp" />
     <ClCompile Include="src\UnkObjects\unk404B90.cpp" />
+    <ClCompile Include="src\UnkObjects\unk405C90.cpp" />
     <ClCompile Include="src\UnkObjects\unk4701A0.cpp" />
+    <ClCompile Include="src\UnkObjects\unk477E80.cpp" />
+    <ClCompile Include="src\UnkObjects\unk4788D0.cpp" />
     <ClCompile Include="src\UnkObjects\unk47BEA0.cpp" />
+    <ClCompile Include="src\UnkObjects\unk482C30.cpp" />
+    <ClCompile Include="src\UnkObjects\unk4CE870.cpp" />
     <ClCompile Include="src\UnkObjects\unk515240.cpp" />
+    <ClCompile Include="src\UnkObjects\unk52AA80.cpp" />
     <ClCompile Include="src\UnkObjects\unk53AF00.cpp" />
+    <ClCompile Include="src\UnkObjects\unk53C670.cpp" />
+    <ClCompile Include="src\UnkObjects\unk53C9E0.cpp" />
     <ClCompile Include="src\UnkObjects\unk53E8D0.cpp" />
     <ClCompile Include="src\UnkObjects\unk5406A0.cpp" />
     <ClCompile Include="src\UnkObjects\unk546DA0.cpp" />
     <ClCompile Include="src\UnkObjects\unk5769E0.cpp" />
     <ClCompile Include="src\UnkObjects\unk577510.cpp" />
     <ClCompile Include="src\UnkObjects\unk579410.cpp" />
+    <ClCompile Include="src\UnkObjects\unk57DC70.cpp" />
     <ClCompile Include="src\UnkObjects\unk59D370.cpp" />
     <ClCompile Include="src\UnkObjects\unk5D6A30.cpp" />
     <ClCompile Include="src\UnkObjects\unk5DDA50.cpp" />
@@ -132,6 +141,7 @@
     <ClCompile Include="src\UnkObjects\unk6144B0.cpp" />
     <ClCompile Include="src\UnkObjects\unk616420.cpp" />
     <ClCompile Include="src\UnkObjects\unk612850.cpp" />
+    <ClCompile Include="src\UnkObjects\unk6633B0.cpp" />
     <ClCompile Include="src\UnkObjects\unk860688.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,16 +159,25 @@
     <ClInclude Include="src\Memory.hpp" />
     <ClInclude Include="src\Settings.hpp" />
     <ClInclude Include="src\UnkObjects\unk4020F0.hpp" />
+    <ClInclude Include="src\UnkObjects\unk405C90.hpp" />
     <ClInclude Include="src\UnkObjects\unk4701A0.hpp" />
+    <ClInclude Include="src\UnkObjects\unk477E80.hpp" />
+    <ClInclude Include="src\UnkObjects\unk4788D0.hpp" />
     <ClInclude Include="src\UnkObjects\unk47BEA0.hpp" />
+    <ClInclude Include="src\UnkObjects\unk482C30.hpp" />
+    <ClInclude Include="src\UnkObjects\unk4CE870.hpp" />
     <ClInclude Include="src\UnkObjects\unk515240.hpp" />
+    <ClInclude Include="src\UnkObjects\unk52AA80.hpp" />
     <ClInclude Include="src\UnkObjects\unk53AF00.hpp" />
+    <ClInclude Include="src\UnkObjects\unk53C670.hpp" />
+    <ClInclude Include="src\UnkObjects\unk53C9E0.hpp" />
     <ClInclude Include="src\UnkObjects\unk53E8D0.hpp" />
     <ClInclude Include="src\UnkObjects\unk5406A0.hpp" />
     <ClInclude Include="src\UnkObjects\unk546DA0.hpp" />
     <ClInclude Include="src\UnkObjects\unk5769E0.hpp" />
     <ClInclude Include="src\UnkObjects\unk577510.hpp" />
     <ClInclude Include="src\UnkObjects\unk579410.hpp" />
+    <ClInclude Include="src\UnkObjects\unk57DC70.hpp" />
     <ClInclude Include="src\UnkObjects\unk59D370.hpp" />
     <ClInclude Include="src\UnkObjects\unk5D6A30.hpp" />
     <ClInclude Include="src\UnkObjects\unk5DDA50.hpp" />
@@ -176,6 +195,7 @@
     <ClInclude Include="src\UnkObjects\unk616420.hpp" />
     <ClInclude Include="src\UnkObjects\unk404B90.hpp" />
     <ClInclude Include="src\UnkObjects\unk612850.hpp" />
+    <ClInclude Include="src\UnkObjects\unk6633B0.hpp" />
     <ClInclude Include="src\UnkObjects\unk860688.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
