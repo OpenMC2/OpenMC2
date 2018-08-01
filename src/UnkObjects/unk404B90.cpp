@@ -17,5 +17,25 @@
 **********************************************************************/
 
 #include "unk404B90.hpp"
+#include "../Game.hpp"
+
+// mc2: 0x0062D968
+const unk_404B90::vtable_t unk_404B90::vtable_values = {
+    &unk_404B90::scalar_deleter,
+    MC2_PROC_MEMBER_PTR<void, void, std::uint32_t>(0x00403810),
+    MC2_PROC_MEMBER_PTR<void, void>(0x004045E0),
+    &mc2_thiscall::null<>,
+    MC2_PROC_MEMBER_PTR<void, void, std::uint32_t>(0x00404A90),
+};
+
+unk_404B90::unk_404B90() {
+    vtable = &vtable_values;
+    vir10(1);
+    unk44 = unk48 = static_cast<float>(glo_6754A4);
+    sub_4014C0();
+}
+
+MC2_DEF_GLOBAL(glo_6754A4, 0x006754A4);
 
 MC2_DEF_GLOBAL(glo_6C3890, 0x006C3890);
+MC2_DEF_GLOBAL(glo_6C3894, 0x006C3894);

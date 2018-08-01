@@ -21,45 +21,31 @@
 
 #include <cstring>
 
-// mc2: 0x005769E0
+// mc2: 0x00651408
+const unk_5769E0::vtable_t unk_5769E0::vtable_values = {
+    &unk_5769E0::scalar_deleter,
+    MC2_PROC_MEMBER_PTR<void, void>(0x00575ED0),
+};
+
 unk_5769E0::unk_5769E0() {
-    unk00 = MC2_POINTER<void>(0x00651408); // virtual function pointers?
-
-    unk08 = nullptr;
-    unk0C = 0;
-    unk18 = 0;
-    unk1C = 0;
-    unkE8 = 0;
-    unkEC = 0x0008;
-    unkEE = 0x0F00;
-    unkF0 = 0;
-    unkF4 = 0x000C;
-    unkF6 = 0x1680;
-    unkF8 = 0;
-    unkFC = 0x0010;
-    unkFE = 0x1E00;
-    unk100 = 0;
-    unk104 = 0x0020;
-    unk106 = 0x3C00;
-    unk108 = 0;
-    unk10C = 0x0030;
-    unk10E = 0x5A00;
-    unk110 = 0;
-    unk114 = 0x0040;
-    unk116 = 0x7800;
-
-    unk04 = global_last_unk5769E0;
+    vtable = &vtable_values;
+    next = global_last_unk5769E0;
     global_last_unk5769E0 = this;
 
     // A lot of function-pointers?
-    if (MC2_GLOBAL<void *>(0x00679784) != MC2_POINTER<void>(0x005764A0))
-        MC2_GLOBAL<void *>(0x00679784) = MC2_POINTER<void>(0x005764A0);
-    if (MC2_GLOBAL<void *>(0x00679788) != MC2_POINTER<void>(0x00576530))
-        MC2_GLOBAL<void *>(0x00679788) = MC2_POINTER<void>(0x00576530);
-    if (MC2_GLOBAL<void *>(0x0067978C) != MC2_POINTER<void>(0x005769C0))
-        MC2_GLOBAL<void *>(0x0067978C) = MC2_POINTER<void>(0x005769C0);
-    if (MC2_GLOBAL<void *>(0x00679790) != MC2_POINTER<void>(0x005769D0))
-        MC2_GLOBAL<void *>(0x00679790) = MC2_POINTER<void>(0x005769D0);
+    glo_679784 = sub_5764A0;
+    glo_679788 = sub_576530;
+    glo_67978C = sub_5769C0;
+    glo_679790 = sub_5769D0;
+}
+
+// mc2: 0x00575B70
+void unk_5769E0::destructor() {
+    vtable = &vtable_values;
+    unk_5769E0 **x = &global_last_unk5769E0;
+    while (*x != this) x = &(*x)->next;
+    *x = next;
+    unk08 = nullptr;
 }
 
 // mc2: 0x00575BA0
@@ -89,6 +75,16 @@ void unk_5769E0::sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8
     if (c != 0) std::memset(unk24, 0, 0x80);
     std::memset(unkA4, 0, 0x40);
 }
+
+MC2_DEF_PROC(sub_5764A0, 0x005764A0);
+MC2_DEF_PROC(sub_576530, 0x00576530);
+MC2_DEF_PROC(sub_5769C0, 0x005769C0);
+MC2_DEF_PROC(sub_5769D0, 0x005769D0);
+
+MC2_DEF_GLOBAL(glo_679784, 0x00679784);
+MC2_DEF_GLOBAL(glo_679788, 0x00679788);
+MC2_DEF_GLOBAL(glo_67978C, 0x0067978C);
+MC2_DEF_GLOBAL(glo_679790, 0x00679790);
 
 MC2_DEF_GLOBAL(global_last_unk5769E0, 0x006C5240); // glo_6C5240
 MC2_DEF_GLOBAL(glo_6C5254, 0x006C5254);

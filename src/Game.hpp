@@ -36,10 +36,10 @@ void sub_5ED7B0(int32_t width, int32_t height, int32_t cdepth, int32_t zdepth, i
 
 extern MC2_PROC_PTR<std::int32_t, HANDLE, void *, std::int32_t> sub_4010B0;
 extern MC2_PROC_PTR<void> sub_401170;
+extern MC2_PROC_PTR<void> sub_4014C0;
 extern MC2_PROC_PTR<void> sub_4017E0;
 extern MC2_PROC_PTR<void> sub_402590;
 extern MC2_PROC_PTR<void> sub_4028E0;
-extern MC2_PROC_PTR<void> sub_404BF0;
 extern MC2_PROC_PTR<void> sub_53A1B0;
 extern MC2_PROC_PTR<void> sub_53A7D0;
 extern MC2_PROC_PTR<void> sub_53A8F0;
@@ -67,7 +67,6 @@ extern std::uint32_t &glo_674FB0;
 extern std::uint32_t &glo_674FB4;
 extern std::uint32_t &glo_674FB8;
 extern std::uint32_t &glo_675030;
-extern std::uint32_t &glo_6754A4;
 extern float &glo_6754A8;
 
 extern std::uint32_t &global_LanguageID; // glo_6C2C5C

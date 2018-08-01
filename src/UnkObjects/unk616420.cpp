@@ -20,8 +20,8 @@
 #include <cstdarg>
 #include <cstdio>
 
-// mc2:0x0062FF40
- unk_616420::vtable_t unk_616420::vtable_values = {
+// mc2: 0x0062FF40
+const unk_616420::vtable_t unk_616420::vtable_values = {
     MC2_PROC_MEMBER_PTR<void, void>(0x004BCFD0),
     MC2_PROC_MEMBER_PTR<void, void>(0x00615220),
     MC2_PROC_MEMBER_PTR<void, void>(0x00615780),
@@ -66,7 +66,6 @@
 };
 
 unk_616420::unk_616420(char *unk1, FileHandler *unk2) {
-    this->unk9C = 0;
     vtable = &unk_616420::vtable_values;
     sub_615130(unk1, unk2);
 }

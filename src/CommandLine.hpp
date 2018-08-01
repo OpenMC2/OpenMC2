@@ -37,21 +37,21 @@ public:
     // C++ Magic
     class iterator : public std::iterator<std::forward_iterator_tag, cmdline_info> {
     public:
-        inline iterator(cmdline_info *c) : info(c) { }
-        inline iterator() : info(nullptr) { }
-        inline cmdline_info &operator*() const { return *info; }
-        inline cmdline_info *operator->() const { return info; }
-        inline bool operator==(const iterator &o) const { return info == o.info; }
-        inline bool operator!=(const iterator &o) const { return info != o.info; }
-        inline iterator &operator++() { info = info->next; return *this; }
-        inline iterator operator++(int i) { iterator tmp(*this); info = info->next; return tmp; }
+        constexpr iterator(cmdline_info *c) : info(c) { }
+        constexpr iterator() : info(nullptr) { }
+        constexpr cmdline_info &operator*() const { return *info; }
+        constexpr cmdline_info *operator->() const { return info; }
+        constexpr bool operator==(const iterator &o) const { return info == o.info; }
+        constexpr bool operator!=(const iterator &o) const { return info != o.info; }
+        constexpr iterator &operator++() { info = info->next; return *this; }
+        constexpr iterator operator++(int i) { iterator tmp(*this); info = info->next; return tmp; }
 
     private:
         cmdline_info *info;
     };
 
-    inline iterator begin() { return iterator(this); }
-    inline iterator end() { return iterator(); }
+    iterator begin() { return iterator(this); }
+    iterator end() { return iterator(); }
 };
 
 inline cmdline_info::iterator begin(cmdline_info c) { return c.begin(); }

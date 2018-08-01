@@ -22,8 +22,8 @@
 #include <string>
 
 // mc2:0x00659B38
-unk_613360::vtable_t unk_613360::vtable_values = {
-    MC2_PROC_MEMBER_PTR<void, void>(0x005ED480),
+const unk_613360::vtable_t unk_613360::vtable_values = {
+    &unk_613360::scalar_deleter,
     &unk_613360::impl_04,
     MC2_PROC_MEMBER_PTR<void, void>(0x00613380),
     &unk_613360::impl_0C,
@@ -35,11 +35,6 @@ unk_613360::vtable_t unk_613360::vtable_values = {
     &unk_613330::impl_24,
     &unk_613330::impl_28,
 };
-
-unk_613360::unk_613360() {
-    vtable = &unk_613360::vtable_values;
-    unk104 = 0;
-}
 
 //mc2:0x006136C0
 void unk_613360::impl_04(char *destination, std::uint32_t unk2, char *unk3, char *extension) {

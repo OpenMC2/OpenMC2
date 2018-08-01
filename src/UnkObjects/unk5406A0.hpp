@@ -25,7 +25,7 @@ private:
     std::uint32_t unk00 = 2;
 
 public:
-    unk_5406A0() = default;
+
 };
 
 extern unk_5406A0 &glo_6C32C4;

@@ -21,6 +21,8 @@
 #include "FileHandler.hpp"
 #include "Settings.hpp"
 
+#include "Audio/sndVoice.hpp"
+
 #include "UnkObjects/unk4701A0.hpp"
 #include "UnkObjects/unk47BEA0.hpp"
 #include "UnkObjects/unk515240.hpp"
@@ -30,7 +32,6 @@
 #include "UnkObjects/unk546DA0.hpp"
 #include "UnkObjects/unk579410.hpp"
 #include "UnkObjects/unk59D370.hpp"
-#include "UnkObjects/unk5D6A30.hpp"
 #include "UnkObjects/unk5E14C0.hpp"
 #include "UnkObjects/unk5EDA70.hpp"
 #include "UnkObjects/unk5FB2E0.hpp"
@@ -206,13 +207,13 @@ static void mc2_xc() {
     new (&glo_6C93A8) unk_59D370; std::atexit([]() { glo_6C93A8.~unk_59D370(); }); // sub_62C610
     new (&glo_6CE228) unk_612850; std::atexit([]() { glo_6CE228.~unk_612850(); }); // sub_62C650
     MC2_PROC_PTR<void>(0x0062C690)();
-    new (&glo_6CE52C) unk_5D6A30; std::atexit([]() { glo_6CE52C.~unk_5D6A30(); }); // sub_62C6B0
-    new (&glo_6CE520) unk_5D6A30; std::atexit([]() { glo_6CE520.~unk_5D6A30(); }); // sub_62C6D0
-    new (&glo_6CE550) unk_5D6A30; std::atexit([]() { glo_6CE550.~unk_5D6A30(); }); // sub_62C6F0
-    new (&glo_6CE544) unk_5D6A30; std::atexit([]() { glo_6CE544.~unk_5D6A30(); }); // sub_62C710
-    new (&glo_6CE55C) unk_5D6A30; std::atexit([]() { glo_6CE55C.~unk_5D6A30(); }); // sub_62C730
-    new (&glo_6CE538) unk_5D6A30; std::atexit([]() { glo_6CE538.~unk_5D6A30(); }); // sub_62C750
-    new (&glo_6CE568) unk_5D6A30; std::atexit([]() { glo_6CE568.~unk_5D6A30(); }); // sub_62C770
+    new (&glo_6CE52C) audio::sndVoice; std::atexit([]() { glo_6CE52C.~sndVoice(); }); // sub_62C6B0
+    new (&glo_6CE520) audio::sndVoice; std::atexit([]() { glo_6CE520.~sndVoice(); }); // sub_62C6D0
+    new (&glo_6CE550) audio::sndVoice; std::atexit([]() { glo_6CE550.~sndVoice(); }); // sub_62C6F0
+    new (&glo_6CE544) audio::sndVoice; std::atexit([]() { glo_6CE544.~sndVoice(); }); // sub_62C710
+    new (&glo_6CE55C) audio::sndVoice; std::atexit([]() { glo_6CE55C.~sndVoice(); }); // sub_62C730
+    new (&glo_6CE538) audio::sndVoice; std::atexit([]() { glo_6CE538.~sndVoice(); }); // sub_62C750
+    new (&glo_6CE568) audio::sndVoice; std::atexit([]() { glo_6CE568.~sndVoice(); }); // sub_62C770
     MC2_PROC_PTR<void>(0x0062C7A0)();
     new (&glo_857850) unk_612850; std::atexit([]() { glo_857850.~unk_612850(); }); // sub_62C7E0
     new (&glo_857868) unk_612850; std::atexit([]() { glo_857868.~unk_612850(); }); // sub_62C800

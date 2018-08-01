@@ -23,15 +23,15 @@
 #include <new>
 
 void *mc2_malloc(std::uint32_t size) {
-    return operator new(size);
+    return ::operator new(size);
 }
 
 void *mc2_malloc_info(std::uint32_t size, const char * /* file */, std::int32_t /* line */) {
-    return operator new(size);
+    return ::operator new(size);
 }
 
 void mc2_free(void *ptr) {
-    if (ptr != nullptr) operator delete(ptr);
+    return ::operator delete(ptr);
 }
 
 void *mc2_aligned_malloc(std::uint32_t size, std::uint32_t align) {
@@ -43,7 +43,7 @@ void *mc2_aligned_malloc_info(std::uint32_t size, std::uint32_t align, const cha
 }
 
 void mc2_aligned_free(void *ptr) {
-    if (ptr != nullptr) _aligned_free(ptr);
+    return _aligned_free(ptr);
 }
 
 char *mc2_strdup(const char *str) {

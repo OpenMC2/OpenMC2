@@ -64,13 +64,13 @@ protected:
         MC2_PROC_MEMBER_PTR<bool, void, const char *, std::uint32_t> vir_94;
         MC2_PROC_MEMBER_PTR<void, void> vir_98;
         MC2_PROC_MEMBER_PTR<void, void> vir_9C;
-        MC2_PROC_MEMBER_PTR<void, void> vir_100;
+        MC2_PROC_MEMBER_PTR<void, void> vir_A0;
     };
 private:
-    static vtable_t vtable_values;
+    static const vtable_t vtable_values;
 
 protected:
-    void *vtable;
+    const void *vtable;
     char *unk04;
     std::uint32_t unk08;
     FileHandler *unk0C;
@@ -79,7 +79,7 @@ protected:
     std::uint8_t unk18;
     std::uint8_t unk19[0x7F];
     std::uint32_t unk98;
-    std::uint32_t unk9C;
+    std::uint32_t unk9C = 0;
 
 public:
     unk_616420(char *unk1, FileHandler *unk2);
@@ -87,7 +87,7 @@ public:
     void sub_615130(char *unk1, FileHandler *unk2);
 
     bool vir_94(char *unk1, std::uint32_t unk2) {
-        return static_cast<vtable_t*>(vtable)->vir_94(this, unk1, unk2);
+        return static_cast<const vtable_t*>(vtable)->vir_94(this, unk1, unk2);
     }
 
     // Use vir_94() to call

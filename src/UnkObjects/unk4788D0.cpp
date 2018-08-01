@@ -17,10 +17,17 @@
 **********************************************************************/
 
 #include "unk4788D0.hpp"
+#include "../Memory.hpp"
 
 // mc2: 0x0063E330
-unk_4788D0::vtable_t unk_4788D0::vtable_values = {
-    MC2_PROC_MEMBER_PTR<void, void, std::uint32_t>(0x00479130),
+const unk_4788D0::vtable_t unk_4788D0::vtable_values = {
+    &unk_4788D0::scalar_deleter,
 };
+
+// mc2: 0x00478910
+void unk_4788D0::destructor() {
+    vtable = &vtable_values;
+    ::operator delete(unk08);
+}
 
 MC2_DEF_GLOBAL(glo_6968B0, 0x006968B0);

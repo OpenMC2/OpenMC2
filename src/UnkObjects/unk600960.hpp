@@ -25,7 +25,7 @@ private:
     std::uint8_t pad00[0x27C4];
 
 public:
-    inline unk_600960(HWND hWnd) {
+    unk_600960(HWND hWnd) {
         MC2_CALL_MEMBER<0x00600960, void>(this, hWnd);
     }
 

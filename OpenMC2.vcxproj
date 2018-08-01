@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Archive.cpp" />
+    <ClCompile Include="src\Audio\sndVoice.cpp" />
     <ClCompile Include="src\CInit.cpp" />
     <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\DllHooks\DllHooks.cpp" />
@@ -115,6 +116,7 @@
     <ClCompile Include="src\UnkObjects\unk4CE870.cpp" />
     <ClCompile Include="src\UnkObjects\unk515240.cpp" />
     <ClCompile Include="src\UnkObjects\unk52AA80.cpp" />
+    <ClCompile Include="src\UnkObjects\unk53A920.cpp" />
     <ClCompile Include="src\UnkObjects\unk53AF00.cpp" />
     <ClCompile Include="src\UnkObjects\unk53C670.cpp" />
     <ClCompile Include="src\UnkObjects\unk53C9E0.cpp" />
@@ -126,7 +128,6 @@
     <ClCompile Include="src\UnkObjects\unk579410.cpp" />
     <ClCompile Include="src\UnkObjects\unk57DC70.cpp" />
     <ClCompile Include="src\UnkObjects\unk59D370.cpp" />
-    <ClCompile Include="src\UnkObjects\unk5D6A30.cpp" />
     <ClCompile Include="src\UnkObjects\unk5DDA50.cpp" />
     <ClCompile Include="src\UnkObjects\unk5E14C0.cpp" />
     <ClCompile Include="src\UnkObjects\unk5EDA70.cpp" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp" />
     <ClInclude Include="src\Archive.hpp" />
+    <ClInclude Include="src\Audio\sndVoice.hpp" />
     <ClInclude Include="src\CInit.hpp" />
     <ClInclude Include="src\CommandLine.hpp" />
     <ClInclude Include="src\Config.hpp" />
@@ -168,6 +170,7 @@
     <ClInclude Include="src\UnkObjects\unk4CE870.hpp" />
     <ClInclude Include="src\UnkObjects\unk515240.hpp" />
     <ClInclude Include="src\UnkObjects\unk52AA80.hpp" />
+    <ClInclude Include="src\UnkObjects\unk53A920.hpp" />
     <ClInclude Include="src\UnkObjects\unk53AF00.hpp" />
     <ClInclude Include="src\UnkObjects\unk53C670.hpp" />
     <ClInclude Include="src\UnkObjects\unk53C9E0.hpp" />
@@ -179,7 +182,6 @@
     <ClInclude Include="src\UnkObjects\unk579410.hpp" />
     <ClInclude Include="src\UnkObjects\unk57DC70.hpp" />
     <ClInclude Include="src\UnkObjects\unk59D370.hpp" />
-    <ClInclude Include="src\UnkObjects\unk5D6A30.hpp" />
     <ClInclude Include="src\UnkObjects\unk5DDA50.hpp" />
     <ClInclude Include="src\UnkObjects\unk5E14C0.hpp" />
     <ClInclude Include="src\UnkObjects\unk5EDA70.hpp" />

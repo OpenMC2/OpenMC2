@@ -20,48 +20,44 @@
 
 #include "../Addresses.hpp"
 
-class unk_4020F0 {
+class unk_53A920 {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
+        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_04;
+        MC2_PROC_MEMBER_PTR<void, void> vir_08;
+        MC2_PROC_MEMBER_PTR<void, void> vir_0C;
+        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_10;
     };
-
-private:
     static const vtable_t vtable_values;
 
+protected:
     const void *vtable;
     std::uint32_t unk04 = 0;
-    std::uint8_t pad08[4];
+    std::uint8_t unk08 = 0;
+    std::uint8_t unk09 = 0;
+    std::uint8_t unk0A = 0;
+    std::uint8_t unk0B = 0;
 
 public:
-    unk_4020F0() { vtable = &vtable_values; }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4020F0) {
-        MC2_CALL_MEMBER<0x00401820, void>(this);
+    unk_53A920() { vtable = &vtable_values; }
+
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_53A920) { /* only resets vtable */ }
+
+    void vir04(std::uint32_t a) {
+        static_cast<const vtable_t *>(this->vtable)->vir_04(this, a);
+    }
+    void vir08() {
+        static_cast<const vtable_t *>(this->vtable)->vir_08(this);
+    }
+    void vir0C() {
+        static_cast<const vtable_t *>(this->vtable)->vir_0C(this);
+    }
+    void vir10(std::uint32_t a) {
+        static_cast<const vtable_t *>(this->vtable)->vir_10(this, a);
     }
 
-    void sub_401860();
-
-    void sub_402120() {
-        return MC2_CALL_MEMBER<0x00402120, void>(this);
-    }
+protected:
+    void impl_set_unk04(std::uint32_t a) { unk04 = a; }
 };
-
-extern MC2_PROC_PTR<void> sub_4069B0;
-extern MC2_PROC_PTR<void> sub_40E240;
-extern MC2_PROC_PTR<void, const char *> sub_5670D0;
-extern MC2_PROC_PTR<void> sub_5D36D0;
-
-extern bool &glo_662284;
-extern const char *(&glo_662288);
-extern std::uint32_t &glo_6745C0;
-extern bool &glo_675024;
-extern const char *(&glo_675028);
-extern bool &glo_692E6C;
-
-extern unk_4020F0 *(&glo_692E7C);
-inline unk_4020F0 *sub_402560() {
-    return glo_692E7C = new unk_4020F0;
-}
-
-extern std::uint32_t &glo_8582A8;
-extern const char *(&glo_8582C4);
+static_assert(sizeof(unk_53A920) == 0x0C, "Bad Size: unk_53A920");

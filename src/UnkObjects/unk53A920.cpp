@@ -16,12 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk5D6A30.hpp"
+#include "unk53A920.hpp"
 
-MC2_DEF_GLOBAL(glo_6CE520, 0x006CE520);
-MC2_DEF_GLOBAL(glo_6CE52C, 0x006CE52C);
-MC2_DEF_GLOBAL(glo_6CE538, 0x006CE538);
-MC2_DEF_GLOBAL(glo_6CE544, 0x006CE544);
-MC2_DEF_GLOBAL(glo_6CE550, 0x006CE550);
-MC2_DEF_GLOBAL(glo_6CE55C, 0x006CE55C);
-MC2_DEF_GLOBAL(glo_6CE568, 0x006CE568);
+// mc2: 0x0064D2AC
+const unk_53A920::vtable_t unk_53A920::vtable_values = {
+    &unk_53A920::scalar_deleter,
+    &mc2_thiscall::null<std::uint32_t>,
+    &mc2_thiscall::null<>,
+    &mc2_thiscall::null<>,
+    &unk_53A920::impl_set_unk04,
+};

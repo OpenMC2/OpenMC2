@@ -18,7 +18,9 @@
 
 #pragma once
 
+#include <cassert>
 #include <cstdint>
+#include <stdexcept>
 #include <type_traits>
 
 #define WIN32_LEAN_AND_MEAN
@@ -123,7 +125,31 @@ explicit X(std::uint32_t address) : __VA_ARGS__(address) { }
     template<class Ret, class... Args> Auto_Hook_Fnptr_Obj<MC2_PROC_STDCALL_PTR<Ret, Args...>> Auto_Hook_Stdcall_Fnptr(std::uintptr_t in, STDCALL_PTR<Ret, Args...> out) { return { in, out }; }
     template<class Ret, class C, class... Args> Auto_Hook_Fnptr_Obj<MC2_PROC_MEMBER_PTR<Ret, C, Args...>> Auto_Hook_Member_Fnptr(std::uintptr_t in, MEMBER_PTR<Ret, C, Args...> out) { return { in, out }; }
     template<class Ret, class C, class... Args> Auto_Hook_Fnptr_Obj<MC2_PROC_MEMBER_PTR<Ret, C, Args...>> Auto_Hook_Member_Fnptr(std::uintptr_t in, MEMBER_MPTR<Ret, C, Args...> out) { return { in, out }; }
+    
+    template<class T>
+    inline void *scalar_deleter(T *_this, std::uint32_t flags) {
+        assert((flags & ~1) == 0);
+        _this->destructor();
+        if (flags & 1) ::operator delete(_this);
+        return _this;
+    }
+#define MC2_SCALAR_DELETING_DESTRUCTOR(X) \
+    void *scalar_deleter(std::uint32_t flags) { return detail::scalar_deleter<>(this, flags); } \
+    ~X() { static_cast<const vtable_t *>(this->vtable)->deleter(this, 0); } \
+    void destructor()
 }
+
+// some common virtual function implementations for simplicity
+class mc2_thiscall {
+public:
+    template<class... Args> void null(Args...) { }
+    template<class Ret, Ret V, class... Args>
+    Ret retval(Args...) { return V; }
+    template<class Ret, class... Args>
+    Ret pure(Args...) {
+        throw std::logic_error("Called pure virtual member function");
+    }
+};
 
 template<class T> inline detail::non_func_t<T> &MC2_GLOBAL(const std::uintptr_t address) { return *detail::MC2_POINTER_BASIC<T *>(address); }
 template<class T> inline detail::non_func_t<T> *MC2_POINTER(const std::uintptr_t address) { return detail::MC2_POINTER_BASIC<T *>(address); }
@@ -170,6 +196,8 @@ public:
     template<class C> MC2_PROC_MEMBER_PTR(detail::MEMBER_MPTR<Ret, C, Args...> func) : super(detail::CAST<void>(func)) { }
     constexpr MC2_PROC_MEMBER_PTR(std::nullptr_t) : super(nullptr) { }
 };
+
+using MC2_DELETING_DESTRUCTOR = MC2_PROC_MEMBER_PTR<void *, void, std::uint32_t>;
 
 #undef MC2_PROC_PTR_CONSTRUCTORS
 

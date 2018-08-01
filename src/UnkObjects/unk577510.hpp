@@ -33,7 +33,7 @@ public:
         return MC2_CALL_MEMBER<0x005775A0, void>(this, a, b, c, d, e);
     }
 
-    inline void sub_577610() {
+    void sub_577610() {
         return MC2_CALL_MEMBER<0x00577610, void>(this);
     }
 };

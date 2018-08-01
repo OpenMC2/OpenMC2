@@ -24,15 +24,15 @@
 class unk_4788D0 {
 protected:
     struct vtable_t {
-        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_00;
+        MC2_DELETING_DESTRUCTOR deleter;
     };
 private:
-    static vtable_t vtable_values;
+    static const vtable_t vtable_values;
 
 protected:
-    void *vtable = &vtable_values;
+    const void *vtable;
     std::uint32_t unk04 = 0;
-    std::uint32_t unk08 = 0;
+    void *unk08 = nullptr;
     std::uint16_t unk0C = 0;
     std::uint16_t unk0E = 0;
     std::uint32_t unk10 = 0;
@@ -47,7 +47,9 @@ protected:
     std::uint8_t pad34[0x8];
 
 public:
-    // constructor handled by default initialization
+    unk_4788D0() { vtable = &vtable_values; }
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4788D0);
+
 };
 static_assert(sizeof(unk_4788D0) == 0x3C, "Wrong size for unk_4788D0");
 

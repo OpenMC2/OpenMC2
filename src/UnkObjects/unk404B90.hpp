@@ -19,23 +19,40 @@
 #pragma once
 
 #include "../Addresses.hpp"
+#include "unk53A920.hpp"
 
-class unk_404B90 {
-private:
-    struct {
-        void *unk00;
-        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> unk04;
-    } *vtable;
+// originally malloc'd in gamestate.c
+class unk_404B90 : public unk_53A920 {
+protected:
+    static const vtable_t vtable_values;
+
+    std::uint8_t pad0C[0x28];
+    std::uint32_t unk34 = 0;
+    std::uint32_t unk38 = 0;
+    std::uint32_t unk3C = 0;
+    std::uint32_t unk40 = 0;
+    float unk44;
+    float unk48 = 1.0f;
+    float unk4C;
+    std::uint8_t pad50[0x4];
+    std::uint32_t unk54 = 1;
+    std::uint32_t unk58 = 0;
+    std::uint32_t unk5C = 1;
 
 public:
-    unk_404B90() {
-        MC2_CALL_MEMBER<0x00404B90, void>(this);
-    }
+    unk_404B90();
 
-    inline void vir04(std::uint32_t a) {
-        this->vtable->unk04(this, a);
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_404B90) {
+        MC2_CALL_MEMBER<0x004037F0, void>(this);
     }
 
 };
+static_assert(sizeof(unk_404B90) == 0x60, "Bad Size: unk_404B90");
+
+extern std::uint32_t &glo_6754A4;
 
 extern unk_404B90 *&glo_6C3890;
+extern unk_404B90 *&glo_6C3894;
+inline void sub_404BF0() {
+    glo_6C3890 = glo_6C3894 = new unk_404B90;
+}

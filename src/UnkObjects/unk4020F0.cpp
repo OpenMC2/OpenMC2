@@ -31,8 +31,8 @@
 #include "unk6633B0.hpp"
 
 // mc2: 0x0062D530
-unk_4020F0::vtable_t unk_4020F0::vtable_values = {
-    MC2_PROC_MEMBER_PTR<unk_4020F0 *, void, bool>(0x00402100),
+const unk_4020F0::vtable_t unk_4020F0::vtable_values = {
+    &unk_4020F0::scalar_deleter,
 };
 
 void unk_4020F0::sub_401860() {

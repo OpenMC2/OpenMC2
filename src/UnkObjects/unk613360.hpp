@@ -23,14 +23,14 @@
 
 class unk_613360 : public unk_613330 {
 private:
-    static vtable_t vtable_values;
+    static const vtable_t vtable_values;
 
 private:
     char unk04[0x100];
-    std::uint32_t unk104;
+    std::uint32_t unk104 = 0;
 
 public:
-    unk_613360();
+    unk_613360() { vtable = &vtable_values; }
 
     void impl_04(char *destination, std::uint32_t unk2, char *unk3, char *extension);
     void impl_0C();
