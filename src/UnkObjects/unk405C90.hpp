@@ -29,6 +29,10 @@ public:
     unk_405C90() {
         MC2_CALL_MEMBER<0x00405C90, void>(this);
     }
+
+    void sub_4064E0() {
+        MC2_CALL_MEMBER<0x004064E0, void>(this);
+    }
 };
 static_assert(sizeof(unk_405C90) == 0x1D80, "Wrong size for unk_405C90");
 

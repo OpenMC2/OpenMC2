@@ -20,26 +20,45 @@
 
 #include "../Addresses.hpp"
 
-class unk_5FAC30 {
+// originally malloc'd in layermgr.c
+class unk_402800 {
+public:
+    // need to figure out these structures more
+    class sub_unk04_t {
+    public:
+        void sub_420B70() {
+            MC2_CALL_MEMBER<0x00420B70, void>(this);
+        }
+
+        void sub_41A960() {
+            MC2_CALL_MEMBER<0x0041A960, void>(this);
+        }
+    };
+
+    class unk04_t {
+    public:
+        std::uint8_t pad00[0x14];
+        sub_unk04_t *unk14;
+    };
+
 private:
-    std::uint8_t pad00[0x184];
+    std::uint8_t pad00[0x4];
+    unk04_t *unk04[7];
+    std::uint8_t pad20[0x10C];
 
 public:
-    unk_5FAC30() {
-        MC2_CALL_MEMBER<0x005FAC30, void>(this);
+    unk_402800() {
+        MC2_CALL_MEMBER<0x00402800, void>(this);
     }
 
-    void sub_419DB0() {
-        return MC2_CALL_MEMBER<0x00419DB0, void>(this);
+    unk04_t *sub_4025C0(std::uint32_t index) {
+        return unk04[index];
     }
 };
-static_assert(sizeof(unk_5FAC30) == 0x184, "Wrong size for unk_5FAC30");
+static_assert(sizeof(unk_402800) == 0x12C, "Wrong size for unk_421350");
 
-inline unk_5FAC30 *sub_5ED990() {
-    return new unk_5FAC30;
+extern unk_402800 *(&glo_692E88);
+inline unk_402800 *sub_4028E0() {
+    return glo_692E88 = new unk_402800;
 }
-
-extern MC2_PROC_PTR<void, unk_5FAC30 *> sub_5F23A0;
-
-extern unk_5FAC30 *&glo_858378;
-extern unk_5FAC30 *&glo_858394;
+#pragma once

@@ -16,9 +16,31 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk5FAC30.hpp"
+#pragma once
 
-MC2_DEF_PROC(sub_5F23A0, 0x005F23A0);
+#include "../Addresses.hpp"
 
-MC2_DEF_GLOBAL(glo_858378, 0x00858378);
-MC2_DEF_GLOBAL(glo_858394, 0x00858394);
+// originally malloc'd in raceeditor.cpp
+class unk_412280 {
+private:
+    std::uint8_t pad00[0x4F0];
+
+public:
+    unk_412280() {
+        MC2_CALL_MEMBER<0x00412280, void>(this);
+    }
+
+    void sub_4158F0() {
+        return MC2_CALL_MEMBER<0x004158F0, void>(this);
+    }
+
+    void sub_4155D0() {
+        return MC2_CALL_MEMBER<0x004155D0, void>(this);
+    }
+};
+static_assert(sizeof(unk_412280) == 0x4F0, "Wrong size for unk_412280");
+
+extern unk_412280 *(&glo_6956DC);
+inline unk_412280 *sub_412550() {
+    return glo_6956DC = new unk_412280;
+}

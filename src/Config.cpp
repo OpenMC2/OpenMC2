@@ -144,6 +144,8 @@ static bool set_defaults(config_tree &tree) {
     if (!settings) settings = tree.put_child("settings", { });
     modified |= glo_Settings.tree_set_defaults(settings.get());
 
+    set_default(tree, modified, "startup.fast-disclaimer", true);
+
     set_default(tree, modified, "net.main", "");
     set_default(tree, modified, "net.master", "");
     set_default(tree, modified, "net.natneg1", "");
@@ -186,6 +188,8 @@ void load_config() {
 
     glo_Settings.tree_load_settings(config.get_child("settings"));
 
+    startup_config.fast_disclaimer = config.get<bool>("startup.fast-disclaimer");
+
     net_config.main = config.get<std::string>("net.main");
     net_config.master = config.get<std::string>("net.master");
     net_config.natneg1 = config.get<std::string>("net.natneg1");
@@ -223,6 +227,7 @@ boost::filesystem::path config_gamepath;
 std::string config_assets_name;
 
 net_config_t net_config;
+startup_config_t startup_config;
 
 MC2_DEF_GLOBAL(glo_windowed_mode, 0x00858370);
 

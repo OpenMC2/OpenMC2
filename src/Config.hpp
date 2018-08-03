@@ -40,6 +40,11 @@ struct net_config_t {
 };
 extern net_config_t net_config;
 
+struct startup_config_t {
+    bool fast_disclaimer;
+};
+extern startup_config_t startup_config;
+
 extern bool &glo_windowed_mode;
 
 extern const char *&glo_6738A0;

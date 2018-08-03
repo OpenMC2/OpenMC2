@@ -20,26 +20,36 @@
 
 #include "../Addresses.hpp"
 
-class unk_5FAC30 {
-private:
-    std::uint8_t pad00[0x184];
+// originally malloc'd in netmanager.c
+class unk_406950 {
+protected:
+    // giant vtable size 0x1F4 (125 functions)
+    struct vtable_t {
+        MC2_DELETING_DESTRUCTOR deleter;
+        std::uint8_t pad04[0x54];
+        MC2_PROC_MEMBER_PTR<void, void> vir_58;
+        std::uint8_t pad5C[0x198];
+    };
+    static_assert(sizeof(vtable_t) == 0x1F4, "Wrong vtable size for unk_406950");
+
+protected:
+    const void *vtable;
+    std::uint8_t pad04[0x2FC];
 
 public:
-    unk_5FAC30() {
-        MC2_CALL_MEMBER<0x005FAC30, void>(this);
+    unk_406950(std::uint32_t arg1, std::uint32_t arg2) {
+        MC2_CALL_MEMBER<0x00406950, void>(this, arg1, arg2);
     }
 
-    void sub_419DB0() {
-        return MC2_CALL_MEMBER<0x00419DB0, void>(this);
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_406950) {
+        MC2_CALL_MEMBER<0x004069A0, void>(this);
+    }
+
+    void vir58() {
+        return static_cast<const vtable_t *>(this->vtable)->vir_58(this);
     }
 };
-static_assert(sizeof(unk_5FAC30) == 0x184, "Wrong size for unk_5FAC30");
+static_assert(sizeof(unk_406950) == 0x300, "Wrong size for unk_406950");
 
-inline unk_5FAC30 *sub_5ED990() {
-    return new unk_5FAC30;
-}
-
-extern MC2_PROC_PTR<void, unk_5FAC30 *> sub_5F23A0;
-
-extern unk_5FAC30 *&glo_858378;
-extern unk_5FAC30 *&glo_858394;
+extern unk_406950 *(&glo_6C2BB4);
+extern unk_406950 *(&glo_6C38B4);

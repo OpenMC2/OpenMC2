@@ -63,7 +63,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>libs\debug\lib;.\;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>mc2.lib;boost_system-vc140-mt-gd.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mc2.lib;Winmm.lib;boost_system-vc140-mt-gd.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -85,7 +85,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>libs\lib;.\;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>mc2.lib;boost_system-vc140-mt.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mc2.lib;Winmm.lib;boost_system-vc140-mt.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -106,8 +106,14 @@
     <ClCompile Include="src\CommandLine.cpp" />
     <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\UnkObjects\unk4020F0.cpp" />
+    <ClCompile Include="src\UnkObjects\unk402800.cpp" />
     <ClCompile Include="src\UnkObjects\unk404B90.cpp" />
+    <ClCompile Include="src\UnkObjects\unk405630.cpp" />
     <ClCompile Include="src\UnkObjects\unk405C90.cpp" />
+    <ClCompile Include="src\UnkObjects\unk406950.cpp" />
+    <ClCompile Include="src\UnkObjects\unk412280.cpp" />
+    <ClCompile Include="src\UnkObjects\unk419D20.cpp" />
+    <ClCompile Include="src\UnkObjects\unk421350.cpp" />
     <ClCompile Include="src\UnkObjects\unk4701A0.cpp" />
     <ClCompile Include="src\UnkObjects\unk477E80.cpp" />
     <ClCompile Include="src\UnkObjects\unk4788D0.cpp" />
@@ -161,7 +167,13 @@
     <ClInclude Include="src\Memory.hpp" />
     <ClInclude Include="src\Settings.hpp" />
     <ClInclude Include="src\UnkObjects\unk4020F0.hpp" />
+    <ClInclude Include="src\UnkObjects\unk402800.hpp" />
+    <ClInclude Include="src\UnkObjects\unk405630.hpp" />
     <ClInclude Include="src\UnkObjects\unk405C90.hpp" />
+    <ClInclude Include="src\UnkObjects\unk406950.hpp" />
+    <ClInclude Include="src\UnkObjects\unk412280.hpp" />
+    <ClInclude Include="src\UnkObjects\unk419D20.hpp" />
+    <ClInclude Include="src\UnkObjects\unk421350.hpp" />
     <ClInclude Include="src\UnkObjects\unk4701A0.hpp" />
     <ClInclude Include="src\UnkObjects\unk477E80.hpp" />
     <ClInclude Include="src\UnkObjects\unk4788D0.hpp" />

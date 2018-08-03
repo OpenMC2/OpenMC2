@@ -84,7 +84,7 @@ int StartOpenMC2() {
     constexpr std::uint8_t axis_fix[] = { 0x90, 0xE9 };
     detail::Hook_Raw(0x00603EBA, axis_fix);
 
-    int b = sub_6181F0();
+    int b = run_game_guarded();
 
     sub_612F00();
 

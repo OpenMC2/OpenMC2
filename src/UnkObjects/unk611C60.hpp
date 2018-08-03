@@ -20,6 +20,10 @@
 
 #include "../Addresses.hpp"
 
+extern MC2_PROC_PTR<std::uint32_t> get_lower_rdtsc; // 0x00611C30
+
+extern float &glo_8600DC;
+
 class unk_611C60 {
 private:
     std::uint32_t unk00;
@@ -28,6 +32,11 @@ public:
     unk_611C60() {
         MC2_CALL_MEMBER<0x00611C60, void>(this);
     }
+
+    void fetch_time() { unk00 = get_lower_rdtsc(); }
+
+    std::uint32_t get_delta() const { return get_lower_rdtsc() - unk00; }
+    float get_delta_seconds() const { return get_delta() * glo_8600DC; }
 };
 
 extern unk_611C60 &glo_692E68;

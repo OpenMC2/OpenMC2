@@ -16,9 +16,33 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk5FAC30.hpp"
+#pragma once
 
-MC2_DEF_PROC(sub_5F23A0, 0x005F23A0);
+#include "../Addresses.hpp"
 
-MC2_DEF_GLOBAL(glo_858378, 0x00858378);
-MC2_DEF_GLOBAL(glo_858394, 0x00858394);
+// originally malloc'd in movieplayer.cpp
+class unk_421350 {
+public:
+    std::uint8_t pad00[0x1C];
+    std::uint8_t unk1C;
+    std::uint8_t pad1D[0x13];
+
+public:
+    unk_421350() {
+        MC2_CALL_MEMBER<0x00421350, void>(this);
+    }
+
+    void sub_420EA0() {
+        MC2_CALL_MEMBER<0x00420EA0, void>(this);
+    }
+
+    void sub_421050() {
+        MC2_CALL_MEMBER<0x00421050, void>(this);
+    }
+};
+static_assert(sizeof(unk_421350) == 0x30, "Wrong size for unk_421350");
+
+extern unk_421350 *(&glo_6957BC);
+inline unk_421350 *sub_421490() {
+    return glo_6957BC = new unk_421350;
+}

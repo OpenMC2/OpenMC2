@@ -16,9 +16,31 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk5FAC30.hpp"
+#pragma once
 
-MC2_DEF_PROC(sub_5F23A0, 0x005F23A0);
+#include "../Addresses.hpp"
 
-MC2_DEF_GLOBAL(glo_858378, 0x00858378);
-MC2_DEF_GLOBAL(glo_858394, 0x00858394);
+// originally malloc'd in carviewer.cpp
+class unk_419D20 {
+private:
+    std::uint8_t pad00[0x2C];
+
+public:
+    unk_419D20() {
+        MC2_CALL_MEMBER<0x00419D20, void>(this);
+    }
+
+    void sub_419980() {
+        MC2_CALL_MEMBER<0x00419980, void>(this);
+    }
+
+    void sub_419CA0() {
+        MC2_CALL_MEMBER<0x00419CA0, void>(this);
+    }
+};
+static_assert(sizeof(unk_419D20) == 0x2C, "Wrong size for unk_419D20");
+
+extern unk_419D20 *&glo_695760;
+inline unk_419D20 *sub_419D80() {
+    return glo_695760 = new unk_419D20;
+}

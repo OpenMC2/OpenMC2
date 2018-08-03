@@ -16,9 +16,27 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk5FAC30.hpp"
+#pragma once
 
-MC2_DEF_PROC(sub_5F23A0, 0x005F23A0);
+#include "../Addresses.hpp"
 
-MC2_DEF_GLOBAL(glo_858378, 0x00858378);
-MC2_DEF_GLOBAL(glo_858394, 0x00858394);
+// originally malloc'd in replaymgr.c
+class unk_405630 {
+protected:
+    std::uint8_t pad00[0x3C];
+
+public:
+    unk_405630() {
+        MC2_CALL_MEMBER<0x00405630, void>(this);
+    }
+
+    void sub_405360() {
+        MC2_CALL_MEMBER<0x00405360, void>(this);
+    }
+};
+static_assert(sizeof(unk_405630) == 0x3C, "Wrong size for unk_405630");
+
+extern unk_405630 *(&glo_692EB0);
+inline unk_405630 *sub_405690() {
+    return glo_692EB0 = new unk_405630;
+}

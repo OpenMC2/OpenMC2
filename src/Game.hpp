@@ -20,7 +20,10 @@
 #include "Addresses.hpp"
 #include "FileHandler.hpp"
 
-int sub_401190();
+// mc2: 0x00401190
+int run_game();
+// mc2: 0x006181F0
+int run_game_guarded();
 
 int get_language_id(const char *path);
 const char *get_language_string(int id);
@@ -28,7 +31,6 @@ const char *get_language_string(int id);
 void sub_6134D0(const char *var8);
 
 void sub_6177E0(std::int32_t max, DWORD ebp, FILE *log, const char *endline);
-int sub_6181F0();
 
 void sub_612F00();
 
@@ -44,7 +46,6 @@ extern MC2_PROC_PTR<void> sub_53A1B0;
 extern MC2_PROC_PTR<void> sub_53A7D0;
 extern MC2_PROC_PTR<void> sub_53A8F0;
 extern MC2_PROC_PTR<void> sub_5ECB90;
-extern MC2_PROC_PTR<void> sub_5ED220;
 extern MC2_PROC_PTR<void, const char *, std::uint32_t, std::uint32_t> sub_5ED240;
 extern MC2_PROC_PTR<void, const char *> sub_5EDA50;
 extern MC2_PROC_PTR<void> sub_5EE9F0;

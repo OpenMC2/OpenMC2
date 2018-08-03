@@ -501,7 +501,8 @@ void sub_5ED7B0(std::int32_t width, std::int32_t height, std::int32_t cdepth, st
     glo_85FBE0 = static_cast<float>(1.0 / height);
 }
 
-int sub_401190() {
+// mc2: 0x00401190
+int run_game() {
     sub_53A890("mc.exe -path=. -archive=assets_p.dat");
     glo_85837C = 101;
     game_set_window_title("Midnight Club II");
@@ -554,7 +555,7 @@ int sub_401190() {
             glo_6C3890->vir04(15);
         }
 
-        game->sub_402120();
+        game->game_loop();
         sub_53A8F0();
         sub_402590();
         sub_4017E0();
@@ -619,9 +620,10 @@ static bool sub_6178E0(LPEXCEPTION_POINTERS except) {
     return true;
 }
 
-int sub_6181F0() {
+// mc2: 0x006181F0
+int run_game_guarded() {
     __try {
-        return sub_401190();
+        return run_game();
     } __except (sub_6178E0(GetExceptionInformation())) {
         mc2_log_info("ExceptMain: Abnormal exit.");
         return 1;
@@ -639,7 +641,6 @@ MC2_DEF_PROC(sub_53A1B0, 0x0053A1B0);
 MC2_DEF_PROC(sub_53A7D0, 0x0053A7D0);
 MC2_DEF_PROC(sub_53A8F0, 0x0053A8F0);
 MC2_DEF_PROC(sub_5ECB90, 0x005ECB90);
-MC2_DEF_PROC(sub_5ED220, 0x005ED220);
 MC2_DEF_PROC(sub_5ED240, 0x005ED240);
 MC2_DEF_PROC(sub_5EDA50, 0x005EDA50);
 MC2_DEF_PROC(sub_5EE9F0, 0x005EE9F0);

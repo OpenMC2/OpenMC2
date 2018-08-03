@@ -16,9 +16,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk5FAC30.hpp"
+#include "unk405630.hpp"
 
-MC2_DEF_PROC(sub_5F23A0, 0x005F23A0);
-
-MC2_DEF_GLOBAL(glo_858378, 0x00858378);
-MC2_DEF_GLOBAL(glo_858394, 0x00858394);
+MC2_DEF_GLOBAL(glo_692EB0, 0x00692EB0);

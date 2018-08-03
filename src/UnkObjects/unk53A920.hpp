@@ -31,7 +31,7 @@ protected:
     };
     static const vtable_t vtable_values;
 
-protected:
+public:
     const void *vtable;
     std::uint32_t unk04 = 0;
     std::uint8_t unk08 = 0;
@@ -41,7 +41,6 @@ protected:
 
 public:
     unk_53A920() { vtable = &vtable_values; }
-
     MC2_SCALAR_DELETING_DESTRUCTOR(unk_53A920) { /* only resets vtable */ }
 
     void vir04(std::uint32_t a) {

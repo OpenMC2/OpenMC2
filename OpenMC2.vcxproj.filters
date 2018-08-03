@@ -186,6 +186,24 @@
     <ClCompile Include="src\Audio\sndVoice.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk405630.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk421350.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk402800.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk406950.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk412280.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk419D20.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
@@ -346,6 +364,24 @@
     </ClInclude>
     <ClInclude Include="src\Audio\sndVoice.hpp">
       <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk405630.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk421350.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk402800.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk406950.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk412280.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk419D20.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -21,14 +21,37 @@
 #include "../Addresses.hpp"
 
 // originally malloc'd in mcaudiomgr.c
+// child to a class unk_5D39A0?
 class unk_52AA80 {
-private:
-    std::uint8_t pad00[0x98];
+protected:
+    struct vtable_t {
+        MC2_DELETING_DESTRUCTOR deleter;
+        MC2_PROC_MEMBER_PTR<void, void> vir_04;
+        MC2_PROC_MEMBER_PTR<void, void> vir_08;
+        MC2_PROC_MEMBER_PTR<void, void> vir_0C;
+        MC2_PROC_MEMBER_PTR<void, void> vir_10;
+    };
+
+protected:
+    const void *vtable;
+    std::uint8_t pad04[0x4D];
+    std::uint8_t unk51;
+    std::uint8_t pad52[0x46];
 
 public:
     unk_52AA80(bool arg1) {
         MC2_CALL_MEMBER<0x0052AA80, void>(this, arg1);
     }
+
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_52AA80) {
+        MC2_CALL_MEMBER<0x0052ADD0, void>(this);
+    }
+
+    void vir10() {
+        static_cast<const vtable_t *>(this->vtable)->vir_10(this);
+    }
+
+    void set_unk51_1() { unk51 = 1; }
 };
 static_assert(sizeof(unk_52AA80) == 0x98, "Wrong size for unk_52AA80");
 
