@@ -45,7 +45,7 @@ protected:
 
 protected:
     const void *vtable;
-    GameState state = GameState::Undefined;
+    GameState state = GameState::Undefined; // 0x04
     std::uint8_t unk08 = 0;
     std::uint8_t unk09 = 0;
     std::uint8_t unk0A = 0;
@@ -66,7 +66,7 @@ public:
     }
 
     GameState get_gamestate() { return this->state; }
-    void set_gamestate(GameState a) {
+    void set_gamestate(GameState a) /* vir_10 */ {
         static_cast<const vtable_t *>(this->vtable)->set_state(this, a);
     }
     std::uint8_t get_unk0A() { return this->unk0A; }

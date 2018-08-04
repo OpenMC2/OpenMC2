@@ -26,7 +26,7 @@ class unk_404B90 : public unk_53A920 {
 protected:
     static const vtable_t vtable_values;
 
-    std::uint8_t pad0C[0x28];
+    std::uint32_t unk0C[10];
     std::uint32_t unk34 = 0;
     std::uint32_t unk38 = 0;
     std::uint32_t unk3C = 0;
@@ -47,7 +47,9 @@ public:
     }
 
 protected:
-    void impl_set_state(GameState arg1);
+    void impl_vir04(std::uint32_t arg0);
+    void impl_vir08();
+    void impl_set_state(GameState arg0);
 
 private:
     void sub_403840() {
@@ -73,6 +75,52 @@ private:
     }
     void sub_402AC0() {
         return MC2_CALL_MEMBER<0x00402AC0, void>(this);
+    }
+
+    void sub_4030C0() {
+        return MC2_CALL_MEMBER<0x004030C0, void>(this);
+    }
+    void sub_4031B0() {
+        return MC2_CALL_MEMBER<0x004031B0, void>(this);
+    }
+    void sub_4031E0() {
+        return MC2_CALL_MEMBER<0x004031E0, void>(this);
+    }
+    void sub_4032B0() {
+        return MC2_CALL_MEMBER<0x004032B0, void>(this);
+    }
+    void sub_4032E0() {
+        return MC2_CALL_MEMBER<0x004032E0, void>(this);
+    }
+    void sub_4032F0() {
+        return MC2_CALL_MEMBER<0x004032F0, void>(this);
+    }
+    void sub_403300() {
+        return MC2_CALL_MEMBER<0x00403300, void>(this);
+    }
+    void sub_403350() {
+        return MC2_CALL_MEMBER<0x00403350, void>(this);
+    }
+    void sub_403410() {
+        return MC2_CALL_MEMBER<0x00403410, void>(this);
+    }
+    void sub_4034A0() {
+        return MC2_CALL_MEMBER<0x004034A0, void>(this);
+    }
+    void sub_4034F0() {
+        return MC2_CALL_MEMBER<0x004034F0, void>(this);
+    }
+    void sub_403640() {
+        return MC2_CALL_MEMBER<0x00403640, void>(this);
+    }
+    void sub_4043C0() {
+        return MC2_CALL_MEMBER<0x004043C0, void>(this);
+    }
+    void sub_403710() {
+        return MC2_CALL_MEMBER<0x00403710, void>(this);
+    }
+    void sub_403780() {
+        return MC2_CALL_MEMBER<0x00403780, void>(this);
     }
 };
 static_assert(sizeof(unk_404B90) == 0x60, "Bad Size: unk_404B90");
