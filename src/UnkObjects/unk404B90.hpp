@@ -46,6 +46,34 @@ public:
         MC2_CALL_MEMBER<0x004037F0, void>(this);
     }
 
+protected:
+    void impl_set_state(GameState arg1);
+
+private:
+    void sub_403840() {
+        return MC2_CALL_MEMBER<0x00403840, void>(this);
+    }
+    void sub_4047A0() {
+        return MC2_CALL_MEMBER<0x004047A0, void>(this);
+    }
+    void sub_4049E0() {
+        return MC2_CALL_MEMBER<0x004049E0, void>(this);
+    }
+    void sub_403860() {
+        return MC2_CALL_MEMBER<0x00403860, void>(this);
+    }
+    void sub_4038E0() {
+        return MC2_CALL_MEMBER<0x004038E0, void>(this);
+    }
+    void sub_403AE0() {
+        return MC2_CALL_MEMBER<0x00403AE0, void>(this);
+    }
+    void sub_403B30() {
+        return MC2_CALL_MEMBER<0x00403B30, void>(this);
+    }
+    void sub_402AC0() {
+        return MC2_CALL_MEMBER<0x00402AC0, void>(this);
+    }
 };
 static_assert(sizeof(unk_404B90) == 0x60, "Bad Size: unk_404B90");
 

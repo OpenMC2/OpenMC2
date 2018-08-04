@@ -17,7 +17,9 @@
 **********************************************************************/
 
 #include "unk404B90.hpp"
+
 #include "../Game.hpp"
+#include "../Logging.hpp"
 
 // mc2: 0x0062D968
 const unk_404B90::vtable_t unk_404B90::vtable_values = {
@@ -25,14 +27,53 @@ const unk_404B90::vtable_t unk_404B90::vtable_values = {
     MC2_PROC_MEMBER_PTR<void, void, std::uint32_t>(0x00403810),
     MC2_PROC_MEMBER_PTR<void, void>(0x004045E0),
     &mc2_thiscall::null<>,
-    MC2_PROC_MEMBER_PTR<void, void, std::uint32_t>(0x00404A90),
+    &unk_404B90::impl_set_state,
 };
 
 unk_404B90::unk_404B90() {
     vtable = &vtable_values;
-    vir10(1);
+    this->set_gamestate(GameState::Boot);
     unk44 = unk48 = static_cast<float>(glo_6754A4);
     sub_4014C0();
+}
+
+// mc2: 0x00404A90
+void unk_404B90::impl_set_state(GameState arg0) {
+    switch (arg0) {
+    case GameState::Boot:
+        this->sub_403840();
+        break;
+    case GameState::Game:
+        this->sub_4047A0();
+        break;
+    case GameState::Replay:
+        this->sub_4049E0();
+        break;
+    case GameState::Movie:
+        this->sub_403860();
+        break;
+    case GameState::FrontEnd:
+        this->sub_4038E0();
+        break;
+    case GameState::RaceEditor:
+        this->state = GameState::RaceEditor;
+        this->sub_403AE0();
+        break;
+    case GameState::CarViewer:
+        this->sub_403B30();
+        break;
+    case GameState::Quit:
+        this->sub_402AC0();
+        break;
+    default:
+        mc2_log_fatal("mcGameState::EnterState - invalid State");
+        break;
+    }
+
+    this->state = arg0;
+    this->unk08 = 0;
+    this->unk09 = 0;
+    this->unk0A = 0;
 }
 
 MC2_DEF_GLOBAL(glo_6754A4, 0x006754A4);

@@ -20,6 +20,18 @@
 
 #include "../Addresses.hpp"
 
+enum class GameState : std::int32_t {
+    Undefined,
+    Boot,
+    Game,
+    Replay,
+    Movie,
+    FrontEnd,
+    RaceEditor,
+    CarViewer,
+    Quit,
+};
+
 class unk_53A920 {
 protected:
     struct vtable_t {
@@ -27,13 +39,13 @@ protected:
         MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_04;
         MC2_PROC_MEMBER_PTR<void, void> vir_08;
         MC2_PROC_MEMBER_PTR<void, void> vir_0C;
-        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_10;
+        MC2_PROC_MEMBER_PTR<void, void, GameState> set_state;
     };
     static const vtable_t vtable_values;
 
-public:
+protected:
     const void *vtable;
-    std::uint32_t unk04 = 0;
+    GameState state = GameState::Undefined;
     std::uint8_t unk08 = 0;
     std::uint8_t unk09 = 0;
     std::uint8_t unk0A = 0;
@@ -52,11 +64,14 @@ public:
     void vir0C() {
         static_cast<const vtable_t *>(this->vtable)->vir_0C(this);
     }
-    void vir10(std::uint32_t a) {
-        static_cast<const vtable_t *>(this->vtable)->vir_10(this, a);
+
+    GameState get_gamestate() { return this->state; }
+    void set_gamestate(GameState a) {
+        static_cast<const vtable_t *>(this->vtable)->set_state(this, a);
     }
+    std::uint8_t get_unk0A() { return this->unk0A; }
 
 protected:
-    void impl_set_unk04(std::uint32_t a) { unk04 = a; }
+    void impl_set_state(GameState state) { this->state = state; }
 };
 static_assert(sizeof(unk_53A920) == 0x0C, "Bad Size: unk_53A920");

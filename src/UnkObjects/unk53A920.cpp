@@ -24,5 +24,5 @@ const unk_53A920::vtable_t unk_53A920::vtable_values = {
     &mc2_thiscall::null<std::uint32_t>,
     &mc2_thiscall::null<>,
     &mc2_thiscall::null<>,
-    &unk_53A920::impl_set_unk04,
+    &unk_53A920::impl_set_state,
 };

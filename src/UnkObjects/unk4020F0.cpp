@@ -102,14 +102,14 @@ void unk_4020F0::game_loop() {
         timer.fetch_time();
         glo_692EB4->sub_4064E0();
 
-        switch (glo_6C3890->unk04) {
-        case 1:
+        switch (glo_6C3890->get_gamestate()) {
+        case GameState::Boot:
             mc2_log_info("Welcome to the boot state.");
             glo_6C3890->vir04(17);
             break;
 
-        case 2:
-        case 3:
+        case GameState::Game:
+        case GameState::Replay:
             sub_5ECFD0();
             this->sub_401960();
             this->sub_401CB0();
@@ -121,7 +121,7 @@ void unk_4020F0::game_loop() {
                 glo_6CE2E4->set_unk51_1();
                 glo_6CE2E4->vir10();
                 glo_692EB0->sub_405360();
-                if (glo_6C3890->unk0A != 0) {
+                if (glo_6C3890->get_unk0A() != 0) {
                     this->sub_401960();
                     this->sub_401CB0();
                     glo_692EB0->sub_405360();
@@ -130,7 +130,7 @@ void unk_4020F0::game_loop() {
                 sub_5ED050(0);
                 this->sub_4019C0();
                 glo_692EB0->sub_405360();
-                if (glo_6C3890->unk0A != 0) {
+                if (glo_6C3890->get_unk0A() != 0) {
                     this->sub_401960();
                     this->sub_401CB0();
                     glo_692EB0->sub_405360();
@@ -139,7 +139,7 @@ void unk_4020F0::game_loop() {
             }
             break;
 
-        case 4:
+        case GameState::Movie:
             glo_6957BC->sub_420EA0();
             if (glo_6957BC != nullptr && glo_6957BC->unk1C == 0) {
                 sub_5ED9C0();
@@ -152,7 +152,7 @@ void unk_4020F0::game_loop() {
             }
             break;
 
-        case 5:
+        case GameState::FrontEnd:
         {
             unk_402800::unk04_t *edi = glo_692E88->sub_4025C0(6);
             if (glo_6622B0 && !startup_config.fast_disclaimer) {
@@ -182,7 +182,7 @@ void unk_4020F0::game_loop() {
             break;
         }
 
-        case 6:
+        case GameState::RaceEditor:
             sub_5ECFD0();
             sub_613FC0();
             glo_6956DC->sub_4158F0();
@@ -200,7 +200,7 @@ void unk_4020F0::game_loop() {
             }
             break;
 
-        case 7:
+        case GameState::CarViewer:
             sub_613FC0();
             sub_5ED4A0(1);
             glo_695760->sub_419980();
@@ -210,7 +210,7 @@ void unk_4020F0::game_loop() {
             Sleep(10);
             break;
 
-        case 8:
+        case GameState::Quit:
             stop = true;
             sub_5ED4A0(1);
             sub_5ED000();
@@ -225,7 +225,7 @@ void unk_4020F0::game_loop() {
             break;
         }
 
-        if (glo_6C3890->unk04 == 3) {
+        if (glo_6C3890->get_gamestate() == GameState::Replay) {
             while (timer.get_delta_seconds() < 0.33) {
                 if ((glo_6797CC - timer.get_delta_seconds()) / glo_6797CC <= 0.25f) break;
                 Sleep(1);
