@@ -20,45 +20,75 @@
 
 #include "../Addresses.hpp"
 
+#include "unk4094A0.hpp"
+
 // originally malloc'd in layermgr.c
 class unk_402800 {
+protected:
+    struct vtable_t {
+        MC2_DELETING_DESTRUCTOR deleter;
+    };
+    static const vtable_t vtable_values;
+
+protected:
+    const void *vtable;
+    const std::array<unk_4094A0 *, 9> ptrs; // 0x04
+    // unions to prevent automatic destructor calls
+    union { unk_40AE70 unk28; };
+    union { unk_40AB30 unk5C; };
+    union { unk_40A940 unk78; };
+    union { unk_40A4A0 unk94; };
+    union { unk_409ED0 unkB8; };
+    union { unk_409DF0 unkD4; };
+    union { unk_409A70 unkE8; };
+    union { unk_409CF0 unk104; };
+    union { unk_409C50 unk118; };
+
 public:
-    // need to figure out these structures more
-    class sub_unk04_t {
-    public:
-        void sub_420B70() {
-            MC2_CALL_MEMBER<0x00420B70, void>(this);
-        }
+    unk_402800();
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_402800);
 
-        void sub_41A960() {
-            MC2_CALL_MEMBER<0x0041A960, void>(this);
-        }
-    };
+    // Reference version of mc2: 0x004025C0
+    unk_4094A0 &get(std::size_t index) {
+        assert(index < 9);
+        assert(ptrs_verify());
+        return *ptrs[index];
+    }
 
-    class unk04_t {
-    public:
-        std::uint8_t pad00[0x14];
-        sub_unk04_t *unk14;
-    };
+    // Individual getters for each index of mc2: 0x004025C0.
+    // Returns the sub-type of the element, which removes
+    // the need for the caller to cast the result, providing
+    // better type safety. Use when the index is a constant.
+    unk_40AE70 &get0() { assert(ptrs_verify()); return unk28; }
+    unk_40AB30 &get1() { assert(ptrs_verify()); return unk5C; }
+    unk_40A940 &get2() { assert(ptrs_verify()); return unk78; }
+    unk_40A4A0 &get3() { assert(ptrs_verify()); return unk94; }
+    unk_409ED0 &get4() { assert(ptrs_verify()); return unkB8; }
+    unk_409DF0 &get5() { assert(ptrs_verify()); return unkD4; }
+    unk_409A70 &get6() { assert(ptrs_verify()); return unkE8; }
+    unk_409CF0 &get7() { assert(ptrs_verify()); return unk104; }
+    unk_409C50 &get8() { assert(ptrs_verify()); return unk118; }
+
+    void sub_402970() {
+        MC2_CALL_MEMBER<0x00402970, void>(this);
+    }
+
+public:
+    // mc2: 0x004025C0 (don't directly use; for hooking)
+    unk_4094A0 * sub_4025C0(std::uint32_t index) {
+        return &this->get(index);
+    }
 
 private:
-    std::uint8_t pad00[0x4];
-    unk04_t *unk04[7];
-    std::uint8_t pad20[0x10C];
-
-public:
-    unk_402800() {
-        MC2_CALL_MEMBER<0x00402800, void>(this);
-    }
-
-    unk04_t *sub_4025C0(std::uint32_t index) {
-        return unk04[index];
-    }
+    std::array<unk_4094A0 *, 9> ptrs_init();
+    bool ptrs_verify();
 };
 static_assert(sizeof(unk_402800) == 0x12C, "Wrong size for unk_421350");
+
+extern std::int32_t &glo_6622B8;
+extern std::int32_t &glo_6622BC;
 
 extern unk_402800 *(&glo_692E88);
 inline unk_402800 *sub_4028E0() {
     return glo_692E88 = new unk_402800;
 }
-#pragma once

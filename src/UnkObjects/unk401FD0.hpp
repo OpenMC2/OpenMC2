@@ -20,36 +20,30 @@
 
 #include "../Addresses.hpp"
 
-// originally malloc'd in racestate.cpp
-class unk_482C30 {
+#include "unk5E33D0.hpp"
+
+// originally malloc'd in c:\\soft_x\\mc2\\src\\mcgame\\game.h
+class unk_401FD0 : public unk_5E33D0 {
 protected:
-    struct vtable_t {
-        MC2_DELETING_DESTRUCTOR deleter;
-        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_04;
-        MC2_PROC_MEMBER_PTR<void, void> vir_08;
-        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_0C;
-    };
+    static const vtable_t vtable_values;
 
 protected:
-    const void *vtable;
-    std::uint8_t pad04[0x30];
+    std::uint8_t unk0C = 0;
+    std::uint8_t pad0D[0x3];
+    std::uint32_t unk10 = 0;
+    float unk14 = 0.25f;
+    float unk18 = 0.5f;
+    float unk1C = 0.25f;
+    float unk20 = 0.6f;
+    float unk24 = 1.3f;
+    std::uint32_t unk28 = 0;
+    float unk2C = 1.0f;
 
 public:
-    unk_482C30() {
-        MC2_CALL_MEMBER<0x00482C30, void>(this);
-    }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_482C30) {
-        MC2_CALL_MEMBER<0x004819c0, void>(this);
-    }
+    unk_401FD0();
 
-    void vir04(std::uint32_t arg0) {
-        return static_cast<const vtable_t *>(this->vtable)->vir_04(this, arg0);
-    }
+protected:
+    const char *impl_vir18() { return "tune/city"; }
+    const char *impl_vir1C() { return  "loadTransition"; }
 };
-static_assert(sizeof(unk_482C30) == 0x34, "Wrong size for unk_482C30");
-
-extern unk_482C30 *(&glo_6C38A4);
-extern unk_482C30 *(&glo_6C38A8);
-inline unk_482C30 *sub_482C60() {
-    return glo_6C38A4 = glo_6C38A8 = new unk_482C30();
-}
+static_assert(sizeof(unk_401FD0) == 0x30, "Wrong size for unk_401FD0");

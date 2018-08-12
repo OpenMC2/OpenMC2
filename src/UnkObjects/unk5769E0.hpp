@@ -77,6 +77,10 @@ public:
     void sub_575B10() {
         MC2_CALL_MEMBER<0x00575B10, void>(this);
     }
+
+    void sub_576210() {
+        MC2_CALL_MEMBER<0x00576210, void>(this);
+    }
 };
 
 extern MC2_PROC_PTR<void, std::uint32_t> sub_5764A0;

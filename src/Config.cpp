@@ -214,7 +214,7 @@ void save_config() {
 
     glo_Settings.tree_set_settings(config.put_child("settings", { }));
 
-    config.put("startup.flast-disclaimer", startup_config.fast_disclaimer);
+    config.put("startup.fast-disclaimer", startup_config.fast_disclaimer);
 
     config.put("net.main", net_config.main);
     config.put("net.master", net_config.master);

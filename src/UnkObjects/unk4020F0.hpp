@@ -20,17 +20,19 @@
 
 #include "../Addresses.hpp"
 
+#include "unk401FD0.hpp"
+
 class unk_4020F0 {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
     };
-
-private:
     static const vtable_t vtable_values;
 
+protected:
     const void *vtable;
-    std::uint32_t unk04 = 0;
+public:
+    unk_401FD0 *unk04 = nullptr;
     std::uint8_t pad08[4];
 
 public:
@@ -49,6 +51,10 @@ public:
 
     void sub_4019C0() {
         MC2_CALL_MEMBER<0x004019C0, void>(this);
+    }
+
+    void sub_401E50(std::uint32_t arg0) {
+        MC2_CALL_MEMBER<0x00401E50, void>(this, arg0);
     }
 
     void sub_401860();

@@ -41,7 +41,6 @@ extern MC2_PROC_PTR<void> sub_401170;
 extern MC2_PROC_PTR<void> sub_4014C0;
 extern MC2_PROC_PTR<void> sub_4017E0;
 extern MC2_PROC_PTR<void> sub_402590;
-extern MC2_PROC_PTR<void> sub_4028E0;
 extern MC2_PROC_PTR<void> sub_53A1B0;
 extern MC2_PROC_PTR<void> sub_53A7D0;
 extern MC2_PROC_PTR<void> sub_53A8F0;

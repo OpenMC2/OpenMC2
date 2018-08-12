@@ -52,11 +52,12 @@ protected:
     void impl_set_state(GameState arg0);
 
 private:
-    void sub_403840() {
-        return MC2_CALL_MEMBER<0x00403840, void>(this);
+    void sub_402EB0() {
+        return MC2_CALL_MEMBER<0x00402EB0, void>(this);
     }
-    void sub_4047A0() {
-        return MC2_CALL_MEMBER<0x004047A0, void>(this);
+    void sub_4047A0();
+    void sub_403B80(std::uint32_t arg0) {
+        return MC2_CALL_MEMBER<0x00403B80, void>(this, arg0);
     }
     void sub_4049E0() {
         return MC2_CALL_MEMBER<0x004049E0, void>(this);
@@ -125,7 +126,22 @@ private:
 };
 static_assert(sizeof(unk_404B90) == 0x60, "Bad Size: unk_404B90");
 
+extern MC2_PROC_PTR<void, std::uint32_t> sub_4016A0;
+extern MC2_PROC_PTR<std::uint32_t, std::uint32_t> sub_402A90;
+extern MC2_PROC_PTR<bool, std::uint32_t> sub_467650;
+extern MC2_PROC_PTR<void> sub_539D40;
+extern MC2_PROC_PTR<void> sub_6039E0;
+extern MC2_PROC_PTR<void, const char *> sub_613AC0;
+
 extern std::uint32_t &glo_6754A4;
+extern bool &glo_692E55;
+extern bool &glo_692E60;
+extern bool &glo_692E78;
+extern bool &glo_692E79;
+extern std::array<char, 0x100> &glo_6C2EE0;
+extern bool &glo_6C3301;
+extern bool &glo_6C3688;
+extern bool &glo_6C3689;
 
 extern unk_404B90 *&glo_6C3890;
 extern unk_404B90 *&glo_6C3894;

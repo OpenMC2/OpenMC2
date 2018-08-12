@@ -20,36 +20,31 @@
 
 #include "../Addresses.hpp"
 
-// originally malloc'd in racestate.cpp
-class unk_482C30 {
+// originally malloc'd in layerfrontend.c
+class unk_41FB40 {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
-        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_04;
-        MC2_PROC_MEMBER_PTR<void, void> vir_08;
-        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_0C;
     };
 
-protected:
+private:
     const void *vtable;
-    std::uint8_t pad04[0x30];
+    std::uint8_t pad04[0x54];
 
 public:
-    unk_482C30() {
-        MC2_CALL_MEMBER<0x00482C30, void>(this);
+    unk_41FB40() {
+        MC2_CALL_MEMBER<0x0041FB40, void>(this);
     }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_482C30) {
-        MC2_CALL_MEMBER<0x004819c0, void>(this);
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_41FB40) {
+        MC2_CALL_MEMBER<0x0041EA90, void>(this);
     }
 
-    void vir04(std::uint32_t arg0) {
-        return static_cast<const vtable_t *>(this->vtable)->vir_04(this, arg0);
+    void sub_420B70() {
+        MC2_CALL_MEMBER<0x00420B70, void>(this);
+    }
+
+    void sub_41A960() {
+        MC2_CALL_MEMBER<0x0041A960, void>(this);
     }
 };
-static_assert(sizeof(unk_482C30) == 0x34, "Wrong size for unk_482C30");
-
-extern unk_482C30 *(&glo_6C38A4);
-extern unk_482C30 *(&glo_6C38A8);
-inline unk_482C30 *sub_482C60() {
-    return glo_6C38A4 = glo_6C38A8 = new unk_482C30();
-}
+static_assert(sizeof(unk_41FB40) == 0x58, "Wrong size for unk_41FB40");

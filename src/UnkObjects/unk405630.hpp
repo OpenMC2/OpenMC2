@@ -33,6 +33,10 @@ public:
     void sub_405360() {
         MC2_CALL_MEMBER<0x00405360, void>(this);
     }
+
+    void sub_405420() {
+        MC2_CALL_MEMBER<0x00405420, void>(this);
+    }
 };
 static_assert(sizeof(unk_405630) == 0x3C, "Wrong size for unk_405630");
 

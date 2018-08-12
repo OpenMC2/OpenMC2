@@ -16,24 +16,28 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#pragma once
+#include "unk5E33D0.hpp"
 
-#include "../Addresses.hpp"
+#include "../Memory.hpp"
 
-class unk_5E14C0 {
-private:
-    std::uint32_t unk00 = 0;
-    std::uint32_t unk04 = 0;
-    std::uint32_t unk08 = 0;
-
-public:
-    void sub_5E1A80() {
-        return MC2_CALL_MEMBER<0x005E1A80, void>(this);
-    }
-
-    bool sub_5E1500(const char *arg0, std::uint32_t arg1, std::uint32_t arg2, std::uint32_t arg3) {
-        return MC2_CALL_MEMBER<0x005E1500, bool>(this, arg0, arg1, arg2, arg3);
-    }
+// mc2: 0x00656574
+const unk_5E33D0::vtable_t unk_5E33D0::vtable_values = {
+    &unk_5E33D0::scalar_deleter,
+    MC2_PROC_MEMBER_PTR<bool, void>(0x005E32B0),
+    MC2_PROC_MEMBER_PTR<bool, void>(0x005E3320),
+    &mc2_thiscall::null<std::uint32_t>,
+    &mc2_thiscall::null<>,
+    &mc2_thiscall::null<>,
+    &unk_5E33D0::impl_vir18,
+    &unk_5E33D0::impl_vir1C,
 };
 
-extern unk_5E14C0 &glo_8582C8;
+void unk_5E33D0::destructor() {
+    ::operator delete(this->unk04);
+    this->unk04 = nullptr;
+}
+
+void unk_5E33D0::sub_5E3380(const char *arg0) {
+    ::operator delete(unk04);
+    unk04 = mc2_strdup(arg0);
+}

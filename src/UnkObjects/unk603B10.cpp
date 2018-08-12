@@ -16,24 +16,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#pragma once
+#include "unk603B10.hpp"
 
-#include "../Addresses.hpp"
-
-class unk_5E14C0 {
-private:
-    std::uint32_t unk00 = 0;
-    std::uint32_t unk04 = 0;
-    std::uint32_t unk08 = 0;
-
-public:
-    void sub_5E1A80() {
-        return MC2_CALL_MEMBER<0x005E1A80, void>(this);
-    }
-
-    bool sub_5E1500(const char *arg0, std::uint32_t arg1, std::uint32_t arg2, std::uint32_t arg3) {
-        return MC2_CALL_MEMBER<0x005E1500, bool>(this, arg0, arg1, arg2, arg3);
-    }
-};
-
-extern unk_5E14C0 &glo_8582C8;
+MC2_DEF_GLOBAL(glo_85FAA0, 0x0085FAA0);

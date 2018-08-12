@@ -18,6 +18,18 @@
 
 #include "unk404B90.hpp"
 
+#include "unk4020F0.hpp"
+#include "unk402800.hpp"
+#include "unk405630.hpp"
+#include "unk406950.hpp"
+#include "unk467180.hpp"
+#include "unk47C830.hpp"
+#include "unk482C30.hpp"
+#include "unk52AA80.hpp"
+#include "unk5E14C0.hpp"
+#include "unk603B10.hpp"
+#include "unk612850.hpp"
+
 #include "../Game.hpp"
 #include "../Logging.hpp"
 
@@ -135,7 +147,9 @@ void unk_404B90::impl_vir08() {
 void unk_404B90::impl_set_state(GameState arg0) {
     switch (arg0) {
     case GameState::Boot:
-        this->sub_403840();
+        sub_613AC0(":BOOT");
+        this->sub_402EB0();
+        this->state = GameState::Boot;
         break;
     case GameState::Game:
         this->sub_4047A0();
@@ -170,7 +184,73 @@ void unk_404B90::impl_set_state(GameState arg0) {
     this->unk0A = 0;
 }
 
+void unk_404B90::sub_4047A0() {
+    this->sub_403B80(1);
+    this->state = GameState::Game;
+    glo_6C38B4->sub_535DC0(3);
+    if (glo_692EB0 != nullptr) glo_692EB0->sub_405420();
+    glo_692E7C->sub_401E50(0);
+    if (!glo_6C3301) {
+        glo_692E79 = true;
+        if (glo_6C2EE0[0] != '\0') glo_692E7C->unk04->sub_5E3380(glo_6C2EE0.data());
+        glo_692E7C->unk04->vir08();
+        glo_692E78 = true;
+    }
+    if (sub_612E10("quitonload")) glo_6C3890->vir04(22);
+    glo_6C38B4->sub_535DC0(5);
+
+    if (!glo_692E55) goto end;
+    if (glo_692E60) goto end;
+    sub_4016A0(1);
+    if (glo_697B88->unk04->unk554 == nullptr) goto end;
+    if (glo_6C2C60 != 2) goto end;
+    if (glo_6C3890->state == GameState::Replay) goto end;
+
+    std::uint32_t esi;
+    if (stricmp(glo_697B88->unk04->unk554, "Tutorial") == 0) esi = 1;
+    else if (stricmp(glo_697B88->unk04->unk554, "coprace") == 0) esi = 2;
+    else goto end;
+
+    glo_8582C8.sub_5E1A80();
+    glo_692E88->get4().post_loading_screen(esi);
+    if (sub_467650(24) || sub_402A90(1) != 0) esi = 0x800;
+    else esi = 0;
+    mc2_log_info("Waiting for you to press start in EnterStateGame-gamestate.c, %d", esi);
+    glo_69585C->sub_467090(0, 1);
+    if (!glo_6C3688 && !glo_6C3689) {
+        while (!(esi & 0x800)) {
+            sub_6040E0();
+            sub_6039E0();
+            if (sub_467650(24) || sub_402A90(1) != 0) esi = 0x800;
+            Sleep(33);
+            glo_6CE2E4->vir10();
+        }
+    }
+    glo_8582C4 = "popup";
+    glo_8582C8.sub_5E1500("mcstrings", global_LanguageID, 2, 0);
+
+    end:
+    sub_539D40();
+    glo_6C38A4->vir04(2);
+    if (glo_697B88 != nullptr) glo_697B88->unk04->vir10();
+}
+
+MC2_DEF_PROC(sub_4016A0, 0x004016A0);
+MC2_DEF_PROC(sub_402A90, 0x00402A90);
+MC2_DEF_PROC(sub_467650, 0x00467650);
+MC2_DEF_PROC(sub_539D40, 0x00539D40);
+MC2_DEF_PROC(sub_6039E0, 0x006039E0);
+MC2_DEF_PROC(sub_613AC0, 0x00613AC0);
+
 MC2_DEF_GLOBAL(glo_6754A4, 0x006754A4);
+MC2_DEF_GLOBAL(glo_692E55, 0x00692E55);
+MC2_DEF_GLOBAL(glo_692E60, 0x00692E60);
+MC2_DEF_GLOBAL(glo_692E78, 0x00692E78);
+MC2_DEF_GLOBAL(glo_692E79, 0x00692E79);
+MC2_DEF_GLOBAL(glo_6C2EE0, 0x006C2EE0);
+MC2_DEF_GLOBAL(glo_6C3301, 0x006C3301);
+MC2_DEF_GLOBAL(glo_6C3688, 0x006C3688);
+MC2_DEF_GLOBAL(glo_6C3689, 0x006C3689);
 
 MC2_DEF_GLOBAL(glo_6C3890, 0x006C3890);
 MC2_DEF_GLOBAL(glo_6C3894, 0x006C3894);

@@ -22,8 +22,10 @@
 #include "unk405630.hpp"
 #include "unk405C90.hpp"
 #include "unk406950.hpp"
+#include "unk4094A0.hpp"
 #include "unk412280.hpp"
 #include "unk419D20.hpp"
+#include "unk41FB40.hpp"
 #include "unk421350.hpp"
 #include "unk477E80.hpp"
 #include "unk4788D0.hpp"
@@ -154,30 +156,28 @@ void unk_4020F0::game_loop() {
 
         case GameState::FrontEnd:
         {
-            unk_402800::unk04_t *edi = glo_692E88->sub_4025C0(6);
             if (glo_6622B0 && !startup_config.fast_disclaimer) {
                 std::uint32_t esi = timeGetTime() - glo_692E90;
                 if (esi < disclaimer_time) Sleep(disclaimer_time - esi);
             }
             glo_6622B0 = false;
-            if (edi != 0) {
-                unk_402800::sub_unk04_t *esi = edi->unk14;
-                sub_5ECFD0();
-                sub_613FC0();
-                if (glo_8582DC == 4) {
-                    glo_6C38B4->vir58();
-                }
-                esi->sub_420B70();
-                sub_5ED000();
-                if (glo_858384 & 2) {
-                    Sleep(30);
-                    glo_6CE2E4->set_unk51_1();
-                    glo_6CE2E4->vir10();
-                } else {
-                    sub_5ED050(0);
-                    esi->sub_41A960();
-                    sub_5ED0C0();
-                }
+
+            unk_41FB40 *esi = glo_692E88->get6().unk14;
+            sub_5ECFD0();
+            sub_613FC0();
+            if (glo_8582DC == 4) {
+                glo_6C38B4->vir58();
+            }
+            esi->sub_420B70();
+            sub_5ED000();
+            if (glo_858384 & 2) {
+                Sleep(30);
+                glo_6CE2E4->set_unk51_1();
+                glo_6CE2E4->vir10();
+            } else {
+                sub_5ED050(0);
+                esi->sub_41A960();
+                sub_5ED0C0();
             }
             break;
         }

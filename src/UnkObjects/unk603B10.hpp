@@ -20,36 +20,23 @@
 
 #include "../Addresses.hpp"
 
-// originally malloc'd in racestate.cpp
-class unk_482C30 {
-protected:
-    struct vtable_t {
-        MC2_DELETING_DESTRUCTOR deleter;
-        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_04;
-        MC2_PROC_MEMBER_PTR<void, void> vir_08;
-        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_0C;
-    };
-
-protected:
-    const void *vtable;
-    std::uint8_t pad04[0x30];
+class unk_603B10 {
+private:
+    std::uint8_t pad00[0x4];
+    std::uint32_t unk04 = 1;
+    std::uint8_t unk08 = 0;
+    std::uint8_t pad09[0x0F];
+    std::uint32_t unk18 = 0;
 
 public:
-    unk_482C30() {
-        MC2_CALL_MEMBER<0x00482C30, void>(this);
-    }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_482C30) {
-        MC2_CALL_MEMBER<0x004819c0, void>(this);
-    }
-
-    void vir04(std::uint32_t arg0) {
-        return static_cast<const vtable_t *>(this->vtable)->vir_04(this, arg0);
+    void sub_603B70() {
+        return MC2_CALL_MEMBER<0x00603B70, void>(this);
     }
 };
-static_assert(sizeof(unk_482C30) == 0x34, "Wrong size for unk_482C30");
+static_assert(sizeof(unk_603B10) == 0x1C, "Wrong size for unk_603B10");
 
-extern unk_482C30 *(&glo_6C38A4);
-extern unk_482C30 *(&glo_6C38A8);
-inline unk_482C30 *sub_482C60() {
-    return glo_6C38A4 = glo_6C38A8 = new unk_482C30();
+extern std::array<unk_603B10, 4> &glo_85FAA0;
+
+inline void sub_6040E0() {
+    for (unk_603B10 &x : glo_85FAA0) x.sub_603B70();
 }

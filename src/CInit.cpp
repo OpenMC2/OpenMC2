@@ -36,6 +36,7 @@
 #include "UnkObjects/unk5EDA70.hpp"
 #include "UnkObjects/unk5FB2E0.hpp"
 #include "UnkObjects/unk602740.hpp"
+#include "UnkObjects/unk603B10.hpp"
 #include "UnkObjects/unk611C60.hpp"
 #include "UnkObjects/unk612850.hpp"
 #include "UnkObjects/unk614370.hpp"
@@ -231,7 +232,7 @@ static void mc2_xc() {
     new (&glo_85AE60) unk_612850; std::atexit([]() { glo_85AE60.~unk_612850(); }); // sub_62C990
     new (&glo_pal_cmdline) cmdline_info(0, "pal", "Force PAL mode"); // sub_62C9D0
     new (&glo_85D400) unk_602740; std::atexit([]() { glo_85D400.~unk_602740(); }); // sub_62CA30
-    MC2_PROC_PTR<void>(0x0062CA50)();
+    for (unk_603B10 &x : glo_85FAA0) new (&x) unk_603B10;
     new (&glo_8600F8) unk_612850; std::atexit([]() { glo_8600F8.~unk_612850(); }); // sub_62CA80
     new (&glo_8602FC) unk_611C60; // sub_62CAB0
     new (&glo_860608) unk_614370; // sub_62CAC0

@@ -28,6 +28,7 @@
 #include "Settings.hpp"
 
 #include "UnkObjects/unk4020F0.hpp"
+#include "UnkObjects/unk402800.hpp"
 #include "UnkObjects/unk404B90.hpp"
 #include "UnkObjects/unk53AF00.hpp"
 #include "UnkObjects/unk5769E0.hpp"
@@ -636,7 +637,6 @@ MC2_DEF_PROC(sub_401170, 0x00401170);
 MC2_DEF_PROC(sub_4014C0, 0x004014C0);
 MC2_DEF_PROC(sub_4017E0, 0x004017E0);
 MC2_DEF_PROC(sub_402590, 0x00402590);
-MC2_DEF_PROC(sub_4028E0, 0x004028E0);
 MC2_DEF_PROC(sub_53A1B0, 0x0053A1B0);
 MC2_DEF_PROC(sub_53A7D0, 0x0053A7D0);
 MC2_DEF_PROC(sub_53A8F0, 0x0053A8F0);

@@ -48,6 +48,10 @@ public:
     void vir58() {
         return static_cast<const vtable_t *>(this->vtable)->vir_58(this);
     }
+
+    void sub_535DC0(std::uint32_t arg0) {
+        MC2_CALL_MEMBER<0x00535DC0, void>(this, arg0);
+    }
 };
 static_assert(sizeof(unk_406950) == 0x300, "Wrong size for unk_406950");
 

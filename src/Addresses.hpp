@@ -20,6 +20,7 @@
 
 #include <cassert>
 #include <cstdint>
+#include <array>
 #include <stdexcept>
 #include <type_traits>
 
