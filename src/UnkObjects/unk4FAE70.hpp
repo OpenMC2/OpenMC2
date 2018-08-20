@@ -20,23 +20,29 @@
 
 #include "../Addresses.hpp"
 
-// originally malloc'd in forcefield.cpp
-class unk_477E80 {
-private:
-    std::uint8_t pad00[0xC08];
+// originally malloc'd in layercity.c and raceeditor.cpp
+class unk_4FAE70 {
+protected:
+    struct vtable_t {
+        MC2_DELETING_DESTRUCTOR deleter;
+    };
+
+protected:
+    const void *vtable;
+    std::uint8_t pad04[0x6C];
 
 public:
-    unk_477E80() {
-        MC2_CALL_MEMBER<0x00477E80, void>(this);
+    unk_4FAE70() {
+        MC2_CALL_MEMBER<0x004FAE70, void>(this);
+    }
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4FAE70) {
+        MC2_CALL_MEMBER<0x004FAF30, void>(this);
     }
 
-    void sub_477A50() {
-        return MC2_CALL_MEMBER<0x00477A50, void>(this);
+    void sub_4FBAA0() {
+        MC2_CALL_MEMBER<0x004FBAA0, void>(this);
     }
 };
-static_assert(sizeof(unk_477E80) == 0xC08, "Wrong size for unk_477E80");
+static_assert(sizeof(unk_4FAE70) == 0x70, "Wrong size for unk_4FAE70");
 
-extern unk_477E80 *(&glo_6968AC);
-inline unk_477E80 *sub_477EF0() {
-    return glo_6968AC = new unk_477E80();
-}
+extern unk_4FAE70 *(&glo_69C7D0);

@@ -34,7 +34,12 @@ protected:
 
 protected:
     const void *vtable;
-    std::uint8_t pad04[0x2FC];
+public:
+    std::uint8_t pad04[0x04];
+    std::int32_t unk08;
+    std::uint8_t pad0C[0x68];
+    std::uint32_t unk74;
+    std::uint8_t pad78[0x288];
 
 public:
     unk_406950(std::uint32_t arg1, std::uint32_t arg2) {

@@ -20,58 +20,37 @@
 
 #include "../Addresses.hpp"
 
-enum class GameState : std::int32_t {
-    Undefined,
-    Boot,
-    Game,
-    Replay,
-    Movie,
-    FrontEnd,
-    RaceEditor,
-    CarViewer,
-    Quit,
-};
-
-class unk_53A920 {
+// originally malloc'd in layercity.c
+class unk_580A00 {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
         MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_04;
         MC2_PROC_MEMBER_PTR<void, void> vir_08;
         MC2_PROC_MEMBER_PTR<void, void> vir_0C;
-        MC2_PROC_MEMBER_PTR<void, void, GameState> set_state;
+        MC2_PROC_MEMBER_PTR<void, void> vir_10;
+        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_14;
+        MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_18;
     };
-    static const vtable_t vtable_values;
 
 protected:
     const void *vtable;
-    GameState state = GameState::Undefined; // 0x04
 public:
-    std::uint8_t unk08 = 0;
-    std::uint8_t unk09 = 0;
-    std::uint8_t unk0A = 0;
-    std::uint8_t unk0B = 0;
+    std::uint8_t pad04[0x2C];
 
 public:
-    unk_53A920() { vtable = &vtable_values; }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_53A920) { /* only resets vtable */ }
-
-    void vir04(std::uint32_t a) {
-        static_cast<const vtable_t *>(this->vtable)->vir_04(this, a);
-    }
-    void vir08() {
-        static_cast<const vtable_t *>(this->vtable)->vir_08(this);
-    }
-    void vir0C() {
-        static_cast<const vtable_t *>(this->vtable)->vir_0C(this);
+    unk_580A00() {
+        MC2_CALL_MEMBER<0x00406950, void>(this);
     }
 
-    GameState get_gamestate() { return this->state; }
-    void set_gamestate(GameState a) /* vir_10 */ {
-        static_cast<const vtable_t *>(this->vtable)->set_state(this, a);
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_580A00) {
+        MC2_CALL_MEMBER<0x00585010, void>(this);
     }
 
-protected:
-    void impl_set_state(GameState state) { this->state = state; }
+    bool sub_584FB0() {
+        return MC2_CALL_MEMBER<0x00584FB0, bool>(this);
+    }
 };
-static_assert(sizeof(unk_53A920) == 0x0C, "Bad Size: unk_53A920");
+static_assert(sizeof(unk_580A00) == 0x30, "Wrong size for unk_580A00");
+
+extern unk_580A00 *(&glo_6C8EEC);

@@ -45,10 +45,6 @@ public:
         MC2_CALL_MEMBER<0x00401960, void>(this);
     }
 
-    void sub_401CB0() {
-        MC2_CALL_MEMBER<0x00401CB0, void>(this);
-    }
-
     void sub_4019C0() {
         MC2_CALL_MEMBER<0x004019C0, void>(this);
     }
@@ -58,12 +54,17 @@ public:
     }
 
     void sub_401860();
+    void sub_401CB0();
     // mc2: 0x00402120
     void game_loop();
 };
 
 extern MC2_PROC_PTR<void> sub_4069B0;
 extern MC2_PROC_PTR<void> sub_40E240;
+extern MC2_PROC_PTR<void> sub_417FD0;
+extern MC2_PROC_PTR<void> sub_4AA890;
+extern MC2_PROC_PTR<void> sub_505EF0;
+extern MC2_PROC_PTR<void> sub_509000;
 extern MC2_PROC_PTR<void, const char *> sub_5670D0;
 extern MC2_PROC_PTR<void> sub_5D36D0;
 extern MC2_PROC_PTR<void> sub_5ECFD0;
@@ -76,6 +77,7 @@ extern MC2_PROC_PTR<void> sub_5ED9C0;
 extern MC2_PROC_PTR<void> sub_5EF3F0;
 extern MC2_PROC_PTR<void, std::uint32_t, std::uint32_t, float, std::uint32_t> sub_5EF420;
 extern MC2_PROC_PTR<void> sub_5F0F00;
+extern MC2_PROC_PTR<void, float> sub_5F1D80;
 extern MC2_PROC_PTR<void> sub_613FC0;
 
 extern bool &glo_662284;

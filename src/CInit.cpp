@@ -175,9 +175,9 @@ static void mc2_xc() {
     new (&glo_69685C) unk_612850; std::atexit([]() { glo_69685C.~unk_612850(); }); // sub_629E60
     new (&glo_6968B8) unk_47BEA0; std::atexit([]() { glo_6968B8.~unk_47BEA0(); }); // sub_629E80
     new (&glo_697E24) unk_612850; std::atexit([]() { glo_697E24.~unk_612850(); }); // sub_629EE0
-    MC2_PROC_PTR<void>(0x00629F00)();
-    MC2_PROC_PTR<void>(0x00629F20)();
-    MC2_PROC_PTR<void>(0x00629F40)();
+    for (unk_5FB2E0 &x : glo_697E40) new (&x) unk_5FB2E0;
+    for (unk_5FB2E0 &x : glo_697FD8) new (&x) unk_5FB2E0;
+    for (unk_5FB2E0 &x : glo_698170) new (&x) unk_5FB2E0;
     MC2_PROC_PTR<void>(0x00629F60)();
     MC2_PROC_PTR<void>(0x00629FD0)();
     MC2_PROC_PTR<void>(0x00629FF0)();

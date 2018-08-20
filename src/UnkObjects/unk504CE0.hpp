@@ -20,23 +20,20 @@
 
 #include "../Addresses.hpp"
 
-// originally malloc'd in forcefield.cpp
-class unk_477E80 {
+// originally malloc'd in layercity.c
+class unk_504CE0 {
 private:
-    std::uint8_t pad00[0xC08];
+    std::uint8_t pad00[0x10274];
 
 public:
-    unk_477E80() {
-        MC2_CALL_MEMBER<0x00477E80, void>(this);
+    unk_504CE0() {
+        MC2_CALL_MEMBER<0x00504CE0, void>(this);
     }
 
-    void sub_477A50() {
-        return MC2_CALL_MEMBER<0x00477A50, void>(this);
+    void sub_503F30() {
+        return MC2_CALL_MEMBER<0x00503F30, void>(this);
     }
 };
-static_assert(sizeof(unk_477E80) == 0xC08, "Wrong size for unk_477E80");
+static_assert(sizeof(unk_504CE0) == 0x10274, "Wrong size for unk_504CE0");
 
-extern unk_477E80 *(&glo_6968AC);
-inline unk_477E80 *sub_477EF0() {
-    return glo_6968AC = new unk_477E80();
-}
+extern unk_504CE0 *(&glo_69C868);

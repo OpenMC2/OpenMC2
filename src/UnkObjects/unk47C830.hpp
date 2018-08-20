@@ -58,6 +58,10 @@ public:
     MC2_SCALAR_DELETING_DESTRUCTOR(unk_47C830) {
         MC2_CALL_MEMBER<0x0047bf50, void>(this);
     }
+
+    void sub_47C7A0() {
+        return MC2_CALL_MEMBER<0x0047C7A0, void>(this);
+    }
 };
 static_assert(sizeof(unk_47C830) == 0x10, "Wrong size for unk_47C830");
 

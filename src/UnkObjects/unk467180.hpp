@@ -33,6 +33,10 @@ public:
     void sub_467090(std::uint32_t arg0, std::uint32_t arg1) {
         MC2_CALL_MEMBER<0x00467090, void>(this, arg0, arg1);
     }
+
+    void sub_4673B0() {
+        return MC2_CALL_MEMBER<0x004673B0, void>(this);
+    }
 };
 static_assert(sizeof(unk_467180) == 0x6C, "Wrong size for unk_467180");
 

@@ -16,27 +16,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#pragma once
+#include "unk577F00.hpp"
 
-#include "../Addresses.hpp"
-
-// originally malloc'd in forcefield.cpp
-class unk_477E80 {
-private:
-    std::uint8_t pad00[0xC08];
-
-public:
-    unk_477E80() {
-        MC2_CALL_MEMBER<0x00477E80, void>(this);
-    }
-
-    void sub_477A50() {
-        return MC2_CALL_MEMBER<0x00477A50, void>(this);
-    }
-};
-static_assert(sizeof(unk_477E80) == 0xC08, "Wrong size for unk_477E80");
-
-extern unk_477E80 *(&glo_6968AC);
-inline unk_477E80 *sub_477EF0() {
-    return glo_6968AC = new unk_477E80();
-}
+MC2_DEF_GLOBAL(glo_6C5304, 0x006C5304);

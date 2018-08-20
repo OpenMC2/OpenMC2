@@ -27,14 +27,28 @@
 #include "unk419D20.hpp"
 #include "unk41FB40.hpp"
 #include "unk421350.hpp"
+#include "unk467180.hpp"
 #include "unk477E80.hpp"
 #include "unk4788D0.hpp"
+#include "unk47C830.hpp"
 #include "unk482C30.hpp"
+#include "unk498A90.hpp"
+#include "unk4A9E30.hpp"
 #include "unk4CE870.hpp"
+#include "unk4E8B70.hpp"
+#include "unk4E9480.hpp"
+#include "unk4FAE70.hpp"
+#include "unk503110.hpp"
+#include "unk504CE0.hpp"
+#include "unk5187E0.hpp"
 #include "unk52AA80.hpp"
 #include "unk53C670.hpp"
 #include "unk53C9E0.hpp"
+#include "unk540EB0.hpp"
+#include "unk5769E0.hpp"
+#include "unk577F00.hpp"
 #include "unk57DC70.hpp"
+#include "unk580A00.hpp"
 #include "unk5FAC30.hpp"
 #include "unk611C60.hpp"
 #include "unk612850.hpp"
@@ -123,7 +137,7 @@ void unk_4020F0::game_loop() {
                 glo_6CE2E4->set_unk51_1();
                 glo_6CE2E4->vir10();
                 glo_692EB0->sub_405360();
-                if (glo_6C3890->get_unk0A() != 0) {
+                if (glo_6C3890->unk0A != 0) {
                     this->sub_401960();
                     this->sub_401CB0();
                     glo_692EB0->sub_405360();
@@ -132,7 +146,7 @@ void unk_4020F0::game_loop() {
                 sub_5ED050(0);
                 this->sub_4019C0();
                 glo_692EB0->sub_405360();
-                if (glo_6C3890->get_unk0A() != 0) {
+                if (glo_6C3890->unk0A != 0) {
                     this->sub_401960();
                     this->sub_401CB0();
                     glo_692EB0->sub_405360();
@@ -150,7 +164,7 @@ void unk_4020F0::game_loop() {
                 if (glo_6957BC != nullptr) glo_6957BC->sub_421050();
                 sub_5F0F00();
             } else {
-                glo_6C3890->vir04(0x10);
+                glo_6C3890->vir04(16);
             }
             break;
 
@@ -235,8 +249,53 @@ void unk_4020F0::game_loop() {
     } while (!stop && !sub_5ED220());
 }
 
+void unk_4020F0::sub_401CB0() {
+    if (glo_6622BC > 2) {
+        mc2_log_print("mcGame:Update - pre-update heap sanity check...");
+        global_primary_unk5769E0->sub_576210();
+        mc2_log_info("done");
+    }
+    if (glo_6C3890->unk09 == 0) sub_613FC0();
+    sub_5F1D80(glo_6C3890->unk09 == 0 ? glo_6797CC : 0.0f);
+
+    if (glo_6C3890->unk09 == 0 && glo_697B88 != nullptr && (glo_6C38B4->unk08 < 0 || glo_6C38B4->unk74 == 5)) {
+        glo_6C8EEC->sub_584FB0();
+        glo_6968B0->sub_4782D0();
+        glo_6968AC->sub_477A50();
+        glo_69585C->sub_4673B0();
+        glo_69C868->sub_503F30();
+        sub_509000();
+        glo_697B88->sub_47C7A0();
+        glo_69C7D0->sub_4FBAA0();
+        glo_69947C->sub_4E84D0();
+        glo_699498->sub_4E9260();
+        if (glo_6C38B8 != nullptr) glo_6C38B8->sub_541280();
+        glo_698624->sub_4A9F30();
+        sub_4AA890();
+        glo_6C263C->sub_517AB0();
+        glo_6C5304->sub_578000();
+        glo_69C858->sub_5031F0();
+        if (glo_692E6C == 0) sub_505EF0();
+    } else {
+        glo_69585C->sub_4673B0();
+        if (glo_697B88 != nullptr) glo_697B88->sub_47C7A0();
+    }
+
+    if (glo_6984B4 != nullptr) glo_6984B4->sub_498760();
+    sub_417FD0();
+    if (glo_6622BC > 3) {
+        mc2_log_print("mcGame:Update - post-update heap sanity check...");
+        global_primary_unk5769E0->sub_576210();
+        mc2_log_info("done");
+    }
+}
+
 MC2_DEF_PROC(sub_4069B0, 0x004069B0);
 MC2_DEF_PROC(sub_40E240, 0x0040E240);
+MC2_DEF_PROC(sub_417FD0, 0x00417FD0);
+MC2_DEF_PROC(sub_4AA890, 0x004AA890);
+MC2_DEF_PROC(sub_505EF0, 0x00505EF0);
+MC2_DEF_PROC(sub_509000, 0x00509000);
 MC2_DEF_PROC(sub_5670D0, 0x005670D0);
 MC2_DEF_PROC(sub_5D36D0, 0x005D36D0);
 MC2_DEF_PROC(sub_5ECFD0, 0x005ECFD0);
@@ -249,6 +308,7 @@ MC2_DEF_PROC(sub_5ED9C0, 0x005ED9C0);
 MC2_DEF_PROC(sub_5EF3F0, 0x005EF3F0);
 MC2_DEF_PROC(sub_5EF420, 0x005EF420);
 MC2_DEF_PROC(sub_5F0F00, 0x005F0F00);
+MC2_DEF_PROC(sub_5F1D80, 0x005F1D80);
 MC2_DEF_PROC(sub_613FC0, 0x00613FC0);
 
 MC2_DEF_GLOBAL(glo_662284, 0x00662284);

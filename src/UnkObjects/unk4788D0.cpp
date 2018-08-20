@@ -17,7 +17,6 @@
 **********************************************************************/
 
 #include "unk4788D0.hpp"
-#include "../Memory.hpp"
 
 // mc2: 0x0063E330
 const unk_4788D0::vtable_t unk_4788D0::vtable_values = {

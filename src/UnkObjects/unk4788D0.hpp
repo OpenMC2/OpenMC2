@@ -50,6 +50,9 @@ public:
     unk_4788D0() { vtable = &vtable_values; }
     MC2_SCALAR_DELETING_DESTRUCTOR(unk_4788D0);
 
+    void sub_4782D0() {
+        return MC2_CALL_MEMBER<0x004782D0, void>(this);
+    }
 };
 static_assert(sizeof(unk_4788D0) == 0x3C, "Wrong size for unk_4788D0");
 

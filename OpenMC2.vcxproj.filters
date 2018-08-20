@@ -222,6 +222,39 @@
     <ClCompile Include="src\UnkObjects\unk467180.cpp">
       <Filter>Source Files\UnkObjects</Filter>
     </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk580A00.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk504CE0.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk4FAE70.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk4E8B70.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk4E9480.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk540EB0.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk498A90.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk4A9E30.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk5187E0.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk577F00.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk503110.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
@@ -420,6 +453,39 @@
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\UnkObjects\unk467180.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk580A00.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk504CE0.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk4FAE70.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk4E8B70.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk4E9480.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk540EB0.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk498A90.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk4A9E30.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk5187E0.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk577F00.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk503110.hpp">
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
   </ItemGroup>

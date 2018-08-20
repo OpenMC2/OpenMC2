@@ -44,4 +44,7 @@ public:
 
 };
 
+extern std::array<unk_5FB2E0, 6> &glo_697E40;
+extern std::array<unk_5FB2E0, 6> &glo_697FD8;
+extern std::array<unk_5FB2E0, 6> &glo_698170;
 extern unk_5FB2E0 &glo_858500;
