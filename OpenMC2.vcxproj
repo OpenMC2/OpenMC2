@@ -122,6 +122,7 @@
     <ClCompile Include="src\UnkObjects\unk4788D0.cpp" />
     <ClCompile Include="src\UnkObjects\unk47BEA0.cpp" />
     <ClCompile Include="src\UnkObjects\unk47C830.cpp" />
+    <ClCompile Include="src\UnkObjects\unk47DFB0.cpp" />
     <ClCompile Include="src\UnkObjects\unk482C30.cpp" />
     <ClCompile Include="src\UnkObjects\unk498A90.cpp" />
     <ClCompile Include="src\UnkObjects\unk4A9E30.cpp" />
@@ -200,7 +201,9 @@
     <ClInclude Include="src\UnkObjects\unk4788D0.hpp" />
     <ClInclude Include="src\UnkObjects\unk47BEA0.hpp" />
     <ClInclude Include="src\UnkObjects\unk47C830.hpp" />
+    <ClInclude Include="src\UnkObjects\unk47DFB0.hpp" />
     <ClInclude Include="src\UnkObjects\unk482C30.hpp" />
+    <ClInclude Include="src\UnkObjects\unk489330.hpp" />
     <ClInclude Include="src\UnkObjects\unk498A90.hpp" />
     <ClInclude Include="src\UnkObjects\unk4A9E30.hpp" />
     <ClInclude Include="src\UnkObjects\unk4CE870.hpp" />

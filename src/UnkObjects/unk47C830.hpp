@@ -20,35 +20,18 @@
 
 #include "../Addresses.hpp"
 
+#include "unk489330.hpp"
+
 // originally malloc'd in racemgr.c
 class unk_47C830 {
-public:
-    class unk_04_t {
-    protected:
-        struct vtable_t {
-            std::uint8_t pad00[0x10];
-            MC2_PROC_MEMBER_PTR<void, void> vir_10;
-        };
-
-        const void *vtable;
-    public:
-        std::uint8_t pad04[0x550];
-        const char *unk554;
-
-        void vir10() {
-            return static_cast<const vtable_t *>(this->vtable)->vir_10(this);
-        }
-    };
-
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
     };
 
-protected:
     const void *vtable;
 public:
-    unk_04_t *unk04;
+    unk_489330 *unk04;
     std::uint8_t pad08[0x08];
 
 public:
@@ -59,9 +42,15 @@ public:
         MC2_CALL_MEMBER<0x0047bf50, void>(this);
     }
 
-    void sub_47C7A0() {
-        return MC2_CALL_MEMBER<0x0047C7A0, void>(this);
+    void sub_47C3C0() {
+        return MC2_CALL_MEMBER<0x0047C3C0, void>(this);
     }
+
+    void sub_47C5E0() {
+        return MC2_CALL_MEMBER<0x0047C5E0, void>(this);
+    }
+
+    void sub_47C7A0();
 };
 static_assert(sizeof(unk_47C830) == 0x10, "Wrong size for unk_47C830");
 

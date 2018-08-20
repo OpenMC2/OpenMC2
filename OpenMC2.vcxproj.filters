@@ -255,6 +255,9 @@
     <ClCompile Include="src\UnkObjects\unk503110.cpp">
       <Filter>Source Files\UnkObjects</Filter>
     </ClCompile>
+    <ClCompile Include="src\UnkObjects\unk47DFB0.cpp">
+      <Filter>Source Files\UnkObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Addresses.hpp">
@@ -486,6 +489,12 @@
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\UnkObjects\unk503110.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk47DFB0.hpp">
+      <Filter>Header Files\UnkObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnkObjects\unk489330.hpp">
       <Filter>Header Files\UnkObjects</Filter>
     </ClInclude>
   </ItemGroup>

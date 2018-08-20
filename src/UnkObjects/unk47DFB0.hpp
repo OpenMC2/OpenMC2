@@ -20,22 +20,37 @@
 
 #include "../Addresses.hpp"
 
-// originally malloc'd in manager.cpp
-class unk_4A9E30 {
-private:
-    std::uint32_t unk00 = 0;
-    std::uint8_t pad04[0x04];
-    std::uint32_t unk08 = 0;
-    std::uint32_t unk0C = 0;
+// originally malloc'd in pausemenu.cpp
+class unk_47DFB0 {
+protected:
+    struct vtable_t {
+        MC2_DELETING_DESTRUCTOR deleter;
+    };
+    static const vtable_t vtable_values;
+
+    struct unk54_t {
+        std::uint8_t pad00[0x178];
+        std::uint8_t unk178;
+    };
+
+protected:
+    const void *vtable;
+public:
+    std::uint8_t pad04[0x50];
+    unk54_t *unk54;
+    std::uint8_t pad58[0x90];
 
 public:
-    void sub_4A9F30() {
-        return MC2_CALL_MEMBER<0x004A9F30, void>(this);
+    unk_47DFB0() {
+        MC2_CALL_MEMBER<0x0047DFB0, void>(this);
+    }
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_47DFB0) {
+        MC2_CALL_MEMBER<0x0047C950, void>(this);
     }
 };
-static_assert(sizeof(unk_4A9E30) == 0x10, "Wrong size for unk_4A9E30");
+static_assert(sizeof(unk_47DFB0) == 0xE8, "Wrong size for unk_47DFB0");
 
-extern unk_4A9E30 *(&glo_698624);
-inline unk_4A9E30 *sub_498BC0() {
-    return glo_698624 = new unk_4A9E30;
+extern unk_47DFB0 *(&glo_697B90);
+inline unk_47DFB0 *sub_47E150() {
+    return glo_697B90 = new unk_47DFB0;
 }

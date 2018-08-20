@@ -16,26 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#pragma once
+#include "unk47DFB0.hpp"
 
-#include "../Addresses.hpp"
-
-// originally malloc'd in manager.cpp
-class unk_4A9E30 {
-private:
-    std::uint32_t unk00 = 0;
-    std::uint8_t pad04[0x04];
-    std::uint32_t unk08 = 0;
-    std::uint32_t unk0C = 0;
-
-public:
-    void sub_4A9F30() {
-        return MC2_CALL_MEMBER<0x004A9F30, void>(this);
-    }
+const unk_47DFB0::vtable_t unk_47DFB0::vtable_values = {
+    &unk_47DFB0::scalar_deleter,
 };
-static_assert(sizeof(unk_4A9E30) == 0x10, "Wrong size for unk_4A9E30");
 
-extern unk_4A9E30 *(&glo_698624);
-inline unk_4A9E30 *sub_498BC0() {
-    return glo_698624 = new unk_4A9E30;
-}
+MC2_DEF_GLOBAL(glo_697B90, 0x00697B90);

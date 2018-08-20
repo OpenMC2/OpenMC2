@@ -18,4 +18,19 @@
 
 #include "unk47C830.hpp"
 
+#include "unk404B90.hpp"
+#include "unk47DFB0.hpp"
+
+void unk_47C830::sub_47C7A0() {
+    if (glo_6C3890->unk09 == 0) this->unk04->vir14();
+    if (glo_697B90->unk54->unk178 != 6) {
+        this->sub_47C3C0();
+        this->sub_47C5E0();
+    }
+    if (glo_6C3890->unk09 == 0) {
+        this->unk04->vir18();
+        this->unk04->sub_485530();
+    }
+}
+
 MC2_DEF_GLOBAL(glo_697B88, 0x00697B88);

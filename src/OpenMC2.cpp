@@ -66,6 +66,8 @@ void load_mc2_dll() { // WinMainCRTSetup()
 
 // mc2: 0x00401010
 int StartOpenMC2() {
+    mc2_log_info("mc2 base: 0x%08X", reinterpret_cast<std::uintptr_t>(MC2_POINTER<void>(0x00400000)));
+
     // Init MC2_MALLOC
     if ((glo_682E18 & 1) == 0) {
         glo_682E18 |= 1;
