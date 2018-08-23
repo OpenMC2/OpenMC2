@@ -20,44 +20,24 @@
 
 #include "../Addresses.hpp"
 
-#include "unk489330.hpp"
-#include "unk5D5C30.hpp"
+#include "unk52AA80.hpp"
 
-// originally malloc'd in racemgr.c
-class unk_47C830 {
-protected:
-    struct vtable_t {
-        MC2_DELETING_DESTRUCTOR deleter;
-    };
-    static const vtable_t vtable_values;
-
+class unk_5D5C30 {
+private:
     const void *vtable;
-public:
-    unk_489330 *unk04 = nullptr;
-    unk_5D5C30 *unk08;
-    std::uint8_t pad0C[0x04];
+    std::uint8_t pad04[0x34];
 
 public:
-    unk_47C830();
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_47C830) {
-        MC2_CALL_MEMBER<0x0047bf50, void>(this);
+    unk_5D5C30() {
+        MC2_CALL_MEMBER<0x005D5C30, void>(this);
+    }
+    // mc2: 0x005D5BD0
+    unk_5D5C30(const char *arg0) {
+        MC2_CALL_MEMBER<0x005D5BD0, void>(this, arg0);
     }
 
-    void sub_47C3C0() {
-        return MC2_CALL_MEMBER<0x0047C3C0, void>(this);
+    void sub_5D5800(unk_52AA80 *arg0) {
+        MC2_CALL_MEMBER<0x005D5800, void>(this, arg0);
     }
-    void sub_47C5E0() {
-        return MC2_CALL_MEMBER<0x0047C5E0, void>(this);
-    }
-
-    void sub_47BFF0();
-    void sub_47C7A0();
 };
-static_assert(sizeof(unk_47C830) == 0x10, "Wrong size for unk_47C830");
-
-extern const MC2_PROC_PTR<void, const char *, std::uint32_t> sub_5E11E0;
-
-extern unk_47C830 *(&glo_697B88);
-inline unk_47C830 *sub_47C8C0() {
-    return glo_697B88 = new unk_47C830();
-}
+static_assert(sizeof(unk_5D5C30) == 0x38, "Wrong size for unk_5D5C30");

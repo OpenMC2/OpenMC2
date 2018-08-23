@@ -20,9 +20,38 @@
 
 #include "../Addresses.hpp"
 
+// names from mc2: 0x00663300
+enum class RaceType : std::uint32_t {
+    roam,
+    find_hook,
+    hookman_cruise,
+    follow,
+    cp_unordered,
+    cp_unordered_time_local,
+    cp_unordered_time_global,
+    cp_ordered,
+    cp_ordered_time_local,
+    cp_ordered_time_global,
+    capture_the_flag,
+    bomb_tag,
+    lose_the_cops,
+    destroy,
+};
+
 class unk_53AF00 {
-private:
-    std::uint8_t pad00[0x3C4];
+public:
+    std::uint8_t pad00[0x18];
+    RaceType unk18;
+    std::uint8_t pad1C[0x1D];
+    bool unk39;
+    std::uint8_t pad3A[0x1E];
+    char unk58[0x100];
+    std::uint8_t pad158[0x1E0];
+    std::uint32_t unk338;
+    std::uint8_t pad33C[0x84];
+    bool unk3C0;
+    bool unk3C1;
+    std::uint8_t pad3C2[0x02];
 
 public:
     unk_53AF00() {
@@ -33,6 +62,7 @@ public:
         MC2_CALL_MEMBER<0x0053ACB0, void>(this, a);
     }
 };
+static_assert(sizeof(unk_53AF00) == 0x3C4, "Wrong size for unk_53AF00");
 
 extern unk_53AF00 &glo_6C32C8;
 extern unk_53AF00 &glo_6C2E88;

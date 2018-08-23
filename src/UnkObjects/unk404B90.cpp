@@ -26,6 +26,7 @@
 #include "unk47C830.hpp"
 #include "unk482C30.hpp"
 #include "unk52AA80.hpp"
+#include "unk53AF00.hpp"
 #include "unk5E14C0.hpp"
 #include "unk603B10.hpp"
 #include "unk612850.hpp"
@@ -190,9 +191,9 @@ void unk_404B90::sub_4047A0() {
     glo_6C38B4->sub_535DC0(3);
     if (glo_692EB0 != nullptr) glo_692EB0->sub_405420();
     glo_692E7C->sub_401E50(0);
-    if (!glo_6C3301) {
+    if (!glo_6C32C8.unk39) {
         glo_692E79 = true;
-        if (glo_6C2EE0[0] != '\0') glo_692E7C->unk04->sub_5E3380(glo_6C2EE0.data());
+        if (glo_6C2E88.unk58[0] != '\0') glo_692E7C->unk04->sub_5E3380(glo_6C2E88.unk58);
         glo_692E7C->unk04->vir08();
         glo_692E78 = true;
     }
@@ -217,7 +218,7 @@ void unk_404B90::sub_4047A0() {
     else esi = 0;
     mc2_log_info("Waiting for you to press start in EnterStateGame-gamestate.c, %d", esi);
     glo_69585C->sub_467090(0, 1);
-    if (!glo_6C3688 && !glo_6C3689) {
+    if (!glo_6C32C8.unk3C0 && !glo_6C32C8.unk3C1) {
         while (!(esi & 0x800)) {
             sub_6040E0();
             sub_6039E0();
@@ -247,10 +248,6 @@ MC2_DEF_GLOBAL(glo_692E55, 0x00692E55);
 MC2_DEF_GLOBAL(glo_692E60, 0x00692E60);
 MC2_DEF_GLOBAL(glo_692E78, 0x00692E78);
 MC2_DEF_GLOBAL(glo_692E79, 0x00692E79);
-MC2_DEF_GLOBAL(glo_6C2EE0, 0x006C2EE0);
-MC2_DEF_GLOBAL(glo_6C3301, 0x006C3301);
-MC2_DEF_GLOBAL(glo_6C3688, 0x006C3688);
-MC2_DEF_GLOBAL(glo_6C3689, 0x006C3689);
 
 MC2_DEF_GLOBAL(glo_6C3890, 0x006C3890);
 MC2_DEF_GLOBAL(glo_6C3894, 0x006C3894);

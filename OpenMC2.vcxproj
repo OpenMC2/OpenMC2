@@ -230,6 +230,7 @@
     <ClInclude Include="src\UnkObjects\unk57DC70.hpp" />
     <ClInclude Include="src\UnkObjects\unk580A00.hpp" />
     <ClInclude Include="src\UnkObjects\unk59D370.hpp" />
+    <ClInclude Include="src\UnkObjects\unk5D5C30.hpp" />
     <ClInclude Include="src\UnkObjects\unk5DDA50.hpp" />
     <ClInclude Include="src\UnkObjects\unk5E14C0.hpp" />
     <ClInclude Include="src\UnkObjects\unk5E33D0.hpp" />

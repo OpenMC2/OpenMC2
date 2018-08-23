@@ -138,10 +138,6 @@ extern bool &glo_692E55;
 extern bool &glo_692E60;
 extern bool &glo_692E78;
 extern bool &glo_692E79;
-extern std::array<char, 0x100> &glo_6C2EE0;
-extern bool &glo_6C3301;
-extern bool &glo_6C3688;
-extern bool &glo_6C3689;
 
 extern unk_404B90 *&glo_6C3890;
 extern unk_404B90 *&glo_6C3894;
