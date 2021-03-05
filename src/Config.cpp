@@ -167,13 +167,18 @@ constexpr path_translator<config_tree::data_type> config_tree_path_translator;
 void load_config() {
     config_tree config;
     boost::filesystem::path path(get_config_path());
-    if (boost::filesystem::is_regular_file(path))
-        boost::property_tree::read_info(boost::filesystem::ifstream(path), config);
+	if (boost::filesystem::is_regular_file(path)) {
+		boost::filesystem::ifstream in(path);
+		boost::property_tree::read_info(in, config);
+	}
     bool modified = set_defaults(config);
 
     if (!boost::filesystem::is_directory(path.parent_path()))
         if (!boost::filesystem::create_directory(path.parent_path())) throw std::exception();
-    if (modified) boost::property_tree::write_info(boost::filesystem::ofstream(path), config);
+	if (modified) {
+		boost::filesystem::ofstream out(path);
+		boost::property_tree::write_info(out, config);
+	}
 
     glo_windowed_mode = config.get<bool>("window");
     config_assets_name = config.get<std::string>("assets");
@@ -183,7 +188,8 @@ void load_config() {
         config_gamepath = try_default_paths();
         if (config_gamepath.empty()) config_gamepath = ask_game_path();
         config.put("gamepath", config_gamepath, config_tree_path_translator);
-        boost::property_tree::write_info(boost::filesystem::ofstream(path), config);
+        boost::filesystem::ofstream out(path);
+        boost::property_tree::write_info(out, config);
     }
 
     glo_Settings.tree_load_settings(config.get_child("settings"));
@@ -222,7 +228,8 @@ void save_config() {
     config.put("net.natneg2", net_config.natneg2);
 
     boost::filesystem::path path(get_config_path());
-    boost::property_tree::write_info(boost::filesystem::ofstream(path), config);
+    boost::filesystem::ofstream out(path);
+    boost::property_tree::write_info(out, config);
 }
 
 boost::filesystem::path config_gamepath;

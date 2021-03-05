@@ -19,12 +19,12 @@
 #include "unk4788D0.hpp"
 
 // mc2: 0x0063E330
-const unk_4788D0::vtable_t unk_4788D0::vtable_values = {
-    &unk_4788D0::scalar_deleter,
+const unk_4788D0_p::vtable_t unk_4788D0_p::vtable_values = {
+    &unk_4788D0_p::scalar_deleter,
 };
 
 // mc2: 0x00478910
-void unk_4788D0::destructor() {
+void unk_4788D0_p::destructor() {
     vtable = &vtable_values;
     ::operator delete(unk08);
 }

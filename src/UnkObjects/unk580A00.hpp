@@ -21,7 +21,7 @@
 #include "../Addresses.hpp"
 
 // originally malloc'd in layercity.c
-class unk_580A00 {
+class unk_580A00_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -39,11 +39,11 @@ public:
     std::uint8_t pad04[0x2C];
 
 public:
-    unk_580A00() {
+    unk_580A00_p() {
         MC2_CALL_MEMBER<0x00406950, void>(this);
     }
 
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_580A00) {
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_580A00_p) {
         MC2_CALL_MEMBER<0x00585010, void>(this);
     }
 
@@ -51,6 +51,9 @@ public:
         return MC2_CALL_MEMBER<0x00584FB0, bool>(this);
     }
 };
-static_assert(sizeof(unk_580A00) == 0x30, "Wrong size for unk_580A00");
+static_assert(sizeof(unk_580A00_p) == 0x30, "Wrong size for unk_580A00_p");
+static_assert(std::is_trivially_destructible<unk_580A00_p>::value, "unk_580A00_p is not trivially destructible");
+
+using unk_580A00 = MC2_DestroyingWrapper<unk_580A00_p>;
 
 extern unk_580A00 *(&glo_6C8EEC);

@@ -21,7 +21,7 @@
 #include "../Addresses.hpp"
 
 // originally malloc'd in layercity.c and raceeditor.cpp
-class unk_4FAE70 {
+class unk_4FAE70_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -32,10 +32,10 @@ protected:
     std::uint8_t pad04[0x6C];
 
 public:
-    unk_4FAE70() {
+    unk_4FAE70_p() {
         MC2_CALL_MEMBER<0x004FAE70, void>(this);
     }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4FAE70) {
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4FAE70_p) {
         MC2_CALL_MEMBER<0x004FAF30, void>(this);
     }
 
@@ -43,6 +43,9 @@ public:
         MC2_CALL_MEMBER<0x004FBAA0, void>(this);
     }
 };
-static_assert(sizeof(unk_4FAE70) == 0x70, "Wrong size for unk_4FAE70");
+static_assert(sizeof(unk_4FAE70_p) == 0x70, "Wrong size for unk_4FAE70_p");
+static_assert(std::is_trivially_destructible<unk_4FAE70_p>::value, "unk_4FAE70_p is not trivially destructible");
+
+using unk_4FAE70 = MC2_DestroyingWrapper<unk_4FAE70_p>;
 
 extern unk_4FAE70 *(&glo_69C7D0);

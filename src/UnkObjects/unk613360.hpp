@@ -21,7 +21,7 @@
 #include "../Addresses.hpp"
 #include "unk613330.hpp"
 
-class unk_613360 : public unk_613330 {
+class unk_613360_p : public unk_613330_p {
 private:
     static const vtable_t vtable_values;
 
@@ -30,10 +30,12 @@ private:
     std::uint32_t unk104 = 0;
 
 public:
-    unk_613360() { vtable = &vtable_values; }
+    unk_613360_p() { vtable = &vtable_values; }
 
-    void impl_04(char *destination, std::uint32_t unk2, char *unk3, char *extension);
+    void impl_04(char *destination, std::uint32_t unk2, const char *unk3, const char *extension);
     void impl_0C();
 };
+static_assert(sizeof(unk_613360_p) == 0x108, "Bad Size: unk_613360_p");
+static_assert(std::is_trivially_destructible<unk_613360_p>::value, "unk_613360_p is not trivially destructible");
 
-static_assert(sizeof(unk_613360) == 0x108, "Bad Size: unk_613330");
+using unk_613360 = MC2_DestroyingWrapper<unk_613360_p>;

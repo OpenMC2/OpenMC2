@@ -22,22 +22,22 @@
 #include <string>
 
 // mc2:0x00659B38
-const unk_613360::vtable_t unk_613360::vtable_values = {
-    &unk_613360::scalar_deleter,
-    &unk_613360::impl_04,
+const unk_613360_p::vtable_t unk_613360_p::vtable_values = {
+    &unk_613360_p::scalar_deleter,
+    &unk_613360_p::impl_04,
     MC2_PROC_MEMBER_PTR<void, void>(0x00613380),
-    &unk_613360::impl_0C,
+    &unk_613360_p::impl_0C,
     MC2_PROC_MEMBER_PTR<void, void>(0x005CA940),
     MC2_PROC_MEMBER_PTR<void, void>(0x00406990),
     MC2_PROC_MEMBER_PTR<void, void>(0x00613770),
-    &unk_613330::impl_1C,
-    &unk_613330::impl_20,
-    &unk_613330::impl_24,
-    &unk_613330::impl_28,
+    &unk_613330_p::impl_1C,
+    &unk_613330_p::impl_20,
+    &unk_613330_p::impl_24,
+    &unk_613330_p::impl_28,
 };
 
 //mc2:0x006136C0
-void unk_613360::impl_04(char *destination, std::uint32_t unk2, char *unk3, char *extension) {
+void unk_613360_p::impl_04(char *destination, std::uint32_t unk2, const char *unk3, const char *extension) {
     if (vir_24(unk3) == false) {
         destination[0] = '\0';
         vir_28(destination, unk3, extension);
@@ -49,6 +49,6 @@ void unk_613360::impl_04(char *destination, std::uint32_t unk2, char *unk3, char
 }
 
 //mc2:0x00613470
-void unk_613360::impl_0C() {
+void unk_613360_p::impl_0C() {
     this->unk104--;
 }

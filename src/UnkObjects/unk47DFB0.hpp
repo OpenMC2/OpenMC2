@@ -21,7 +21,7 @@
 #include "../Addresses.hpp"
 
 // originally malloc'd in pausemenu.cpp
-class unk_47DFB0 {
+class unk_47DFB0_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -41,16 +41,20 @@ public:
     std::uint8_t pad58[0x90];
 
 public:
-    unk_47DFB0() {
+    unk_47DFB0_p() {
         MC2_CALL_MEMBER<0x0047DFB0, void>(this);
     }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_47DFB0) {
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_47DFB0_p) {
         MC2_CALL_MEMBER<0x0047C950, void>(this);
     }
 };
-static_assert(sizeof(unk_47DFB0) == 0xE8, "Wrong size for unk_47DFB0");
+static_assert(sizeof(unk_47DFB0_p) == 0xE8, "Wrong size for unk_47DFB0_p");
+static_assert(std::is_trivially_destructible<unk_47DFB0_p>::value, "unk_47DFB0_p is not trivially destructible");
+
+using unk_47DFB0 = MC2_DestroyingWrapper<unk_47DFB0_p>;
 
 extern unk_47DFB0 *(&glo_697B90);
 inline unk_47DFB0 *sub_47E150() {
+    assert(glo_697B90 == nullptr);
     return glo_697B90 = new unk_47DFB0;
 }

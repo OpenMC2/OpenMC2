@@ -23,7 +23,7 @@
 #include "unk5E33D0.hpp"
 
 // originally malloc'd in c:\\soft_x\\mc2\\src\\mcgame\\game.h
-class unk_401FD0 : public unk_5E33D0 {
+class unk_401FD0_p : public unk_5E33D0_p {
 protected:
     static const vtable_t vtable_values;
 
@@ -40,10 +40,13 @@ protected:
     float unk2C = 1.0f;
 
 public:
-    unk_401FD0();
+    unk_401FD0_p();
 
 protected:
     const char *impl_vir18() { return "tune/city"; }
     const char *impl_vir1C() { return  "loadTransition"; }
 };
-static_assert(sizeof(unk_401FD0) == 0x30, "Wrong size for unk_401FD0");
+static_assert(sizeof(unk_401FD0_p) == 0x30, "Wrong size for unk_401FD0_p");
+static_assert(std::is_trivially_destructible<unk_401FD0_p>::value, "unk_401FD0_p is not trivially destructible");
+
+using unk_401FD0 = MC2_DestroyingWrapper<unk_401FD0_p>;

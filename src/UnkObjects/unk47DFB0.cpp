@@ -18,8 +18,8 @@
 
 #include "unk47DFB0.hpp"
 
-const unk_47DFB0::vtable_t unk_47DFB0::vtable_values = {
-    &unk_47DFB0::scalar_deleter,
+const unk_47DFB0_p::vtable_t unk_47DFB0_p::vtable_values = {
+    &unk_47DFB0_p::scalar_deleter,
 };
 
 MC2_DEF_GLOBAL(glo_697B90, 0x00697B90);

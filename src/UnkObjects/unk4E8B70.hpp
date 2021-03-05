@@ -38,5 +38,6 @@ static_assert(sizeof(unk_4E8B70) == 0x13C, "Wrong size for unk_4E8B70");
 
 extern unk_4E8B70 *(&glo_69947C);
 inline unk_4E8B70 *sub_4E9040() {
+    assert(glo_69947C == nullptr);
     return glo_69947C = new unk_4E8B70();
 }

@@ -19,15 +19,17 @@
 #include "sndVoice.hpp"
 #include "../Logging.hpp"
 
+using namespace audio;
+
 // mc2: 0x00654E68
-const audio::sndVoice::vtable_t audio::sndVoice::vtable_values = {
-    &audio::sndVoice::scalar_deleter, // 0x00
+const sndVoice_p::vtable_t sndVoice_p::vtable_values = {
+    &sndVoice_p::scalar_deleter, // 0x00
     &mc2_thiscall::null<std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t>, // 0x04
-    &audio::sndVoice::impl_play, // 0x08
+    &sndVoice_p::impl_play, // 0x08
     &mc2_thiscall::retval<bool, false>, // 0x0C
     &mc2_thiscall::null<>, // 0x10
-    &audio::sndVoice::impl_stop, // 0x14
-    &audio::sndVoice::impl_release, // 0x18
+    &sndVoice_p::impl_stop, // 0x14
+    &sndVoice_p::impl_release, // 0x18
     &mc2_thiscall::null<std::uint32_t>, // 0x1C
     &mc2_thiscall::null<std::uint32_t>, // 0x20
     &mc2_thiscall::null<std::uint32_t>, // 0x24
@@ -37,19 +39,20 @@ const audio::sndVoice::vtable_t audio::sndVoice::vtable_values = {
     &mc2_thiscall::null<std::uint32_t, std::uint32_t, std::uint32_t>, // 0x34
     &mc2_thiscall::null<std::uint32_t, std::uint32_t>, // 0x38
     &mc2_thiscall::null<std::uint32_t>, // 0x3C
-    &audio::sndVoice::impl_isPlaying, // 0x40
+    &sndVoice_p::impl_isPlaying, // 0x40
     &mc2_thiscall::retval<std::uint32_t, 0>, // 0x44
     &mc2_thiscall::retval<std::int32_t, -1>, // 0x48
     &mc2_thiscall::retval<std::int32_t, -1>, // 0x4C
 };
 
 // mc2: 0x005D6AB0
-audio::sndVoice::sndVoice(audio::sndVoice *arg0) {
+sndVoice_p::sndVoice_p(sndVoice *arg0) {
     vtable = &vtable_values;
     if (arg0 != nullptr) {
         next = arg0->next;
-        if (arg0->next != nullptr) arg0->next->prev = this;
-        arg0->next = this;
+        if (arg0->next != nullptr)
+            arg0->next->prev = class_cast<sndVoice>(this);
+        arg0->next = class_cast<sndVoice>(this);
         this->prev = arg0;
     } else {
         next = nullptr;
@@ -58,28 +61,28 @@ audio::sndVoice::sndVoice(audio::sndVoice *arg0) {
 }
 
 // mc2: 0x005D6AF0
-void audio::sndVoice::destructor() {
+void sndVoice_p::destructor() {
     vtable = &vtable_values;
     if (next != nullptr) next->prev = this->prev;
     if (prev != nullptr) prev->next = this->next;
 }
 
 // mc2: 0x005D6A40
-void audio::sndVoice::impl_play(std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t) {
+void sndVoice_p::impl_play(std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t) {
     mc2_log_error("virtual sndVoice::Play used");
 }
 
 // mc2: 0x005D6A60
-void audio::sndVoice::impl_stop() {
+void sndVoice_p::impl_stop() {
     mc2_log_error("virtual sndVoice::Stop used");
 }
 
 // mc2: 0x005D6A70
-void audio::sndVoice::impl_release() {
+void sndVoice_p::impl_release() {
     mc2_log_error("virtual sndVoice::Release used");
 }
 
-std::uint32_t audio::sndVoice::impl_isPlaying() {
+std::uint32_t sndVoice_p::impl_isPlaying() {
     mc2_log_error("virtual sndVoice::IsPlaying used");
     return 0;
 }

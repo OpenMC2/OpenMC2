@@ -16,74 +16,74 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk404B90.hpp"
+#include "mcGameState.hpp"
 
-#include "unk4020F0.hpp"
-#include "unk402800.hpp"
-#include "unk405630.hpp"
-#include "unk406950.hpp"
-#include "unk467180.hpp"
-#include "unk47C830.hpp"
-#include "unk482C30.hpp"
-#include "unk52AA80.hpp"
-#include "unk53AF00.hpp"
-#include "unk5E14C0.hpp"
-#include "unk603B10.hpp"
-#include "unk612850.hpp"
+#include "Game.hpp"
+#include "Logging.hpp"
+#include "mcGame.hpp"
+#include "mcLayerMgr.hpp"
 
-#include "../Game.hpp"
-#include "../Logging.hpp"
+#include "UnkObjects/unk405630.hpp"
+#include "UnkObjects/unk406950.hpp"
+#include "UnkObjects/unk467180.hpp"
+#include "UnkObjects/unk47C830.hpp"
+#include "UnkObjects/unk482C30.hpp"
+#include "UnkObjects/unk52AA80.hpp"
+#include "UnkObjects/unk53AF00.hpp"
+#include "UnkObjects/unk5E14C0.hpp"
+#include "UnkObjects/unk603B10.hpp"
+#include "UnkObjects/unk612850.hpp"
 
 // mc2: 0x0062D968
-const unk_404B90::vtable_t unk_404B90::vtable_values = {
-    &unk_404B90::scalar_deleter,
-    &unk_404B90::impl_vir04,
-    &unk_404B90::impl_vir08,
+const mcGameState_p::vtable_t mcGameState_p::vtable_values = {
+    &mcGameState_p::scalar_deleter,
+    &mcGameState_p::impl_vir04,
+    &mcGameState_p::impl_vir08,
     &mc2_thiscall::null<>,
-    &unk_404B90::impl_set_state,
+    &mcGameState_p::impl_EnterState,
 };
 
-unk_404B90::unk_404B90() {
+mcGameState_p::mcGameState_p() {
     vtable = &vtable_values;
-    this->set_gamestate(GameState::Boot);
+    this->EnterState(GameState::Boot);
     unk44 = unk48 = static_cast<float>(glo_6754A4);
     sub_4014C0();
 }
 
 // mc2: 0x00403810
-void unk_404B90::impl_vir04(std::uint32_t arg0) {
+void mcGameState_p::impl_vir04(std::uint32_t arg0) {
     if (this->unk3C == 10) return;
     if (++this->unk34 == 10) this->unk34 = 0;
     this->unk0C[this->unk34] = arg0;
     ++this->unk3C;
 }
 
-void unk_404B90::impl_vir08() {
+void mcGameState_p::impl_vir08() {
     while (this->unk3C != 0) {
         --this->unk3C;
         if (++this->unk38 == 10) this->unk38 = 0;
 
         switch (this->unk0C[this->unk38]) {
         case 0:
-            mc2_log_fatal("Unimplemented request -- None");
+            mc2_log_quit("Unimplemented request -- None");
             break;
         case 1: // Pause?
             if (this->state == GameState::Game ||
                 this->state == GameState::Replay) {
-                this->sub_4030C0();
+                this->DoPauseSimulation();
             }
             break;
         case 2: // Unpause?
-            this->sub_4031B0();
+            this->DoResumeSimulation();
             break;
         case 3: // Local-Pause?
             if (this->state == GameState::Game ||
                 this->state == GameState::Replay) {
-                this->sub_4031E0();
+                this->DoPauseLocally();
             }
             break;
         case 4: // Local-Unpuase?
-            this->sub_4032B0();
+            this->DoResume();
             break;
         case 5:
             this->sub_4032E0();
@@ -108,7 +108,7 @@ void unk_404B90::impl_vir08() {
             this->sub_4034F0();
             break;
         case 13: // Start Replay?
-            this->set_gamestate(GameState::Replay);
+            this->EnterState(GameState::Replay);
             break;
         case 14: // Delayed Pause?
             this->vir04(1);
@@ -117,35 +117,35 @@ void unk_404B90::impl_vir08() {
             this->sub_403640();
             break;
         case 16:
-            this->sub_4043C0();
+            this->DoEndMovie();
             break;
         case 17: // Back to FrontEnd?
-            this->set_gamestate(GameState::FrontEnd);
+            this->EnterState(GameState::FrontEnd);
             break;
         case 18:
             this->sub_403710();
             break;
         case 19: // Start Race Editor?
-            this->set_gamestate(GameState::RaceEditor);
+            this->EnterState(GameState::RaceEditor);
             break;
         case 20:
-            this->set_gamestate(GameState::CarViewer);
+            this->EnterState(GameState::CarViewer);
             break;
         case 21:
             this->sub_403780();
             break;
         case 22: // Quit?
-            this->set_gamestate(GameState::Quit);
+            this->EnterState(GameState::Quit);
             break;
         default:
-            mc2_log_fatal("Unrecognized request");
+            mc2_log_quit("Unrecognized request");
             break;
         }
     }
 }
 
 // mc2: 0x00404A90
-void unk_404B90::impl_set_state(GameState arg0) {
+void mcGameState_p::impl_EnterState(GameState arg0) {
     switch (arg0) {
     case GameState::Boot:
         sub_613AC0(":BOOT");
@@ -153,7 +153,7 @@ void unk_404B90::impl_set_state(GameState arg0) {
         this->state = GameState::Boot;
         break;
     case GameState::Game:
-        this->sub_4047A0();
+        this->EnterStateGame();
         break;
     case GameState::Replay:
         this->sub_4049E0();
@@ -175,7 +175,7 @@ void unk_404B90::impl_set_state(GameState arg0) {
         this->sub_402AC0();
         break;
     default:
-        mc2_log_fatal("mcGameState::EnterState - invalid State");
+        mc2_log_quit("mcGameState::EnterState - invalid State");
         break;
     }
 
@@ -185,7 +185,8 @@ void unk_404B90::impl_set_state(GameState arg0) {
     this->unk0A = 0;
 }
 
-void unk_404B90::sub_4047A0() {
+// mc2: 0x004047A0
+void mcGameState_p::EnterStateGame() {
     this->sub_403B80(1);
     this->state = GameState::Game;
     glo_6C38B4->sub_535DC0(3);
@@ -216,7 +217,7 @@ void unk_404B90::sub_4047A0() {
     glo_692E88->get4().post_loading_screen(esi);
     if (sub_467650(24) || sub_402A90(1) != 0) esi = 0x800;
     else esi = 0;
-    mc2_log_info("Waiting for you to press start in EnterStateGame-gamestate.c, %d", esi);
+    mc2_log_display("Waiting for you to press start in EnterStateGame-gamestate.c, %d", esi);
     glo_69585C->sub_467090(0, 1);
     if (!glo_6C32C8.unk3C0 && !glo_6C32C8.unk3C1) {
         while (!(esi & 0x800)) {

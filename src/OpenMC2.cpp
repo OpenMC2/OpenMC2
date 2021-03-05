@@ -66,7 +66,7 @@ void load_mc2_dll() { // WinMainCRTSetup()
 
 // mc2: 0x00401010
 int StartOpenMC2() {
-    mc2_log_info("mc2 base: 0x%08X", reinterpret_cast<std::uintptr_t>(MC2_POINTER<void>(0x00400000)));
+    mc2_log_display("mc2 base: 0x%08X", reinterpret_cast<std::uintptr_t>(MC2_POINTER<void>(0x00400000)));
 
     // Init MC2_MALLOC
     if ((glo_682E18 & 1) == 0) {
@@ -86,7 +86,7 @@ int StartOpenMC2() {
     constexpr std::uint8_t axis_fix[] = { 0x90, 0xE9 };
     detail::Hook_Raw(0x00603EBA, axis_fix);
 
-    int b = run_game_guarded();
+    int b = ExceptMain();
 
     sub_612F00();
 

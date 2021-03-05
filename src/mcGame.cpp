@@ -16,62 +16,62 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************/
 
-#include "unk4020F0.hpp"
-#include "unk402800.hpp"
-#include "unk404B90.hpp"
-#include "unk405630.hpp"
-#include "unk405C90.hpp"
-#include "unk406950.hpp"
-#include "unk4094A0.hpp"
-#include "unk412280.hpp"
-#include "unk419D20.hpp"
-#include "unk41FB40.hpp"
-#include "unk421350.hpp"
-#include "unk467180.hpp"
-#include "unk477E80.hpp"
-#include "unk4788D0.hpp"
-#include "unk47C830.hpp"
-#include "unk482C30.hpp"
-#include "unk498A90.hpp"
-#include "unk4A9E30.hpp"
-#include "unk4CE870.hpp"
-#include "unk4E8B70.hpp"
-#include "unk4E9480.hpp"
-#include "unk4FAE70.hpp"
-#include "unk503110.hpp"
-#include "unk504CE0.hpp"
-#include "unk5187E0.hpp"
-#include "unk52AA80.hpp"
-#include "unk53C670.hpp"
-#include "unk53C9E0.hpp"
-#include "unk540EB0.hpp"
-#include "unk5769E0.hpp"
-#include "unk577F00.hpp"
-#include "unk57DC70.hpp"
-#include "unk580A00.hpp"
-#include "unk5FAC30.hpp"
-#include "unk611C60.hpp"
-#include "unk612850.hpp"
-#include "unk6144B0.hpp"
-#include "unk6633B0.hpp"
+#include "mcGame.hpp"
+#include "Config.hpp"
+#include "Logging.hpp"
+#include "mcGameState.hpp"
+#include "mcLayerMgr.hpp"
 
-#include "../Config.hpp"
-#include "../Logging.hpp"
+#include "UnkObjects/unk405630.hpp"
+#include "UnkObjects/unk405C90.hpp"
+#include "UnkObjects/unk406950.hpp"
+#include "UnkObjects/unk4094A0.hpp"
+#include "UnkObjects/unk412280.hpp"
+#include "UnkObjects/unk419D20.hpp"
+#include "UnkObjects/unk41FB40.hpp"
+#include "UnkObjects/unk421350.hpp"
+#include "UnkObjects/unk467180.hpp"
+#include "UnkObjects/unk477E80.hpp"
+#include "UnkObjects/unk4788D0.hpp"
+#include "UnkObjects/unk47C830.hpp"
+#include "UnkObjects/unk482C30.hpp"
+#include "UnkObjects/unk498A90.hpp"
+#include "UnkObjects/unk4A9E30.hpp"
+#include "UnkObjects/unk4CE870.hpp"
+#include "UnkObjects/unk4E8B70.hpp"
+#include "UnkObjects/unk4E9480.hpp"
+#include "UnkObjects/unk4FAE70.hpp"
+#include "UnkObjects/unk503110.hpp"
+#include "UnkObjects/unk504CE0.hpp"
+#include "UnkObjects/unk5187E0.hpp"
+#include "UnkObjects/unk52AA80.hpp"
+#include "UnkObjects/unk53C670.hpp"
+#include "UnkObjects/unk53C9E0.hpp"
+#include "UnkObjects/unk540EB0.hpp"
+#include "UnkObjects/unk5769E0.hpp"
+#include "UnkObjects/unk577F00.hpp"
+#include "UnkObjects/unk57DC70.hpp"
+#include "UnkObjects/unk580A00.hpp"
+#include "UnkObjects/unk5FAC30.hpp"
+#include "UnkObjects/unk611C60.hpp"
+#include "UnkObjects/unk612850.hpp"
+#include "UnkObjects/unk6144B0.hpp"
+#include "UnkObjects/unk6633B0.hpp"
 
 #include <timeapi.h>
 
 constexpr DWORD disclaimer_time = 5000;
 
 // mc2: 0x0062D530
-const unk_4020F0::vtable_t unk_4020F0::vtable_values = {
-    &unk_4020F0::scalar_deleter,
+const mcGame_p::vtable_t mcGame_p::vtable_values = {
+    &mcGame_p::scalar_deleter,
 };
 
 static void call_glo_6CE2E4_vir10() {
     glo_6CE2E4->vir10();
 }
 
-void unk_4020F0::sub_401860() {
+void mcGame_p::sub_401860() {
     glo_675024 = false;
     sub_53DE60();
     sub_53C6B0();
@@ -108,8 +108,8 @@ static void sub_506CF0() {
 }
 
 // mc2: 0x00402120
-void unk_4020F0::game_loop() {
-    mc2_log_info("mcGame:Execute - kDebugLevel %d", 0); // macro kDebugLevel?
+void mcGame_p::Execute() {
+    mc2_log_display("mcGame:Execute - kDebugLevel %d", 0); // macro kDebugLevel?
     unk_611C60 timer;
     bool stop = false;
 
@@ -120,7 +120,7 @@ void unk_4020F0::game_loop() {
 
         switch (glo_6C3890->get_gamestate()) {
         case GameState::Boot:
-            mc2_log_info("Welcome to the boot state.");
+            mc2_log_display("Welcome to the boot state.");
             glo_6C3890->vir04(17);
             break;
 
@@ -128,7 +128,7 @@ void unk_4020F0::game_loop() {
         case GameState::Replay:
             sub_5ECFD0();
             this->sub_401960();
-            this->sub_401CB0();
+            this->Update();
             sub_5ED000();
 
             if  (glo_858384 & 2) {
@@ -139,7 +139,7 @@ void unk_4020F0::game_loop() {
                 glo_692EB0->sub_405360();
                 if (glo_6C3890->unk0A != 0) {
                     this->sub_401960();
-                    this->sub_401CB0();
+                    this->Update();
                     glo_692EB0->sub_405360();
                 }
             } else {
@@ -148,7 +148,7 @@ void unk_4020F0::game_loop() {
                 glo_692EB0->sub_405360();
                 if (glo_6C3890->unk0A != 0) {
                     this->sub_401960();
-                    this->sub_401CB0();
+                    this->Update();
                     glo_692EB0->sub_405360();
                 }
                 sub_5ED0C0();
@@ -235,7 +235,7 @@ void unk_4020F0::game_loop() {
             break;
 
         default:
-            mc2_log_fatal("Invalid State");
+            mc2_log_quit("Invalid State");
             break;
         }
 
@@ -249,11 +249,12 @@ void unk_4020F0::game_loop() {
     } while (!stop && !sub_5ED220());
 }
 
-void unk_4020F0::sub_401CB0() {
+// mc2: 0x00401CB0
+void mcGame_p::Update() {
     if (glo_6622BC > 2) {
         mc2_log_print("mcGame:Update - pre-update heap sanity check...");
         global_primary_unk5769E0->sub_576210();
-        mc2_log_info("done");
+        mc2_log_display("done");
     }
     if (glo_6C3890->unk09 == 0) sub_613FC0();
     sub_5F1D80(glo_6C3890->unk09 == 0 ? glo_6797CC : 0.0f);
@@ -286,7 +287,7 @@ void unk_4020F0::sub_401CB0() {
     if (glo_6622BC > 3) {
         mc2_log_print("mcGame:Update - post-update heap sanity check...");
         global_primary_unk5769E0->sub_576210();
-        mc2_log_info("done");
+        mc2_log_display("done");
     }
 }
 

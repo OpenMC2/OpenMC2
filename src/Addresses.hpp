@@ -39,6 +39,8 @@ template<class Ret, class... Args> class MC2_PROC_VARARG_PTR;
 template<class Ret, class... Args> class MC2_PROC_STDCALL_PTR;
 template<class Ret, class C, class... Args> class MC2_PROC_MEMBER_PTR;
 
+template<class T> class MC2_DestroyingWrapper;
+
 namespace detail {
     extern "C" __declspec(dllimport) void mc2_import_start();
     template<class T>
@@ -134,11 +136,46 @@ explicit X(std::uint32_t address) : __VA_ARGS__(address) { }
         if (flags & 1) ::operator delete(_this);
         return _this;
     }
+
+    template<class From, class To> class pointer_cast
+    { public: static To *cast(From *p) { return static_cast<To *>(p); } };
+    template<class From, class To> class pointer_cast<MC2_DestroyingWrapper<To>, From>
+    { public: static MC2_DestroyingWrapper<To> *cast(From *p) {
+        return reinterpret_cast<MC2_DestroyingWrapper<To> *>(static_cast<To *>(p)); } };
+    template<class From, class To> class pointer_cast<const MC2_DestroyingWrapper<To>, From>
+    { public: static const MC2_DestroyingWrapper<To> *cast(From *p) {
+        return reinterpret_cast<const MC2_DestroyingWrapper<To> *>(static_cast<const To *>(p)); } };
+}
+
+
+// helpers for handling virtual and deferred destructors
+#define MC2_DEFERRED_DESTRUCTOR(X) \
+    void destroy() { this->destructor(); } \
+    void destructor()
+
 #define MC2_SCALAR_DELETING_DESTRUCTOR(X) \
     void *scalar_deleter(std::uint32_t flags) { return detail::scalar_deleter<>(this, flags); } \
-    ~X() { static_cast<const vtable_t *>(this->vtable)->deleter(this, 0); } \
+    void destroy() { static_cast<const vtable_t *>(this->vtable)->deleter(this, 0); } \
     void destructor()
+
+template<class T>
+class MC2_DestroyingWrapper : public T {
+public:
+	using T::T;
+	~MC2_DestroyingWrapper() { static_cast<T *>(this)->destroy(); }
+};
+
+template<class To, class From> To *class_cast(From *p) {
+    static_assert(std::is_class<To>::value, "To needs to be a class type, not pointer type");
+    static_assert(std::is_class<From>::value, "From needs to be a class type");
+    return detail::pointer_cast<To, From>::cast(p);
 }
+template<class To, class From> To &class_cast(From &p) {
+    static_assert(std::is_class<To>::value, "To needs to be a class type, not pointer type");
+    static_assert(std::is_class<From>::value, "From needs to be a class type");
+    return *detail::pointer_cast<To, From>::cast(&p);
+}
+
 
 // some common virtual function implementations for simplicity
 class mc2_thiscall {

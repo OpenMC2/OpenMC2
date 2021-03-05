@@ -19,10 +19,10 @@
 #include "unk53A920.hpp"
 
 // mc2: 0x0064D2AC
-const unk_53A920::vtable_t unk_53A920::vtable_values = {
-    &unk_53A920::scalar_deleter,
+const unk_53A920_p::vtable_t unk_53A920_p::vtable_values = {
+    &unk_53A920_p::scalar_deleter,
     &mc2_thiscall::null<std::uint32_t>,
     &mc2_thiscall::null<>,
     &mc2_thiscall::null<>,
-    &unk_53A920::impl_set_state,
+    &unk_53A920_p::impl_set_state,
 };

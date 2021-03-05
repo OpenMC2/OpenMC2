@@ -32,14 +32,14 @@ enum class GameState : std::int32_t {
     Quit,
 };
 
-class unk_53A920 {
+class unk_53A920_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
         MC2_PROC_MEMBER_PTR<void, void, std::uint32_t> vir_04;
         MC2_PROC_MEMBER_PTR<void, void> vir_08;
         MC2_PROC_MEMBER_PTR<void, void> vir_0C;
-        MC2_PROC_MEMBER_PTR<void, void, GameState> set_state;
+        MC2_PROC_MEMBER_PTR<void, void, GameState> EnterState;
     };
     static const vtable_t vtable_values;
 
@@ -53,8 +53,8 @@ public:
     std::uint8_t unk0B = 0;
 
 public:
-    unk_53A920() { vtable = &vtable_values; }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_53A920) { /* only resets vtable */ }
+    unk_53A920_p() { vtable = &vtable_values; }
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_53A920_p) { /* only resets vtable */ }
 
     void vir04(std::uint32_t a) {
         static_cast<const vtable_t *>(this->vtable)->vir_04(this, a);
@@ -67,11 +67,14 @@ public:
     }
 
     GameState get_gamestate() { return this->state; }
-    void set_gamestate(GameState a) /* vir_10 */ {
-        static_cast<const vtable_t *>(this->vtable)->set_state(this, a);
+    void EnterState(GameState a) /* vir_10 */ {
+        static_cast<const vtable_t *>(this->vtable)->EnterState(this, a);
     }
 
 protected:
     void impl_set_state(GameState state) { this->state = state; }
 };
-static_assert(sizeof(unk_53A920) == 0x0C, "Bad Size: unk_53A920");
+static_assert(sizeof(unk_53A920_p) == 0x0C, "Bad Size: unk_53A920_p");
+static_assert(std::is_trivially_destructible<unk_53A920_p>::value, "unk_53A920_p is not trivially destructible");
+
+using unk_53A920 = MC2_DestroyingWrapper<unk_53A920_p>;

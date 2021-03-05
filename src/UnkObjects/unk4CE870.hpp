@@ -34,5 +34,6 @@ static_assert(sizeof(unk_4CE870) == 0x98, "Wrong size for unk_4CE870");
 
 extern unk_4CE870 *(&glo_6C523C);
 inline unk_4CE870 *sub_4CEB00(std::uint32_t arg1) {
+    assert(glo_6C523C == nullptr);
     return glo_6C523C = new unk_4CE870(arg1);
 }

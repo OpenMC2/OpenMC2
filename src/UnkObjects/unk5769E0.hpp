@@ -22,8 +22,11 @@
 
 #include <cstdint>
 
+class unk_5769E0_p;
+using unk_5769E0 = MC2_DestroyingWrapper<unk_5769E0_p>;
+
 // Related to original malloc implementation
-class unk_5769E0 {
+class unk_5769E0_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -69,8 +72,8 @@ private:
     std::uint16_t unk116 = 0x7800;
 
 public:
-    unk_5769E0();
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_5769E0);
+    unk_5769E0_p();
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_5769E0_p);
 
     void sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8_t d);
 
@@ -82,6 +85,7 @@ public:
         MC2_CALL_MEMBER<0x00576210, void>(this);
     }
 };
+static_assert(std::is_trivially_destructible<unk_5769E0_p>::value, "unk_5769E0_p is not trivially destructible");
 
 extern MC2_PROC_PTR<void, std::uint32_t> sub_5764A0;
 extern MC2_PROC_PTR<void, std::uint32_t> sub_576530;

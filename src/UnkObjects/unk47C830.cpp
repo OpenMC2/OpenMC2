@@ -18,17 +18,18 @@
 
 #include "unk47C830.hpp"
 
-#include "unk404B90.hpp"
 #include "unk47DFB0.hpp"
 #include "unk52AA80.hpp"
 #include "unk53AF00.hpp"
 
+#include "../mcGameState.hpp"
+
 // mc2: 0x0063E7CC
-const unk_47C830::vtable_t unk_47C830::vtable_values = {
-    &unk_47C830::scalar_deleter,
+const unk_47C830_p::vtable_t unk_47C830_p::vtable_values = {
+    &unk_47C830_p::scalar_deleter,
 };
 
-unk_47C830::unk_47C830() {
+unk_47C830_p::unk_47C830_p() {
     vtable = &vtable_values;
     sub_5E11E0("popup", 0);
     this->unk08 = new unk_5D5C30("HUD:accept");
@@ -36,15 +37,15 @@ unk_47C830::unk_47C830() {
     this->sub_47BFF0();
 }
 
-void unk_47C830::sub_47BFF0() {
+void unk_47C830_p::sub_47BFF0() {
     switch (glo_6C32C8.unk18) {
     case RaceType::roam:
     case RaceType::hookman_cruise:
     case RaceType::follow:
-        this->unk04 = new unk_496BF0;
+        this->unk04 = class_cast<unk_489330>(new unk_496BF0);
         break;
     case RaceType::find_hook:
-        this->unk04 = new unk_496B30(glo_6C32C8.unk338);
+        this->unk04 = class_cast<unk_489330>(new unk_496B30(glo_6C32C8.unk338));
         break;
     case RaceType::cp_unordered:
     case RaceType::cp_unordered_time_local:
@@ -52,26 +53,26 @@ void unk_47C830::sub_47BFF0() {
     case RaceType::cp_ordered:
     case RaceType::cp_ordered_time_local:
     case RaceType::cp_ordered_time_global:
-        this->unk04 = new unk_48C470(glo_6C32C8.unk18);
+        this->unk04 = class_cast<unk_489330>(new unk_48C470(glo_6C32C8.unk18));
         break;
     case RaceType::capture_the_flag:
-        this->unk04 = new unk_48F9F0;
+        this->unk04 = class_cast<unk_489330>(new unk_48F9F0);
         break;
     case RaceType::bomb_tag:
-        this->unk04 = new unk_48D540;
+        this->unk04 = class_cast<unk_489330>(new unk_48D540);
         break;
     case RaceType::lose_the_cops:
-        this->unk04 = new unk_495510;
+        this->unk04 = class_cast<unk_489330>(new unk_495510);
         break;
     case RaceType::destroy:
-        this->unk04 = new unk_4951A0;
+        this->unk04 = class_cast<unk_489330>(new unk_4951A0);
         break;
     default:
         break;
     }
 }
 
-void unk_47C830::sub_47C7A0() {
+void unk_47C830_p::sub_47C7A0() {
     if (glo_6C3890->unk09 == 0) this->unk04->vir14();
     if (glo_697B90->unk54->unk178 != 6) {
         this->sub_47C3C0();

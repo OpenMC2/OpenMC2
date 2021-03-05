@@ -65,12 +65,12 @@ const unk_616420::vtable_t unk_616420::vtable_values = {
     MC2_PROC_MEMBER_PTR<void, void>(0x00615BF0)
 };
 
-unk_616420::unk_616420(char *unk1, FileHandler *unk2) {
+unk_616420::unk_616420(const char *unk1, FileHandler *unk2) {
     vtable = &unk_616420::vtable_values;
     sub_615130(unk1, unk2);
 }
     
-void unk_616420::sub_615130(char *unk1, FileHandler *unk2) {
+void unk_616420::sub_615130(const char *unk1, FileHandler *unk2) {
     this->unk04 = unk1;
     this->unk08 = 1;
     this->unk0C = unk2;
@@ -80,7 +80,7 @@ void unk_616420::sub_615130(char *unk1, FileHandler *unk2) {
     this->unk98 = 0;
 }
 
-void sub_615740(unk_616420 *unk1, char *format, ...) {
+void sub_615740(unk_616420 *unk1, const char *format, ...) {
     char buffer[512];
     va_list args;
     va_start(args, format);

@@ -24,11 +24,12 @@
 
 enum LogLevels {
     LOG_LEVEL_PRINT = 0,
-    LOG_LEVEL_B,
-    LOG_LEVEL_INFO,
+    LOG_LEVEL_MESSAGE,
+    LOG_LEVEL_DISPLAY,
     LOG_LEVEL_WARNING,
     LOG_LEVEL_ERROR,
-    LOG_LEVEL_FATAL_ERROR
+    LOG_LEVEL_QUIT,
+	LOG_LEVEL_ABORT,
 };
 
 // sub_6184A0
@@ -38,10 +39,10 @@ void mc2_log_level_v(LogLevels level, const char *format, va_list ap);
 void mc2_log_print(const char *format, ...);
 
 // sub_618630
-void mc2_log_B(const char *format, ...);
+void mc2_log_message(const char *format, ...);
 
 // sub_618650
-void mc2_log_info(const char *format, ...);
+void mc2_log_display(const char *format, ...);
 
 // sub_618670
 void mc2_log_warning(const char *format, ...);
@@ -50,7 +51,10 @@ void mc2_log_warning(const char *format, ...);
 void mc2_log_error(const char *format, ...);
 
 // sub_6186B0
-void mc2_log_fatal(const char *format, ...);
+void mc2_log_quit(const char *format, ...);
+
+// sub_618700
+void mc2_log_abort(const char *format, ...);
 
 extern bool &global_mbox_fatal; // glo_679844
 extern std::uint8_t &global_log_level_flags; // glo_679848

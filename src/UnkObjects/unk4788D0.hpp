@@ -21,7 +21,7 @@
 #include "../Addresses.hpp"
 
 // originally malloc'd in bangermgr.cpp
-class unk_4788D0 {
+class unk_4788D0_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -47,16 +47,20 @@ protected:
     std::uint8_t pad34[0x8];
 
 public:
-    unk_4788D0() { vtable = &vtable_values; }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4788D0);
+    unk_4788D0_p() { vtable = &vtable_values; }
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4788D0_p);
 
     void sub_4782D0() {
         return MC2_CALL_MEMBER<0x004782D0, void>(this);
     }
 };
-static_assert(sizeof(unk_4788D0) == 0x3C, "Wrong size for unk_4788D0");
+static_assert(sizeof(unk_4788D0_p) == 0x3C, "Wrong size for unk_4788D0_p");
+static_assert(std::is_trivially_destructible<unk_4788D0_p>::value, "unk_4788D0_p is not trivially destructible");
+
+using unk_4788D0 = MC2_DestroyingWrapper<unk_4788D0_p>;
 
 extern unk_4788D0 *(&glo_6968B0);
 inline unk_4788D0 *sub_479100() {
+    assert(glo_6968B0 == nullptr);
     return glo_6968B0 = new unk_4788D0();
 }

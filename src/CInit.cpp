@@ -166,6 +166,8 @@ static void init_float_constants() {
 }
 
 static void mc2_xc() {
+    using namespace audio;
+
     mc2___security_init_cookie();
     init_float_constants();
 
@@ -208,13 +210,13 @@ static void mc2_xc() {
     new (&glo_6C93A8) unk_59D370; std::atexit([]() { glo_6C93A8.~unk_59D370(); }); // sub_62C610
     new (&glo_6CE228) unk_612850; std::atexit([]() { glo_6CE228.~unk_612850(); }); // sub_62C650
     MC2_PROC_PTR<void>(0x0062C690)();
-    new (&glo_6CE52C) audio::sndVoice; std::atexit([]() { glo_6CE52C.~sndVoice(); }); // sub_62C6B0
-    new (&glo_6CE520) audio::sndVoice; std::atexit([]() { glo_6CE520.~sndVoice(); }); // sub_62C6D0
-    new (&glo_6CE550) audio::sndVoice; std::atexit([]() { glo_6CE550.~sndVoice(); }); // sub_62C6F0
-    new (&glo_6CE544) audio::sndVoice; std::atexit([]() { glo_6CE544.~sndVoice(); }); // sub_62C710
-    new (&glo_6CE55C) audio::sndVoice; std::atexit([]() { glo_6CE55C.~sndVoice(); }); // sub_62C730
-    new (&glo_6CE538) audio::sndVoice; std::atexit([]() { glo_6CE538.~sndVoice(); }); // sub_62C750
-    new (&glo_6CE568) audio::sndVoice; std::atexit([]() { glo_6CE568.~sndVoice(); }); // sub_62C770
+    new (&glo_6CE52C) sndVoice; std::atexit([]() { glo_6CE52C.~sndVoice(); }); // sub_62C6B0
+    new (&glo_6CE520) sndVoice; std::atexit([]() { glo_6CE520.~sndVoice(); }); // sub_62C6D0
+    new (&glo_6CE550) sndVoice; std::atexit([]() { glo_6CE550.~sndVoice(); }); // sub_62C6F0
+    new (&glo_6CE544) sndVoice; std::atexit([]() { glo_6CE544.~sndVoice(); }); // sub_62C710
+    new (&glo_6CE55C) sndVoice; std::atexit([]() { glo_6CE55C.~sndVoice(); }); // sub_62C730
+    new (&glo_6CE538) sndVoice; std::atexit([]() { glo_6CE538.~sndVoice(); }); // sub_62C750
+    new (&glo_6CE568) sndVoice; std::atexit([]() { glo_6CE568.~sndVoice(); }); // sub_62C770
     MC2_PROC_PTR<void>(0x0062C7A0)();
     new (&glo_857850) unk_612850; std::atexit([]() { glo_857850.~unk_612850(); }); // sub_62C7E0
     new (&glo_857868) unk_612850; std::atexit([]() { glo_857868.~unk_612850(); }); // sub_62C800

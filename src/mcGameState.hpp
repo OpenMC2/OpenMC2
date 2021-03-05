@@ -18,11 +18,12 @@
 
 #pragma once
 
-#include "../Addresses.hpp"
-#include "unk53A920.hpp"
+#include "Addresses.hpp"
+
+#include "UnkObjects/unk53A920.hpp"
 
 // originally malloc'd in gamestate.c
-class unk_404B90 : public unk_53A920 {
+class mcGameState_p : public unk_53A920_p {
 protected:
     static const vtable_t vtable_values;
 
@@ -40,22 +41,24 @@ protected:
     std::uint32_t unk5C = 1;
 
 public:
-    unk_404B90();
+    mcGameState_p();
 
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_404B90) {
+    MC2_SCALAR_DELETING_DESTRUCTOR(mcGameState_p) {
         MC2_CALL_MEMBER<0x004037F0, void>(this);
     }
 
 protected:
     void impl_vir04(std::uint32_t arg0);
     void impl_vir08();
-    void impl_set_state(GameState arg0);
+    void impl_EnterState(GameState arg0);
 
 private:
     void sub_402EB0() {
         return MC2_CALL_MEMBER<0x00402EB0, void>(this);
     }
-    void sub_4047A0();
+    // mc2: 0x004047A0
+    // Might be for another class, mcNetManager?
+    void EnterStateGame();
     void sub_403B80(std::uint32_t arg0) {
         return MC2_CALL_MEMBER<0x00403B80, void>(this, arg0);
     }
@@ -78,16 +81,16 @@ private:
         return MC2_CALL_MEMBER<0x00402AC0, void>(this);
     }
 
-    void sub_4030C0() {
+    void DoPauseSimulation() {
         return MC2_CALL_MEMBER<0x004030C0, void>(this);
     }
-    void sub_4031B0() {
+    void DoResumeSimulation() {
         return MC2_CALL_MEMBER<0x004031B0, void>(this);
     }
-    void sub_4031E0() {
+    void DoPauseLocally() {
         return MC2_CALL_MEMBER<0x004031E0, void>(this);
     }
-    void sub_4032B0() {
+    void DoResume() {
         return MC2_CALL_MEMBER<0x004032B0, void>(this);
     }
     void sub_4032E0() {
@@ -114,7 +117,7 @@ private:
     void sub_403640() {
         return MC2_CALL_MEMBER<0x00403640, void>(this);
     }
-    void sub_4043C0() {
+    void DoEndMovie() {
         return MC2_CALL_MEMBER<0x004043C0, void>(this);
     }
     void sub_403710() {
@@ -124,7 +127,10 @@ private:
         return MC2_CALL_MEMBER<0x00403780, void>(this);
     }
 };
-static_assert(sizeof(unk_404B90) == 0x60, "Bad Size: unk_404B90");
+static_assert(sizeof(mcGameState_p) == 0x60, "Bad Size: mcGameState_p");
+static_assert(std::is_trivially_destructible<mcGameState_p>::value, "mcGameState_p is not trivially destructible");
+
+using mcGameState = MC2_DestroyingWrapper<mcGameState_p>;
 
 extern MC2_PROC_PTR<void, std::uint32_t> sub_4016A0;
 extern MC2_PROC_PTR<std::uint32_t, std::uint32_t> sub_402A90;
@@ -139,8 +145,9 @@ extern bool &glo_692E60;
 extern bool &glo_692E78;
 extern bool &glo_692E79;
 
-extern unk_404B90 *&glo_6C3890;
-extern unk_404B90 *&glo_6C3894;
+extern mcGameState *&glo_6C3890;
+extern mcGameState *&glo_6C3894;
 inline void sub_404BF0() {
-    glo_6C3890 = glo_6C3894 = new unk_404B90;
+    assert(glo_6C3890 == nullptr && glo_6C3894 == nullptr);
+    glo_6C3890 = glo_6C3894 = new mcGameState;
 }

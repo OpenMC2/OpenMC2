@@ -24,12 +24,12 @@
 #include "Config.hpp"
 #include "CommandLine.hpp"
 #include "Logging.hpp"
+#include "mcGame.hpp"
+#include "mcGameState.hpp"
+#include "mcLayerMgr.hpp"
 #include "Memory.hpp"
 #include "Settings.hpp"
 
-#include "UnkObjects/unk4020F0.hpp"
-#include "UnkObjects/unk402800.hpp"
-#include "UnkObjects/unk404B90.hpp"
 #include "UnkObjects/unk53AF00.hpp"
 #include "UnkObjects/unk5769E0.hpp"
 #include "UnkObjects/unk577510.hpp"
@@ -176,7 +176,7 @@ static void sub_53A890(const char *args) {
 }
 
 // mc2: 0x005EDA50
-void game_set_window_title(char *title) {
+void game_set_window_title(const char *title) {
     HWND hWnd = global_hWnd;
     global_WindowText = title;
     if (hWnd != nullptr)
@@ -187,7 +187,7 @@ void game_set_window_title(char *title) {
 void check_sku_version() {
     global_SKUVersion = 0; //SKU VERSION SLUS-20209
 
-    char *skuVersion = nullptr;
+    const char *skuVersion = nullptr;
 
     switch (global_SKUVersion) {
     case 0:
@@ -206,7 +206,7 @@ void check_sku_version() {
         return;
     }
 
-    mc2_log_info("mcConfig:AutoDetectSku - product code '%s'", skuVersion);
+    mc2_log_display("mcConfig:AutoDetectSku - product code '%s'", skuVersion);
 }
 
 // mc2: 0x0053B9B0
@@ -264,7 +264,7 @@ bool sub_539DE0(const char *path) {
             return true;
         }
     }
-    mc2_log_fatal("mcConfig::SetMode() failed");
+    mc2_log_quit("mcConfig::SetMode() failed");
     return false;
 }
 
@@ -312,7 +312,7 @@ void sub_53A000() {
             return;
         }
 
-        mc2_log_info("Setting language to %s (%d)", LanguageShortList[lang], lang);
+        mc2_log_display("Setting language to %s (%d)", LanguageShortList[lang], lang);
         global_LanguageID = lang;
     }
 
@@ -359,7 +359,7 @@ void sub_53A7B0(const char *a, std::uint32_t b, bool c, std::uint32_t d, std::ui
     if (c)
         sub_5ED7B0(640, 480, 32, 32, 0);
     if (!sub_5F12F0())
-        mc2_log_fatal("Could not start graphics.  "
+        mc2_log_quit("Could not start graphics.  "
             "Please check that you're in 32bpp mode "
             "and you have a DX9-class video driver.");
 
@@ -388,11 +388,11 @@ static bool sub_577480(const char *archive) {
 }
 
 void sub_53A7E0(const char *archive) {
-    mc2_log_info("ARGS: %s", glo_6C3690);
+    mc2_log_display("ARGS: %s", glo_6C3690);
     sub_612A80(glo_6C3690);
 
     if (sub_612E10("nosmallocator")) {
-        mc2_log_info("Disabling smallocator");
+        mc2_log_display("Disabling smallocator");
         global_primary_unk5769E0->sub_575B10();
     }
 
@@ -421,7 +421,7 @@ void sub_53A870() {
 
 void sub_5ECBE0() {
     if (glo_6754C4 != sub_5ECB90) {
-        mc2_log_info("Installed bink gfxLoadImage support");
+        mc2_log_display("Installed bink gfxLoadImage support");
         glo_858328 = glo_6754C4;
         glo_6754C4 = sub_5ECB90;
     }
@@ -503,7 +503,7 @@ void sub_5ED7B0(std::int32_t width, std::int32_t height, std::int32_t cdepth, st
 }
 
 // mc2: 0x00401190
-int run_game() {
+int Main() {
     sub_53A890("mc.exe -path=. -archive=assets_p.dat");
     glo_85837C = 101;
     game_set_window_title("Midnight Club II");
@@ -537,7 +537,7 @@ int run_game() {
     do {
         sub_53A7E0("assets_p.dat");
         glo_85D3F8 = new unk_600960(global_hWnd);
-        unk_4020F0 *game = sub_402560();
+        mcGame *game = sub_402560();
         game->sub_401860();
         sub_4028E0();
         sub_404BF0();
@@ -556,14 +556,14 @@ int run_game() {
             glo_6C3890->vir04(15);
         }
 
-        game->game_loop();
+        game->Execute();
         sub_53A8F0();
         sub_402590();
         sub_4017E0();
         sub_53A870();
 
         if (runforever)
-            mc2_log_info("\n\n-----------------------------------"
+            mc2_log_display("\n\n-----------------------------------"
                 "------------------------------------\n\n");
     } while (runforever);
 
@@ -593,16 +593,16 @@ void sub_6177E0(std::int32_t depth, DWORD ebp, FILE *log, const char *) {
             sub_617760(buffer, caller);
 
             if (log != nullptr) fprintf(log, "%s,", buffer);
-            else mc2_log_info("%s", buffer);
+            else mc2_log_display("%s", buffer);
         } __except (true) { break; }
     }
 
     if (depth > 0) {
         if (log != nullptr) fprintf(log, "<invalid address>");
-        else mc2_log_info("<invalid address>");
+        else mc2_log_display("<invalid address>");
     } else {
         if (log != nullptr) fprintf(log, "...");
-        else mc2_log_info("...");
+        else mc2_log_display("...");
     }
 }
 
@@ -611,22 +611,22 @@ static bool sub_6178E0(LPEXCEPTION_POINTERS except) {
     PCONTEXT context = except->ContextRecord;
     sub_617760(buffer, context->Eip);
 
-    mc2_log_info("\nEAX=%08X EBX=%08X ECX=%08X EDX=%08X\nESI=%08X EDI=%08X EBP=%08X ESP=%08X",
+    mc2_log_display("\nEAX=%08X EBX=%08X ECX=%08X EDX=%08X\nESI=%08X EDI=%08X EBP=%08X ESP=%08X",
         context->Eax, context->Ebx, context->Ecx, context->Edx,
         context->Esi, context->Edi, context->Ebp, context->Esp
     );
-    mc2_log_info("Exception %X at EIP=%s", except->ExceptionRecord->ExceptionCode, buffer);
+    mc2_log_display("Exception %X at EIP=%s", except->ExceptionRecord->ExceptionCode, buffer);
     sub_6177E0(16, context->Ebp, nullptr, "\n");
 
     return true;
 }
 
 // mc2: 0x006181F0
-int run_game_guarded() {
+int ExceptMain() {
     __try {
-        return run_game();
+        return Main();
     } __except (sub_6178E0(GetExceptionInformation())) {
-        mc2_log_info("ExceptMain: Abnormal exit.");
+        mc2_log_display("ExceptMain: Abnormal exit.");
         return 1;
     }
     return 0;

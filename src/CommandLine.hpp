@@ -70,7 +70,7 @@ void sub_612910(std::int32_t argc, char **argv);
 extern cmdline_info &glo_pal_cmdline; // glo_85AE90
 
 extern cmdline_info *&global_cmdline; // glo_860110
-extern char *&global_exe_name; // glo_860114
+extern const char *&global_exe_name; // glo_860114
 extern bool &global_help_has_printed; // glo_860118
 extern std::int32_t &global_argc; // glo_86D7E8
 extern char **&global_argv; // glo_86D7EC

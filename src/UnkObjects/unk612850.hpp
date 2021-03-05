@@ -93,7 +93,7 @@ public:
 
     bool sub_612020(indexed_map_entry *eax);
 
-    hash_map_entry *unk_612850::sub_611F60(int32_t unk);
+    hash_map_entry *sub_611F60(int32_t unk);
 };
 
 bool sub_612E10(const char *key);

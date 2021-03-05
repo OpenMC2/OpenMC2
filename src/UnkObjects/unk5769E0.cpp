@@ -22,15 +22,15 @@
 #include <cstring>
 
 // mc2: 0x00651408
-const unk_5769E0::vtable_t unk_5769E0::vtable_values = {
-    &unk_5769E0::scalar_deleter,
+const unk_5769E0_p::vtable_t unk_5769E0_p::vtable_values = {
+    &unk_5769E0_p::scalar_deleter,
     MC2_PROC_MEMBER_PTR<void, void>(0x00575ED0),
 };
 
-unk_5769E0::unk_5769E0() {
+unk_5769E0_p::unk_5769E0_p() {
     vtable = &vtable_values;
     next = global_last_unk5769E0;
-    global_last_unk5769E0 = this;
+    global_last_unk5769E0 = class_cast<unk_5769E0>(this);
 
     // A lot of function-pointers?
     glo_679784 = sub_5764A0;
@@ -40,7 +40,7 @@ unk_5769E0::unk_5769E0() {
 }
 
 // mc2: 0x00575B70
-void unk_5769E0::destructor() {
+void unk_5769E0_p::destructor() {
     vtable = &vtable_values;
     unk_5769E0 **x = &global_last_unk5769E0;
     while (*x != this) x = &(*x)->next;
@@ -49,7 +49,7 @@ void unk_5769E0::destructor() {
 }
 
 // mc2: 0x00575BA0
-void unk_5769E0::sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8_t d) {
+void unk_5769E0_p::sub_575BA0(void *a, std::uint32_t b, std::uint8_t c, std::uint8_t d) {
     unk08 = a;
     unk14 = 0;
     unkE8 = 0;

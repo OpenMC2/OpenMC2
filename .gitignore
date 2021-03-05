@@ -255,3 +255,8 @@ paket-files/
 
 # OpenMC2 libs folder
 libs
+
+#Ghidra Files
+*.gpr
+*.rep
+*.lock

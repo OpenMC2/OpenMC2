@@ -22,7 +22,7 @@
 
 // originally malloc'd in mcaudiomgr.c
 // child to a class unk_5D39A0?
-class unk_52AA80 {
+class unk_52AA80_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -39,11 +39,11 @@ protected:
     std::uint8_t pad52[0x46];
 
 public:
-    unk_52AA80(bool arg1) {
+    unk_52AA80_p(bool arg1) {
         MC2_CALL_MEMBER<0x0052AA80, void>(this, arg1);
     }
 
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_52AA80) {
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_52AA80_p) {
         MC2_CALL_MEMBER<0x0052ADD0, void>(this);
     }
 
@@ -53,9 +53,13 @@ public:
 
     void set_unk51_1() { unk51 = 1; }
 };
-static_assert(sizeof(unk_52AA80) == 0x98, "Wrong size for unk_52AA80");
+static_assert(sizeof(unk_52AA80_p) == 0x98, "Wrong size for unk_52AA80_p");
+static_assert(std::is_trivially_destructible<unk_52AA80_p>::value, "unk_52AA80_p is not trivially destructible");
+
+using unk_52AA80 = MC2_DestroyingWrapper<unk_52AA80_p>;
 
 extern unk_52AA80 *(&glo_6CE2E4);
 inline unk_52AA80 *sub_52B6C0(bool arg1) {
+    assert(glo_6CE2E4 == nullptr);
     return glo_6CE2E4 = new unk_52AA80(arg1);
 }

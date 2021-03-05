@@ -24,7 +24,7 @@
 
 // originally malloc'd in layermgr.c
 // originally called "mcLayer"?
-class unk_4094A0 {
+class unk_4094A0_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -50,9 +50,9 @@ protected:
     std::uint32_t unk10;
 
 protected:
-    unk_4094A0() { vtable = &vtable_values; }
+    unk_4094A0_p() { vtable = &vtable_values; }
 public:
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4094A0) { }
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4094A0_p) { }
 
     bool is_loaded() /* vir04 */ {
         return static_cast<const vtable_t *>(this->vtable)->is_loaded(this);
@@ -92,9 +92,12 @@ protected:
     void impl_unload();
     void impl_reload();
 };
-static_assert(sizeof(unk_4094A0) == 0x14, "Wrong size for unk_4094A0");
+static_assert(sizeof(unk_4094A0_p) == 0x14, "Wrong size for unk_4094A0_p");
+static_assert(std::is_trivially_destructible<unk_4094A0_p>::value, "unk_4094A0_p is not trivially destructible");
 
-class unk_40AE70 : public unk_4094A0 {
+using unk_4094A0 = MC2_DestroyingWrapper<unk_4094A0_p>;
+
+class unk_40AE70_p : public unk_4094A0_p {
 protected:
     static const vtable_t vtable_values;
 
@@ -109,14 +112,17 @@ private:
     std::uint32_t unk30 = 0;
 
 public:
-    unk_40AE70() { vtable = &vtable_values; }
+    unk_40AE70_p() { vtable = &vtable_values; }
 protected:
     const char *impl_vir1C() { return "city"; }
 
 };
-static_assert(sizeof(unk_40AE70) == 0x34, "Wrong size for unk_40AE70");
+static_assert(sizeof(unk_40AE70_p) == 0x34, "Wrong size for unk_40AE70_p");
+static_assert(std::is_trivially_destructible<unk_40AE70_p>::value, "unk_40AE70_p is not trivially destructible");
 
-class unk_40AB30 : public unk_4094A0 {
+using unk_40AE70 = MC2_DestroyingWrapper<unk_40AE70_p>;
+
+class unk_40AB30_p : public unk_4094A0_p {
 protected:
     static const vtable_t vtable_values;
 
@@ -125,14 +131,17 @@ private:
     std::uint32_t unk18 = 0;
 
 public:
-    unk_40AB30() { vtable = &vtable_values; }
+    unk_40AB30_p() { vtable = &vtable_values; }
 
 protected:
     const char *impl_vir1C() { return "cpvs"; }
 };
-static_assert(sizeof(unk_40AB30) == 0x1C, "Wrong size for unk_40AB30");
+static_assert(sizeof(unk_40AB30_p) == 0x1C, "Wrong size for unk_40AB30_p");
+static_assert(std::is_trivially_destructible<unk_40AB30_p>::value, "unk_40AB30_p is not trivially destructible");
 
-class unk_40A940 : public unk_4094A0 {
+using unk_40AB30 = MC2_DestroyingWrapper<unk_40AB30_p>;
+
+class unk_40A940_p : public unk_4094A0_p {
 protected:
     static const vtable_t vtable_values;
 
@@ -141,14 +150,17 @@ private:
     std::uint32_t unk18 = 0;
 
 public:
-    unk_40A940() { vtable = &vtable_values; }
+    unk_40A940_p() { vtable = &vtable_values; }
 
 protected:
     const char *impl_vir1C() { return "conditions"; }
 };
-static_assert(sizeof(unk_40A940) == 0x1C, "Wrong size for unk_40A940");
+static_assert(sizeof(unk_40A940_p) == 0x1C, "Wrong size for unk_40A940_p");
+static_assert(std::is_trivially_destructible<unk_40A940_p>::value, "unk_40A940_p is not trivially destructible");
 
-class unk_40A4A0 : public unk_4094A0 {
+using unk_40A940 = MC2_DestroyingWrapper<unk_40A940_p>;
+
+class unk_40A4A0_p : public unk_4094A0_p {
 protected:
     static const vtable_t vtable_values;
 
@@ -159,14 +171,17 @@ private:
     std::uint32_t unk20 = 0;
 
 public:
-    unk_40A4A0() { vtable = &vtable_values; }
+    unk_40A4A0_p() { vtable = &vtable_values; }
 
 protected:
     const char *impl_vir1C() { return "ambients"; }
 };
-static_assert(sizeof(unk_40A4A0) == 0x24, "Wrong size for unk_40A4A0");
+static_assert(sizeof(unk_40A4A0_p) == 0x24, "Wrong size for unk_40A4A0_p");
+static_assert(std::is_trivially_destructible<unk_40A4A0_p>::value, "unk_40A4A0_p is not trivially destructible");
 
-class unk_409ED0 : public unk_4094A0 {
+using unk_40A4A0 = MC2_DestroyingWrapper<unk_40A4A0_p>;
+
+class unk_409ED0_p : public unk_4094A0_p {
 protected:
     static const vtable_t vtable_values;
 
@@ -175,62 +190,77 @@ private:
     std::uint8_t pad18[0x04];
 
 public:
-    unk_409ED0() { vtable = &vtable_values; }
+    unk_409ED0_p() { vtable = &vtable_values; }
 
 protected:
     const char *impl_vir1C() { return "race"; }
 };
-static_assert(sizeof(unk_409ED0) == 0x1C, "Wrong size for unk_409ED0");
+static_assert(sizeof(unk_409ED0_p) == 0x1C, "Wrong size for unk_409ED0_p");
+static_assert(std::is_trivially_destructible<unk_409ED0_p>::value, "unk_409ED0_p is not trivially destructible");
 
-class unk_409DF0 : public unk_4094A0 {
+using unk_409ED0 = MC2_DestroyingWrapper<unk_409ED0_p>;
+
+class unk_409DF0_p : public unk_4094A0_p {
 protected:
     static const vtable_t vtable_values;
 
 public:
-    unk_409DF0() { vtable = &vtable_values; }
+    unk_409DF0_p() { vtable = &vtable_values; }
 
 protected:
     const char *impl_vir1C() { return "movie"; }
 };
-static_assert(sizeof(unk_409DF0) == 0x14, "Wrong size for unk_409DF0");
+static_assert(sizeof(unk_409DF0_p) == 0x14, "Wrong size for unk_409DF0_p");
+static_assert(std::is_trivially_destructible<unk_409DF0_p>::value, "unk_409DF0_p is not trivially destructible");
 
-class unk_409A70 : public unk_4094A0 {
+using unk_409DF0 = MC2_DestroyingWrapper<unk_409DF0_p>;
+
+class unk_409A70_p : public unk_4094A0_p {
 protected:
     static const vtable_t vtable_values;
 
 public:
-    unk_41FB40 *unk14 = 0;
+    unk_41FB40 *unk14 = nullptr;
     std::uint32_t unk18 = 0;
 
 public:
-    unk_409A70() { vtable = &vtable_values; }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_409A70) { delete unk14; }
+    unk_409A70_p() { vtable = &vtable_values; }
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_409A70_p) { delete unk14; }
 
 protected:
     const char *impl_vir1C() { return "frontend"; }
 };
-static_assert(sizeof(unk_409A70) == 0x1C, "Wrong size for unk_409A70");
+static_assert(sizeof(unk_409A70_p) == 0x1C, "Wrong size for unk_409A70_p");
+static_assert(std::is_trivially_destructible<unk_409A70_p>::value, "unk_409A70_p is not trivially destructible");
 
-class unk_409CF0 : public unk_4094A0 {
+using unk_409A70 = MC2_DestroyingWrapper<unk_409A70_p>;
+
+class unk_409CF0_p : public unk_4094A0_p {
 protected:
     static const vtable_t vtable_values;
 
 public:
-    unk_409CF0() { vtable = &vtable_values; }
+    unk_409CF0_p() { vtable = &vtable_values; }
 
 protected:
     const char *impl_vir1C() { return "race editor"; }
 };
-static_assert(sizeof(unk_409CF0) == 0x14, "Wrong size for unk_409CF0");
+static_assert(sizeof(unk_409CF0_p) == 0x14, "Wrong size for unk_409CF0_p");
+static_assert(std::is_trivially_destructible<unk_409CF0_p>::value, "unk_409CF0_p is not trivially destructible");
 
-class unk_409C50 : public unk_4094A0 {
+using unk_409CF0 = MC2_DestroyingWrapper<unk_409CF0_p>;
+
+class unk_409C50_p : public unk_4094A0_p {
 protected:
     static const vtable_t vtable_values;
 
 public:
-    unk_409C50() { vtable = &vtable_values; }
+    unk_409C50_p() { vtable = &vtable_values; }
 
 protected:
     const char *impl_vir1C() { return "carviewer"; }
 };
-static_assert(sizeof(unk_409C50) == 0x14, "Wrong size for unk_409C50");
+static_assert(sizeof(unk_409C50_p) == 0x14, "Wrong size for unk_409C50_p");
+static_assert(std::is_trivially_destructible<unk_409C50_p>::value, "unk_409C50_p is not trivially destructible");
+
+using unk_409C50 = MC2_DestroyingWrapper<unk_409C50_p>;

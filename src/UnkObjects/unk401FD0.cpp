@@ -19,18 +19,18 @@
 #include "unk401FD0.hpp"
 
 // mc2: 0x0062D5F8
-const unk_401FD0::vtable_t unk_401FD0::vtable_values = {
-    &unk_401FD0::scalar_deleter,
+const unk_401FD0_p::vtable_t unk_401FD0_p::vtable_values = {
+    &unk_401FD0_p::scalar_deleter,
     MC2_PROC_MEMBER_PTR<bool, void>(0x005E32B0),
     MC2_PROC_MEMBER_PTR<bool, void>(0x005E3320),
     MC2_PROC_MEMBER_PTR<void, void, std::uint32_t>(0x00402070),
     &mc2_thiscall::null<>,
     &mc2_thiscall::null<>,
-    &unk_401FD0::impl_vir18,
-    &unk_401FD0::impl_vir1C,
+    &unk_401FD0_p::impl_vir18,
+    &unk_401FD0_p::impl_vir1C,
 };
 
-unk_401FD0::unk_401FD0() {
+unk_401FD0_p::unk_401FD0_p() {
     vtable = &vtable_values;
     this->sub_5E3380("default");
     this->vir08();

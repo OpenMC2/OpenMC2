@@ -24,7 +24,7 @@
 #include "unk5D5C30.hpp"
 
 // originally malloc'd in racemgr.c
-class unk_47C830 {
+class unk_47C830_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -38,8 +38,8 @@ public:
     std::uint8_t pad0C[0x04];
 
 public:
-    unk_47C830();
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_47C830) {
+    unk_47C830_p();
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_47C830_p) {
         MC2_CALL_MEMBER<0x0047bf50, void>(this);
     }
 
@@ -53,11 +53,15 @@ public:
     void sub_47BFF0();
     void sub_47C7A0();
 };
-static_assert(sizeof(unk_47C830) == 0x10, "Wrong size for unk_47C830");
+static_assert(sizeof(unk_47C830_p) == 0x10, "Wrong size for unk_47C830_p");
+static_assert(std::is_trivially_destructible<unk_47C830_p>::value, "unk_47C830_p is not trivially destructible");
+
+using unk_47C830 = MC2_DestroyingWrapper<unk_47C830_p>;
 
 extern const MC2_PROC_PTR<void, const char *, std::uint32_t> sub_5E11E0;
 
 extern unk_47C830 *(&glo_697B88);
 inline unk_47C830 *sub_47C8C0() {
+    assert(glo_697B88 == nullptr);
     return glo_697B88 = new unk_47C830();
 }

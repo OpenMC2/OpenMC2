@@ -18,11 +18,11 @@
 
 #pragma once
 
-#include "../Addresses.hpp"
+#include "Addresses.hpp"
 
-#include "unk401FD0.hpp"
+#include "UnkObjects/unk401FD0.hpp"
 
-class unk_4020F0 {
+class mcGame_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -36,8 +36,8 @@ public:
     std::uint8_t pad08[4];
 
 public:
-    unk_4020F0() { vtable = &vtable_values; }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_4020F0) {
+    mcGame_p() { vtable = &vtable_values; }
+    MC2_SCALAR_DELETING_DESTRUCTOR(mcGame_p) {
         MC2_CALL_MEMBER<0x00401820, void>(this);
     }
 
@@ -54,10 +54,14 @@ public:
     }
 
     void sub_401860();
-    void sub_401CB0();
+    // mc2: 0x00401CB0
+    void Update();
     // mc2: 0x00402120
-    void game_loop();
+    void Execute();
 };
+static_assert(std::is_trivially_destructible<mcGame_p>::value, "mcGame_p is not trivially destructible");
+
+using mcGame = MC2_DestroyingWrapper<mcGame_p>;
 
 extern MC2_PROC_PTR<void> sub_4069B0;
 extern MC2_PROC_PTR<void> sub_40E240;
@@ -93,9 +97,10 @@ extern DWORD &glo_692E90;
 extern std::uint8_t &glo_6A04B4;
 extern std::uint32_t &glo_6A04BC;
 
-extern unk_4020F0 *(&glo_692E7C);
-inline unk_4020F0 *sub_402560() {
-    return glo_692E7C = new unk_4020F0;
+extern mcGame *(&glo_692E7C);
+inline mcGame *sub_402560() {
+    assert(glo_692E7C == nullptr);
+    return glo_692E7C = new mcGame;
 }
 
 extern std::uint32_t &glo_8582A8;

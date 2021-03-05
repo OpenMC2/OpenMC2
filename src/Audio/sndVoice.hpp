@@ -21,7 +21,10 @@
 #include "../Addresses.hpp"
 
 namespace audio {
-    class sndVoice {
+    class sndVoice_p;
+    using sndVoice = MC2_DestroyingWrapper<sndVoice_p>;
+
+    class sndVoice_p {
     protected:
         struct vtable_t {
             MC2_DELETING_DESTRUCTOR deleter; // 0x00
@@ -55,9 +58,10 @@ namespace audio {
         sndVoice *prev;
 
     public:
-        sndVoice() : next(this), prev(this) { vtable = &vtable_values; }
-        sndVoice(sndVoice *arg0);
-        MC2_SCALAR_DELETING_DESTRUCTOR(sndVoice);
+        sndVoice_p() : next(class_cast<sndVoice>(this)),
+            prev(class_cast<sndVoice>(this)) { vtable = &vtable_values; }
+        sndVoice_p(sndVoice *arg0);
+        MC2_SCALAR_DELETING_DESTRUCTOR(sndVoice_p);
 
         // vir_08
         void play(std::uint32_t arg1, std::uint32_t arg2, std::uint32_t arg3, std::uint32_t arg4, std::uint32_t arg5) {
@@ -82,6 +86,7 @@ namespace audio {
         void impl_release();
         std::uint32_t impl_isPlaying();
     };
+    static_assert(std::is_trivially_destructible<sndVoice_p>::value, "sndVoice_p is not trivially destructible");
 }
 
 extern audio::sndVoice &glo_6CE520;

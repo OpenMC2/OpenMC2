@@ -20,7 +20,7 @@
 
 #include "../Addresses.hpp"
 
-class unk_5E33D0 {
+class unk_5E33D0_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -36,12 +36,12 @@ protected:
 
 protected:
     const void *vtable;
-    char *unk04 = 0;
+    char *unk04 = nullptr;
     std::uint32_t unk08 = 0;
 
 public:
-    unk_5E33D0() { vtable = &vtable_values; }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_5E33D0);
+    unk_5E33D0_p() { vtable = &vtable_values; }
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_5E33D0_p);
 
     void sub_5E3380(const char *arg0);
 
@@ -53,4 +53,7 @@ protected:
     const char *impl_vir18() { return "tune"; }
     const char *impl_vir1C() { return "parFileIO"; }
 };
-static_assert(sizeof(unk_5E33D0) == 0x0C, "Wrong size for unk_5E33D0");
+static_assert(sizeof(unk_5E33D0_p) == 0x0C, "Wrong size for unk_5E33D0_p");
+static_assert(std::is_trivially_destructible<unk_5E33D0_p>::value, "unk_5E33D0_p is not trivially destructible");
+
+using unk_5E33D0 = MC2_DestroyingWrapper<unk_5E33D0_p>;

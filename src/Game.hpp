@@ -21,9 +21,9 @@
 #include "FileHandler.hpp"
 
 // mc2: 0x00401190
-int run_game();
+int Main();
 // mc2: 0x006181F0
-int run_game_guarded();
+int ExceptMain();
 
 int get_language_id(const char *path);
 const char *get_language_string(int id);
@@ -96,7 +96,7 @@ extern float &glo_85FBE0;
 extern std::uint8_t &glo_8602D4;
 extern MC2_PROC_PTR<bool, const char *, bool> &glo_860AD8;
 extern std::uint32_t &glo_86D8A8;
-extern char * &global_WindowText;
+extern const char * &global_WindowText;
 extern std::uint32_t &global_SKUVersion;
 extern std::uint32_t &glo_66315C;
 

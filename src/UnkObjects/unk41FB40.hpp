@@ -21,7 +21,7 @@
 #include "../Addresses.hpp"
 
 // originally malloc'd in layerfrontend.c
-class unk_41FB40 {
+class unk_41FB40_p {
 protected:
     struct vtable_t {
         MC2_DELETING_DESTRUCTOR deleter;
@@ -32,10 +32,10 @@ private:
     std::uint8_t pad04[0x54];
 
 public:
-    unk_41FB40() {
+    unk_41FB40_p() {
         MC2_CALL_MEMBER<0x0041FB40, void>(this);
     }
-    MC2_SCALAR_DELETING_DESTRUCTOR(unk_41FB40) {
+    MC2_SCALAR_DELETING_DESTRUCTOR(unk_41FB40_p) {
         MC2_CALL_MEMBER<0x0041EA90, void>(this);
     }
 
@@ -47,4 +47,7 @@ public:
         MC2_CALL_MEMBER<0x0041A960, void>(this);
     }
 };
-static_assert(sizeof(unk_41FB40) == 0x58, "Wrong size for unk_41FB40");
+static_assert(sizeof(unk_41FB40_p) == 0x58, "Wrong size for unk_41FB40_p");
+static_assert(std::is_trivially_destructible<unk_41FB40_p>::value, "unk_41FB40_p is not trivially destructible");
+
+using unk_41FB40 = MC2_DestroyingWrapper<unk_41FB40_p>;

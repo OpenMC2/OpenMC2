@@ -71,7 +71,7 @@ private:
 
 protected:
     const void *vtable;
-    char *unk04;
+    const char *unk04;
     std::uint32_t unk08;
     FileHandler *unk0C;
     std::uint32_t unk10;
@@ -82,9 +82,9 @@ protected:
     std::uint32_t unk9C = 0;
 
 public:
-    unk_616420(char *unk1, FileHandler *unk2);
+    unk_616420(const char *unk1, FileHandler *unk2);
 
-    void sub_615130(char *unk1, FileHandler *unk2);
+    void sub_615130(const char *unk1, FileHandler *unk2);
 
     bool vir_94(char *unk1, std::uint32_t unk2) {
         return static_cast<const vtable_t*>(vtable)->vir_94(this, unk1, unk2);
@@ -94,7 +94,7 @@ public:
     // mc2: 0x00615B70
     bool impl_94(const char *unk1, std::uint32_t unk2);
 
-    bool sub_6154D0(char *unk1, std::uint32_t unk2) {
+    bool sub_6154D0(const char *unk1, std::uint32_t unk2) {
         return MC2_CALL_MEMBER<0x006154D0, bool>(this, unk1, unk2);
     }
 
@@ -109,4 +109,4 @@ public:
 
 static_assert(sizeof(unk_616420) == 0xA0, "Bad Size: unk_616420");
 
-void sub_615740(unk_616420 *unk1, char *format, ...);
+void sub_615740(unk_616420 *unk1, const char *format, ...);

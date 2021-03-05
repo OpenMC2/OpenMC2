@@ -23,12 +23,12 @@
 #include "unk5E33D0.hpp"
 
 // originally malloc'd in popupmgr.c
-class unk_498A90 : public unk_5E33D0 {
+class unk_498A90_p : public unk_5E33D0_p {
 private:
     std::uint8_t pad0C[0x6C];
 
 public:
-    unk_498A90(std::uint32_t arg0) {
+    unk_498A90_p(std::uint32_t arg0) {
         MC2_CALL_MEMBER<0x00498A90, void>(this, arg0);
     }
 
@@ -36,9 +36,13 @@ public:
         return MC2_CALL_MEMBER<0x00498760, void>(this);
     }
 };
-static_assert(sizeof(unk_498A90) == 0x78, "Wrong size for unk_498A90");
+static_assert(sizeof(unk_498A90_p) == 0x78, "Wrong size for unk_498A90_p");
+static_assert(std::is_trivially_destructible<unk_498A90_p>::value, "unk_498A90_p is not trivially destructible");
+
+using unk_498A90 = MC2_DestroyingWrapper<unk_498A90_p>;
 
 extern unk_498A90 *(&glo_6984B4);
 inline unk_498A90 *sub_498BC0(std::uint32_t arg0) {
+    assert(glo_6984B4 == nullptr);
     return glo_6984B4 = new unk_498A90(arg0);
 }

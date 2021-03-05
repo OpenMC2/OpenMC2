@@ -24,7 +24,7 @@
 
 #include "FileHandler.hpp"
 
-constexpr char *levelLabels[] = {
+constexpr const char *levelLabels[] = {
     "",
     "",
     "",
@@ -33,7 +33,7 @@ constexpr char *levelLabels[] = {
     "Fatal Error: ",
 };
 
-constexpr char *levelEscLabels[] = {
+constexpr const char *levelEscLabels[] = {
     "",
     "",
     "",
@@ -42,7 +42,7 @@ constexpr char *levelEscLabels[] = {
     "\x1B[31mFatal Error: ",
 };
 
-constexpr char *levelEscClear[] = {
+constexpr const char *levelEscClear[] = {
     "",
     "\x1B[0m\n",
     "\x1B[0m\n",
@@ -120,7 +120,7 @@ void mc2_log_level_v(LogLevels level, const char *format, va_list ap) {
     std::vsnprintf(text, 0x1000, format, ap);
 
     if ((global_mbox_error && level == LOG_LEVEL_ERROR) ||
-        (global_mbox_fatal && level == LOG_LEVEL_FATAL_ERROR)) {
+        (global_mbox_fatal && level == LOG_LEVEL_QUIT)) {
         ind_86D290();
         MessageBoxA(nullptr, text, levelLabels[level], MB_ICONERROR);
         if (level == LOG_LEVEL_ERROR) ind_86D294();
@@ -143,7 +143,7 @@ void mc2_log_level_v(LogLevels level, const char *format, va_list ap) {
         glo_86D28C->flush();
     }
 
-    if (level == LOG_LEVEL_FATAL_ERROR) ind_86D284(text);
+    if (level == LOG_LEVEL_QUIT) ind_86D284(text);
 
     glo_86D298 = true;
 }
@@ -162,21 +162,21 @@ void mc2_log_print(const char *format, ...) {
 }
 
 // mc2: 0x00618630
-void mc2_log_B(const char *format, ...) {
+void mc2_log_message(const char *format, ...) {
     if (global_log_level_flags & 0x02) {
         va_list ap;
         va_start(ap, format);
-        mc2_log_level_v(LOG_LEVEL_B, format, ap);
+        mc2_log_level_v(LOG_LEVEL_MESSAGE, format, ap);
         va_end(ap);
     }
 }
 
 // mc2: 0x00618650
-void mc2_log_info(const char *format, ...) {
+void mc2_log_display(const char *format, ...) {
     if (global_log_level_flags & 0x02) {
         va_list ap;
         va_start(ap, format);
-        mc2_log_level_v(LOG_LEVEL_INFO, format, ap);
+        mc2_log_level_v(LOG_LEVEL_DISPLAY, format, ap);
         va_end(ap);
     }
 }
@@ -202,15 +202,27 @@ void mc2_log_error(const char *format, ...) {
 }
 
 // mc2: 0x006186B0 Based on
-void mc2_log_fatal(const char *format, ...) {
+void mc2_log_quit(const char *format, ...) {
     if (format != NULL) {
         va_list ap;
         va_start(ap, format);
-        mc2_log_level_v(LOG_LEVEL_FATAL_ERROR, format, ap);
+        mc2_log_level_v(LOG_LEVEL_QUIT, format, ap);
         va_end(ap);
     }
 
     std::terminate();
+}
+
+// mc2: 0x00618700 Based on
+void mc2_log_abort(const char *format, ...) {
+	if (format != NULL) {
+		va_list ap;
+		va_start(ap, format);
+		mc2_log_level_v(LOG_LEVEL_ABORT, format, ap);
+		va_end(ap);
+	}
+
+	std::terminate();
 }
 
 MC2_DEF_GLOBAL(global_mbox_fatal, 0x00679844); // glo_679844

@@ -144,7 +144,7 @@ bool Archive::sub_5FD3A0(const char *file_name, FileHandler *file) {
     file->read(magic);
 
     if (magic == DAVE_Magic || magic == Dave_Magic) {
-        mc2_log_info("'%s' is optimized archive.", file_name);
+        mc2_log_display("'%s' is optimized archive.", file_name);
 
         bool var364 = magic == Dave_Magic;
         if (var364) {
@@ -167,7 +167,7 @@ bool Archive::sub_5FD3A0(const char *file_name, FileHandler *file) {
             metaBuffer[i].nameRaw = nameBuffer + metaBuffer[i].nameOffset;
         }
 
-        mc2_log_info("%s: %d files in central directory (%d bytes + %d string heap = %d total).",
+        mc2_log_display("%s: %d files in central directory (%d bytes + %d string heap = %d total).",
             file_name, numFiles, metaLen, nameLen, metaLen + nameLen);
 
         if (!var364) {
@@ -234,7 +234,7 @@ bool Archive::sub_5FD3A0(const char *file_name, FileHandler *file) {
             metaBuffer[i].dataOffset += sizeof(local) + local.nameLen + local.extraLen;
         }
 
-        mc2_log_info("%s: %d files in central directory (%d bytes + %d(%d) string heap).",
+        mc2_log_display("%s: %d files in central directory (%d bytes + %d(%d) string heap).",
             file_name, numFiles, numFiles * sizeof(meta_t), nameBuffLen, nameSize);
         std::sort(metaBuffer, metaBuffer + numFiles, [](const meta_t &a, const meta_t &b) {
             return compare_paths(a.name, b.name);
